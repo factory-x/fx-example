@@ -1,0 +1,150 @@
+{% macro render(lib, model) %}
+// ___Control_Modules
+FUNCTION Control_Modules : VOID
+TITLE = Control_Modules
+// Call all the Control Modules
+AUTHOR: 
+FAMILY: 'program'
+NAME: namehead
+VERSION: 0.1
+
+BEGIN
+
+NETWORK
+TITLE =
+//--------------------------------
+// 
+//--------------------------------
+
+{%- for cmtype_id, cmtype in model.Control_Modules.Instances %}
+	{#- only render the CM's that are used #}
+	{%- if cmtype.used == true %}
+	CALL	{{cmtype_id}}_FC;
+	{%- endif %}
+{%- endfor %}
+
+END_FUNCTION
+
+// ___Equipment_Modules
+FUNCTION Equipment_Modules : VOID
+TITLE = Equipment_Modules
+// Call all the Equipment Modules
+AUTHOR: 
+FAMILY: 'program'
+NAME: namehead
+VERSION: 0.1
+
+BEGIN
+
+NETWORK
+TITLE = 
+//--------------------------------
+// 
+//--------------------------------
+
+{%- for emtype_id, emtype in model.Equipment_Modules.Instances %}
+	CALL	{{emtype_id}}_FC;
+{%- endfor %}
+
+END_FUNCTION
+
+// ___Phases
+FUNCTION Phases : VOID
+TITLE = Phases
+// Call all the Phases
+AUTHOR: 
+FAMILY: 'program'
+NAME: namehead
+VERSION: 0.1
+
+BEGIN
+
+NETWORK
+TITLE = 
+//--------------------------------
+// 
+//--------------------------------
+
+{%- for phase_id, phase in model.Phases.Instances %}
+	CALL	{{phase_id}}_FC;
+{%- endfor %}
+
+END_FUNCTION
+
+// ___Units
+FUNCTION Units : VOID
+TITLE = Units
+// Call all the Units
+AUTHOR: 
+FAMILY: 'program'
+NAME: namehead
+VERSION: 0.1
+
+BEGIN
+
+NETWORK
+TITLE = 
+//--------------------------------
+// 
+//--------------------------------
+
+END_FUNCTION
+
+// ___Main_Program
+FUNCTION Main_Program : VOID
+TITLE = Main_Program
+// Call all the program components
+AUTHOR: 
+FAMILY: 'program'
+NAME: namehead
+VERSION: 0.1
+
+BEGIN
+
+NETWORK
+TITLE = 
+//--------------------------------
+// 
+//--------------------------------
+
+	CALL	Control_Modules;
+	CALL	Equipment_Modules;
+	CALL	Phases;
+	CALL	Units;
+
+END_FUNCTION
+
+// ___OB1
+// OB1 only calls Main_Program
+// Comment this whole section if some code needs to be entered manually
+// => in this case make another program structure starting from OB1
+ORGANIZATION_BLOCK OB 1
+TITLE = "Main Program Sweep (Cycle)"
+VERSION : 0.1
+
+
+VAR_TEMP
+  OB1_EV_CLASS : BYTE ;	//Bits 0-3 = 1 (Coming event), Bits 4-7 = 1 (Event class 1)
+  OB1_SCAN_1 : BYTE ;	//1 (Cold restart scan 1 of OB 1), 3 (Scan 2-n of OB 1)
+  OB1_PRIORITY : BYTE ;	//Priority of OB Execution
+  OB1_OB_NUMBR : BYTE ;	//1 (Organization block 1, OB1)
+  OB1_RESERVED_1 : BYTE ;	//Reserved for system
+  OB1_RESERVED_2 : BYTE ;	//Reserved for system
+  OB1_PREV_CYCLE : INT ;	//Cycle time of previous OB1 scan (milliseconds)
+  OB1_MIN_CYCLE : INT ;	//Minimum cycle time of OB1 (milliseconds)
+  OB1_MAX_CYCLE : INT ;	//Maximum cycle time of OB1 (milliseconds)
+  OB1_DATE_TIME : DATE_AND_TIME ;	//Date and time OB1 started
+END_VAR
+BEGIN
+
+NETWORK
+TITLE = 
+//--------------------------------
+// 
+//--------------------------------
+
+	CALL	Main_Program;
+
+END_ORGANIZATION_BLOCK
+
+{% endmacro %}

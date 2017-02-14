@@ -1,0 +1,417 @@
+FUNCTION_BLOCK CM_RFID_400
+TITLE =
+//KNOW_HOW_PROTECT
+{ S7_m_c := 'true'; S7_blockview := 'big'; S7_tasklist := 'OB100' }
+AUTHOR : 
+FAMILY : 
+NAME : DIN
+VERSION : 0.0
+
+
+VAR_INPUT
+  i_daddress : INT ;	
+  i_iSample_T : INT  := 2;	
+  i_bCmd_R : BOOL ;	
+  i_bCmd_W : BOOL ;	
+END_VAR
+VAR_OUTPUT
+  QdwState { S7_dynamic := 'true'; S7_m_c := 'true'; S7_visible := 'false' }: DWORD ;	//Valve status for icon and faceplate; Default=0
+  q_iPV { S7_dynamic := 'true'; S7_m_c := 'true' }: INT ;	//1=Start condition OK; Default=1
+  q_bactive_R : BOOL ;	
+  q_bpoweron : BOOL ;	
+  q_binital : BOOL ;	
+  q_bsystart : BOOL ;	
+END_VAR
+VAR_IN_OUT
+  io_bCmd_R { S7_m_c := 'true' }: BOOL ;	
+  io_bCmd_W { S7_m_c := 'true' }: BOOL ;	
+  io_inital { S7_m_c := 'false' }: BOOL ;	
+  io_bCmd_S { S7_m_c := 'true' }: BOOL ;	
+  io_dValue { S7_m_c := 'true' }: INT ;	//For wirte
+  io_iconfig : BYTE  := B#16#3;	
+  io_SimValue { S7_m_c := 'true' }: INT ;	
+END_VAR
+VAR
+  InData : STRUCT 	
+   _n_Status : BYTE ;	
+   _n_Error01 : BYTE ;	
+   _n_Error02 : BYTE ;	
+   _n_Spare : BYTE ;	
+   _n_4 : BYTE ;	
+   _n_5 : BYTE ;	
+   _n_6 : BYTE ;	
+   _n_7 : BYTE ;	
+   _n_8 : BYTE ;	
+   _n_9 : BYTE ;	
+   _n_10 : BYTE ;	
+   _n_11 : BYTE ;	
+  END_STRUCT ;	
+  OutData : STRUCT 	
+   _n_Cmd : BYTE ;	
+   _n_Spare : BYTE ;	
+   _n_Adr : WORD ;	
+   _n_4 : BYTE ;	
+   _n_5 : BYTE ;	
+   _n_6 : BYTE ;	
+   _n_7 : BYTE ;	
+   _n_8 : BYTE ;	
+   _n_9 : BYTE ;	
+   _n_10 : BYTE ;	
+   _n_11 : BYTE ;	
+  END_STRUCT ;	
+  Pulse : INT ;	
+  s_bBusybit : BOOL ;	
+  s_binital : BOOL ;	
+END_VAR
+VAR_TEMP
+  t_daddress_00 : DWORD ;	
+  t_daddress_04 : DWORD ;	
+  t_daddress_08 : DWORD ;	
+  t_daddress_01 : DWORD ;	
+  TOP_SI : STRUCT 	
+   EV_CLASS : BYTE ;	
+   EV_NUM : BYTE ;	
+   PRIORITY : BYTE ;	
+   NUM : BYTE ;	
+   TYP2_3 : BYTE ;	
+   TYP1 : BYTE ;	
+   ZI1 : WORD ;	
+   ZI2_3 : DWORD ;	
+  END_STRUCT ;	
+  START_UP_SI : STRUCT 	
+   EV_CLASS : BYTE ;	
+   EV_NUM : BYTE ;	
+   PRIORITY : BYTE ;	
+   NUM : BYTE ;	
+   TYP2_3 : BYTE ;	
+   TYP1 : BYTE ;	
+   ZI1 : WORD ;	
+   ZI2_3 : DWORD ;	
+  END_STRUCT ;	
+  iRet : INT ;	
+  t_DINO : WORD ;	
+  t_dValue01 : DWORD ;	
+  t_dValue02 : DWORD ;	
+END_VAR
+BEGIN
+NETWORK
+TITLE =
+
+      A     #io_bCmd_S; 
+      JCN   sim; 
+      L     #io_SimValue; 
+      T     #q_iPV; 
+      BEU   ; 
+sim:  NOP   0; 
+NETWORK
+TITLE =
+
+      L     #i_daddress; 
+      ITD   ; 
+      SLW   3; 
+      T     #t_daddress_00; 
+
+      L     #i_daddress; 
+      L     1; 
+      +I    ; 
+      ITD   ; 
+      SLW   3; 
+      T     #t_daddress_01; 
+
+
+      L     #i_daddress; 
+      L     4; 
+      +I    ; 
+      ITD   ; 
+      SLW   3; 
+      T     #t_daddress_04; 
+
+
+      L     #i_daddress; 
+      L     8; 
+      +I    ; 
+      ITD   ; 
+      SLW   3; 
+      T     #t_daddress_08; 
+
+      L     #Pulse; 
+      L     1; 
+      +I    ; 
+      T     #Pulse; 
+
+      A(    ; 
+      L     #Pulse; 
+      L     #i_iSample_T; 
+      >=I   ; 
+      )     ; 
+      JCN   _001; 
+      SET   ; 
+      S     #q_bactive_R; 
+      L     0; 
+      T     #Pulse; 
+_001: NOP   0; 
+NETWORK
+TITLE =
+
+      CALL SFC    6 (
+           RET_VAL                  := #iRet,
+           TOP_SI                   := #TOP_SI,
+           START_UP_SI              := #START_UP_SI);
+      L     #TOP_SI.NUM; 
+      L     100; 
+      ==I   ; 
+
+      JCN   star; 
+      SET   ; 
+      S     #q_bsystart; 
+      L     DW#16#0; 
+      T     #QdwState; //Stop
+      L     0; 
+      T     #q_iPV; 
+      CLR   ; 
+      =     #q_bactive_R; 
+      =     #io_bCmd_R; 
+      =     #io_bCmd_W; 
+      =     #q_bpoweron; 
+      =     #io_inital; 
+      =     #s_binital; 
+
+star: NOP   0; 
+NETWORK
+TITLE =Inital
+
+      A     #q_bsystart; 
+      O     #io_inital; 
+      JCN   _300; 
+      L     2#10000000; 
+      T     PQB [#t_daddress_00]; 
+
+      A(    ; 
+      L     IB [#t_daddress_00]; 
+      L     2#10011000; 
+      ==I   ; 
+      )     ; 
+      S     #q_bpoweron; 
+
+      A     #q_bpoweron; 
+      JCN   _301; 
+      L     2#10000001; 
+      T     PQB [#t_daddress_00]; 
+
+      A(    ; 
+      L     IB [#t_daddress_00]; 
+      L     2#11000; 
+      ==I   ; 
+      )     ; 
+      S     #s_binital; 
+
+      A     #s_binital; 
+      JCN   _311; 
+      L     2#10000000; 
+      T     PQB [#t_daddress_00]; 
+
+      A(    ; 
+      L     IB [#t_daddress_00]; 
+      L     2#10011000; 
+      ==I   ; 
+      )     ; 
+      JCN   _321; 
+      SET   ; 
+      R     #q_bsystart; 
+      R     #q_bpoweron; 
+      R     #io_inital; 
+      R     #s_binital; 
+      L     DW#16#4; 
+      T     #QdwState; //ready   
+      JU    end; 
+_321: NOP   0; 
+      L     DW#16#3; 
+      T     #QdwState; //inital done
+      JU    end; 
+_311: NOP   0; 
+      L     DW#16#2; 
+      T     #QdwState; //inital
+      JU    end; 
+_301: NOP   0; 
+      L     DW#16#1; 
+      T     #QdwState; //power on
+      JU    end; 
+_300: NOP   0; 
+NETWORK
+TITLE =
+
+      AN    #i_bCmd_R; 
+      AN    #io_bCmd_R; 
+      JCN   rest; 
+      L     0; 
+      T     #q_iPV; 
+rest: NOP   0; 
+
+      A     #i_bCmd_R; 
+      A     #q_bactive_R; 
+      O     #io_bCmd_R; 
+      JC    R_00; 
+      A     #i_bCmd_W; 
+      O     #io_bCmd_W; 
+      JC    W_00; 
+      L     DW#16#4; 
+      T     #QdwState; //ready   
+      BEU   ; 
+NETWORK
+TITLE =Read
+
+R_00: NOP   0; 
+      A(    ; 
+      L     #QdwState; 
+      L     DW#16#4; 
+      ==D   ; 
+      )     ; 
+      JCN   R_x0; 
+      L     DW#16#A; 
+      T     #QdwState; //read prepare
+R_x0: NOP   0; 
+
+
+      L     #io_iconfig; 
+      L     2#111; 
+      AW    ; 
+      T     #OutData._n_Spare; 
+      T     PQB [#t_daddress_01]; 
+
+      A(    ; 
+      L     #QdwState; 
+      L     DW#16#A; 
+      ==I   ; 
+      )     ; 
+      JCN   R_01; 
+      L     L#10010000; 
+      T     PQB [#t_daddress_00]; 
+R_01: NOP   0; 
+
+      L     IB [#t_daddress_00]; 
+      SLW   1; 
+      SRW   7; 
+      L     2#1; 
+      ==I   ; 
+      =     #s_bBusybit; 
+
+      A     #s_bBusybit; 
+      JCN   R_02; 
+      L     L#10000000; 
+      T     PQB [#t_daddress_00]; 
+      L     DW#16#B; 
+      T     #QdwState; //wait for plate
+R_02: NOP   0; 
+//---------------------------------------------
+
+      L     DINO; 
+      T     #t_DINO; 
+      OPN   DI [#t_DINO]; 
+
+      A(    ; 
+      L     DW#16#B; 
+      L     #QdwState; 
+      ==D   ; 
+      )     ; 
+      AN    #s_bBusybit; 
+      JCN   R_03; 
+      L     0; 
+      T     #q_iPV; 
+
+      L     ID [#t_daddress_04]; 
+      T     DID   24; 
+      L     ID [#t_daddress_08]; 
+      L     ID     8; 
+      T     DID   28; 
+
+      L     DIW   24; 
+      T     #q_iPV; 
+
+      L     DW#16#C; 
+      T     #QdwState; //Read done
+
+      CLR   ; 
+      =     #io_bCmd_R; 
+R_03: NOP   0; 
+      JU    end; 
+NETWORK
+TITLE =Write
+
+W_00: NOP   0; 
+      A(    ; 
+      L     #QdwState; 
+      L     DW#16#4; 
+      ==D   ; 
+      )     ; 
+      JCN   W_x0; 
+      L     DW#16#14; 
+      T     #QdwState; //Write prepare
+W_x0: NOP   0; 
+      L     #io_iconfig; 
+      L     2#111; 
+      AW    ; 
+      T     #OutData._n_Spare; 
+      T     PQB [#t_daddress_01]; 
+
+      A(    ; 
+      L     #QdwState; 
+      L     DW#16#14; 
+      ==I   ; 
+      )     ; 
+      JCN   W_01; 
+      L     L#10001000; 
+      T     PQB [#t_daddress_00]; 
+W_01: NOP   0; 
+
+      L     IB [#t_daddress_00]; 
+      SLW   1; 
+      SRW   7; 
+      L     2#1; 
+      ==I   ; 
+      =     #s_bBusybit; 
+
+      A     #s_bBusybit; 
+      JCN   W_02; 
+      L     L#10000000; 
+      T     PQB [#t_daddress_00]; 
+      L     DW#16#15; 
+      T     #QdwState; //wait for plate
+W_02: NOP   0; 
+//---------------------------------------------
+      L     DINO; 
+      T     #t_DINO; 
+      OPN   DI [#t_DINO]; 
+
+      A(    ; 
+      L     DW#16#15; 
+      L     #QdwState; 
+      ==D   ; 
+      )     ; 
+      AN    #s_bBusybit; 
+      JCN   W_03; 
+      L     #io_dValue; 
+      ITD   ; 
+      CAD   ; 
+      T     DID   36; 
+
+      L     DID   36; 
+      T     PQD [#t_daddress_04]; 
+
+      L     DID   40; 
+      T     PQD [#t_daddress_08]; 
+
+      L     DW#16#16; 
+      T     #QdwState; //Write done
+
+      CLR   ; 
+      =     #io_bCmd_W; 
+W_03: NOP   0; 
+      JU    end; 
+NETWORK
+TITLE =
+
+end:  NOP   0; 
+      CLR   ; 
+      =     #q_bactive_R; 
+END_FUNCTION_BLOCK
+

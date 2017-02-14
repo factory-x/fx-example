@@ -1,0 +1,173 @@
+FUNCTION_BLOCK FB 2
+TITLE =
+{ S7_m_c := 'true'; S7_blockview := 'big'; S7_tasklist := 'OB100' }
+VERSION : 0.1
+
+
+VAR_INPUT
+  i_Bool_1 : BOOL ;	//send to FB2 output
+  i_Bool_2 : BOOL ;	//send to FB2 output
+  i_Bool_3 : BOOL ;	//send to FB2 output
+  i_Bool_4 : BOOL ;	//send to FB2 output
+  i_Bool_5 : BOOL ;	//send to FB2 output
+  i_Bool_6 : BOOL ;	//send to FB2 output
+  i_Bool_7 : BOOL ;	//send to FB2 output
+  i_Bool_8 : BOOL ;	//send to FB2 output
+  i_Bool_9 : BOOL ;	//send to FB2 output
+  i_Bool_10 : BOOL ;	//send to FB2 output
+  i_Bool_11 : BOOL ;	//send to FB2 output
+  i_Bool_12 : BOOL ;	//send to FB2 output
+  i_Bool_13 : BOOL ;	//send to FB2 output
+  i_Bool_14 : BOOL ;	//send to FB2 output
+  i_Bool_15 : BOOL ;	//send to FB2 output
+  i_Bool_16 : BOOL ;	
+  i_Real_1 : REAL ;	//send to FB2 output
+  i_Real_2 : REAL ;	//send to FB2 output
+  i_Real_3 : REAL ;	//send to FB2 output
+  i_Real_4 : REAL ;	//send to FB2 output
+  i_Real_5 : REAL ;	//send to FB2 output
+  i_Int_1 : INT ;	//send to FB2 output
+  i_Int_2 : INT ;	//send to FB2 output
+  i_Int_3 : INT ;	//send to FB2 output
+  i_Int_4 : INT ;	//send to FB2 output
+  i_Int_5 : INT ;	//send to FB2 output
+  i_bACTIVE : BOOL ;	
+  i_iID : INT  := 999;	//EM ID
+END_VAR
+VAR_OUTPUT
+  q_Bool_1 : BOOL ;	//receive from FB2 input
+  q_Bool_2 : BOOL ;	//receive from FB2 input
+  q_Bool_3 : BOOL ;	//receive from FB2 input
+  q_Bool_4 : BOOL ;	//receive from FB2 input
+  q_Bool_5 : BOOL ;	//receive from FB2 input
+  q_Bool_6 : BOOL ;	//receive from FB2 input
+  q_Bool_7 : BOOL ;	//receive from FB2 input
+  q_Bool_8 : BOOL ;	//receive from FB2 input
+  q_Bool_9 : BOOL ;	//receive from FB2 input
+  q_Bool_10 : BOOL ;	//receive from FB2 input
+  q_Bool_11 : BOOL ;	//receive from FB2 input
+  q_Bool_12 : BOOL ;	//receive from FB2 input
+  q_Bool_13 : BOOL ;	//receive from FB2 input
+  q_Bool_14 : BOOL ;	//receive from FB2 input
+  q_Bool_15 : BOOL ;	//receive from FB2 input
+  q_Bool_16 : BOOL ;	//receive from FB2 input
+  q_Real_1 : REAL ;	//receive from FB2 input
+  q_Real_2 : REAL ;	//receive from FB2 input
+  q_Real_3 : REAL ;	//receive from FB2 input
+  q_Real_4 : REAL ;	//receive from FB2 input
+  q_Real_5 : REAL ;	//receive from FB2 input
+  q_Int_1 : INT ;	//receive from FB2 input
+  q_Int_2 : INT ;	//receive from FB2 input
+  q_Int_3 : INT ;	//receive from FB2 input
+  q_Int_4 : INT ;	//receive from FB2 input
+  q_Int_5 : INT ;	//receive from FB2 input
+  q_bACTVIE : BOOL ;	
+END_VAR
+VAR_TEMP
+  T_address : INT ;	
+  T_length : INT ;	
+  T_dbnum : INT ;	
+  TOP_SI : STRUCT 	
+   EV_CLASS : BYTE ;	
+   EV_NUM : BYTE ;	
+   PRIORITY : BYTE ;	
+   NUM : BYTE ;	
+   TYP2_3 : BYTE ;	
+   TYP1 : BYTE ;	
+   ZI1 : WORD ;	
+   ZI2_3 : DWORD ;	
+  END_STRUCT ;	
+  START_UP_SI : STRUCT 	
+   EV_CLASS : BYTE ;	
+   EV_NUM : BYTE ;	
+   PRIORITY : BYTE ;	
+   NUM : BYTE ;	
+   TYP2_3 : BYTE ;	
+   TYP1 : BYTE ;	
+   ZI1 : WORD ;	
+   ZI2_3 : DWORD ;	
+  END_STRUCT ;	
+  iRet : INT ;	
+END_VAR
+BEGIN
+NETWORK
+TITLE =
+//hot start
+//
+      CALL SFC    6 (
+           RET_VAL                  := #iRet,
+           TOP_SI                   := #TOP_SI,
+           START_UP_SI              := #START_UP_SI);
+      L     #TOP_SI.NUM; 
+      L     100; 
+      ==I   ; 
+      JCN   star; 
+      R     #q_Bool_1; 
+      R     #q_Bool_2; 
+      R     #q_Bool_3; 
+      R     #q_Bool_4; 
+      R     #q_Bool_5; 
+      R     #q_Bool_6; 
+      R     #q_Bool_7; 
+      R     #q_Bool_8; 
+      R     #q_Bool_9; 
+      R     #q_Bool_10; 
+      R     #q_Bool_11; 
+      R     #q_Bool_12; 
+      R     #q_Bool_13; 
+      R     #q_Bool_14; 
+      R     #q_Bool_15; 
+      R     #q_Bool_16; 
+      R     #q_bACTVIE; 
+      L     0.000000e+000; 
+      T     #q_Real_1; 
+      T     #q_Real_2; 
+      T     #q_Real_3; 
+      T     #q_Real_4; 
+      T     #q_Real_5; 
+      L     0; 
+      T     #q_Int_1; 
+      T     #q_Int_2; 
+      T     #q_Int_3; 
+      T     #q_Int_4; 
+      T     #q_Int_5; 
+      T     #iRet; 
+star: NOP   0; 
+
+NETWORK
+TITLE =
+//check the id in the scope of the length of db25
+//transfer the length to 
+      OPN   DB    25; //Open data block DB10 as shared data block.
+      L     DBLG; //Load length of shared data block (length of DB25).
+      T     #T_length; //transfer length to length
+      L     #T_length; //length=length/2
+      L     2; 
+      /I    ; 
+      T     #T_length; 
+//check if the id bigger than length of db25
+      L     #T_length; 
+      L     #i_iID; 
+      <=D   ; 
+      BEC   ; //if id is bigger than length end the block
+NETWORK
+TITLE =
+//put db number of current fb to share db25
+//transfer the current fb's db number to   #DB_NUM
+      L     DINO; 
+      T     #T_dbnum; //find the db number of current fb
+      L     #i_iID; //find real address
+      L     2; 
+      *I    ; 
+      T     #T_address; 
+      OPN   DB    25; 
+      L     P#DBX 0.0; 
+      L     #T_address; 
+      SLD   3; 
+      +D    ; 
+      LAR1  ; 
+//write the db number to the real address
+      L     #T_dbnum; 
+      T     DBW [AR1,P#0.0]; 
+END_FUNCTION_BLOCK
+

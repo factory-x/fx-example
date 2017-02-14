@@ -1,0 +1,360 @@
+
+{
+	"Project": {
+      "max_symbol_length": 24,
+      "format_preferences":{
+        "Phase_Calling_EM": "dot",
+        "Phase_Calling_CM": "suffix",
+        "EM_Calling_CM": "suffix"
+      },
+	  "functions":{
+		"write_to_DB_DW":{
+			"DB_NO": "INT",
+			"Location": "INT",
+			"Value": "DWORD"
+		}
+	  }
+	},
+	"Controllers": {
+		"PLC1":{
+			"start_auto_numbering_DB": 700,
+			"start_auto_numbering_FB": 700,
+			"start_auto_numbering_FC": 700,
+			"start_auto_numbering_UDT": 10
+		}
+	},
+	"Enumerations":{
+		"enum_units":{
+			"0": "none",
+			"1": "PF-I-01",
+			"2": "PF-I-02",
+			"4": "PF-I-04",
+			"5": "PF-I-05",
+			"6": "PF-I-06",
+			"7": "PF-I-07",
+			"8": "PF-I-08",
+			"9": "PF-I-09",
+			"11": "PF-I-11",
+			"16": "PF-I-16"
+		}
+	},
+	"Control_Modules":{
+		"Types":{
+			"Valve": {
+				"Block_Name": "BST_VALVE_400",
+				"FB": 630,
+				"Inputs":{
+					"AUT_OP":{
+						"Type": "BOOL",
+						"Comment": "Auto command from program",
+						"Suffix": "_CMD",
+						"truewords":["open", "move to open position"],
+						"falsewords":["close"]
+					},
+					"FB_OPEN":{
+						"IO": "DI",
+						"Comment": "Feedback Open"
+					},
+					"FB_CLOSE":{
+						"IO": "DI",
+						"Comment": "Feedback Close"
+					}
+				},
+				"Outputs":{
+					"QOPEN":{
+						"Type": "BOOL",
+						"Suffix": "_OPN",
+						"truewords":["opened", "open"],
+						"falsewords":["not opened"]
+					},
+					"QCLOSE":{
+						"Type": "BOOL",
+						"Suffix": "_CLS",
+						"truewords":["closed", "close"],
+						"falsewords":["not closed"]
+					},
+					"QMON_ERR": {
+						"Type": "BOOL",
+						"Suffix": "_MERR",
+						"Error_Signal": true
+					},
+					"QCMD_OP":{
+						"IO": "DO",
+						"Comment": "Valve Command, open or close depending on Normal Open or Normal Close"
+					}
+				}
+			},
+			"Motor": {
+				"Block_Name": "BST_MOTOR_400",
+				"FB": 680,
+				"Inputs":{
+					"AUTO_ON":{
+						"Type": "Bool",
+						"Suffix": "_ON",
+						"Comment": "Switch Motor ON",
+						"truewords":["start", "run"],
+						"falsewords":["stop"]
+					},
+					"L_AUT":{
+						"Type": "Bool",
+						"Suffix": "_AUT",
+						"Comment": "Swtich Motor to AUTO",
+						"truewords":["aut", "auto", "auto mode"],
+						"falsewords":["man", "manual", "manual mode"]
+					},
+					"FB_ON":{
+						"IO": "DI",
+						"Comment": "Motor running"
+					},
+					"ERR_EXTERN":{
+						"IO": "DI",
+						"Comment": "Motor Error"
+					}
+				},
+				"Outputs":{
+					"QRUN":{
+						"Type": "Bool",
+						"Suffix": "_RUN",
+						"truewords":["started", "running", "start", "run"],
+						"falsewords":["not running"]
+					},	
+					"QSTOP":{
+						"Type": "Bool",
+						"Suffix": "_STOP",
+						"truewords":["stopped", "stop"],
+						"falsewords":["not stopped"]
+					},
+					"QCMD_ON":{
+						"IO": "DO",
+						"Comment": "Motor Command"
+					},
+					"QMON_ERR": {
+						"Type": "BOOL",
+						"Suffix": "_MERR",
+						"Error_Signal": true
+					},
+					"QMPS": {
+						"Type": "BOOL",
+						"Suffix": "_MPS",
+						"Comment": "Motor Protecting Switch",
+						"Error_Signal": true
+					},
+					"QERR":{
+						"IO": "DO",
+						"Comment": "Motor error, feedback error or interlock"
+					}
+				}
+			},
+			"Motor_VFD":{
+				"Block_Name": "BST_SINAG120_400",
+				"FB": 680,
+				"Inputs":{
+					"L_ON":{
+						"Type": "Bool",
+						"Suffix": "_ON",
+						"Comment": "Switch Motor ON",
+						"truewords":["start", "run"],
+						"falsewords":["stop"]
+					},
+					"L_AUT":{
+						"Type": "Bool",
+						"Suffix": "_AUT",
+						"Comment": "Swtich Motor to AUTO",
+						"truewords":["aut", "auto", "auto mode"],
+						"falsewords":["man", "manual", "manual mode"]
+					}
+				},
+				"Outputs":{
+					"QNOFF2":{
+						"Type": "Bool",
+						"Suffix": "_RUN",
+						"truewords":["started", "running", "start", "run"],
+						"falsewords":["not running"]
+					},	
+					"QERR": {
+						"Type": "BOOL",
+						"Suffix": "_QERR",
+						"Comment": "General Error",
+						"Error_Signal": true
+					},
+					"QERR_EXT": {
+						"Type": "BOOL",
+						"Suffix": "_EERR",
+						"Comment": "External Error",
+						"Error_Signal": true
+					}
+				}
+			},
+			"AI":{
+				"Block_Name": "BST_ANALOG_400",
+				"FB": 640,
+				"Outputs":{
+					"QfVal":{
+						"Type": "Real",
+						"Suffix" : "_PV",
+						"Primary" : true
+					},
+					"LIM_Qb01":{
+						"Type": "Bool",
+						"Suffix" : "_AHH"
+					},
+					"LIM_Qb02":{
+						"Type": "Bool",
+						"Suffix" : "_AH"
+					},
+					"LIM_Qb03":{
+						"Type": "Bool",
+						"Suffix" : "_AL"
+					},
+					"LIM_Qb04":{
+						"Type": "Bool",
+						"Suffix" : "_ALL"
+					},
+					"QERR": {
+						"Type": "BOOL",
+						"Suffix": "_ERR",
+						"Error_Signal": true
+					}
+				},
+				"Inputs":{
+					"wVal":{
+						"IO": "AI",
+						"Comment": "Measurement Value"
+					}
+				}
+			},
+			"DI":{
+				"Block_Name": "BST_DIGITAL_400",
+				"FB": 650,
+				"Outputs":{
+					"QON":{
+						"Type": "Bool",
+						"Suffix": "_PV",
+						"Comment": "Digital Measurement",
+						"Primary": true
+					}
+				},
+				"Inputs":{
+					"i_bInp":{
+						"IO": "DI",
+						"Comment": "Digital input signal"
+					}
+				}
+			},
+			"PID":{
+				"Block_Name": "BST_PIDAIN_400",
+				"FB": 670,
+				"Additional_Type_Blocks":{
+					"_test": "DB",
+					"_test_FB": "FB",
+					"_test_FC": "FC"
+				},
+				"Additional_Instance_Blocks":{
+					"_SP": "DB",
+					"_test_FB": "FB",
+					"_test_FC": "FC"
+				},
+				"Inputs":{
+					"L_REMOTE":{
+						"Type": "Bool",
+						"Suffix": "_SET_EXT",
+						"Comment": "Switch to External Mode",
+						"truewords": ["switch to external", "set external mode", "external mode", "external"],
+						"falsewords": ["switch to internal", "set internal mode", "internal mode", "internal"]
+					},
+					"HMI_SP_INT":{
+						"Type": "Real",
+						"Suffix": "_SP",
+						"Block_Suffix": "_SP",
+						"Comment": "Operator Setpoint in Internal Mode",
+						"changewords": ["switch to internal", "set internal mode", "internal mode", "internal", "switch to auto", "set auto", "auto"],
+						"change_command": "Set_SP"
+					},
+					"L_AUT":{
+						"Type": "Bool",
+						"Suffix": "_SET_AUT",
+						"Comment": "Switch to Auto Mode",
+						"pulsewords": ["switch to auto", "set auto", "auto"],
+						"falsewords": ["switch to manual", "set manual", "manual"]
+					},
+					"HMI_MAN":{
+						"Type": "Real",
+						"Suffix": "_VAL_OUT",
+						"Block_Suffix": "_SP",
+						"Comment": "Operator Output Value",
+						"changewords": ["switch to manual", "set manual", "manual"],
+						"change_command": "Set_Output"
+					},
+					"PV":{
+						"IO": "AI",
+						"Comment": "Measured Value"
+					},
+					"Set_SP":{
+						"Type": "Bool",
+						"Suffix": "_SET_SP",
+						"Block_Suffix": "_SP",
+						"pulsewords": ["write setpoint"]
+					},
+					"Set_Output":{
+						"Type": "Bool",
+						"Suffix": "_SET_OUT",
+						"Block_Suffix": "_SP",
+						"pulsewords": ["write output"]
+					}
+				},
+				"Outputs":{
+					"PV":{
+						"Type": "REAL",
+						"Suffix": "_PV",
+						"Primary": true
+					},
+					"QERR": {
+						"Type": "BOOL",
+						"Suffix": "_ERR",
+						"Error_Signal": true
+					},
+					"LMN":{
+						"IO": "AO",
+						"Comment": "Control Value"
+					}
+				}
+			}
+		},
+		"Instances": ["import", "xlsx_CM_instances", true, "instances_CM.xlsx"]
+	},
+	"Equipment_Modules":{
+		"Config":{
+			"Template_IO": ["import", "awl_io", true, "./../templates/plc/em_type.awl"]
+		},
+		"Types":{
+			"EM_I_OUT": ["import", "xlsx_EM", true, "EM_example.xlsx"]
+		},
+		"Instances":{
+		}
+	},
+	"Phases":{
+		"Config":{
+			"Step_Ranges":{
+				"Idle": 0,
+				"Running": [1, 7998],
+				"Completed": 7999,
+				"Pausing": -1,
+				"Paused": -1,
+				"Holding": [8000, 8998],
+				"Held": 8999,
+				"Restarting": -1,
+				"Stopping": -1,
+				"Stopped": -1,
+				"Aborting": [9000, 9998],
+				"Aborted": 9999
+			},
+			"Available_Buttons": 3,
+			"Template_IO": ["import", "awl_io", true, "./../templates/plc/phase_type.awl"]
+		},
+		"Types":{
+			"phase_example": ["import", "docx_phase", true, "fds_example.docx"]
+		},
+		"Instances": {}
+	},
+	"Units":["import", "xlsx_Units", true, "Units.xlsx"]
+}

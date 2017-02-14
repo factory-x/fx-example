@@ -1,0 +1,127 @@
+FUNCTION FC20 : VOID
+TITLE =
+VERSION : 0.1
+
+
+VAR_INPUT
+  EM_ID : INT ;	
+  UDT_LOCATION : POINTER ;	
+  UDT_OFFSET : INT ;	
+  Length : INT ;	
+END_VAR
+VAR_OUTPUT
+  EM_addressing_error : BOOL ;	
+  RETVAL : INT ;	
+END_VAR
+VAR_TEMP
+  em_address : INT ;	
+  em_index_length : INT ;	
+  em_db : INT ;	
+  em_udt : INT ;	
+  phase_db : INT ;	
+  phase_udt : INT ;	
+  source_pointer : ANY ;	
+  dest_pointer : ANY ;	
+END_VAR
+BEGIN
+NETWORK
+TITLE =Calculate the amount of EMs in the EM_Index
+
+      OPN   DB    25; 
+      L     DBLG; 
+      L     4; 
+      /I    ; 
+      T     #em_index_length; 
+
+NETWORK
+TITLE =
+
+
+// protect against an address outside db25
+      L     #EM_ID; 
+      L     #em_index_length; 
+      >I    ; 
+      =     #EM_addressing_error; 
+      JC    ENDS; 
+
+
+// calculate the address of the EM in DB25
+      L     #EM_ID; 
+      L     4; 
+      *I    ; 
+      T     #em_address; 
+
+// prepare the pointer for the location in EM Index DB
+// todo: probably don't need to load the 0-pointer
+      L     P#DBX 0.0; 
+      L     #em_address; 
+      SLD   3; 
+      +D    ; 
+      LAR1  ; 
+
+// read the DB number
+      L     DBW [AR1,P#0.0]; 
+      T     #em_db; 
+
+// read the UDT location
+      L     DBW [AR1,P#2.0]; 
+      T     #em_udt; 
+
+// read the start of the UDT in the phase
+      L     P##UDT_LOCATION; 
+      LAR1  ; 
+      L     D [AR1,P#2.0]; 
+      L     DW#16#7FFF8; 
+      AD    ; 
+      SRD   3; 
+      T     #phase_udt; 
+
+// read the phase DB
+      L     W [AR1,P#0.0]; 
+      T     #phase_db; 
+
+// prepare the sending address
+      LAR1  P##source_pointer; 
+      L     W#16#1002; // Syntax ID (10h for S7, 2h bytes)
+      T     LW [AR1,P#0.0]; 
+      L     #Length; // Length in bytes
+      T     LW [AR1,P#2.0]; 
+      L     #em_db; // DB-nummer EM
+      T     LW [AR1,P#4.0]; 
+      L     #em_udt; // Start address in DB EM
+      L     #UDT_OFFSET; 
+      +I    ; 
+      SLD   3; 
+      L     DW#16#84000000; 
+      OD    ; 
+      T     LD [AR1,P#6.0]; 
+
+// prepare the receiving address
+      LAR1  P##dest_pointer; 
+      L     W#16#1002; // Syntax ID (10h for S7, 2h bytes)
+      T     LW [AR1,P#0.0]; 
+      L     #Length; // Length in bytes
+      T     LW [AR1,P#2.0]; 
+      L     #phase_db; // DB-nummer SEQ
+      T     LW [AR1,P#4.0]; 
+      L     #phase_udt; // Start address in DB SEQ
+      L     #UDT_OFFSET; 
+      +I    ; 
+      SLD   3; 
+      L     DW#16#84000000; 
+      OD    ; 
+      T     LD [AR1,P#6.0]; 
+
+// copy the data
+      CALL SFC   20 (
+           SRCBLK                   := #source_pointer,
+           RET_VAL                  := #RETVAL,
+           DSTBLK                   := #dest_pointer);
+
+
+
+
+ENDS: NOP   0; 
+
+END_FUNCTION
+

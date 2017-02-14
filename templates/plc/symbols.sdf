@@ -1,0 +1,3 @@
+{%- for symbol_name, symbol in model.Controllers.PLC1.symbols -%}
+"{{symbol_name}}","{{symbol.Block}}","{{symbol.Type}}","{{symbol.Comment}}"
+{% endfor %}

@@ -1,0 +1,141 @@
+FUNCTION_BLOCK CM_Filter_400
+TITLE =
+{ S7_m_c := 'true'; S7_blockview := 'big'; S7_tasklist := 'OB100' }
+AUTHOR : 
+FAMILY : 
+NAME : DIN
+VERSION : 0.0
+
+
+VAR_INPUT
+  SAMPLE_T { S7_sampletime := 'true' }: REAL ;	//Sample time; Defined by OB during compiling
+  i_bActive { S7_dynamic := 'true' }: BOOL ;	//1=Digital input signal; Linked to DI channel generally; Default=0
+  i_fPTFront { S7_dynamic := 'true' }: REAL ;	//Digital input signal delay time; Default=5s
+  i_fPTEnd { S7_dynamic := 'true' }: REAL ;	//Digital input signal delay time; Default=5s
+  i_fWSP { S7_dynamic := 'true'; S7_m_c := 'true' }: REAL  := 3.000000e+000;	//Digital input signal delay time; Default=5s
+  i_fASP { S7_dynamic := 'true'; S7_m_c := 'true' }: REAL  := 5.000000e+000;	//Digital input signal delay time; Default=5s
+  c_fWDT { S7_dynamic := 'true'; S7_m_c := 'true' }: REAL  := 3.000000e+001;	//Digital input signal delay time; Default=5s
+  c_fADT { S7_dynamic := 'true'; S7_m_c := 'true' }: REAL  := 3.000000e+001;	//Digital input signal delay time; Default=5s
+END_VAR
+VAR_OUTPUT
+  Q_iState { S7_dynamic := 'true'; S7_visible := 'false'; S7_m_c := 'true' }: INT ;	//1=ON; Default=0  
+  q_fDT { S7_dynamic := 'true' }: REAL ;	//1=Current delay time; Default=0  
+  S_bOn_Wrm : BOOL ;	
+  S_bOn_Arm : BOOL ;	
+END_VAR
+VAR_IN_OUT
+  i_bReset { S7_dynamic := 'true'; S7_m_c := 'true' }: BOOL ;	//Digital input signal delay time; Default=5s
+END_VAR
+VAR
+  S_ferr : REAL ;	
+END_VAR
+BEGIN
+NETWORK
+TITLE =SCL network
+//compiled by SCL compiler version:  SCLCOMP K05.03.07.00_01.02.00.01 release
+      SET   ; 
+      SAVE  ; 
+      =     L      0.1; 
+      L     #i_fPTFront; 
+      L     #i_fPTEnd; 
+      -R    ; 
+      T     #S_ferr; 
+      A     #i_bActive; 
+      NOT   ; 
+      O     #i_bReset; 
+      JCN   A7d0; 
+      L     0.000000e+000; 
+      T     #q_fDT; 
+      L     0; 
+      T     #Q_iState; 
+      CLR   ; 
+      =     #S_bOn_Wrm; 
+      =     #S_bOn_Arm; 
+      =     #i_bReset; 
+A7d0: L     #S_ferr; 
+      L     #i_fWSP; 
+      <R    ; 
+      =     L      0.2; 
+      A     #S_bOn_Arm; 
+      NOT   ; 
+      A     L      0.2; 
+      JCN   A7d1; 
+      L     0.000000e+000; 
+      T     #q_fDT; 
+      L     0; 
+      T     #Q_iState; 
+      CLR   ; 
+      =     #S_bOn_Wrm; 
+A7d1: CLR   ; 
+      A     #S_bOn_Arm; 
+      NOT   ; 
+      A     #S_bOn_Wrm; 
+      L     #S_ferr; 
+      L     #i_fASP; 
+      =     L      0.2; 
+      <R    ; 
+      A     L      0.2; 
+      JCN   A7d2; 
+      L     0.000000e+000; 
+      T     #q_fDT; 
+A7d2: L     #S_ferr; 
+      L     #i_fWSP; 
+      >=R   ; 
+      L     #q_fDT; 
+      L     #c_fWDT; 
+      =     L      0.2; 
+      <R    ; 
+      A     L      0.2; 
+      =     L      0.2; 
+      A     #S_bOn_Wrm; 
+      NOT   ; 
+      A     L      0.2; 
+      L     #S_ferr; 
+      L     #i_fWSP; 
+      =     L      0.2; 
+      >R    ; 
+      TAK   ; 
+      L     #i_fASP; 
+      =     L      0.3; 
+      >=R   ; 
+      A     L      0.3; 
+      L     #q_fDT; 
+      L     #c_fADT; 
+      =     L      0.3; 
+      <R    ; 
+      A     L      0.3; 
+      O     L      0.2; 
+      A     #i_bActive; 
+      JCN   A7d3; 
+      L     #q_fDT; 
+      L     #SAMPLE_T; 
+      +R    ; 
+      T     #q_fDT; 
+A7d3: L     #q_fDT; 
+      L     #c_fWDT; 
+      >=R   ; 
+      =     L      0.2; 
+      A     #S_bOn_Wrm; 
+      NOT   ; 
+      A     L      0.2; 
+      JCN   A7d4; 
+      SET   ; 
+      =     #S_bOn_Wrm; 
+      L     1; 
+      T     #Q_iState; 
+      L     0.000000e+000; 
+      T     #q_fDT; 
+A7d4: L     #q_fDT; 
+      L     #c_fADT; 
+      >=R   ; 
+      JCN   A7d5; 
+      SET   ; 
+      =     #S_bOn_Arm; 
+      L     2; 
+      T     #Q_iState; 
+A7d5: CLR   ; 
+      A     L      0.1; 
+      SAVE  ; 
+      BE    ; 
+END_FUNCTION_BLOCK
+

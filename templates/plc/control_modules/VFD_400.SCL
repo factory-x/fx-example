@@ -1,0 +1,749 @@
+FUNCTION_BLOCK CM_VFD_400
+TITLE =
+{ S7_m_c := 'true'; S7_blockview := 'big'; S7_tasklist := 'OB100' }
+AUTHOR : 
+FAMILY : 
+NAME : VFD
+VERSION : 0.0
+
+
+VAR_INPUT
+  LOCK { S7_dynamic := 'true' }: BOOL ;	//1=Interlocked; Default=0
+  LIOP_SEL { S7_dynamic := 'true' }: BOOL ;	//1=A/M mode by link only; Default=0
+  SAMPLE_T { S7_sampletime := 'true' }: REAL ;	//Sample time; Defined by OB during compiling
+  c_bMON { S7_dynamic := 'true' }: BOOL  := TRUE;	//1=Enable feedback error monitoring; Default=1
+  c_fMONT { S7_dynamic := 'true' }: REAL  := 1.000000e+001;	//Feedback error monitoring time; Default=5s
+  i_bFBON { S7_dynamic := 'true' }: BOOL ;	//1=VFD feedback running; Linked to DI channel generally; Default=0
+  i_bREMOTE { S7_dynamic := 'true' }: BOOL  := TRUE;	//1=Remote; 0=Local; Linked to DI channel generally; Default=1
+  i_bVFDErr { S7_dynamic := 'true'; S7_m_c := 'true'; S7_archive := 'shortterm' }: BOOL ;	//1=VFD error; Linked to DI channel generally; Default=0
+  c_bHasFBFre { S7_dynamic := 'true' }: BOOL ;	//1=Has frequency feedback signal; Default=0
+  c_bFBFrePer { S7_dynamic := 'true' }: BOOL  := TRUE;	//1=Frequency from AI channel; Default=0
+  i_fFBFre { S7_dynamic := 'true' }: REAL ;	//Frequence feedback linked from other block; Default=0
+  i_wFBFre { S7_dynamic := 'true' }: WORD ;	//Frequence feedback linked from AI Channel; Default=0
+  i_fPCmdSPFre { S7_dynamic := 'true' }: REAL ;	//Frequence setting point in AUTO mode; Default=0
+  i_bEnable { S7_dynamic := 'true' }: BOOL ;	//1=Motor enable; Linked to DI channel generally; Default=0
+  i_bRepair { S7_dynamic := 'true' }: BOOL ;	//1=Motor repair; Linked to DI channel generally; Default=0
+  MSG1_EVID { S7_visible := 'false'; S7_link := 'false'; S7_param := 'false'; S7_server := 'alarm_archiv'; S7_a_type := 'alarm_8p' }: DWORD ;	
+END_VAR
+VAR_OUTPUT
+  QdwState { S7_dynamic := 'true'; S7_m_c := 'true'; S7_visible := 'false' }: DWORD ;	//VFD status for icon and faceplate; Default=0
+  QwState { S7_dynamic := 'true'; S7_visible := 'false' }: WORD ;	//0=off; 1=starting; 2=on; 3=stopping; Default=0
+  QSTOPPING { S7_dynamic := 'true' }: BOOL ;	//1=Stopping; Default=0
+  QSTOP { S7_dynamic := 'true' }: BOOL ;	//1=Stop; Default=0
+  QSTARTING { S7_dynamic := 'true' }: BOOL ;	//1=Starting; Default=0
+  QRUN { S7_dynamic := 'true'; S7_m_c := 'true' }: BOOL ;	//1=Run; Default=0
+  QCMD_ON { S7_dynamic := 'true' }: BOOL ;	//1=VFD start command; Linked to DO channel generally; Default=0
+  QMON { S7_dynamic := 'true' }: BOOL ;	//1=VFD feedback monitoring enable; Default=0
+  QMON_ERR { S7_dynamic := 'true' }: BOOL ;	//1=VFD feedback error; Default=0
+  QMON_T { S7_dynamic := 'true' }: REAL ;	//Current motor feedback monitoring time; Default=0
+  q_bFBON { S7_dynamic := 'true'; S7_m_c := 'true'; S7_archive := 'shortterm' }: BOOL ;	//1=VFD feedback running; Default=0
+  QERR { S7_dynamic := 'true' }: BOOL ;	//1=VFD error, feedback error or interlock error; Default=0
+  QMAN_AUT { S7_dynamic := 'true'; S7_m_c := 'true'; S7_archive := 'shortterm' }: BOOL ;	//1=Auto mode; 0=Manual mode; Default=0
+  QREMOTE { S7_dynamic := 'true'; S7_m_c := 'true'; S7_archive := 'shortterm' }: BOOL ;	//1=Remote; 0=Local; Default=0
+  QLOCK { S7_dynamic := 'true' }: BOOL ;	//1=Interlock error active; Default=0
+  QVFD_ERR { S7_dynamic := 'true' }: BOOL ;	//1=VFD error; Default=0
+  QSPFre { S7_dynamic := 'true'; S7_m_c := 'true'; S7_archive := 'shortterm'; S7_unit := 'unit' }: REAL ;	//Frequence setting point linked to other blocks and WinCC; Default=0
+  QSPFrePer { S7_dynamic := 'true' }: WORD ;	//Frequence setting point linked to AO channel; Default=0
+  QFBFre { S7_dynamic := 'true'; S7_m_c := 'true'; S7_unit := 'unit' }: REAL ;	//Frequence feedback signal linked to other block and WinCC; Default=0
+  QFBFreERR { S7_dynamic := 'true' }: BOOL ;	//1=Frequencey feedback signal loop error; Default=0
+  q_intAlarmIndex { S7_dynamic := 'true'; S7_m_c := 'true'; S7_visible := 'false' }: INT ;	//Alarm Index for WinCC icon display; Default=0
+  MSG1_bDone { S7_visible := 'false' }: BOOL ;	//A8P
+  MSG1_bError { S7_visible := 'false' }: BOOL ;	//A8P
+  MSG1_wState { S7_visible := 'false' }: WORD ;	//A8P
+  MSG1_wAck { S7_visible := 'false' }: WORD ;	//A8P
+END_VAR
+VAR_IN_OUT
+  OP_dwCmd { S7_dynamic := 'true'; S7_m_c := 'true'; S7_visible := 'false' }: DWORD ;	//Control command from faceplate; Default=0
+  i_bPCmdAUT { S7_dynamic := 'true' }: BOOL ;	//1=Switch to AUTO mode; Default=0
+  i_bPCmdMAN { S7_dynamic := 'true' }: BOOL ;	//1=Switch to MAN mode; Default=0
+  i_bPCmdON { S7_dynamic := 'true' }: BOOL ;	//1=Switch to ON; Default=0
+  i_bPCmdOFF { S7_dynamic := 'true' }: BOOL ;	//1=Switch to OFF; Default=0
+  i_bRESET { S7_dynamic := 'true' }: BOOL ;	//1=Reset error; Default=0
+  i_fOCmdSPFre { S7_dynamic := 'true'; S7_m_c := 'true'; S7_visible := 'false' }: REAL ;	//Frequence setting point in MAN mode; Default=0
+END_VAR
+VAR
+  OPdwCmdHMI : DWORD ;	//Operator Commands in HMI format
+  OPdwCmdPLC : DWORD ;	//Operator Commands in PLC format
+  QdwStatePLC : DWORD ;	//State word in PLC format
+  A8P : SFB 35;	
+  STRUCT_TS : STRUCT 	
+   wFormat : WORD ;	//time format
+   aDT : ARRAY  [1 .. 8 ] OF //array date and time
+   DATE_AND_TIME ;	//array date and time
+  END_STRUCT ;	
+  OP_RESET : BOOL ;	
+  QSTARTING_OLD : BOOL ;	
+  QSTOPPING_OLD : BOOL ;	
+END_VAR
+VAR_TEMP
+  t_bRepair : BOOL ;	
+  TOP_SI : STRUCT 	
+   EV_CLASS : BYTE ;	
+   EV_NUM : BYTE ;	
+   PRIORITY : BYTE ;	
+   NUM : BYTE ;	
+   TYP2_3 : BYTE ;	
+   TYP1 : BYTE ;	
+   ZI1 : WORD ;	
+   ZI2_3 : DWORD ;	
+  END_STRUCT ;	
+  START_UP_SI : STRUCT 	
+   EV_CLASS : BYTE ;	
+   EV_NUM : BYTE ;	
+   PRIORITY : BYTE ;	
+   NUM : BYTE ;	
+   TYP2_3 : BYTE ;	
+   TYP1 : BYTE ;	
+   ZI1 : WORD ;	
+   ZI2_3 : DWORD ;	
+  END_STRUCT ;	
+  iRet : INT ;	
+END_VAR
+BEGIN
+NETWORK
+TITLE =SCL network
+//compiled by SCL compiler version:  SCLCOMP K05.03.07.00_01.02.00.01 release
+      SET   ; 
+      SAVE  ; 
+      =     L     28.1; 
+      L     W#16#0; 
+      T     LW    30; 
+      L     DW#16#87000010; 
+      T     LD    32; 
+      L     W#16#0; 
+      T     LW    36; 
+      L     DW#16#87000070; 
+      T     LD    38; 
+      TAR2  LD    42; 
+      CALL    SFC    6( 
+            RET_VAL:= iRet,
+            TOP_SI:= #TOP_SI,
+            START_UP_SI:= #START_UP_SI);
+      LAR2  LD    42;
+      L     #iRet; 
+      L     #TOP_SI.NUM; 
+      L     B#16#64; 
+      ==I   ; 
+      JCN   A7d0; 
+      L     0.000000e+000; 
+      T     #i_fPCmdSPFre; 
+      T     #i_fOCmdSPFre; 
+      CLR   ; 
+      =     #QCMD_ON; 
+      SET   ; 
+      =     #QSTOP; 
+      CLR   ; 
+      =     #QSTARTING; 
+      =     #QRUN; 
+      =     #QSTOPPING; 
+      L     W#16#0; 
+      T     #QwState; 
+      =     #i_bRESET; 
+      L     0; 
+      T     #iRet; 
+A7d0: L     #OP_dwCmd; 
+      T     #OPdwCmdHMI; 
+      L     DIB [AR2,P#77.0]; 
+      T     DIB [AR2,P#78.0]; 
+      L     DIB [AR2,P#76.0]; 
+      T     DIB [AR2,P#79.0]; 
+      L     DIB [AR2,P#75.0]; 
+      T     DIB [AR2,P#80.0]; 
+      L     DIB [AR2,P#74.0]; 
+      T     DIB [AR2,P#81.0]; 
+      CLR   ; 
+      A     #LIOP_SEL; 
+      NOT   ; 
+      A     DIX [AR2,P#80.0]; 
+      O     #i_bPCmdMAN; 
+      JCN   A7d1; 
+      CLR   ; 
+      =     #QMAN_AUT; 
+      JU    A7d3; 
+A7d1: CLR   ; 
+      A     #LIOP_SEL; 
+      NOT   ; 
+      A     DIX [AR2,P#80.1]; 
+      O     #i_bPCmdAUT; 
+      JCN   A7d3; 
+      SET   ; 
+      =     #QMAN_AUT; 
+A7d3: CLR   ; 
+      =     #i_bPCmdAUT; 
+      =     #i_bPCmdMAN; 
+      A     #i_bREMOTE; 
+      JCN   A7d4; 
+      SET   ; 
+      =     #QREMOTE; 
+      JU    A7d5; 
+A7d4: CLR   ; 
+      =     #QREMOTE; 
+A7d5: CLR   ; 
+      A     #i_bRESET; 
+      O     DIX [AR2,P#81.0]; 
+      JCN   A7d6; 
+      SET   ; 
+      =     #OP_RESET; 
+      JU    A7d7; 
+A7d6: CLR   ; 
+      =     #OP_RESET; 
+A7d7: CLR   ; 
+      =     #i_bRESET; 
+      A     DIX [AR2,P#79.0]; 
+      JCN   A7d8; 
+      SET   ; 
+      =     #c_bMON; 
+      JU    A7da; 
+A7d8: CLR   ; 
+      A     DIX [AR2,P#79.1]; 
+      JCN   A7da; 
+      CLR   ; 
+      =     #c_bMON; 
+A7da: CLR   ; 
+      A     #c_bMON; 
+      =     #QMON; 
+      A     #i_bFBON; 
+      =     #q_bFBON; 
+      A     #QMAN_AUT; 
+      A     #i_bPCmdOFF; 
+      A     #QREMOTE; 
+      JCN   A7db; 
+      CLR   ; 
+      =     #QCMD_ON; 
+      JU    A7dd; 
+A7db: CLR   ; 
+      A     #QMAN_AUT; 
+      A     #i_bPCmdON; 
+      A     #QREMOTE; 
+      =     L     28.2; 
+      A     #LOCK; 
+      NOT   ; 
+      A     L     28.2; 
+      JCN   A7dd; 
+      SET   ; 
+      =     #QCMD_ON; 
+A7dd: CLR   ; 
+      A     #QMAN_AUT; 
+      NOT   ; 
+      A     DIX [AR2,P#78.1]; 
+      A     #QREMOTE; 
+      =     L     28.2; 
+      A     #LOCK; 
+      NOT   ; 
+      A     L     28.2; 
+      JCN   A7de; 
+      SET   ; 
+      =     #QCMD_ON; 
+      JU    A7e0; 
+A7de: CLR   ; 
+      A     #QMAN_AUT; 
+      NOT   ; 
+      A     DIX [AR2,P#78.0]; 
+      A     #QREMOTE; 
+      JCN   A7e0; 
+      CLR   ; 
+      =     #QCMD_ON; 
+A7e0: CLR   ; 
+      A     #QCMD_ON; 
+      NOT   ; 
+      L     #QwState; 
+      L     W#16#3; 
+      =     L     28.2; 
+      ==I   ; 
+      A     L     28.2; 
+      =     L     28.2; 
+      A     #QMON_ERR; 
+      NOT   ; 
+      A     L     28.2; 
+      =     L     28.2; 
+      A     #i_bFBON; 
+      NOT   ; 
+      A     L     28.2; 
+      =     L     28.2; 
+      A     #QCMD_ON; 
+      NOT   ; 
+      L     #QwState; 
+      L     W#16#3; 
+      =     L     28.3; 
+      ==I   ; 
+      A     L     28.3; 
+      =     L     28.3; 
+      A     #QMON; 
+      NOT   ; 
+      A     L     28.3; 
+      O     L     28.2; 
+      JCN   A7e1; 
+      SET   ; 
+      =     #QSTOP; 
+      CLR   ; 
+      =     #QSTARTING; 
+      =     #QRUN; 
+      =     #QSTOPPING; 
+      L     W#16#0; 
+      T     #QwState; 
+A7e1: L     #QwState; 
+      L     W#16#0; 
+      ==I   ; 
+      A     #QCMD_ON; 
+      =     L     28.2; 
+      A     #i_bFBON; 
+      NOT   ; 
+      A     L     28.2; 
+      JCN   A7e2; 
+      CLR   ; 
+      =     #QSTOP; 
+      SET   ; 
+      =     #QSTARTING; 
+      CLR   ; 
+      =     #QRUN; 
+      =     #QSTOPPING; 
+      L     W#16#1; 
+      T     #QwState; 
+A7e2: L     #QwState; 
+      L     W#16#1; 
+      ==I   ; 
+      A     #QCMD_ON; 
+      =     L     28.2; 
+      A     #QMON_ERR; 
+      NOT   ; 
+      A     L     28.2; 
+      A     #i_bFBON; 
+      L     #QwState; 
+      L     W#16#1; 
+      =     L     28.2; 
+      ==I   ; 
+      A     #QCMD_ON; 
+      =     L     28.3; 
+      A     #QMON; 
+      NOT   ; 
+      A     L     28.3; 
+      O     L     28.2; 
+      JCN   A7e3; 
+      CLR   ; 
+      =     #QSTOP; 
+      =     #QSTARTING; 
+      SET   ; 
+      =     #QRUN; 
+      CLR   ; 
+      =     #QSTOPPING; 
+      L     W#16#2; 
+      T     #QwState; 
+A7e3: CLR   ; 
+      A     #QCMD_ON; 
+      NOT   ; 
+      L     #QwState; 
+      L     W#16#1; 
+      =     L     28.2; 
+      ==I   ; 
+      L     #QwState; 
+      L     W#16#2; 
+      =     L     28.3; 
+      ==I   ; 
+      O     L     28.3; 
+      A     L     28.2; 
+      JCN   A7e4; 
+      CLR   ; 
+      =     #QSTOP; 
+      =     #QSTARTING; 
+      =     #QRUN; 
+      SET   ; 
+      =     #QSTOPPING; 
+      L     W#16#3; 
+      T     #QwState; 
+A7e4: CLR   ; 
+      A     #QMON; 
+      A     #i_bREMOTE; 
+      JCN   A7e5; 
+      A     #QSTARTING_OLD; 
+      NOT   ; 
+      A     #QSTARTING; 
+      =     L     28.2; 
+      A     #QSTOPPING_OLD; 
+      NOT   ; 
+      A     #QSTOPPING; 
+      O     L     28.2; 
+      JCN   A7e6; 
+      L     0.000000e+000; 
+      T     #QMON_T; 
+A7e6: CLR   ; 
+      A     #QSTARTING; 
+      O     #QSTOPPING; 
+      =     L     28.2; 
+      A     #i_bFBON; 
+      NOT   ; 
+      A     #QRUN; 
+      O     L     28.2; 
+      =     L     28.2; 
+      A     #QSTOP; 
+      A     #i_bFBON; 
+      O     L     28.2; 
+      JCN   A7e7; 
+      L     #QMON_T; 
+      L     #SAMPLE_T; 
+      +R    ; 
+      T     #QMON_T; 
+      JU    A7e8; 
+A7e7: L     0.000000e+000; 
+      T     #QMON_T; 
+A7e8: L     #QMON_T; 
+      L     #c_fMONT; 
+      >=R   ; 
+      JCN   A7e5; 
+      SET   ; 
+      =     #QMON_ERR; 
+A7e5: CLR   ; 
+      A     #OP_RESET; 
+      JCN   A7ea; 
+      CLR   ; 
+      =     #QMON_ERR; 
+      =     #QVFD_ERR; 
+      =     #QLOCK; 
+A7ea: CLR   ; 
+      A     #i_bRepair; 
+      NOT   ; 
+      =     #t_bRepair; 
+      A     #i_bEnable; 
+      NOT   ; 
+      O     #t_bRepair; 
+      =     L     28.2; 
+      A     #QSTARTING; 
+      O     #QRUN; 
+      A     #LOCK; 
+      O     L     28.2; 
+      JCN   A7eb; 
+      SET   ; 
+      =     #QLOCK; 
+A7eb: CLR   ; 
+      A     #i_bVFDErr; 
+      JCN   A7ec; 
+      SET   ; 
+      =     #QVFD_ERR; 
+A7ec: CLR   ; 
+      A     #QMON_ERR; 
+      O     #QVFD_ERR; 
+      =     #QERR; 
+      A     #QERR; 
+      JCN   A7ed; 
+      SET   ; 
+      =     #QSTOP; 
+      CLR   ; 
+      =     #QSTARTING; 
+      =     #QRUN; 
+      =     #QSTOPPING; 
+      =     #QCMD_ON; 
+      L     W#16#0; 
+      T     #QwState; 
+      L     0.000000e+000; 
+      T     #QMON_T; 
+A7ed: CLR   ; 
+      A     #QREMOTE; 
+      NOT   ; 
+      JCN   A7ee; 
+      A     #i_bFBON; 
+      NOT   ; 
+      =     #QSTOP; 
+      CLR   ; 
+      =     #QSTARTING; 
+      A     #i_bFBON; 
+      =     #QRUN; 
+      CLR   ; 
+      =     #QSTOPPING; 
+      A     #i_bFBON; 
+      =     #QCMD_ON; 
+      L     0.000000e+000; 
+      T     #QMON_T; 
+      A     #i_bFBON; 
+      =     #QCMD_ON; 
+      CLR   ; 
+      =     #QMON_ERR; 
+      A     #i_bFBON; 
+      JCN   A7ef; 
+      L     W#16#2; 
+      T     #QwState; 
+      JU    A7ee; 
+A7ef: L     W#16#0; 
+      T     #QwState; 
+A7ee: L     #i_fOCmdSPFre; 
+      L     5.000000e+001; 
+      >R    ; 
+      JCN   A7f1; 
+      T     #i_fOCmdSPFre; 
+      JU    A7f3; 
+A7f1: L     #i_fOCmdSPFre; 
+      L     0.000000e+000; 
+      <R    ; 
+      JCN   A7f3; 
+      T     #i_fOCmdSPFre; 
+A7f3: L     #i_fPCmdSPFre; 
+      L     5.000000e+001; 
+      >R    ; 
+      JCN   A7f4; 
+      T     #i_fPCmdSPFre; 
+      JU    A7f6; 
+A7f4: L     #i_fPCmdSPFre; 
+      L     0.000000e+000; 
+      <R    ; 
+      JCN   A7f6; 
+      T     #i_fPCmdSPFre; 
+A7f6: CLR   ; 
+      A     #QMAN_AUT; 
+      JCN   A7f7; 
+      L     #i_fPCmdSPFre; 
+      T     #QSPFre; 
+      L     #i_fPCmdSPFre; 
+      T     #i_fOCmdSPFre; 
+      L     #i_fPCmdSPFre; 
+      L     5.529600e+002; 
+      *R    ; 
+      RND   ; 
+      T     #QSPFrePer; 
+      JU    A7f8; 
+A7f7: L     #i_fOCmdSPFre; 
+      T     #QSPFre; 
+      L     #i_fOCmdSPFre; 
+      T     #i_fPCmdSPFre; 
+      L     #i_fOCmdSPFre; 
+      L     5.529600e+002; 
+      *R    ; 
+      RND   ; 
+      T     #QSPFrePer; 
+A7f8: CLR   ; 
+      A     #c_bHasFBFre; 
+      JCN   A7f9; 
+      A     #c_bFBFrePer; 
+      JCN   A7fa; 
+      L     #i_wFBFre; 
+      L     32511; 
+      >I    ; 
+      L     #i_wFBFre; 
+      L     32767; 
+      =     L     28.2; 
+      <=I   ; 
+      A     L     28.2; 
+      L     #i_wFBFre; 
+      L     -4864; 
+      =     L     28.2; 
+      <=I   ; 
+      L     #i_wFBFre; 
+      L     -32768; 
+      =     L     28.3; 
+      >=I   ; 
+      A     L     28.3; 
+      O     L     28.2; 
+      A     #QRUN; 
+      JCN   A7fb; 
+      SET   ; 
+      =     #QFBFreERR; 
+      JU    A7fc; 
+A7fb: CLR   ; 
+      =     #QFBFreERR; 
+A7fc: L     #i_wFBFre; 
+      L     32511; 
+      >I    ; 
+      L     #i_wFBFre; 
+      L     32767; 
+      =     L     28.2; 
+      <=I   ; 
+      A     L     28.2; 
+      L     #i_wFBFre; 
+      L     -4864; 
+      =     L     28.2; 
+      <=I   ; 
+      L     #i_wFBFre; 
+      L     -32768; 
+      =     L     28.3; 
+      >=I   ; 
+      A     L     28.3; 
+      O     L     28.2; 
+      NOT   ; 
+      JCN   A7ff; 
+      L     #i_wFBFre; 
+      AD    DW#16#FFFF; 
+      DTR   ; 
+      L     1.808449e-003; 
+      *R    ; 
+      T     #QFBFre; 
+      L     #i_wFBFre; 
+      L     -4864; 
+      >I    ; 
+      L     #i_wFBFre; 
+      L     0; 
+      =     L     28.2; 
+      <I    ; 
+      A     L     28.2; 
+      JCN   A7fe; 
+      L     0.000000e+000; 
+      T     #QFBFre; 
+A7fe: JU    A7ff; 
+A7fa: L     #i_fFBFre; 
+      T     #QFBFre; 
+      CLR   ; 
+      =     #QFBFreERR; 
+A7ff: L     #QFBFre; 
+      L     5.000000e+001; 
+      >R    ; 
+      JCN   A800; 
+      T     #QFBFre; 
+      JU    A801; 
+A800: L     #QFBFre; 
+      L     0.000000e+000; 
+      <R    ; 
+      JCN   A803; 
+      T     #QFBFre; 
+A801: JU    A803; 
+A7f9: L     0.000000e+000; 
+      T     #QFBFre; 
+      CLR   ; 
+      =     #QFBFreERR; 
+A803: CLR   ; 
+      A     #QSTOP; 
+      =     DIX [AR2,P#82.0]; 
+      A     #QSTARTING; 
+      =     DIX [AR2,P#82.1]; 
+      A     #QRUN; 
+      =     DIX [AR2,P#82.2]; 
+      A     #QSTOPPING; 
+      =     DIX [AR2,P#82.3]; 
+      CLR   ; 
+      =     DIX [AR2,P#82.4]; 
+      =     DIX [AR2,P#82.5]; 
+      =     DIX [AR2,P#82.6]; 
+      =     DIX [AR2,P#82.7]; 
+      A     #QMON; 
+      =     DIX [AR2,P#83.0]; 
+      A     #QMON_ERR; 
+      =     DIX [AR2,P#83.1]; 
+      CLR   ; 
+      =     DIX [AR2,P#83.2]; 
+      =     DIX [AR2,P#83.3]; 
+      A     #QVFD_ERR; 
+      =     DIX [AR2,P#83.4]; 
+      A     DIX [AR2,P#63.7]; 
+      NOT   ; 
+      O     #QFBFreERR; 
+      A     #c_bHasFBFre; 
+      =     DIX [AR2,P#83.5]; 
+      CLR   ; 
+      =     DIX [AR2,P#83.6]; 
+      A     #QFBFreERR; 
+      A     #c_bHasFBFre; 
+      =     DIX [AR2,P#83.7]; 
+      A     #QMAN_AUT; 
+      =     DIX [AR2,P#84.0]; 
+      A     #QREMOTE; 
+      =     DIX [AR2,P#84.1]; 
+      CLR   ; 
+      =     DIX [AR2,P#84.2]; 
+      A     #c_bHasFBFre; 
+      =     DIX [AR2,P#84.3]; 
+      A     #c_bHasFBFre; 
+      NOT   ; 
+      =     DIX [AR2,P#84.4]; 
+      CLR   ; 
+      =     DIX [AR2,P#84.5]; 
+      =     DIX [AR2,P#84.6]; 
+      =     DIX [AR2,P#84.7]; 
+      A     #QERR; 
+      =     DIX [AR2,P#85.0]; 
+      CLR   ; 
+      =     DIX [AR2,P#85.1]; 
+      A     #QLOCK; 
+      =     DIX [AR2,P#85.2]; 
+      A     #LOCK; 
+      =     DIX [AR2,P#85.3]; 
+      CLR   ; 
+      =     DIX [AR2,P#85.4]; 
+      =     DIX [AR2,P#85.5]; 
+      =     DIX [AR2,P#85.6]; 
+      A     #LIOP_SEL; 
+      =     DIX [AR2,P#85.7]; 
+      L     DIB [AR2,P#85.0]; 
+      T     DIB [AR2,P#30.0]; 
+      L     DIB [AR2,P#84.0]; 
+      T     DIB [AR2,P#31.0]; 
+      L     DIB [AR2,P#83.0]; 
+      T     DIB [AR2,P#32.0]; 
+      L     DIB [AR2,P#82.0]; 
+      T     DIB [AR2,P#33.0]; 
+      SET   ; 
+      =     #A8P.EN_R; 
+      A     #QMON_ERR; 
+      =     #A8P.SIG_1; 
+      CLR   ; 
+      =     #A8P.SIG_2; 
+      A     #QVFD_ERR; 
+      =     #A8P.SIG_3; 
+      CLR   ; 
+      =     #A8P.SIG_4; 
+      A     #QLOCK; 
+      =     #A8P.SIG_5; 
+      CLR   ; 
+      =     #A8P.SIG_6; 
+      =     #A8P.SIG_7; 
+      A     #QFBFreERR; 
+      A     #c_bHasFBFre; 
+      =     #A8P.SIG_8; 
+      L     W#16#EEEE; 
+      T     #A8P.ID; 
+      L     #MSG1_EVID; 
+      T     #A8P.EV_ID; 
+      L     W#16#40; 
+      T     #A8P.SEVERITY; 
+      +AR2  P#86.0; 
+      UC    SFB   35; 
+	  L		8106; // todo: test
+	  SLD	3;
+	  +AR2;
+      //+AR2  P#8106.0; 
+      A     #A8P.DONE; 
+      =     #MSG1_bDone; 
+      A     #A8P.ERROR; 
+      =     #MSG1_bError; 
+      L     #A8P.STATUS; 
+      T     #MSG1_wState; 
+      L     #A8P.ACK_STATE; 
+      T     #MSG1_wAck; 
+      L     0; 
+      T     #q_intAlarmIndex; 
+      A     DIX [AR2,P#63.0]; 
+      NOT   ; 
+      =     L     28.2; 
+      A     DIX [AR2,P#63.2]; 
+      NOT   ; 
+      O     L     28.2; 
+      =     L     28.2; 
+      A     DIX [AR2,P#63.4]; 
+      NOT   ; 
+      O     L     28.2; 
+      =     L     28.2; 
+      A     DIX [AR2,P#63.7]; 
+      NOT   ; 
+      O     L     28.2; 
+      JCN   A804; 
+      L     1; 
+      T     #q_intAlarmIndex; 
+      JU    A806; 
+A804: CLR   ; 
+      A     #QMON_ERR; 
+      O     #QVFD_ERR; 
+      O     #QLOCK; 
+      =     L     28.2; 
+      A     #QFBFreERR; 
+      A     #c_bHasFBFre; 
+      O     L     28.2; 
+      JCN   A806; 
+      L     2; 
+      T     #q_intAlarmIndex; 
+A806: CLR   ; 
+      A     #QSTARTING; 
+      =     #QSTARTING_OLD; 
+      A     #QSTOPPING; 
+      =     #QSTOPPING_OLD; 
+      L     DW#16#0; 
+      T     #OP_dwCmd; 
+      A     L     28.1; 
+      SAVE  ; 
+      BE    ; 
+END_FUNCTION_BLOCK
+
+(*$ALARM_SERVER <HEADERS STEP7_VERSION="262144" CODING="true"><LANGUAGE LCID="1031">German</LANGUAGE><STD_LANGUAGE>1031</STD_LANGUAGE><HEADER PARENT="RkIyMTI=" PARENT_SYM="Q01fVkZEXzQwMA=="><VERSION>Q1BVX1dJREVfQUxBUk1OUg==</VERSION><STRUCTTYPE>1</STRUCTTYPE><ATTR_STATE>0</ATTR_STATE><PRODUCER>1</PRODUCER><ALARM NAME="TVNHMV9FVklE"><ATTR_STATE>0</ATTR_STATE><ALARMNR>0</ALARMNR><ALARMTYPE>YWxhcm1fOHA=</ALARMTYPE><DISPLAYGROUP>0</DISPLAYGROUP><SUBCOUNT>8</SUBCOUNT><RANGE>0</RANGE><PROTOCOL>0</PROTOCOL><SUBALARM ID="1"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="2"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="3"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="4"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="5"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="6"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="7"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="8"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM></ALARM></HEADER></HEADERS> *)

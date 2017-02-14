@@ -1,0 +1,80 @@
+{%- macro render(lib, actions) -%}
+	{%- for action in actions -%}
+	
+		{%- if (action.error == true) %}
+
+// Action error: {{action.fds | safe}}
+
+{%- elseif (action.boolean == true) %}
+
+// Action: {{action.fds | safe}}
+	{% if (action.result.value == "true") %}SET{% elseif (action.result.value == "false")  %}CLR{% else %}A	{{action.result.value}}{% endif %};
+	=	{{action.left.value}};
+
+{%- elseif (action.function_call != undefined) %}
+
+// Action: function call: {{action.fds | safe}}
+	CALL {{ action.function_call.name }}
+	{%- for property, var in action.function_call.args %}
+	{%- if loop.length == 1 %}
+	({{ property }} := {{ var.value }})
+	{%- elseif loop.first == true %}
+	({{ property }} := {{ var.value }},
+	{%- elseif loop.last == true %}
+	{{ property }} := {{ var.value }})
+	{%- else %}
+	{{ property }} := {{ var.value }},
+	{%- endif %}
+	{%- endfor %};
+	
+{%- else -%}
+	
+			{#- first make calculations if the action is to complex -#}
+			{%- for calc in action.calc_array %}
+			
+// Calculation: {{calc.comment | safe}}
+	L 	{{calc.v1.value}};
+	{%- if (calc.v1_conversion != undefined) %}
+	{{ lib.s7_get_conversion(calc.v1_conversion) }}
+	{%- endif %}
+	{%- if (calc.v2.value != undefined) %}
+	L 	{{calc.v2.value}};
+	{%- if (calc.v2_conversion != undefined) %}
+	{{ lib.s7_get_conversion(calc.v2_conversion) }}
+	{%- endif %}
+	{%- endif %}
+	{{ lib.build_s7_operation(calc) | safe }};
+	T 	{{calc.result.value}};
+			{%- endfor -%}
+			{#- then write the actual action code #}
+			
+// Action: {{action.fds | safe}};
+			{%- if action.is_calculation %}
+	L	{{action.v1.value}};
+	{%- if (action.v1_conversion != undefined) %}
+	{{ lib.s7_get_conversion(action.v1_conversion) }}
+	{%- endif %}
+	{%- if (action.v2.value != undefined) %}
+	L	{{action.v2.value}};
+	{%- if (action.v2_conversion != undefined) %}
+	{{ lib.s7_get_conversion(action.v2_conversion) }}
+	{%- endif %}
+	{%- endif %}
+	{{ lib.build_s7_operation(action) | safe }};
+	{%- if (action.left_conversion != undefined) %}
+	{{ lib.s7_get_conversion(action.left_conversion) }}
+	{%- endif %}
+	T	{{action.left.value}};
+			{%- else %}
+	L 	{{action.result.value}};
+	{%- if (action.left_conversion != undefined) %}
+	{{ lib.s7_get_conversion(action.left_conversion) }}
+	{%- endif %}
+	T 	{{action.left.value}};
+	
+			{%- endif -%}
+	
+		{%- endif -%}
+	
+	{% endfor %}
+{% endmacro %}

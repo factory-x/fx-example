@@ -1,0 +1,50 @@
+
+{% macro render(lib, em_id, em) %}
+
+// ___{{ em_id }}
+
+// EM Instance DB
+// {{ em_id}}
+// DB{{ em.DB }} = {{ em_id }}
+// FB{{ em.FB }} = {{ em.Type }}
+DATA_BLOCK DB{{ em.DB }} FB{{ em.FB }}
+BEGIN
+END_DATA_BLOCK
+
+
+
+
+{#- create the FC #}
+
+FUNCTION "{{ em_id }}_FC" : VOID
+TITLE ={{ em_id }}_FC
+// {{ em_id }}_FC
+{{ lib.comment_all_lines(em.Comment) }}
+AUTHOR : 
+FAMILY : 'eminst'
+NAME : namehead
+VERSION : 0.1
+
+BEGIN
+
+NETWORK
+TITLE = Main
+//--------------------------------
+// 
+//--------------------------------
+
+CALL {{ em.Type }}, DB {{ em.DB }}(
+{#- loop over all the inputs and outputs #}
+{%- for link in lib.concat(em.Links.Inputs, em.Links.Outputs) %}
+	{%- if loop.last != true %}
+	{{ link.connection_left }} := {{ lib.s7_quote_link(link.connection_right) | safe }},
+	{%- else %}
+	{{ link.connection_left }} := {{ lib.s7_quote_link(link.connection_right) | safe }}
+	{%- endif %}
+{%- endfor %}
+)
+
+
+	
+END_FUNCTION
+{% endmacro %}

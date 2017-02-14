@@ -1,0 +1,12 @@
+DATA_BLOCK DB 25
+TITLE =EM_INDEX
+VERSION : 0.1
+
+
+  STRUCT 	
+   DB_1 : ARRAY  [0 .. 990 ] OF // DB numbers of the EMs
+   INT  := 0;	
+  END_STRUCT ;	
+BEGIN
+END_DATA_BLOCK
+

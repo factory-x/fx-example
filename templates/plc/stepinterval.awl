@@ -1,0 +1,45 @@
+FUNCTION FC4 : VOID
+TITLE =Stepinterval
+// Takes a bool, and makes it high if the stepnumber between two values
+AUTHOR : 
+FAMILY : 'stepint'
+NAME : namehead
+VERSION : 0.1
+
+VAR_INPUT
+
+	in_steprange: BOOL ; 		// boolean value
+	stepnumber: INT;			// stepnumber
+	low: INT;					// low range
+	high: INT;					// high range
+
+END_VAR
+
+BEGIN
+
+NETWORK
+TITLE = Main
+//--------------------------------
+// make value high if in range
+// else keep the value
+//--------------------------------
+	
+
+	O	in_steprange;
+	O(;
+	
+	A(;
+	L	low;
+	L	stepnumber;
+	<=I;
+	);
+	A(;
+	L	stepnumber;
+	L	high;
+	<=I;
+	);
+	
+	);
+	=	in_steprange;
+
+END_FUNCTION

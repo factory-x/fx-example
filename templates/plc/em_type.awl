@@ -1,0 +1,439 @@
+{% import "actions.awl" as actions %}
+
+{% macro render(lib, emtype_id, emtype) %}
+
+{{ lib.log('rendering EM type ' + emtype_id) }}
+
+{#- create UDT for communication with the phase -#}
+
+
+
+TYPE {{ lib.create_new_symbol(emtype_id + '_UDT', 'UDT', undefined, '') }} // {{emtype_id}}_UDT
+VERSION : 0.1
+
+
+STRUCT 
+	{#- first part of the UDT containts the Setpoints from phase to EM -#}  
+	{%- for io_name, io in lib.select_interface_io(emtype.Inputs) %}
+	{{ io_name }}: {{ io.Type }};		// {{io.Comment}}{% if io.Comment_io != undefined %} - {{ io.Comment_io }}{% endif %}
+	{%- endfor %}
+	{%- for i in range (0, 40 - lib.count_s7_bytes(lib.select_interface_io(emtype.Inputs))) %}
+	placeholder_SP_{{i}}: BYTE;  // placeholder
+	{%- endfor %}
+	{#- second part of the UDT containts the Process Values from EM to phase -#} 
+	{%- for io_name, io in lib.select_interface_io(emtype.Outputs) %}
+	{{ io_name }}: {{ io.Type }};		// {{io.Comment}}{% if io.Comment_io != undefined %} - {{ io.Comment_io }}{% endif %}
+	{%- endfor %}
+	{%- for i in range (0, 40 - lib.count_s7_bytes(lib.select_interface_io(emtype.Outputs))) %}
+	placeholder_PV_{{i}}: BYTE;  // placeholder
+	{%- endfor %}
+END_STRUCT	
+END_TYPE
+
+
+
+
+{#- create label counters: reset also creates them if not existing -#}
+{{ lib.reset_counter('statelabel') }}
+{{ lib.reset_counter('condition_label') }}
+{{ lib.reset_counter('error_label') }}
+// ____{{emtype_id}}
+FUNCTION_BLOCK "{{emtype_id}}"
+TITLE = {{ emtype_id }}
+// {{ emtype_id }}
+{{ lib.comment_all_lines(emtype.Comment) }}
+AUTHOR : 
+FAMILY : 'emtyp'
+NAME : namehead
+VERSION : 0.1
+
+VAR_INPUT
+
+	sampletime { S7_sampletime := 'true' }: REAL ; // the scantime of this phase, used to increase timers
+{#- add all the auto-generated inputs -#}
+{% for input_name, input in emtype.Inputs %}
+	{{ input_name }}: {{ input.Type }};		// {{input.Comment}}{% if input.Comment_io != undefined %} - {{ input.Comment_io }}{% endif %}
+{%- endfor %}
+
+END_VAR
+
+VAR_OUTPUT
+  
+	// em_id: INT;	// unique number for every em instance over the whole project
+	
+	steptime_s: REAL;		// complete steptime in seconds. same value as the other steptimes
+	steptime_m: REAL;		// complete steptime in minutes. same value as the other steptimes
+	steptime_h: REAL;		// complete steptime in hours. same value as the other steptimes
+	
+	first_scan: BOOL;		// first scan of the step active
+	last_scan: BOOL;		// last scan of the step active
+	error_index_db: BOOL;	// em_id doesn't fit in the index db
+	
+	{# add all the auto-generated outputs -#}
+{% for output_name, output in emtype.Outputs %}
+	{{ output_name }}: {{ output.Type }};		// {{output.Comment}}{% if output.Comment_io != undefined %} - {{ output.Comment_io }}{% endif %}
+{%- endfor %}
+
+END_VAR
+
+
+
+VAR
+
+  previous_Command : INT;	// previous Command
+  SP_PV: {{emtype_id}}_UDT;		// UDT for receiving Setpoints and sending Process Values
+	
+END_VAR
+
+
+VAR_TEMP
+	
+	initial_scan: BOOL;			// pulse active on the first cycle of a new scan
+	T_dbnum: INT;				// DB number of this block
+	T_address: INT;				// address in the Index Table DB
+	T_length: INT;				// length of the Index Table DB
+{# add all the auto-generated temps -#}
+{# start with the calculation values -#}
+{% for i in range(1, emtype.var_counter.value) %}
+	V{{i}}: REAL;					// intermediate value for calculation
+{%- endfor %}
+END_VAR
+
+BEGIN
+
+NETWORK
+TITLE = Publish DB number to EM Index
+//--------------------------------
+// The EM will publish its DB number to the EM Index table
+//--------------------------------
+
+//### 0] init
+	CLR;
+	=	error_index_db;
+
+//### 1] Check if the ID of this EM fits inside the EM Index table
+
+    OPN   DB    25; //Open data block as shared data block
+    L     DBLG; //Load length of shared data block (length of DB)
+    T     #T_length; //transfer length to length
+	
+    L     #T_length; //length=length/2
+    L     2; 
+    /I    ; 
+    T     #T_length; 
+	
+// Error and end the block if id bigger than length of the DB
+    L     #T_length; 
+    L     #em_id; 
+    <=D   ; 
+	= error_index_db;
+    BEC   ; //if id is bigger than length end the block
+	
+//### 2] Write this DB number to the EM Index table
+
+// find the number of the current fb
+    L     DINO; 
+    T     #T_dbnum; //find the db number of current fb
+
+// calculate the real address	
+    L     #em_id;
+    L     2; 
+    *I    ; 
+    T     #T_address; 
+
+// prepare the pointer for the location in the EM Index DB
+// todo: can this code not simpeler? Probably no need to add with the zero-pointer	
+    OPN   DB    25; 
+    L     P#DBX 0.0; 
+    L     #T_address; 
+    SLD   3; 
+    +D    ; 
+    LAR1  ; 
+	
+//write the DB number to the real address
+    L     #T_dbnum; 
+    T     DBW [AR1,P#0.0]; 
+
+NETWORK
+TITLE = Copy all Setpoints from the UDT
+//--------------------------------
+// 
+//--------------------------------
+
+{% for io_name, io in lib.select_interface_io(emtype.Inputs) %}
+
+	{% if io.Type == 'Bool' or  io.Type == 'BOOL' or io.Type == 'bool' %}
+	A	SP_PV.{{io_name}};
+	= 	{{io_name}}
+	{% else %}
+	L	SP_PV.{{io_name}};
+	T	{{io_name}};
+	{% endif %}
+
+{%- endfor %}
+
+NETWORK
+TITLE = Acquiring logic
+//--------------------------------
+// 
+//--------------------------------
+
+	L	Request;
+	T 	Owner;
+
+NETWORK
+TITLE = Steptimers
+//--------------------------------
+// If the previous Command is not the same as the current one
+// then reset the timers, else increase them
+// This is at the start of the FB because normal commandchanges will take
+// till the next cycle to become active
+//--------------------------------
+
+// check if Command == previous_Command
+	L 	Command;
+	L	previous_Command;
+	==I	;		// if condition true then {
+	JCN TIM1;
+	
+	// increase timer
+	L	sampletime;
+	L	steptime_s;
+	+R;
+	T	steptime_s;
+	
+	JU TIM2	;	// } else {
+TIM1: NOP 0	;	
+
+	// reset timer
+	L	0.0;
+	T	steptime_s	;
+
+TIM2: NOP 0;		// end if
+
+// calculate the other two timers
+	L 	steptime_s;
+	L 	60.0;
+	/R;
+	T   steptime_m;
+	
+	L	60.0;
+	/R;
+	T	steptime_h;
+
+	
+NETWORK
+TITLE = detect initial scan
+//--------------------------------
+// create a pulse active on the first cycle of a new scan
+// this signal can be used in the state to execute some actions in the first cycle of the state
+//
+//--------------------------------
+
+	L 	Command;
+	L	previous_Command;
+	<>I;
+	=	initial_scan;
+	
+
+NETWORK
+TITLE = Save old step
+//--------------------------------
+// Save old step
+//--------------------------------
+
+	L 	Command;
+	T	previous_Command;
+
+	
+NETWORK
+TITLE = Collect the errors from the CMs
+//--------------------------------
+// 
+//--------------------------------
+
+	CLR;
+	{#- loop over all the inputs #}
+	{%- for input_name, input_object in emtype.Inputs %}
+		{%- if input_object.Error_Signal == true %}
+	O	{{ input_name }};
+		{%- endif %}
+	{%- endfor %}
+	=	CM_error;
+
+NETWORK
+TITLE = Assign a message number to each error
+//--------------------------------
+// This code tries to assign an error message to each CM error
+// If multiple CMs have an error then it only stores one
+// This is the EM type so we don't know which CM instance is connected
+// So the error only contains the general name of the CM instance
+// If the actual name needs to be shown then it could be deducted
+// at a higher level using the CM name and EM instance 
+//--------------------------------
+
+	CLR;
+	
+	// clear the error no
+	L	0;
+	T CM_error_no;
+	
+	{# loop over all the inputs #}
+	{%- for input_name, input_object in emtype.Inputs %}
+		{%- if input_object.Error_Signal == true %}
+		
+	A	{{ input_name }};
+	JCN	E{{ lib.increase_counter('error_label') }};
+
+	L	{{ lib.get_message_id('CM error: ' + input_name ) }}; // 'CM error: {{ input_name }}'
+	T 	CM_error_no;
+	
+E{{ lib.get_counter('error_label') }}:	NOP 0;	
+		{%- endif %}
+	{%- endfor %}
+
+
+	
+NETWORK
+TITLE = START OF THE STATES
+//################################
+//################################
+// Placeholder network to indicate the start of the actual sequence
+//################################	  
+//################################
+  
+
+	{#- loop over all the states #}
+	{%- for state_number, state_object in emtype.States %}
+NETWORK
+TITLE = State {{state_number}}: {{ lib.firstline(state_object.Comment) | safe}}
+//================================
+{{ lib.comment_all_lines(state_object.Comment) | safe }} {# todo: create mini-FDS in each state comment as option #}
+//================================	  
+
+// skip this network if stepnumber not equal to {{state_number}}
+	L 	Command;
+	L 	{{state_number}};
+	==I;
+	JCN J{{ lib.increase_counter('statelabel') }};
+{% if state_object.Actions_First_Scan != undefined %}	
+//---------------------------------
+// Actions (first scan)
+//---------------------------------
+	A	initial_scan; 
+	JCN   C{{ lib.get_counter('statelabel') }};
+		L -1.0;	 // value to show that the EM is in a state transition
+		T Status;		
+		{{- actions.render(lib, state_object.Actions_First_Scan) }}
+	JU	D{{ lib.get_counter('statelabel') }};	//skip the continuous steps during the initial scan
+C{{ lib.get_counter('statelabel') }}: NOP   0; 
+
+{% endif %}
+//---------------------------------
+// Actions (continuous)
+//---------------------------------
+		{{- actions.render(lib, state_object.Actions) -}}
+
+//---------------------------------
+// --- CONDITIONS ---
+//---------------------------------
+			{#- first make calculations if the condition logic is too complex -#}
+			{%- for calc in state_object.Conditions.condition_calc %}
+			
+// Calculation: {{calc.comment | safe}}
+	L 	{{calc.v1.value}};
+	L 	{{calc.v2.value}};
+	{{calc.operation | safe}}R;
+	{% if calc.boolean %}=	{{calc.value.value}};{% else %}T 	{{calc.value.value}};{% endif %}
+				
+			{%- endfor %}
+
+// Condition Logic
+	SET;	// make sure RLO is high so the state can happen when no conditions present
+			{# then loop over the condition logic -#}
+			{%- for logic in state_object.Conditions.transition_logic %}
+	{{ lib.compact_logic(logic.logic, logic.invert) }}	{{logic.result.value}}; {% if logic.condition != undefined %}	// {{logic.condition | safe}}{% endif %}
+			{%- endfor -%}
+			{#- code for transferring to the next step #}
+	JCN L{{ lib.get_counter('statelabel') }};
+	
+	L   Command;
+	T   Status;
+	
+L{{ lib.get_counter('statelabel') }}: NOP 0;
+{% if state_object.Actions_Last_Scan != undefined %}
+//---------------------------------
+// Actions (last scan)
+// This is immediately executed once the command changes
+//---------------------------------
+	L	Command;
+	L	previous_Command;
+	<>I;
+	JCN D{{ lib.get_counter('statelabel') }};
+		{{- actions.render(lib, state_object.Actions_Last_Scan) }}	
+{% endif %}
+D{{ lib.get_counter('statelabel') }}: NOP 0;	
+
+//---------------------------------
+// End of network: jump here if step not active
+// Jump to end of this FB if the step has been active to avoid
+// execution of another step in the same scan
+//---------------------------------		
+	JU	ENDS;
+J{{ lib.get_counter('statelabel') }}: NOP 0;
+
+	{% endfor %}
+
+
+NETWORK
+TITLE = END OF THE STATES
+//################################
+//################################
+// Placeholder network to indicate the end of the actual sequence
+//################################	  
+//################################
+
+// jump location for the state that is currently active
+ENDS:	NOP 0;
+
+NETWORK
+TITLE = General Actions - After
+//--------------------------------
+// General Actions - After
+//--------------------------------
+	
+	{{- actions.render(lib, emtype.General_Actions.After) -}}
+
+	
+NETWORK
+TITLE = Copy all Process Values to the UDT
+//--------------------------------
+// 
+//--------------------------------
+
+{% for io_name, io in lib.select_interface_io(emtype.Outputs) %}
+
+	{% if io.Type == 'Bool' or  io.Type == 'BOOL' or io.Type == 'bool' %}
+	A 	{{io_name}};
+	=	SP_PV.{{io_name}};
+	{% else %}
+	L	{{io_name}};
+	T	SP_PV.{{io_name}};
+	{% endif %}
+
+{%- endfor %}
+
+
+NETWORK
+TITLE = Clean up request
+//--------------------------------
+// Phases don't clean up their requests on the EM side
+// So at the end of the EM reset the request
+// If the phase is still there then it will write the request again by the next scan
+//--------------------------------
+	
+	L 	0;
+	T 	request;
+	
+END_FUNCTION_BLOCK
+{% endmacro %}

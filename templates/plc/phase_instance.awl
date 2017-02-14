@@ -1,0 +1,52 @@
+
+{% macro render(lib, phase_id, phase) %}
+
+// ___{{ phase_id }}
+
+// Phase Instance DB
+// DB{{ phase.DB }} = {{ phase_id }}
+// FB{{ phase.FB }} = {{ phase.Type }}
+DATA_BLOCK DB{{ phase.DB }} FB{{ phase.FB }}
+BEGIN
+END_DATA_BLOCK
+
+
+
+{#- create the FC #}
+
+FUNCTION "{{ phase_id }}_FC" : VOID
+TITLE ={{ phase_id }}_FC
+// {{ phase_id }}_FC
+{{ lib.comment_all_lines(phase.Comment) }}
+AUTHOR : 
+FAMILY : 'phseinst'
+NAME : namehead
+VERSION : 0.1
+
+BEGIN
+
+{#- call the phase #}
+NETWORK
+TITLE = Main
+//--------------------------------
+// Call the phase
+//--------------------------------
+
+CALL {{ phase.Type }}, DB {{ phase.DB }}
+{#- loop over all the inputs and outputs #}
+{%- for link in lib.remove_EM_ios(lib.concat(phase.Links.Inputs, phase.Links.Outputs)) %}
+	{%- if loop.length == 1 %}
+	({{ link.connection_left }} := {{ lib.s7_quote_link(link.connection_right) | safe }})
+	{%- elseif loop.first == true %}
+	({{ link.connection_left }} := {{ lib.s7_quote_link(link.connection_right) | safe }},
+	{%- elseif loop.last == true %}
+	{{ link.connection_left }} := {{ lib.s7_quote_link(link.connection_right) | safe }})
+	{%- else %}
+	{{ link.connection_left }} := {{ lib.s7_quote_link(link.connection_right) | safe }},
+	{%- endif %}
+{%- endfor %};
+
+
+	
+END_FUNCTION
+{% endmacro %}

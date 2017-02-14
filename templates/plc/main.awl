@@ -1,0 +1,225 @@
+{%- import "phase_type.awl" as phase_type %}
+{%- import "phase_instance.awl" as phase_instance %}
+{%- import "em_type.awl" as em_type %}
+{%- import "cm_instance.awl" as cm_instance %}
+{%- import "em_instance.awl" as em_instance %}
+{%- import "unit.awl" as unit_instance %}
+{%- import "main_program.awl" as main_program %}
+
+{{- lib.set_controller_name ('PLC1') }}
+{{ lib.reset_counter('UDT') }}
+
+// <SPLIT>index.awl</SPLIT>
+
+//#########################################
+//                INDEX
+// navigation: double click, Ctrl-f, Enter
+//#########################################
+
+//-----------------------------------------
+// Phase Types
+//-----------------------------------------
+{%- for ptype_id, ptype in model.Phases.Types %}
+//	____{{ ptype_id }}
+{%- endfor %}
+
+//-----------------------------------------
+// EM Types
+//-----------------------------------------
+{%- for emtype_id, emtype in model.Equipment_Modules.Types %}
+//	____{{ emtype_id }}
+{%- endfor %}
+
+//-----------------------------------------
+// CM Types
+//-----------------------------------------
+// ____AIN_400
+// ____CVALVE_400
+// ____Filter_400
+// ____FS_PS_400
+// ____MOTOR_400
+// ____PID_AIN_400
+// ____PID_AIN_CV_400
+// ____PID_AINVFD400
+// ____RFID_400
+// ____VFD_400
+// ____Weight_400
+// ____ZS_400
+// ____DIN_400
+
+//-----------------------------------------
+// Units
+//-----------------------------------------
+{%- for unit_id, unit in model.Units.Instances %}
+//	___{{ unit_id }}
+{%- endfor %}
+
+//-----------------------------------------
+// Phase Instances
+//-----------------------------------------
+{%- for phase_id, phase in model.Phases.Instances %}
+//	___{{ phase_id }}
+{%- endfor %}
+
+//-----------------------------------------
+// EM Instances
+//-----------------------------------------
+{%- for emtype_id, emtype in model.Equipment_Modules.Instances %}
+//	___{{ emtype_id }}
+{%- endfor %}
+
+
+//-----------------------------------------
+// CM Instances
+//-----------------------------------------
+{%- for instance_id, instance in model.Control_Modules.Instances %}
+	{#- only render the CM's that are used #}
+	{%- if instance.used == true %}
+//	___{{ instance_id }}
+	{%- endif %}
+{%- endfor %}
+
+//-----------------------------------------
+// Other
+//-----------------------------------------
+// ___EM_INDEX
+// ___com_EM (Dynamic Communication block on EM side)
+// ___com_PH (Dynamic Communication block on Phase side)
+// ___em_read
+// ___em_write
+
+//-----------------------------------------
+// Main Program
+//-----------------------------------------
+// ___OB1
+// ___Main_Program
+// ___Units
+// ___Phases
+// ___Equipment_Modules
+// ___Control_Modules
+// ___stepinterval
+
+//#########################################
+//              END INDEX
+//#########################################
+
+// <SPLIT>AIN_400.awl</SPLIT>
+// ____AIN_400
+{% include "control_modules/AIN_400.SCL" %}
+// <SPLIT>CVALVE_400.awl</SPLIT>
+// ____CVALVE_400
+{% include "control_modules/CVALVE_400.SCL" %}
+// <SPLIT>Filter_400.awl</SPLIT>
+// ____Filter_400
+
+// <SPLIT>FS_PS_400.awl</SPLIT>
+// ____FS_PS_400
+
+// <SPLIT>MOTOR_400.awl</SPLIT>
+// ____MOTOR_400
+{% include "control_modules/MOTOR_400.SCL" %}
+// <SPLIT>PID_AIN_400.awl</SPLIT>
+// ____PID_AIN_400
+{% include "control_modules/PID_AIN_400.SCL" %}
+// <SPLIT>PID_AIN_CV_400.awl</SPLIT>
+// ____PID_AIN_CV_400
+
+// <SPLIT>PID_AINVFD400.awl</SPLIT>
+// ____PID_AINVFD400
+
+// <SPLIT>RFID_400.awl</SPLIT>
+// ____RFID_400
+{% include "control_modules/RFID_400.AWL" %}
+// <SPLIT>VFD_400.awl</SPLIT>
+// ____VFD_400
+{% include "control_modules/VFD_400.SCL" %}
+// <SPLIT>ZS_400.awl</SPLIT>
+// ____ZS_400
+{% include "control_modules/ZS_400.SCL" %}
+// <SPLIT>VALVE_400.awl</SPLIT>
+// ____VALVE_400
+{% include "control_modules/VALVE_400.SCL" %}
+// <SPLIT>DIN_400.awl</SPLIT>
+// ____DIN_400
+{% include "control_modules/DIN_400.SCL" %}
+
+// <SPLIT>EM_INDEX.awl</SPLIT>
+// ___EM_INDEX
+{% include "em_index.awl" %}
+
+// <SPLIT>com_EM.awl</SPLIT>
+// ___com_EM
+{% include "com_EM.awl" %}
+
+// <SPLIT>com_PH.awl</SPLIT>
+// ___com_PH
+{% include "com_PH.awl" %}
+
+// <SPLIT>stepinterval.awl</SPLIT>
+// ___stepinterval
+{% include "stepinterval.awl" %}
+
+// <SPLIT>em_read.awl</SPLIT>
+// ___em_read
+{% include "em_read.awl" %}
+
+// <SPLIT>em_write.awl</SPLIT>
+// ___em_write
+{% include "em_write.awl" %}
+
+// <SPLIT>weight_calc.awl</SPLIT>
+// ___weight_calc
+{% include "weight_calc.awl" %}
+
+
+{# EM Types (before phase types because the interface FB's are needed in the phases #}
+{% for emtype_id, emtype in model.Equipment_Modules.Types %}
+// <SPLIT>EM_TYPE_{{emtype_id}}.awl</SPLIT>
+	{{ em_type.render(lib, emtype_id, emtype) }}
+{% endfor %}
+
+{# Phase Types #}
+{% for ptype_id, ptype in model.Phases.Types %}
+// <SPLIT>PHASE_TYPE_{{ptype_id}}.awl</SPLIT>
+	{{ phase_type.render(lib, ptype_id, ptype) }}
+{% endfor %}
+
+
+
+{#- Unit Instances #}
+{% for unit_id, unit in model.Units.Instances %}
+// <SPLIT>UNIT_INSTANCE_{{unit_id}}.awl</SPLIT>
+	{{ unit_instance.render(lib, unit_id, unit) }}
+{% endfor %}
+
+{#- CM Instances #}
+{% for instance_id, instance in model.Control_Modules.Instances %}
+	{#- only render the CM's that are used #}
+	{%- if instance.used == true %}
+// <SPLIT>CM_INSTANCE_{{instance_id}}.awl</SPLIT>
+		{{ cm_instance.render(lib, instance_id, instance) }}
+	{%- endif %}
+{% endfor %}
+
+{#- EM Instances #}
+{% for emtype_id, emtype in model.Equipment_Modules.Instances %}
+// <SPLIT>EM_INSTANCE_{{emtype_id}}.awl</SPLIT>
+	{{ em_instance.render(lib, emtype_id, emtype) }}
+{% endfor %}
+
+{#- Phase Instances #}
+{% for phase_id, phase in model.Phases.Instances %}
+// <SPLIT>PHASE_INSTANCE_{{phase_id}}.awl</SPLIT>
+	{{ phase_instance.render(lib, phase_id, phase) }}
+{% endfor %}
+
+
+
+{#- Main Program #}
+// <SPLIT>main_program.awl</SPLIT>
+{{ main_program.render(lib, model) }}
+
+
+
+
+

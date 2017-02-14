@@ -1,0 +1,45 @@
+
+{% macro render(lib, unit_id, unit) %}
+
+// ___{{ unit_id }}
+
+// EM DB
+// {{ em_id}}
+// {{ unit.DB }} = {{ unit_id }}
+DATA_BLOCK "{{ unit_id }}"
+
+STRUCT
+
+	Product_ID { S7_m_c := 'true' }: DINT ;	// ID of the product currently in the unit
+	
+END_STRUCT
+
+BEGIN
+END_DATA_BLOCK
+
+
+{#- create the FC #}
+
+FUNCTION "{{ unit_id }}_FC" : VOID
+TITLE ={{ unit_id }}_FC
+// {{ unit_id }}_FC
+{{ lib.comment_all_lines(unit.Comment) }}
+AUTHOR : 
+FAMILY : 'unit'
+NAME : namehead
+VERSION : 0.1
+
+BEGIN
+
+NETWORK
+TITLE = Main
+//--------------------------------
+// 
+//--------------------------------
+
+
+
+
+	
+END_FUNCTION
+{% endmacro %}

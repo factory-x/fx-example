@@ -1,0 +1,1268 @@
+{% import "actions.awl" as actions %}
+
+{% macro render(lib, ptype_id, ptype) %}
+
+{{ lib.log('rendering phase type ' + ptype_id) }}
+
+{#- create label counters: reset also creates them if not existing -#}
+{{ lib.reset_counter('steplabel') }}
+{{ lib.reset_counter('transition_label') }}
+{{ lib.reset_counter('timer_label') }}
+{{ lib.reset_counter('shc') }}
+{{ lib.reset_counter('error_label') }}
+
+// ____{{ ptype_id }}
+FUNCTION_BLOCK "{{ ptype_id }}"
+TITLE ={{ ptype_id }}
+// {{ ptype_id }}
+{{ lib.comment_all_lines(ptype.Comment) }}
+AUTHOR : 
+FAMILY : 'phasetyp'
+NAME : namehead
+VERSION : 0.1
+
+VAR_INPUT
+	scantime { S7_sampletime := 'true' }: REAL ; // the scantime of this phase, used to increase timers
+      
+{#- add all the auto-generated inputs -#}
+{% for input_name, input in ptype.Inputs %}
+	{%- if input.Master_Type != 'EM' %}
+	{{ input_name }} {%- if input.Parameter_Type != 'Batch' %}{ S7_m_c := 'true' }{%- endif %}: {{ input.Type }};		// {{input.Comment | safe}}{% if input.Comment_io != undefined %} - {{ input.Comment_io }}{% endif %}
+	{%- endif %}
+{%- endfor %}
+
+END_VAR
+
+VAR_OUTPUT
+  
+	phase_id: INT;	// unique number for every phase instance over the whole project	
+	state{ S7_m_c := 'true' }: INT;
+      stepnumber { S7_m_c := 'true' }: INT;		// actual stepnumber
+	message { S7_m_c := 'true' }: DINT;			// number of the message to be displayed     
+	button_1_text { S7_m_c := 'true' }: DINT;		// number of the text to be displayed on the button_1_text
+	button_2_text { S7_m_c := 'true' }: DINT;		// number of the text to be displayed on the button_1_text   
+	button_3_text { S7_m_c := 'true' }: DINT;		// number of the text to be displayed on the button_1_text
+	button_1_visible { S7_m_c := 'true' }: BOOL;	// 1 = visible      
+	button_2_visible { S7_m_c := 'true' }: BOOL;	// 1 = visible
+	button_3_visible { S7_m_c := 'true' }: BOOL;	// 1 = visible
+      button_reverse: Byte;                           //spare
+	
+	state_idle: BOOL;
+	state_running: BOOL;
+	state_complete: BOOL;
+	state_pausing: BOOL;
+	state_paused: BOOL;
+	state_holding: BOOL;
+	state_held: BOOL;
+	state_restarting: BOOL;
+	state_stopping: BOOL;
+	state_stopped: BOOL;
+	state_aborting: BOOL;
+	state_aborted: BOOL;
+    
+	enable_start{ S7_m_c := 'true' }: BOOL;		// 1 start command from hmi or other operator interface
+	enable_stop{ S7_m_c := 'true' }: BOOL;			// 2 stop command from hmi or other operator interface
+	enable_hold{ S7_m_c := 'true' }: BOOL;			// 3 hold command from hmi or other operator interface
+	enable_restart{ S7_m_c := 'true' }: BOOL;		// 4 restart command from hmi or other operator interface
+	enable_abort{ S7_m_c := 'true' }: BOOL;			// 5 abort command from hmi or other operator interface
+	enable_reset{ S7_m_c := 'true' }: BOOL;			// 6 reset command from hmi or other operator interface
+	enable_pause{ S7_m_c := 'true' }: BOOL;			// 7 pause command from hmi or other operator interface
+	enable_resume{ S7_m_c := 'true' }: BOOL;		// 8 resume command from hmi or other operator interface
+	enable_auto{ S7_m_c := 'true' }: BOOL;			// 1 auto command from plc program 
+ 	enable_man{ S7_m_c := 'true' }: BOOL;			// 1 auto command from plc program      
+	enable_byte: Byte;
+      auto: BOOL;
+      
+	steptime_s: REAL;		// complete steptime in seconds. same value as the other steptimes
+	steptime_m: REAL;		// complete steptime in minutes. same value as the other steptimes
+	steptime_h: REAL;		// complete steptime in hours. same value as the other steptimes 
+      
+	
+{#	Module_Error: BOOL;		// Error on one of the connected modules (CM or EM) -#}
+{#	CM_Error_no: DINT;		// Error no of the CM in error -#}
+{#	EM_Error_no: DINT;		// Error no of the EM in error-#}
+      MSG_no01{ S7_m_c := 'true' }: DINT;   
+      MSG_no03{ S7_m_c := 'true' }: DINT;      
+	MSG_no04{ S7_m_c := 'true' }: DINT;
+      MSG_no05{ S7_m_c := 'true' }: DINT;
+      MSG_no06{ S7_m_c := 'true' }: DINT;
+      MSG_no07{ S7_m_c := 'true' }: DINT;
+      MSG_no08{ S7_m_c := 'true' }: DINT;
+      MSG_no09{ S7_m_c := 'true' }: DINT;
+      MSG_no10{ S7_m_c := 'true' }: DINT;
+	{# add all the auto-generated outputs -#}
+{% for output_name, output in ptype.Outputs %}
+	{%- if output.Master_Type != 'EM' %}
+	{{ output_name }}: {{ output.Type }};		// {{output.Comment | safe}}{% if output.Comment_io != undefined %} - {{ output.Comment_io }}{% endif %}
+	{%- endif %}
+{%- endfor %}
+
+
+END_VAR
+
+VAR_IN_OUT
+  	plc_commands: DWORD; // combined commands from the master    
+	hmi_commands { S7_m_c := 'true'; S7_visible := 'false' }: DWORD; // combined commands from the HMI
+	
+	{# add all the auto-generated In_Outs -#}
+{% for in_out_name, in_out in ptype.In_Outs %}
+	{{ in_out_name }}{ S7_m_c := 'true' }: {{ in_out.Type }};		// {{in_out.Comment | safe}}{% if in_out.Comment_io != undefined %} - {{ in_out.Comment_io }}{% endif %}
+{%- endfor %}
+
+  
+END_VAR
+
+VAR
+	previous_stepnumber : INT;	// actual stepnumber
+      start_conditions: BOOL;		// start conditions 1 = all good
+	hold_conditions: BOOL;		// hold conditions 1 = all good
+      first_scan: BOOL;		// first scan of the step active
+	last_scan: BOOL;		// last scan of the step active
+           
+  	start_cond_01: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_02: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_03: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_04: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_05: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_06: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_07: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_08: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_09: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_10: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_11: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_12: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_13: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_14: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_15: BOOL;			// 1 = OK / 0 = NOK
+	start_cond_16: BOOL;			// 1 = OK / 0 = NOK
+	
+	hold_cond_01: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_02: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_03: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_04: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_05: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_06: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_07: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_08: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_09: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_10: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_11: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_12: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_13: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_14: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_15: BOOL;			// 1 = OK / 0 = NOK
+	hold_cond_16: BOOL;			// 1 = OK / 0 = NOK
+         
+	in_steprange: BOOL;			// detection of steprange for holdcondition
+      
+    	Module_Error: BOOL;		// Error on one of the connected modules (CM or EM) 
+	CM_Error_no: DINT;		// Error no of the CM in error 
+	EM_Error_no: DINT;		// Error no of the EM in error
+{% for stat_name, stat in ptype.Internals %}
+	{{ stat_name }}: {{ stat.Type }};		// {{stat.Comment}}{% if stat.Comment_io != undefined %} - {{ stat.Comment_io }}{% endif %}
+{%- endfor %}
+
+	{# add the UDTs for the linked EMs -#}
+{%- for LM_name, LM in ptype.Linked_Modules %}
+	{%- if LM.Master_Type == 'EM' %}
+	{{ LM_name }}: {{ LM.Type + '_UDT' }};		
+	{%- endif %}
+{%- endfor %}
+	
+END_VAR
+
+VAR_TEMP
+  	plc_start: BOOL;			// 1 start command from plc program
+	plc_stop: BOOL;				// 2 stop command from plc program
+	plc_hold: BOOL;				// 3 hold command from plc program
+	plc_restart: BOOL;			// 4 restart command from plc program
+	plc_abort: BOOL;			// 5 abort command from plc program
+	plc_reset: BOOL;			// 6 reset command from plc program
+	plc_pause: BOOL;			// 7 pause command from plc program
+	plc_resume: BOOL;			// 8 resume command from plc program
+	plc_auto: BOOL;				// 0 manual,1 auto command from plc program
+	plc_man: BOOL;				// 0 manual,1 auto command from plc program 
+      plc_cmd: byte;
+      
+  	hmi_start: BOOL;			// 1 start command from hmi or other operator interface
+	hmi_stop: BOOL;				// 2 stop command from hmi or other operator interface
+	hmi_hold: BOOL;				// 3 hold command from hmi or other operator interface
+	hmi_restart: BOOL;			// 4 restart command from hmi or other operator interface
+	hmi_abort: BOOL;			// 5 abort command from hmi or other operator interface
+	hmi_reset: BOOL;			// 6 reset command from hmi or other operator interface
+	hmi_pause: BOOL;			// 7 pause command from hmi or other operator interface
+	hmi_resume: BOOL;			// 8 resume command from hmi or other operator interface
+	hmi_auto: BOOL;				// 1 auto command from plc program
+	hmi_man: BOOL;				// 0 manual command from plc program
+      hmi_cmd: byte;  
+      hmi_BTN1: BOOL;    
+      hmi_BTN2: BOOL;  
+      hmi_BTN3: BOOL;        
+      
+	command_start: BOOL;			// 1 start command from plc or hmi
+	command_stop: BOOL;				// 2 stop command from plc or hmi
+	command_hold: BOOL;				// 3 hold command from plc or hmi
+	command_restart: BOOL;			// 4 restart command from plc or hmi
+	command_abort: BOOL;			// 5 abort command from plc or hmi
+	command_reset: BOOL;			// 6 reset command from plc or hmi
+	command_pause: BOOL;			// 7 pause command from plc or hmi
+	command_resume: BOOL;			// 8 resume command from plc or hmi
+	command_auto: BOOL;				// 1 auto command from plc or hmi
+      command_man: BOOL;				// 0 auto command from plc or hmi
+      command_cmd: byte;  	
+  
+	
+	button_1_pushed: BOOL;		// button pushed
+	button_2_pushed: BOOL;		// button pushed
+	button_3_pushed: BOOL;		// button pushed
+	
+	sh_cond_01: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_02: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_03: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_04: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_05: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_06: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_07: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_08: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_09: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_10: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_11: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_12: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_13: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_14: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_15: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+	sh_cond_16: BOOL;			// 1 = OK / 0 = NOK: intermediate value
+		
+	initial_scan: BOOL;			// pulse active on the first cycle of a new scan
+      Temp_stepnumber: INT;		// actual stepnumber     
+{# add all the auto-generated temps -#}
+{# start with the calculation values -#}
+{% for i in range(1, ptype.var_counter.value + 1) %}
+	V{{i}}: REAL;					// intermediate value for calculation
+{%- endfor %}
+{%- for i in range(1, ptype.bool_counter.value + 1) %}
+	B{{i}}: BOOL;					// intermediate value for calculation
+{%- endfor %}
+END_VAR
+
+BEGIN
+
+NETWORK
+TITLE = INDEX
+//--------------------------------
+{#- loop over all the steps #}
+{%- for sequence in ['Sequence_Idle', 'Sequence_Running', 'Sequence_Completed', 'Sequence_Holding', 'Sequence_Aborting'] %}
+	{#- loop over all the sequences #}
+	{%- for step_number, step_object in ptype[sequence].Steps %}
+//___{{ptype.Type_Name}}_Step_{{step_number}}_  
+	{%- endfor %}
+{%- endfor %}
+//--------------------------------
+
+NETWORK
+TITLE = Phase ID
+//--------------------------------
+// Make the Phase ID based on its DB number
+//--------------------------------
+
+	L	DINO;   
+	T	phase_id;
+
+NETWORK
+TITLE = Read EMs
+//--------------------------------
+//
+//--------------------------------
+
+{%- for LM_name, LM in ptype.Linked_Modules %}
+	{%- if LM.Master_Type == 'EM' %}
+	
+	CALL FC20 (
+	   EM_ID                    := {{ LM_name }}_ID,
+	   UDT_LOCATION             := #{{ LM_name }},
+	   UDT_OFFSET               := 40,
+	   Length                   := 40,
+	   EM_addressing_error      := M      0.0,
+	   RETVAL                   := MW     0);
+	{%- endif %}
+{%- endfor %}
+
+	
+	   
+
+NETWORK
+TITLE = HMI Commands
+//--------------------------------
+// Get the commands from the HMI that have been received in the last cycle
+// They come in a DWORD to save tags
+// They need to be transferred to BOOLS for easy use
+// Once transferred then clear the DWORD so new commands can be detected in the next cycle
+//--------------------------------
+
+
+// Load the command from the HMI in AR1
+      LAR1  P##hmi_commands; //Command from WinCC
+
+// copy all commands to the bools
+	  
+      A     DIX [AR1,P#3.0]; 	// WinCC tag bit 0
+	  = hmi_start;
+	  
+	  A     DIX [AR1,P#3.1]; 	// WinCC tag bit 1
+	  = hmi_stop;
+
+      A     DIX [AR1,P#3.2]; 	// WinCC tag bit 2
+	  = hmi_hold;
+	  
+	  A     DIX [AR1,P#3.3]; 	// WinCC tag bit 3
+	  = hmi_restart;  
+	  
+      A     DIX [AR1,P#3.4]; 	// WinCC tag bit 4
+	  = hmi_abort;
+	  
+	  A     DIX [AR1,P#3.5]; 	// WinCC tag bit 5
+	  = hmi_reset;
+
+      A     DIX [AR1,P#3.6]; 	// WinCC tag bit 6
+	  = hmi_pause;
+	  
+	  A     DIX [AR1,P#3.7]; 	// WinCC tag bit 7
+	  = hmi_resume;		  
+	  
+	  A     DIX [AR1,P#2.0]; 	// WinCC tag bit 8
+	  = hmi_auto;  
+	  
+      A     DIX [AR1,P#2.1]; 	// WinCC tag bit 9
+	  = hmi_man;
+	  
+	  A     DIX [AR1,P#2.2]; 	// WinCC tag bit 10
+	  = hmi_BTN1;
+
+      A     DIX [AR1,P#2.3]; 	// WinCC tag bit 11
+	  = hmi_BTN2;
+	  
+	  A     DIX [AR1,P#2.4]; 	// WinCC tag bit 12
+	  = hmi_BTN3;	
+	 
+ 
+NETWORK
+TITLE = plc Commands
+//--------------------------------
+// Get the commands from the HMI that have been received in the last cycle
+// They come in a DWORD to save tags
+// They need to be transferred to BOOLS for easy use
+// Once transferred then clear the DWORD so new commands can be detected in the next cycle 
+ // plc_commands       
+        
+      LAR1  P##plc_commands; //Command from program
+
+// copy all commands to the bools
+	  
+      A     DIX [AR1,P#3.0]; 	// WinCC tag bit 0
+	  = plc_start;
+	  
+	  A     DIX [AR1,P#3.1]; 	// WinCC tag bit 1
+	  = plc_stop;
+
+      A     DIX [AR1,P#3.2]; 	// WinCC tag bit 2
+	  = plc_hold;
+	  
+	  A     DIX [AR1,P#3.3]; 	// WinCC tag bit 3
+	  = plc_restart;  
+	  
+      A     DIX [AR1,P#3.4]; 	// WinCC tag bit 4
+	  = plc_abort;
+	  
+	  A     DIX [AR1,P#3.5]; 	// WinCC tag bit 5
+	  = plc_reset;
+
+      A     DIX [AR1,P#3.6]; 	// WinCC tag bit 6
+	  = plc_pause;
+	  
+	  A     DIX [AR1,P#3.7]; 	// WinCC tag bit 7
+	  = plc_resume;		  
+	  
+	  A     DIX [AR1,P#2.0]; 	// WinCC tag bit 8
+	  = plc_auto;  
+	  
+      A     DIX [AR1,P#2.1]; 	// WinCC tag bit 9
+	  = plc_man;
+	  
+	  //A     DIX [AR1,P#2.2]; 	// WinCC tag bit 10
+	  //= plc_BTN1;
+
+      //A     DIX [AR1,P#2.3]; 	// WinCC tag bit 11
+	  //= plc_start;
+	  
+	  //A     DIX [AR1,P#2.4]; 	// WinCC tag bit 12
+	  //= plc_start;	
+
+        
+// reset operator command		  
+      L     DW#16#F000; 
+      T     #hmi_commands; 		   
+      T     #plc_commands; 		  
+NETWORK
+TITLE = Combined Commands
+//--------------------------------
+// Combine the commands from the HMI and PLC in one command
+// (OR-function)
+//--------------------------------
+
+	O	plc_start;
+	O	hmi_start;
+	=	command_start;
+	
+	O	plc_stop;
+	O	hmi_stop;
+	=	command_stop;
+	
+	O	plc_hold;
+	O	hmi_hold;
+	=	command_hold;
+	
+	O	plc_restart;
+	O	hmi_restart;
+	=	command_restart;
+	
+	O	plc_abort;
+	O	hmi_abort;
+	=	command_abort;
+	
+	O	plc_reset;
+	O	hmi_reset;
+	=	command_reset;
+	
+	O	plc_pause;
+	O	hmi_pause;
+	=	command_pause;
+	
+	O	plc_resume;
+	O	hmi_resume;
+	=	command_resume;
+	
+	O	plc_auto;
+	O	hmi_auto;
+	=	command_auto;
+      
+      O	plc_man;
+	O	hmi_man;
+	=	command_man;
+	
+      A command_auto;
+      S auto;
+      
+      A command_man;
+      R auto;    
+
+      CLR;
+      = enable_man;      
+      = enable_auto;        
+      
+      A auto;
+      = enable_man;
+      
+      AN auto;
+      = enable_auto;      
+      
+
+      A hmi_BTN1;
+      = button_1_pushed;
+      
+      A hmi_BTN2;
+      = button_2_pushed;
+      
+      A hmi_BTN3;
+      = button_3_pushed;
+NETWORK
+TITLE = Steptimers
+//--------------------------------
+// If the previous stepnumber is not the same as the current one
+// then reset the timers, else increase them
+// This is at the start of the FB because normal stepchanges will take
+// till the next cycle to become active
+//--------------------------------
+
+// check if stepnumber == previous_stepnumber
+	L 	stepnumber;
+	L	previous_stepnumber;
+	==I	;		// if condition true then {
+	JCN TIM1;
+	
+	// increase timer
+	L	scantime;
+	L	steptime_s;
+	+R;
+	T	steptime_s;
+	
+	JU TIM2	;	// } else {
+TIM1: NOP 0	;	
+
+	// reset timer
+	L	0.0;
+	T	steptime_s	;
+
+TIM2: NOP 0	;	// end if
+
+// calculate the other two timers
+	L 	steptime_s;
+	L 	60.0;
+	/R;
+	T   steptime_m;
+	
+	L	60.0;
+	/R;
+	T	steptime_h;
+
+NETWORK
+TITLE = Other Timers
+//--------------------------------
+// If timers are needed that cannot be solved with the steptime.
+// Timers need to start with the name 'timer'
+// They are paused by default
+// They can be unpaused
+// They can be reset by writing the value to 0 in the action
+// Every timer is available in s, m and h
+//--------------------------------
+
+	{#- add all the auto-generated timers -#}
+{% for timer_name in ptype.Timers %}
+
+//--------------------------------
+// {{ timer_name }}
+// 
+//--------------------------------
+
+	AN {{timer_name}}_pause;		// if not paused ...
+	JCN TI{{ lib.increase_counter('timer_label') }};
+	
+	L 	scantime;			// increase the timer
+	L	{{timer_name}}_s;
+	+R;
+	T 	{{timer_name}}_s;
+	
+TI{{ lib.get_counter('timer_label') }}: NOP 0	;				// end if
+	
+// calculate the other two timers
+	L 	{{timer_name}}_s;
+	L 	60.0;
+	/R;
+	T   {{timer_name}}_m;
+	
+	L	60.0;
+	/R;
+	T	{{timer_name}}_h;
+{%- endfor %}
+
+
+	
+NETWORK
+TITLE = detect initial scan
+//--------------------------------
+// create a pulse active on the first cycle of a new scan
+// this signal can be used in the step to execute some actions in the first cycle of the step
+//
+//--------------------------------
+
+	L 	stepnumber;
+	L	previous_stepnumber;
+	<>I;
+	=	initial_scan;
+	
+
+NETWORK
+TITLE = Save old step
+//--------------------------------
+// Save old step
+//--------------------------------
+
+	L 	stepnumber;
+	T	previous_stepnumber;
+
+NETWORK
+TITLE = Change States
+//--------------------------------
+// Change States
+//--------------------------------
+// This phase template is design to let the stepnumber be the single
+// source of truth for the state of the phase.
+// All other indicators of state from this phase are deducted from the
+// stepnumber.
+// And the state can only be changed by changing the stepnumber 
+//
+// For every state we both create a bit, and an integer value
+// Both have the same meaning and can be chosen for usage based
+// on what is most convenient
+//--------------------------------
+
+//--------------------------------
+// Stop Command
+//--------------------------------
+	
+	A	enable_stop;
+	A	command_stop;	// stop command
+
+	JCN	CM02;
+	
+	L	0	;		// config: target step for this command (-1 if not used)
+	T	stepnumber;
+	
+CM02: NOP 0;
+
+//--------------------------------
+// Hold Command
+//--------------------------------
+	
+	A   enable_hold;
+	A(;
+	O 	command_hold;	// hold command
+	ON	hold_conditions;	// hold condition active, configured outside this FB
+	);
+	JCN	CM03;
+	
+	L	8000		;	// config: target step for this command (-1 if not used)
+	T	stepnumber;
+	
+CM03: NOP 0;
+
+//--------------------------------
+// Abort Command
+//--------------------------------
+	
+	A	enable_abort;
+	A	command_abort;	// abort command
+	JCN	CM05;
+	
+	// Disabled in this config because we only want to allow abort when held
+	L	9000;			// config: target step for this command (-1 if not used)
+	T	stepnumber;
+	
+CM05: NOP 0;
+
+//--------------------------------
+// Pause Command
+//--------------------------------
+	
+	A	enable_pause;
+	A	command_pause;	// pause command
+	JCN	CM06;
+	
+	L	6000	;		// config: target step for this command (-1 if not used)
+	T	stepnumber;
+	
+CM06: NOP 0;
+
+	
+NETWORK
+TITLE = Phase States
+//--------------------------------
+// Update Phase States based on the stepnumber
+// 0 idle 
+// 1 running
+// 2 completed
+// 3 pausing
+// 4 paused
+// 5 holding
+// 6 held
+// 7 restarting
+// 8 stopping
+// 9 stopped
+// 10 aborting
+// 11 aborted
+//--------------------------------
+// See previous network for explanation
+//--------------------------------
+
+//--------------------------------
+// Disable all permissions for the commands
+// The individial permissions will be set again
+// in the next steps depending on the state
+//--------------------------------
+
+	CLR;
+	=	enable_start;
+	=	enable_stop;
+	=	enable_hold;
+	=	enable_restart;
+//	=	enable_abort;
+	=	enable_reset;
+	=	enable_pause;
+	=	enable_resume;
+
+//--------------------------------
+// 0 Idle state based on stepnumber
+//--------------------------------
+	L	0	;		// config: lowest step (-1 if state not used)
+	L	stepnumber;
+	>=I;
+	L	0;			// config: highest step (-1 if state not used)
+	<=I;      
+	=	state_idle;	// update state bit
+	JCN ST00;
+	
+	// update state as integer
+	L	0;
+	T	state;
+	
+	// enable commands
+	SET;
+	=	enable_start;
+	
+ST00: NOP 0;
+
+//--------------------------------
+// 1 Running state based on stepnumber
+//--------------------------------
+	L	1	;		// config: lowest step (-1 if state not used)
+	L	stepnumber;
+	<=I;
+	L	9999	;		// config: highest step (-1 if state not used)
+	<=I;
+	=	state_running;	// update state bit
+	JCN ST01;
+	
+	// update state as integer
+	L	1;
+	T	state;
+	
+	// enable commands
+	SET;
+	=	enable_stop;
+	=	enable_hold;
+//	=	enable_abort;
+	=   enable_pause;
+	
+ST01: NOP 0;
+
+//--------------------------------
+// 2 Completed state based on stepnumber
+//--------------------------------
+	L	700;			// config: lowest step (-1 if state not used)
+	L	stepnumber;
+	<=I;
+	L	1000	;		// config: highest step (-1 if state not used)
+	<=I;
+	=	state_complete;	// update state bit
+	JCN ST02;
+	
+	// update state as integer
+	L	2;
+	T	state;
+	
+	// enable commands
+	SET;
+	=	enable_reset;
+	
+ST02: NOP 0;
+
+//--------------------------------
+// 3 Pausing state based on stepnumber
+//--------------------------------
+	L	6000;			// config: lowest step (-1 if state not used)
+	L	stepnumber;
+	<=I;
+	L	6900	;		// config: highest step (-1 if state not used)
+	<I;
+	=	state_pausing;	// update state bit
+	JCN ST03;
+	
+	// update state as integer
+	L	3;
+	T	state;
+	
+	// enable commands
+	SET;
+	=	enable_stop;
+	=	enable_hold;
+//	=	enable_abort;
+	
+	
+ST03: NOP 0;
+
+//--------------------------------
+// 4 Paused state based on stepnumber
+//--------------------------------
+	L	6900;			// config: lowest step (-1 if state not used)
+	L	stepnumber;
+	<=I;
+	L	6999;			// config: highest step (-1 if state not used)
+	<=I;
+	=	state_paused;	// update state bit
+	JCN ST04;
+	
+	// update state as integer
+	L	4;
+	T	state;
+	
+	// enable commands
+	SET;
+	=	enable_stop;
+	=	enable_hold;
+//	=	enable_abort;
+	=	enable_resume;
+	
+ST04: NOP 0;
+
+//--------------------------------
+// 5 Holding state based on stepnumber
+//--------------------------------
+	L	8000	;		// config: lowest step (-1 if state not used)
+	L	stepnumber;
+	<=I;
+	L	8900	;		// config: highest step (-1 if state not used)
+	<I;
+	=	state_holding;	// update state bit
+	JCN ST05;
+	
+	// update state as integer
+	L	5;
+	T	state;
+	
+	// enable commands
+	SET;
+	=	enable_stop;
+//	=	enable_abort;
+	
+ST05: NOP 0;
+
+//--------------------------------
+// 6 Held state based on stepnumber
+//--------------------------------
+	L	8900	;		// config: lowest step (-1 if state not used)
+	L	stepnumber;
+	<=I;
+	L	8999	;		// config: highest step (-1 if state not used)
+	<=I;
+	=	state_held;	// update state bit
+	JCN ST06;
+	
+	// update state as integer
+	L	6;
+	T	state;
+	
+	// enable commands
+	SET;
+	=	enable_stop;
+	=	enable_restart;
+	=	enable_abort;
+	
+ST06: NOP 0;
+
+//--------------------------------
+// 7 Restarting state based on stepnumber
+//--------------------------------
+	L	5000	;		// config: lowest step (-1 if state not used)
+	L	stepnumber;
+	<=I;
+	L	5900	;		// config: highest step (-1 if state not used)
+	<=I;
+	=	state_restarting;	// update state bit
+	JCN ST07;
+	
+	// update state as integer
+	L	7;
+	T	state;
+	
+	// enable commands
+	SET;
+	=	enable_stop;
+	=	enable_hold;
+//	=	enable_abort;
+	
+ST07: NOP 0;
+
+//--------------------------------
+// 8 Stopping state based on stepnumber
+//--------------------------------
+	L	7000;			// config: lowest step (-1 if state not used)
+	L	stepnumber;
+	<=I;
+	L	7900;			// config: highest step (-1 if state not used)
+	<I;
+	=	state_stopping;	// update state bit
+	JCN ST08;
+	
+	// update state as integer
+	L	8;
+	T	state;
+	
+	// enable commands
+	SET;
+//	=	enable_abort;
+	
+ST08: NOP 0;
+
+//--------------------------------
+// 9 Stopped state based on stepnumber
+//--------------------------------
+	L	7900;			// config: lowest step (-1 if state not used)
+	L	stepnumber;
+	<=I;
+	L	7999	;		// config: highest step (-1 if state not used)
+	<=I;
+	=	state_stopped;	// update state bit
+	JCN ST09;
+	
+	// update state as integer
+	L	9;
+	T	state;
+	
+	// enable commands
+	SET;
+//	=	enable_abort;
+	=	enable_reset;
+	
+ST09: NOP 0;
+
+//--------------------------------
+// 10 Aborting state based on stepnumber
+//--------------------------------
+	L	9000	;		// config: lowest step (-1 if state not used)
+	L	stepnumber;
+	<=I;
+	L	9900	;		// config: highest step (-1 if state not used)
+	<I;
+	=	state_aborting;	// update state bit
+	JCN ST10;
+	
+	// update state as integer
+	L	10;
+	T	state;
+	
+ST10: NOP 0;
+
+//--------------------------------
+// 11 Aborted state based on stepnumber
+//--------------------------------
+	L	9900;			// config: lowest step (-1 if state not used)
+	L	stepnumber;
+	<=I;
+	L	9999	;		// config: highest step (-1 if state not used)
+	<=I;
+	=	state_aborted;	// update state bit
+	JCN ST11;
+	
+	// update state as integer
+	L	11;
+	T	state;
+	
+	// enable commands
+	SET;
+	=	enable_reset;
+	
+ST11: NOP 0;
+
+
+//--------------------------------
+// Disable start command anyway if the start_conditions are not ok
+//--------------------------------
+
+	AN	start_conditions;
+	R 	enable_start;
+
+NETWORK
+TITLE = Collect the errors from the connected Modules (CMs and EMs)
+//--------------------------------
+
+
+//--------------------------------
+
+	CLR;
+	{#- loop over all the inputs #}
+	{%- for input_name, input_object in ptype.Inputs %}
+		{%- if input_object.Error_Signal == true and input_object.Master_Type == 'EM' %}
+	O 	{{ input_object.Linked_Module }}.CM_error;	
+		{%- elseif input_object.Error_Signal == true %}
+	O	{{ input_name }};
+		{%- endif %}
+	{%- endfor %}
+	=	Module_Error;
+	
+NETWORK
+TITLE = Assign a message number to each error
+//--------------------------------
+// This code tries to assign an error message to each CM error
+// If multiple CMs have an error then it only stores one
+// This is the phase type so we don't know which CM/EM instance is connected
+// So the error only contains the general name of the CM/EM instance
+// If the actual name needs to be shown then it could be deducted
+// at a higher level using the CM/EM name and phase instance 
+//--------------------------------
+
+	CLR;
+	
+	// clear the error no
+	L	0; 
+	T 	CM_Error_no; 
+	T 	EM_Error_no; 
+	
+	{# loop over all the inputs #}
+	{%- for input_name, input_object in ptype.Inputs %}
+		{%- if input_object.Error_Signal == true and input_object.Master_Type == 'EM' %}
+		
+	A	{{ input_object.Linked_Module }}.CM_error;
+	JCN	E{{ lib.increase_counter('error_label') }};
+
+	L	{{ input_object.Linked_Module }}.CM_error_no;
+	T 	CM_Error_no;
+	
+	L	{{ lib.get_message_id('EM error: ' + input_name ) }}; // 'EM error: {{ input_name }}'
+	T 	EM_Error_no;
+	
+E{{ lib.get_counter('error_label') }}:	NOP 0;	
+		{%- elseif input_object.Error_Signal == true %}
+				
+	A	{{ input_name }};
+	JCN	E{{ lib.increase_counter('error_label') }};
+
+	L	{{ lib.get_message_id('CM error: ' + input_name ) }}; // 'CM error: {{ input_name }}'
+	T 	CM_Error_no;
+	
+E{{ lib.get_counter('error_label') }}:	NOP 0;	
+		{%- endif %}
+	{%- endfor %}
+
+NETWORK
+TITLE = Start and Hold Conditions
+//--------------------------------
+// 
+//--------------------------------
+
+	SET;
+	= start_conditions;
+	= hold_conditions; // true = safe condition
+
+	{%- for shc in ptype.Start_Hold_Cond %}
+
+//-----------------------------------	
+// {{ shc.Comment }}
+//-----------------------------------	
+		{#- first make calculations if the transition logic is too complex -#}
+		{%- for calc in shc.Conditions.condition_calc %}
+			
+// Calculation: {{calc.comment | safe}}
+{%- if calc.v1.data_type == 'BOOL' %}
+	X 	{{calc.v1.value}};
+	X 	{{calc.v2.value}};
+	{%- if calc.operation == '==' %}
+	NOT;
+	{%- endif %}
+	=	{{calc.result.value}};	// use of XOR to compare two bools
+{%- else %}
+	L 	{{calc.v1.value}};
+	{%- if (action.v1_conversion != undefined) %}
+	{{ lib.s7_get_conversion(action.v1_conversion) }}
+	{%- endif %}
+	L 	{{calc.v2.value}};
+	{%- if (action.v2_conversion != undefined) %}
+	{{ lib.s7_get_conversion(action.v2_conversion) }}
+	{%- endif %}
+	{{calc.operation | safe}}R;
+	{%- if calc.boolean %}
+	=	{{calc.result.value}};
+	{%- else %}
+	T 	{{calc.result.value}};
+	{%- endif %}
+{%- endif %}
+
+		{%- endfor %}
+		
+		{%- for logic in shc.Conditions.transition_logic %}
+	{{ lib.compact_logic(logic.logic, logic.invert) }}	{{logic.result.value}}; {% if logic.condition != undefined %}	// {{logic.condition | safe}}{% endif %}
+		{%- endfor %}
+	=	sh_cond_{{ lib.fill_before(lib.increase_counter('shc', 16), '0', 2) }};
+		
+// Start Condition
+		{%- if shc.Start_Condition %}
+	A	sh_cond_{{ lib.fill_before(lib.get_counter('shc'), '0', 2) }};
+		{%- else %}
+	SET;
+		{%- endif %}
+	=	start_cond_{{ lib.fill_before(lib.get_counter('shc'), '0', 2) }};
+	NOT;
+	R 	start_conditions;
+
+// Hold Condition
+		{%- if shc.Hold_Condition %}
+	// init in_steprange at false
+	CLR;
+	=	in_steprange;
+			{%- for range in shc.stepranges %}
+
+      L stepnumber;
+      T Temp_stepnumber;  
+      
+	CALL FC4 (
+		in_steprange := in_steprange,
+		stepnumber := Temp_stepnumber,
+		low:= {{ range.low }},
+		high:= {{ range.high}}
+	);
+			{%- endfor %}
+			
+	// now in_steprange shows if the stepnumber is in one of the ranges
+	A	in_steprange;
+	AN 	sh_cond_{{ lib.fill_before(lib.get_counter('shc'), '0', 2) }};
+	NOT;	// invert because previous logic is true if hold needs to happen
+		{%- else %}
+	SET;
+		{%- endif %}
+	=	hold_cond_{{ lib.fill_before(lib.get_counter('shc'), '0', 2) }};
+	R	hold_conditions;
+	
+	{%- endfor %}
+
+
+	
+NETWORK
+TITLE = START OF THE STEPS AND TRANSITIONS
+//################################
+//################################
+// Placeholder network to indicate the start of the actual sequence
+//################################	  
+//################################
+  
+{# loop over all the steps #}
+{%- for sequence in ['Sequence_Idle', 'Sequence_Running', 'Sequence_Completed', 'Sequence_Holding', 'Sequence_Aborting'] %}
+
+	{#- loop over all the sequences #}
+	{%- for step_number, step_object in ptype[sequence].Steps %}
+NETWORK
+TITLE = Step {{step_number}}
+//___{{ptype.Type_Name}}_Step_{{step_number}}_
+//================================
+{{ lib.comment_all_lines(step_object.Comment) | safe }} {# todo: create mini-FDS in each step comment as option #}
+//================================	  
+
+// skip this network if stepnumber not equal to {{step_number}}
+	L 	stepnumber;
+	L 	{{step_number}};
+	==I;
+	JCN J{{ lib.increase_counter('steplabel') }};
+{% if step_object.Actions_First_Scan != undefined %}		
+//---------------------------------
+// Actions (first scan)
+//---------------------------------
+	A	initial_scan; 
+	JCN   C{{ lib.get_counter('steplabel') }}; 
+		{{- actions.render(lib, step_object.Actions_First_Scan) }}
+	JU	D{{ lib.get_counter('steplabel') }};	//skip the continuous steps and transition during the initial scan
+C{{ lib.get_counter('steplabel') }}: NOP   0; 
+
+{% endif %}
+//---------------------------------
+// Actions (continuouss)
+//---------------------------------
+		{{- actions.render(lib, step_object.Actions) -}}
+
+		{# loop over all the transitions -#}
+		{% for target, transition in step_object.Transitions %}
+//---------------------------------
+// --- TRANSITION TO S{{target}} ---
+//---------------------------------
+			{#- first make calculations if the transition logic is too complex -#}
+			{%- for calc in transition.transition_calc %}
+			
+// Calculation: {{calc.comment | safe}}
+{%- if calc.v1.data_type == 'BOOL' %}
+	X 	{{calc.v1.value}};
+	X 	{{calc.v2.value}};
+	{%- if calc.operation == '==' %}
+	NOT;
+	{%- endif %}
+	=	{{calc.result.value}};	// use of XOR to compare two bools
+{%- else %}
+	L 	{{calc.v1.value}};
+	{%- if (calc.v1_conversion != undefined) %}
+	{{ lib.s7_get_conversion(calc.v1_conversion) }}
+	{%- endif %}
+	L 	{{calc.v2.value}};
+	{%- if (calc.v2_conversion != undefined) %}
+	{{ lib.s7_get_conversion(calc.v2_conversion) }}
+	{%- endif %}
+	{{ lib.build_s7_operation(calc) | safe }};
+	{%- if calc.boolean %}
+	=	{{calc.result.value}};
+	{%- else %}
+	T 	{{calc.result.value}};
+	{%- endif %}
+{%- endif %}
+		
+			{%- endfor %}
+
+// Transition Logic
+	SET;	// make sure RLO is high so the transition can happen when no conditions present
+			{# then loop over the transaction logic -#}
+			{%- for logic in transition.transition_logic %}
+	{{ lib.compact_logic(logic.logic, logic.invert) }}	{{logic.result.value}}; {% if logic.condition != undefined %}	// {{logic.condition | safe}}{% endif %}
+			{%- endfor -%}
+			{#- code for transferring to the next step #}
+	JCN L{{ lib.increase_counter('transition_label') }};
+	
+	L   {{ target }};
+	T   stepnumber;
+	
+L{{ lib.get_counter('transition_label') }}: NOP 0;
+		{% endfor %}
+{% if step_object.Actions_Last_Scan != undefined %}
+//---------------------------------
+// Actions (last scan)
+// This is immediately executed once the stepnumber changes
+//---------------------------------
+	L	stepnumber;
+	L	previous_stepnumber;
+	<>I;
+	JCN D{{ lib.get_counter('steplabel') }};
+		{{- actions.render(lib, step_object.Actions_Last_Scan) }}	
+{% endif %}
+D{{ lib.get_counter('steplabel') }}: NOP 0;	
+
+//---------------------------------
+// End of network: jump here if step not active
+// Jump to end of this FB if the step has been active to avoid
+// execution of another step in the same scan
+//---------------------------------		
+	JU	ENDS;
+J{{ lib.get_counter('steplabel') }}: NOP 0;
+
+//__{{ptype.Type_Name}}_Step_{{step_number}}_END
+	{% endfor %}
+
+{% endfor %}
+
+NETWORK
+TITLE = END OF THE STEPS AND TRANSITIONS
+//################################
+//################################
+// Placeholder network to indicate the end of the actual sequence
+//################################	  
+//################################
+
+// jump location for the step that is currently active
+ENDS:	NOP 0;
+
+
+NETWORK
+TITLE = Write EMs
+//--------------------------------
+//
+//--------------------------------
+
+{%- for LM_name, LM in ptype.Linked_Modules %}
+	{%- if LM.Master_Type == 'EM' %}
+	
+	CALL FC21 (
+	   EM_ID                    := {{ LM_name }}_ID,
+	   UDT_LOCATION             := #{{ LM_name }},
+	   UDT_OFFSET               := 40,
+	   Length                   := 40,
+	   Request					:={{ LM_name }}.Request,
+	   Owner					:={{ LM_name }}.Owner,
+	   EM_addressing_error      := M      0.0,
+	   RETVAL                   := MW     0);
+	{%- endif %}
+{%- endfor %}
+
+	
+END_FUNCTION_BLOCK
+{% endmacro %}

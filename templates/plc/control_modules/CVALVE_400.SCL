@@ -1,0 +1,521 @@
+FUNCTION_BLOCK CM_CVALVE_400
+TITLE =
+{ S7_m_c := 'true'; S7_blockview := 'big'; S7_tasklist := 'OB100' }
+AUTHOR : 
+FAMILY : ACT
+NAME : CVALVE
+VERSION : 0.0
+
+
+VAR_INPUT
+  LOCK { S7_dynamic := 'true' }: BOOL ;	//1=Interlocked; Default=0
+  LIOP_SEL { S7_dynamic := 'true' }: BOOL ;	//1=A/M mode by link only; Default=0
+  SAMPLE_T { S7_sampletime := 'true' }: REAL ;	//Sample time; Defined by OB during compiling
+  c_bNONC { S7_dynamic := 'true' }: BOOL ;	//1=Normal open valve; 0=Normal close valve; Default=0
+  c_bMON { S7_dynamic := 'true' }: BOOL  := TRUE;	//1=Enable feedback error monitoring; Default=0
+  c_fMONT { S7_dynamic := 'true' }: REAL  := 1.000000e+001;	//Feedback error monitoring time; Default=10s
+  c_fMONPosR { S7_dynamic := 'true' }: REAL  := 1.000000e+001;	//Position monitoring range; Default=10
+  c_bHasFBPos { S7_dynamic := 'true' }: BOOL ;	//1=Has position feedback; 0=No position feedback; Default=0
+  c_bFBPosW { S7_dynamic := 'true' }: BOOL  := TRUE;	//1=Position from AI channel; 0=Position from other block; Default=1 
+  i_wFBPos { S7_dynamic := 'true' }: WORD ;	//Position feedback from AI channel; Default=0
+  i_fFBPos { S7_dynamic := 'true' }: REAL ;	//Position feedback from other block; Default=0
+  c_fLockSP { S7_dynamic := 'true' }: REAL ;	//Valve Position setting value when locked; Default=0
+  i_fPCmdSP { S7_dynamic := 'true' }: REAL ;	//Valve Position setting value in AUTO mode; Default=0
+  MSG1_EVID { S7_visible := 'false'; S7_link := 'false'; S7_param := 'false'; S7_server := 'alarm_archiv'; S7_a_type := 'alarm_8p' }: DWORD ;	
+END_VAR
+VAR_OUTPUT
+  QdwState { S7_dynamic := 'true'; S7_m_c := 'true'; S7_visible := 'false' }: DWORD ;	//Valve status for icon and faceplate; Default=0
+  QERR { S7_dynamic := 'true' }: BOOL ;	//1=Valve feedback error or interlock error; Default=0
+  QMAN_AUT { S7_dynamic := 'true'; S7_m_c := 'true'; S7_archive := 'shortterm' }: BOOL ;	//1=Auto mode; 0=Manual mode; Default=0
+  q_bOPEN { S7_dynamic := 'true' }: BOOL ;	//1=Valve open; 0=Valve closed; Default=0
+  QLOCK { S7_dynamic := 'true' }: BOOL ;	//1=Interlock error active; Default=0
+  QMON { S7_dynamic := 'true' }: BOOL ;	//1=Valve feedback monitoring enable; Default=0
+  QMON_ERR { S7_dynamic := 'true' }: BOOL ;	//1=Valve feedback error; Default=0
+  QMON_T { S7_dynamic := 'true' }: REAL ;	//Current motor feedback monitoring time; Default=0
+  q_fSPPos { S7_dynamic := 'true'; S7_m_c := 'true'; S7_archive := 'shortterm'; S7_unit := 'unit' }: REAL ;	//Valve position setting point; Linked to other block and WinCC; Default=0
+  q_wSPPos { S7_dynamic := 'true' }: WORD ;	//Valve position setting point; Linked to AO channel; Default=0
+  q_fFBPos { S7_dynamic := 'true'; S7_m_c := 'true'; S7_unit := 'unit' }: REAL ;	//Valve position feedback; Link to program or WinCC; Default=0
+  q_bFBPosERR { S7_dynamic := 'true' }: BOOL ;	//1=Valve position feeedback signal loop error; Default=0
+  q_intAlarmIndex { S7_dynamic := 'true'; S7_m_c := 'true'; S7_visible := 'false' }: INT ;	//Alarm Index for WinCC icon display; Default=0
+  MSG1_bDone { S7_visible := 'false' }: BOOL ;	//A8P
+  MSG1_bError { S7_visible := 'false' }: BOOL ;	//A8P
+  MSG1_wState { S7_visible := 'false' }: WORD ;	//A8P
+  MSG1_wAck { S7_visible := 'false' }: WORD ;	//A8P
+END_VAR
+VAR_IN_OUT
+  OP_dwCmd { S7_dynamic := 'true'; S7_m_c := 'true'; S7_visible := 'false' }: DWORD ;	//Control command from faceplate; Default=0
+  i_bPCmdAUT { S7_dynamic := 'true' }: BOOL ;	//1=Switch to AUTO mode; Default=0
+  i_bPCmdMAN { S7_dynamic := 'true' }: BOOL ;	//1=Switch to MAN mode; Default=0
+  i_bRESET { S7_dynamic := 'true' }: BOOL ;	//1=Reset error; Default=0
+  i_fOCmdSP { S7_dynamic := 'true'; S7_m_c := 'true'; S7_visible := 'false' }: REAL ;	//Valve Position setting value in MAN mode; Default=0
+END_VAR
+VAR
+  OPdwCmdHMI : DWORD ;	//Operator Commands in HMI format
+  OPdwCmdPLC : DWORD ;	//Operator Commands in PLC format
+  QdwStatePLC : DWORD ;	//State word in PLC format
+  A8P : SFB 35;	
+  STRUCT_TS : STRUCT 	
+   wFormat : WORD ;	//time format
+   aDT : ARRAY  [1 .. 8 ] OF //array date and time
+   DATE_AND_TIME ;	//array date and time
+  END_STRUCT ;	
+  OP_RESET : BOOL ;	
+END_VAR
+VAR_TEMP
+  TOP_SI : STRUCT 	
+   EV_CLASS : BYTE ;	
+   EV_NUM : BYTE ;	
+   PRIORITY : BYTE ;	
+   NUM : BYTE ;	
+   TYP2_3 : BYTE ;	
+   TYP1 : BYTE ;	
+   ZI1 : WORD ;	
+   ZI2_3 : DWORD ;	
+  END_STRUCT ;	
+  START_UP_SI : STRUCT 	
+   EV_CLASS : BYTE ;	
+   EV_NUM : BYTE ;	
+   PRIORITY : BYTE ;	
+   NUM : BYTE ;	
+   TYP2_3 : BYTE ;	
+   TYP1 : BYTE ;	
+   ZI1 : WORD ;	
+   ZI2_3 : DWORD ;	
+  END_STRUCT ;	
+  iRet : INT ;	
+END_VAR
+BEGIN
+NETWORK
+TITLE =SCL network
+//compiled by SCL compiler version:  SCLCOMP K05.03.07.00_01.02.00.01 release
+      SET   ; 
+      SAVE  ; 
+      =     L     26.1; 
+      L     W#16#0; 
+      T     LW    28; 
+      L     DW#16#87000000; 
+      T     LD    30; 
+      L     W#16#0; 
+      T     LW    34; 
+      L     DW#16#87000060; 
+      T     LD    36; 
+      TAR2  LD    40; 
+      CALL    SFC    6( 
+            RET_VAL:= iRet,
+            TOP_SI:= #TOP_SI,
+            START_UP_SI:= #START_UP_SI);
+      LAR2  LD    40;
+      L     #iRet; 
+      L     #TOP_SI.NUM; 
+      L     B#16#64; 
+      ==I   ; 
+      JCN   A7d0; 
+      A     #c_bNONC; 
+      NOT   ; 
+      JCN   A7d1; 
+      L     0.000000e+000; 
+      T     #i_fOCmdSP; 
+      T     #i_fPCmdSP; 
+      JU    A7d2; 
+A7d1: L     1.000000e+002; 
+      T     #i_fOCmdSP; 
+      T     #i_fPCmdSP; 
+A7d2: CLR   ; 
+      =     #i_bRESET; 
+      L     0; 
+      T     #iRet; 
+A7d0: L     #OP_dwCmd; 
+      T     #OPdwCmdHMI; 
+      L     DIB [AR2,P#79.0]; 
+      T     DIB [AR2,P#80.0]; 
+      L     DIB [AR2,P#78.0]; 
+      T     DIB [AR2,P#81.0]; 
+      L     DIB [AR2,P#77.0]; 
+      T     DIB [AR2,P#82.0]; 
+      L     DIB [AR2,P#76.0]; 
+      T     DIB [AR2,P#83.0]; 
+      CLR   ; 
+      A     #LIOP_SEL; 
+      NOT   ; 
+      A     DIX [AR2,P#82.0]; 
+      O     #i_bPCmdMAN; 
+      JCN   A7d3; 
+      CLR   ; 
+      =     #QMAN_AUT; 
+      JU    A7d5; 
+A7d3: CLR   ; 
+      A     #LIOP_SEL; 
+      NOT   ; 
+      A     DIX [AR2,P#82.1]; 
+      O     #i_bPCmdAUT; 
+      JCN   A7d5; 
+      SET   ; 
+      =     #QMAN_AUT; 
+A7d5: CLR   ; 
+      =     #i_bPCmdAUT; 
+      =     #i_bPCmdMAN; 
+      A     DIX [AR2,P#81.0]; 
+      JCN   A7d6; 
+      SET   ; 
+      =     #c_bMON; 
+      JU    A7d8; 
+A7d6: CLR   ; 
+      A     DIX [AR2,P#81.1]; 
+      JCN   A7d8; 
+      CLR   ; 
+      =     #c_bMON; 
+A7d8: CLR   ; 
+      A     #c_bMON; 
+      =     #QMON; 
+      A     #i_bRESET; 
+      O     DIX [AR2,P#83.0]; 
+      JCN   A7d9; 
+      SET   ; 
+      =     #OP_RESET; 
+      JU    A7da; 
+A7d9: CLR   ; 
+      =     #OP_RESET; 
+A7da: CLR   ; 
+      =     #i_bRESET; 
+      A     #LOCK; 
+      JCN   A7db; 
+      SET   ; 
+      =     #QLOCK; 
+A7db: CLR   ; 
+      A     #QLOCK; 
+      =     #QERR; 
+      A     #OP_RESET; 
+      JCN   A7dc; 
+      CLR   ; 
+      =     #QLOCK; 
+A7dc: L     #i_fOCmdSP; 
+      L     1.000000e+002; 
+      >R    ; 
+      JCN   A7dd; 
+      T     #i_fOCmdSP; 
+      JU    A7df; 
+A7dd: L     #i_fOCmdSP; 
+      L     0.000000e+000; 
+      <R    ; 
+      JCN   A7df; 
+      T     #i_fOCmdSP; 
+A7df: L     #i_fPCmdSP; 
+      L     1.000000e+002; 
+      >R    ; 
+      JCN   A7e0; 
+      T     #i_fPCmdSP; 
+      JU    A7e2; 
+A7e0: L     #i_fPCmdSP; 
+      L     0.000000e+000; 
+      <R    ; 
+      JCN   A7e2; 
+      T     #i_fPCmdSP; 
+A7e2: CLR   ; 
+      A     #QMAN_AUT; 
+      JCN   A7e3; 
+      L     #i_fPCmdSP; 
+      T     #q_fSPPos; 
+      L     #i_fPCmdSP; 
+      L     2.764800e+002; 
+      *R    ; 
+      RND   ; 
+      T     #q_wSPPos; 
+      JU    A7e4; 
+A7e3: L     #i_fOCmdSP; 
+      T     #i_fPCmdSP; 
+      L     #i_fOCmdSP; 
+      T     #q_fSPPos; 
+      L     #i_fOCmdSP; 
+      L     2.764800e+002; 
+      *R    ; 
+      RND   ; 
+      T     #q_wSPPos; 
+A7e4: CLR   ; 
+      A     #c_bNONC; 
+      NOT   ; 
+      JCN   A7e5; 
+      L     2.764800e+002; 
+      L     #q_fSPPos; 
+      *R    ; 
+      RND   ; 
+      T     #q_wSPPos; 
+      JU    A7e6; 
+A7e5: L     1.000000e+002; 
+      L     #q_fSPPos; 
+      -R    ; 
+      L     2.764800e+002; 
+      *R    ; 
+      RND   ; 
+      T     #q_wSPPos; 
+A7e6: CLR   ; 
+      A     #QERR; 
+      JCN   A7e7; 
+      L     #c_fLockSP; 
+      T     #i_fOCmdSP; 
+      L     #c_fLockSP; 
+      T     #i_fPCmdSP; 
+      L     #c_fLockSP; 
+      T     #q_fSPPos; 
+      A     #c_bNONC; 
+      NOT   ; 
+      JCN   A7e8; 
+      L     #q_fSPPos; 
+      L     2.764800e+002; 
+      *R    ; 
+      RND   ; 
+      T     #q_wSPPos; 
+      JU    A7e7; 
+A7e8: L     1.000000e+002; 
+      L     #q_fSPPos; 
+      -R    ; 
+      L     2.764800e+002; 
+      *R    ; 
+      RND   ; 
+      T     #q_wSPPos; 
+A7e7: L     #q_fSPPos; 
+      L     1.000000e+000; 
+      >=R   ; 
+      JCN   A7ea; 
+      SET   ; 
+      =     #q_bOPEN; 
+      JU    A7eb; 
+A7ea: CLR   ; 
+      =     #q_bOPEN; 
+A7eb: CLR   ; 
+      A     #c_bHasFBPos; 
+      JCN   A7ec; 
+      A     #c_bFBPosW; 
+      JCN   A7ed; 
+      L     #i_wFBPos; 
+      L     32511; 
+      >I    ; 
+      L     #i_wFBPos; 
+      L     32767; 
+      =     L     26.2; 
+      <=I   ; 
+      A     L     26.2; 
+      L     #i_wFBPos; 
+      L     -4864; 
+      =     L     26.2; 
+      <=I   ; 
+      L     #i_wFBPos; 
+      L     -32768; 
+      =     L     26.3; 
+      >=I   ; 
+      A     L     26.3; 
+      O     L     26.2; 
+      JCN   A7ee; 
+      SET   ; 
+      =     #q_bFBPosERR; 
+      JU    A7f1; 
+A7ee: CLR   ; 
+      =     #q_bFBPosERR; 
+      L     #i_wFBPos; 
+      AD    DW#16#FFFF; 
+      DTR   ; 
+      L     3.616898e-003; 
+      *R    ; 
+      T     #q_fFBPos; 
+      L     #i_wFBPos; 
+      L     -4864; 
+      >I    ; 
+      L     #i_wFBPos; 
+      L     0; 
+      =     L     26.2; 
+      <I    ; 
+      A     L     26.2; 
+      JCN   A7f0; 
+      L     0.000000e+000; 
+      T     #q_fFBPos; 
+A7f0: JU    A7f1; 
+A7ed: L     #i_fFBPos; 
+      T     #q_fFBPos; 
+      CLR   ; 
+      =     #q_bFBPosERR; 
+A7f1: L     #q_fFBPos; 
+      L     1.000000e+002; 
+      >R    ; 
+      JCN   A7f2; 
+      T     #q_fFBPos; 
+      JU    A7f3; 
+A7f2: L     #q_fFBPos; 
+      L     0.000000e+000; 
+      <R    ; 
+      JCN   A7f5; 
+      T     #q_fFBPos; 
+A7f3: JU    A7f5; 
+A7ec: L     0.000000e+000; 
+      T     #q_fFBPos; 
+      CLR   ; 
+      =     #q_bFBPosERR; 
+A7f5: CLR   ; 
+      A     #c_bHasFBPos; 
+      A     #QMON; 
+      JCN   A7f6; 
+      L     #q_fFBPos; 
+      L     #q_fSPPos; 
+      -R    ; 
+      ABS   ; 
+      L     #c_fMONPosR; 
+      >R    ; 
+      JCN   A7f7; 
+      L     #QMON_T; 
+      L     #SAMPLE_T; 
+      +R    ; 
+      T     #QMON_T; 
+      L     #QMON_T; 
+      L     #c_fMONT; 
+      >=R   ; 
+      TAK   ; 
+      L     1.000000e+009; 
+      =     L     26.2; 
+      >=R   ; 
+      O     L     26.2; 
+      JCN   A7f8; 
+      SET   ; 
+      =     #QMON_ERR; 
+A7f8: L     #QMON_T; 
+      L     1.000000e+009; 
+      >=R   ; 
+      JCN   A7f6; 
+      T     #QMON_T; 
+      JU    A7f6; 
+A7f7: L     0.000000e+000; 
+      T     #QMON_T; 
+      CLR   ; 
+      =     #QMON_ERR; 
+A7f6: CLR   ; 
+      A     #q_bOPEN; 
+      NOT   ; 
+      =     DIX [AR2,P#84.0]; 
+      CLR   ; 
+      =     DIX [AR2,P#84.1]; 
+      A     #q_bOPEN; 
+      =     DIX [AR2,P#84.2]; 
+      CLR   ; 
+      =     DIX [AR2,P#84.3]; 
+      =     DIX [AR2,P#84.4]; 
+      =     DIX [AR2,P#84.5]; 
+      =     DIX [AR2,P#84.6]; 
+      =     DIX [AR2,P#84.7]; 
+      A     #QMON; 
+      =     DIX [AR2,P#85.0]; 
+      A     #QMON_ERR; 
+      =     DIX [AR2,P#85.1]; 
+      CLR   ; 
+      =     DIX [AR2,P#85.2]; 
+      =     DIX [AR2,P#85.3]; 
+      =     DIX [AR2,P#85.4]; 
+      A     DIX [AR2,P#65.5]; 
+      NOT   ; 
+      O     #q_bFBPosERR; 
+      A     #c_bHasFBPos; 
+      =     DIX [AR2,P#85.5]; 
+      A     #c_bNONC; 
+      =     DIX [AR2,P#85.6]; 
+      A     #q_bFBPosERR; 
+      A     #c_bHasFBPos; 
+      =     DIX [AR2,P#85.7]; 
+      A     #QMAN_AUT; 
+      =     DIX [AR2,P#86.0]; 
+      CLR   ; 
+      =     DIX [AR2,P#86.1]; 
+      =     DIX [AR2,P#86.2]; 
+      A     #c_bHasFBPos; 
+      =     DIX [AR2,P#86.3]; 
+      A     #c_bHasFBPos; 
+      NOT   ; 
+      =     DIX [AR2,P#86.4]; 
+      CLR   ; 
+      =     DIX [AR2,P#86.5]; 
+      =     DIX [AR2,P#86.6]; 
+      =     DIX [AR2,P#86.7]; 
+      A     #QERR; 
+      =     DIX [AR2,P#87.0]; 
+      CLR   ; 
+      =     DIX [AR2,P#87.1]; 
+      A     #QLOCK; 
+      =     DIX [AR2,P#87.2]; 
+      A     #LOCK; 
+      =     DIX [AR2,P#87.3]; 
+      CLR   ; 
+      =     DIX [AR2,P#87.4]; 
+      =     DIX [AR2,P#87.5]; 
+      =     DIX [AR2,P#87.6]; 
+      A     #LIOP_SEL; 
+      =     DIX [AR2,P#87.7]; 
+      L     DIB [AR2,P#87.0]; 
+      T     DIB [AR2,P#36.0]; 
+      L     DIB [AR2,P#86.0]; 
+      T     DIB [AR2,P#37.0]; 
+      L     DIB [AR2,P#85.0]; 
+      T     DIB [AR2,P#38.0]; 
+      L     DIB [AR2,P#84.0]; 
+      T     DIB [AR2,P#39.0]; 
+      SET   ; 
+      =     #A8P.EN_R; 
+      A     #QMON_ERR; 
+      =     #A8P.SIG_1; 
+      CLR   ; 
+      =     #A8P.SIG_2; 
+      =     #A8P.SIG_3; 
+      =     #A8P.SIG_4; 
+      A     #QLOCK; 
+      =     #A8P.SIG_5; 
+      A     #q_bFBPosERR; 
+      =     #A8P.SIG_6; 
+      CLR   ; 
+      =     #A8P.SIG_7; 
+      =     #A8P.SIG_8; 
+      L     W#16#EEEE; 
+      T     #A8P.ID; 
+      L     #MSG1_EVID; 
+      T     #A8P.EV_ID; 
+      L     W#16#40; 
+      T     #A8P.SEVERITY; 
+      +AR2  P#88.0; 
+      UC    SFB   35; 
+      L		8104;	// todo Davy:test
+      SLD	3;
+      +AR2;
+      //+AR2  P#8104.0; 
+      A     #A8P.DONE; 
+      =     #MSG1_bDone; 
+      A     #A8P.ERROR; 
+      =     #MSG1_bError; 
+      L     #A8P.STATUS; 
+      T     #MSG1_wState; 
+      L     #A8P.ACK_STATE; 
+      T     #MSG1_wAck; 
+      L     0; 
+      T     #q_intAlarmIndex; 
+      A     DIX [AR2,P#65.0]; 
+      NOT   ; 
+      =     L     26.2; 
+      A     DIX [AR2,P#65.4]; 
+      NOT   ; 
+      O     L     26.2; 
+      =     L     26.2; 
+      A     DIX [AR2,P#65.5]; 
+      NOT   ; 
+      O     L     26.2; 
+      JCN   A7fb; 
+      L     1; 
+      T     #q_intAlarmIndex; 
+      JU    A7fd; 
+A7fb: CLR   ; 
+      A     #QMON_ERR; 
+      O     #QLOCK; 
+      O     DIX [AR2,P#85.5]; 
+      JCN   A7fd; 
+      L     2; 
+      T     #q_intAlarmIndex; 
+A7fd: L     DW#16#0; 
+      T     #OP_dwCmd; 
+      CLR   ; 
+      A     L     26.1; 
+      SAVE  ; 
+      BE    ; 
+END_FUNCTION_BLOCK
+
+(*$ALARM_SERVER <HEADERS STEP7_VERSION="262144" CODING="true"><LANGUAGE LCID="1031">German</LANGUAGE><STD_LANGUAGE>1031</STD_LANGUAGE><HEADER PARENT="RkIyMTA=" PARENT_SYM="Q01fQ1ZBTFZFXzQwMA=="><VERSION>Q1BVX1dJREVfQUxBUk1OUg==</VERSION><STRUCTTYPE>1</STRUCTTYPE><ATTR_STATE>0</ATTR_STATE><PRODUCER>1</PRODUCER><ALARM NAME="TVNHMV9FVklE"><ATTR_STATE>0</ATTR_STATE><ALARMNR>0</ALARMNR><ALARMTYPE>YWxhcm1fOHA=</ALARMTYPE><DISPLAYGROUP>0</DISPLAYGROUP><SUBCOUNT>8</SUBCOUNT><RANGE>0</RANGE><PROTOCOL>0</PROTOCOL><SUBALARM ID="1"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="2"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="3"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="4"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="5"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="6"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="7"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM><SUBALARM ID="8"><ALARM_CLASS>1</ALARM_CLASS><ALARM_ART>1</ALARM_ART><QUITGROUP>0</QUITGROUP><PRIORITY>1</PRIORITY><QUIT>1</QUIT><TRIGGER_ACTION>0</TRIGGER_ACTION><ATTR_STATE>0</ATTR_STATE></SUBALARM></ALARM></HEADER></HEADERS> *)

@@ -1,0 +1,23 @@
+{
+	"is_testconfig": true,
+	"model": {
+		"source": "./model/Model.json",
+		"model_A": "./output/model/debug_model_A.json",
+		"model_T": "./output/model/debug_model_T.json",
+		"model_F": "./output/model/debug_model_F.json"
+	},
+	"templates": {
+		"plc": {
+			"source": "./../fx-beresfield/templates/plc/main.awl",
+			"output": "./output/plc/PLC.awl",
+			"create_tags": "S7_AWL",
+			"output_tags": "./output/hmi/tags.json"
+		},
+		"plc_symbols": {
+			"source": "./../fx-beresfield/templates/plc/symbols.sdf",
+			"output": "./output/plc/symbols.sdf",
+			"symbols": true
+		}
+	},
+	"version": "0.20.0"
+}

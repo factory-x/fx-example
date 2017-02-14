@@ -1,0 +1,3319 @@
+{
+    "Project": {
+        "max_symbol_length": 24,
+        "format_preferences": {
+            "Phase_Calling_EM": "dot",
+            "Phase_Calling_CM": "suffix",
+            "EM_Calling_CM": "suffix"
+        },
+        "functions": {
+            "write_to_DB_DW": {
+                "DB_NO": "INT",
+                "Location": "INT",
+                "Value": "DWORD"
+            }
+        }
+    },
+    "Controllers": {
+        "PLC1": {
+            "start_auto_numbering_DB": 700,
+            "start_auto_numbering_FB": 700,
+            "start_auto_numbering_FC": 700,
+            "start_auto_numbering_UDT": 10
+        }
+    },
+    "Enumerations": {
+        "enum_units": {
+            "0": "none",
+            "1": "PF-I-01",
+            "2": "PF-I-02",
+            "4": "PF-I-04",
+            "5": "PF-I-05",
+            "6": "PF-I-06",
+            "7": "PF-I-07",
+            "8": "PF-I-08",
+            "9": "PF-I-09",
+            "11": "PF-I-11",
+            "16": "PF-I-16"
+        }
+    },
+    "Control_Modules": {
+        "Types": {
+            "Valve": {
+                "Block_Name": "BST_VALVE_400",
+                "FB": 630,
+                "Inputs": {
+                    "AUT_OP": {
+                        "Type": "BOOL",
+                        "Comment": "Auto command from program",
+                        "Suffix": "_CMD",
+                        "truewords": [
+                            "open",
+                            "move to open position"
+                        ],
+                        "falsewords": [
+                            "close"
+                        ]
+                    },
+                    "FB_OPEN": {
+                        "IO": "DI",
+                        "Comment": "Feedback Open"
+                    },
+                    "FB_CLOSE": {
+                        "IO": "DI",
+                        "Comment": "Feedback Close"
+                    }
+                },
+                "Outputs": {
+                    "QOPEN": {
+                        "Type": "BOOL",
+                        "Suffix": "_OPN",
+                        "truewords": [
+                            "opened",
+                            "open"
+                        ],
+                        "falsewords": [
+                            "not opened"
+                        ]
+                    },
+                    "QCLOSE": {
+                        "Type": "BOOL",
+                        "Suffix": "_CLS",
+                        "truewords": [
+                            "closed",
+                            "close"
+                        ],
+                        "falsewords": [
+                            "not closed"
+                        ]
+                    },
+                    "QMON_ERR": {
+                        "Type": "BOOL",
+                        "Suffix": "_MERR",
+                        "Error_Signal": true
+                    },
+                    "QCMD_OP": {
+                        "IO": "DO",
+                        "Comment": "Valve Command, open or close depending on Normal Open or Normal Close"
+                    }
+                }
+            },
+            "Motor": {
+                "Block_Name": "BST_MOTOR_400",
+                "FB": 680,
+                "Inputs": {
+                    "AUTO_ON": {
+                        "Type": "Bool",
+                        "Suffix": "_ON",
+                        "Comment": "Switch Motor ON",
+                        "truewords": [
+                            "start",
+                            "run"
+                        ],
+                        "falsewords": [
+                            "stop"
+                        ]
+                    },
+                    "L_AUT": {
+                        "Type": "Bool",
+                        "Suffix": "_AUT",
+                        "Comment": "Swtich Motor to AUTO",
+                        "truewords": [
+                            "aut",
+                            "auto",
+                            "auto mode"
+                        ],
+                        "falsewords": [
+                            "man",
+                            "manual",
+                            "manual mode"
+                        ]
+                    },
+                    "FB_ON": {
+                        "IO": "DI",
+                        "Comment": "Motor running"
+                    },
+                    "ERR_EXTERN": {
+                        "IO": "DI",
+                        "Comment": "Motor Error"
+                    }
+                },
+                "Outputs": {
+                    "QRUN": {
+                        "Type": "Bool",
+                        "Suffix": "_RUN",
+                        "truewords": [
+                            "started",
+                            "running",
+                            "start",
+                            "run"
+                        ],
+                        "falsewords": [
+                            "not running"
+                        ]
+                    },
+                    "QSTOP": {
+                        "Type": "Bool",
+                        "Suffix": "_STOP",
+                        "truewords": [
+                            "stopped",
+                            "stop"
+                        ],
+                        "falsewords": [
+                            "not stopped"
+                        ]
+                    },
+                    "QCMD_ON": {
+                        "IO": "DO",
+                        "Comment": "Motor Command"
+                    },
+                    "QMON_ERR": {
+                        "Type": "BOOL",
+                        "Suffix": "_MERR",
+                        "Error_Signal": true
+                    },
+                    "QMPS": {
+                        "Type": "BOOL",
+                        "Suffix": "_MPS",
+                        "Comment": "Motor Protecting Switch",
+                        "Error_Signal": true
+                    },
+                    "QERR": {
+                        "IO": "DO",
+                        "Comment": "Motor error, feedback error or interlock"
+                    }
+                }
+            },
+            "Motor_VFD": {
+                "Block_Name": "BST_SINAG120_400",
+                "FB": 680,
+                "Inputs": {
+                    "L_ON": {
+                        "Type": "Bool",
+                        "Suffix": "_ON",
+                        "Comment": "Switch Motor ON",
+                        "truewords": [
+                            "start",
+                            "run"
+                        ],
+                        "falsewords": [
+                            "stop"
+                        ]
+                    },
+                    "L_AUT": {
+                        "Type": "Bool",
+                        "Suffix": "_AUT",
+                        "Comment": "Swtich Motor to AUTO",
+                        "truewords": [
+                            "aut",
+                            "auto",
+                            "auto mode"
+                        ],
+                        "falsewords": [
+                            "man",
+                            "manual",
+                            "manual mode"
+                        ]
+                    }
+                },
+                "Outputs": {
+                    "QNOFF2": {
+                        "Type": "Bool",
+                        "Suffix": "_RUN",
+                        "truewords": [
+                            "started",
+                            "running",
+                            "start",
+                            "run"
+                        ],
+                        "falsewords": [
+                            "not running"
+                        ]
+                    },
+                    "QERR": {
+                        "Type": "BOOL",
+                        "Suffix": "_QERR",
+                        "Comment": "General Error",
+                        "Error_Signal": true
+                    },
+                    "QERR_EXT": {
+                        "Type": "BOOL",
+                        "Suffix": "_EERR",
+                        "Comment": "External Error",
+                        "Error_Signal": true
+                    }
+                }
+            },
+            "AI": {
+                "Block_Name": "BST_ANALOG_400",
+                "FB": 640,
+                "Outputs": {
+                    "QfVal": {
+                        "Type": "Real",
+                        "Suffix": "_PV",
+                        "Primary": true
+                    },
+                    "LIM_Qb01": {
+                        "Type": "Bool",
+                        "Suffix": "_AHH"
+                    },
+                    "LIM_Qb02": {
+                        "Type": "Bool",
+                        "Suffix": "_AH"
+                    },
+                    "LIM_Qb03": {
+                        "Type": "Bool",
+                        "Suffix": "_AL"
+                    },
+                    "LIM_Qb04": {
+                        "Type": "Bool",
+                        "Suffix": "_ALL"
+                    },
+                    "QERR": {
+                        "Type": "BOOL",
+                        "Suffix": "_ERR",
+                        "Error_Signal": true
+                    }
+                },
+                "Inputs": {
+                    "wVal": {
+                        "IO": "AI",
+                        "Comment": "Measurement Value"
+                    }
+                }
+            },
+            "DI": {
+                "Block_Name": "BST_DIGITAL_400",
+                "FB": 650,
+                "Outputs": {
+                    "QON": {
+                        "Type": "Bool",
+                        "Suffix": "_PV",
+                        "Comment": "Digital Measurement",
+                        "Primary": true
+                    }
+                },
+                "Inputs": {
+                    "i_bInp": {
+                        "IO": "DI",
+                        "Comment": "Digital input signal"
+                    }
+                }
+            },
+            "PID": {
+                "Block_Name": "BST_PIDAIN_400",
+                "FB": 670,
+                "Additional_Type_Blocks": {
+                    "_test": "DB",
+                    "_test_FB": "FB",
+                    "_test_FC": "FC"
+                },
+                "Additional_Instance_Blocks": {
+                    "_SP": "DB",
+                    "_test_FB": "FB",
+                    "_test_FC": "FC"
+                },
+                "Inputs": {
+                    "L_REMOTE": {
+                        "Type": "Bool",
+                        "Suffix": "_SET_EXT",
+                        "Comment": "Switch to External Mode",
+                        "truewords": [
+                            "switch to external",
+                            "set external mode",
+                            "external mode",
+                            "external"
+                        ],
+                        "falsewords": [
+                            "switch to internal",
+                            "set internal mode",
+                            "internal mode",
+                            "internal"
+                        ]
+                    },
+                    "HMI_SP_INT": {
+                        "Type": "Real",
+                        "Suffix": "_SP",
+                        "Block_Suffix": "_SP",
+                        "Comment": "Operator Setpoint in Internal Mode",
+                        "changewords": [
+                            "switch to internal",
+                            "set internal mode",
+                            "internal mode",
+                            "internal",
+                            "switch to auto",
+                            "set auto",
+                            "auto"
+                        ],
+                        "change_command": "Set_SP"
+                    },
+                    "L_AUT": {
+                        "Type": "Bool",
+                        "Suffix": "_SET_AUT",
+                        "Comment": "Switch to Auto Mode",
+                        "pulsewords": [
+                            "switch to auto",
+                            "set auto",
+                            "auto"
+                        ],
+                        "falsewords": [
+                            "switch to manual",
+                            "set manual",
+                            "manual"
+                        ]
+                    },
+                    "HMI_MAN": {
+                        "Type": "Real",
+                        "Suffix": "_VAL_OUT",
+                        "Block_Suffix": "_SP",
+                        "Comment": "Operator Output Value",
+                        "changewords": [
+                            "switch to manual",
+                            "set manual",
+                            "manual"
+                        ],
+                        "change_command": "Set_Output"
+                    },
+                    "PV": {
+                        "IO": "AI",
+                        "Comment": "Measured Value"
+                    },
+                    "Set_SP": {
+                        "Type": "Bool",
+                        "Suffix": "_SET_SP",
+                        "Block_Suffix": "_SP",
+                        "pulsewords": [
+                            "write setpoint"
+                        ]
+                    },
+                    "Set_Output": {
+                        "Type": "Bool",
+                        "Suffix": "_SET_OUT",
+                        "Block_Suffix": "_SP",
+                        "pulsewords": [
+                            "write output"
+                        ]
+                    }
+                },
+                "Outputs": {
+                    "PV": {
+                        "Type": "REAL",
+                        "Suffix": "_PV",
+                        "Primary": true
+                    },
+                    "QERR": {
+                        "Type": "BOOL",
+                        "Suffix": "_ERR",
+                        "Error_Signal": true
+                    },
+                    "LMN": {
+                        "IO": "AO",
+                        "Comment": "Control Value"
+                    }
+                }
+            }
+        },
+        "Instances": {
+            "XV001": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I0.0",
+                    "i_b_FBC": "I10.0",
+                    "q_bCmd": "Q0.0"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing1",
+                "Comment": "Some Valve  on drawing 1",
+                "Controller": "PLC1"
+            },
+            "XV002": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I0.1",
+                    "i_b_FBC": "I10.1",
+                    "q_bCmd": "Q0.1"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing2",
+                "Comment": "Some Valve  on drawing 2",
+                "Controller": "PLC1"
+            },
+            "XV003": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I0.2",
+                    "i_b_FBC": "I10.2",
+                    "q_bCmd": "Q0.2"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing3",
+                "Comment": "Some Valve  on drawing 3",
+                "Controller": "PLC1"
+            },
+            "XV004": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I0.3",
+                    "i_b_FBC": "I10.3",
+                    "q_bCmd": "Q0.3"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing4",
+                "Comment": "Some Valve  on drawing 4",
+                "Controller": "PLC1"
+            },
+            "XV005": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I0.4",
+                    "i_b_FBC": "I10.4",
+                    "q_bCmd": "Q0.4"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing5",
+                "Comment": "Some Valve  on drawing 5",
+                "Controller": "PLC1"
+            },
+            "XV006": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I0.5",
+                    "i_b_FBC": "I10.5",
+                    "q_bCmd": "Q0.5"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing6",
+                "Comment": "Some Valve  on drawing 6",
+                "Controller": "PLC1"
+            },
+            "XV007": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I0.6",
+                    "i_b_FBC": "I10.6",
+                    "q_bCmd": "Q0.6"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing7",
+                "Comment": "Some Valve  on drawing 7",
+                "Controller": "PLC1"
+            },
+            "XV008": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I0.7",
+                    "i_b_FBC": "I10.7",
+                    "q_bCmd": "Q0.7"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing8",
+                "Comment": "Some Valve  on drawing 8",
+                "Controller": "PLC1"
+            },
+            "XV009": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I1.0",
+                    "i_b_FBC": "I11.0",
+                    "q_bCmd": "Q1.0"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing9",
+                "Comment": "Some Valve  on drawing 9",
+                "Controller": "PLC1"
+            },
+            "XV010": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I1.1",
+                    "i_b_FBC": "I11.1",
+                    "q_bCmd": "Q1.1"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing10",
+                "Comment": "Some Valve  on drawing 10",
+                "Controller": "PLC1"
+            },
+            "XV011": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I1.2",
+                    "i_b_FBC": "I11.2",
+                    "q_bCmd": "Q1.2"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing11",
+                "Comment": "Some Valve  on drawing 11",
+                "Controller": "PLC1"
+            },
+            "XV012": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I1.3",
+                    "i_b_FBC": "I11.3",
+                    "q_bCmd": "Q1.3"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing12",
+                "Comment": "Some Valve  on drawing 12",
+                "Controller": "PLC1"
+            },
+            "XV013": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I1.4",
+                    "i_b_FBC": "I11.4",
+                    "q_bCmd": "Q1.4"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing13",
+                "Comment": "Some Valve  on drawing 13",
+                "Controller": "PLC1"
+            },
+            "XV014": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I1.5",
+                    "i_b_FBC": "I11.5",
+                    "q_bCmd": "Q1.5"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing14",
+                "Comment": "Some Valve  on drawing 14",
+                "Controller": "PLC1"
+            },
+            "XV300": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I1.6",
+                    "i_b_FBC": "I11.6",
+                    "q_bCmd": "Q1.6"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing15",
+                "Comment": "Some Valve  on drawing 15",
+                "Controller": "PLC1"
+            },
+            "XV400": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I1.7",
+                    "i_b_FBC": "I11.7",
+                    "q_bCmd": "Q1.7"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing16",
+                "Comment": "Some Valve  on drawing 16",
+                "Controller": "PLC1"
+            },
+            "XV500": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I2.0",
+                    "i_b_FBC": "I12.0",
+                    "q_bCmd": "Q2.0"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing17",
+                "Comment": "Some Valve  on drawing 17",
+                "Controller": "PLC1"
+            },
+            "XV301": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I2.1",
+                    "i_b_FBC": "I12.1",
+                    "q_bCmd": "Q2.1"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing18",
+                "Comment": "Some Valve  on drawing 18",
+                "Controller": "PLC1"
+            },
+            "XV302": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I2.2",
+                    "i_b_FBC": "I12.2",
+                    "q_bCmd": "Q2.2"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing19",
+                "Comment": "Some Valve  on drawing 19",
+                "Controller": "PLC1"
+            },
+            "XV501": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I2.3",
+                    "i_b_FBC": "I12.3",
+                    "q_bCmd": "Q2.3"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing20",
+                "Comment": "Some Valve  on drawing 20",
+                "Controller": "PLC1"
+            },
+            "XV401": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBO": "I2.4",
+                    "i_b_FBC": "I12.4",
+                    "q_bCmd": "Q2.4"
+                },
+                "Type": "Valve",
+                "PnID": "Drawing21",
+                "Comment": "Some Valve  on drawing 21",
+                "Controller": "PLC1"
+            },
+            "MV001": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Valve",
+                "PnID": null,
+                "Comment": null,
+                "Controller": "PLC1"
+            },
+            "MV002": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Valve",
+                "PnID": null,
+                "Comment": null,
+                "Controller": "PLC1"
+            },
+            "MV003": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Valve",
+                "PnID": null,
+                "Comment": null,
+                "Controller": "PLC1"
+            },
+            "MV004": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Valve",
+                "PnID": null,
+                "Comment": null,
+                "Controller": "PLC1"
+            },
+            "MV005": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Valve",
+                "PnID": null,
+                "Comment": null,
+                "Controller": "PLC1"
+            },
+            "MV006": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Valve",
+                "PnID": null,
+                "Comment": null,
+                "Controller": "PLC1"
+            },
+            "MV007": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Valve",
+                "PnID": null,
+                "Comment": null,
+                "Controller": "PLC1"
+            },
+            "M001": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBON": "i30.0",
+                    "i_bREMOT": "i31.0",
+                    "i_bMPS": "i32.0",
+                    "i_bEnable": "i33.0",
+                    "i_bRepair": "i34.0"
+                },
+                "Type": "Motor",
+                "Controller": "PLC1"
+            },
+            "M002": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBON": "i30.1",
+                    "i_bREMOT": "i31.1",
+                    "i_bMPS": "i32.1",
+                    "i_bEnable": "i33.1",
+                    "i_bRepair": "i34.1"
+                },
+                "Type": "Motor",
+                "Controller": "PLC1"
+            },
+            "M003": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBON": "i30.2",
+                    "i_bREMOT": "i31.2",
+                    "i_bMPS": "i32.2",
+                    "i_bEnable": "i33.2",
+                    "i_bRepair": "i34.2"
+                },
+                "Type": "Motor",
+                "Controller": "PLC1"
+            },
+            "M004": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBON": "i30.3",
+                    "i_bREMOT": "i31.3",
+                    "i_bMPS": "i32.3",
+                    "i_bEnable": "i33.3",
+                    "i_bRepair": "i34.3"
+                },
+                "Type": "Motor",
+                "Controller": "PLC1"
+            },
+            "M005": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBON": "i30.4",
+                    "i_bREMOT": "i31.4",
+                    "i_bMPS": "i32.4",
+                    "i_bEnable": "i33.4",
+                    "i_bRepair": "i34.4"
+                },
+                "Type": "Motor",
+                "Controller": "PLC1"
+            },
+            "M006": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBON": "i30.5",
+                    "i_bREMOT": "i31.5",
+                    "i_bMPS": "i32.5",
+                    "i_bEnable": "i33.5",
+                    "i_bRepair": "i34.5"
+                },
+                "Type": "Motor",
+                "Controller": "PLC1"
+            },
+            "M007": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBON": "i30.6",
+                    "i_bREMOT": "i31.6",
+                    "i_bMPS": "i32.6",
+                    "i_bEnable": "i33.6",
+                    "i_bRepair": "i34.6"
+                },
+                "Type": "Motor",
+                "Controller": "PLC1"
+            },
+            "P100": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBON": "i35.0",
+                    "i_bREMOT": "i36.0",
+                    "i_bMPS": "i37.0",
+                    "i_bEnable": "i38.0",
+                    "i_bRepair": "i39.0"
+                },
+                "Type": "Motor",
+                "Controller": "PLC1"
+            },
+            "P200": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBON": "i35.1",
+                    "i_bREMOT": "i36.1",
+                    "i_bMPS": "i37.1",
+                    "i_bEnable": "i38.1",
+                    "i_bRepair": "i39.1"
+                },
+                "Type": "Motor",
+                "Controller": "PLC1"
+            },
+            "P101": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBON": "i35.2",
+                    "i_bREMOT": "i36.2",
+                    "i_bMPS": "i37.2",
+                    "i_bEnable": "i38.2",
+                    "i_bRepair": "i39.2"
+                },
+                "Type": "Motor",
+                "Controller": "PLC1"
+            },
+            "P201": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {
+                    "i_bFBON": "i35.3",
+                    "i_bREMOT": "i36.3",
+                    "i_bMPS": "i37.3",
+                    "i_bEnable": "i38.3",
+                    "i_bRepair": "i39.3"
+                },
+                "Type": "Motor",
+                "Controller": "PLC1"
+            },
+            "M100": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Motor_VFD",
+                "Controller": "PLC1"
+            },
+            "M101": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Motor_VFD",
+                "Controller": "PLC1"
+            },
+            "M102": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Motor_VFD",
+                "Controller": "PLC1"
+            },
+            "M103": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Motor_VFD",
+                "Controller": "PLC1"
+            },
+            "M104": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Motor_VFD",
+                "Controller": "PLC1"
+            },
+            "M105": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Motor_VFD",
+                "Controller": "PLC1"
+            },
+            "M106": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "Motor_VFD",
+                "Controller": "PLC1"
+            },
+            "LT001": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "AI",
+                "Controller": "PLC1"
+            },
+            "LT002": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "AI",
+                "Controller": "PLC1"
+            },
+            "LT003": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "AI",
+                "Controller": "PLC1"
+            },
+            "LT004": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "AI",
+                "Controller": "PLC1"
+            },
+            "LT005": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "AI",
+                "Controller": "PLC1"
+            },
+            "LT006": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "AI",
+                "Controller": "PLC1"
+            },
+            "LT007": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "AI",
+                "Controller": "PLC1"
+            },
+            "LT100": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "AI",
+                "Controller": "PLC1"
+            },
+            "LT200": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "AI",
+                "Controller": "PLC1"
+            },
+            "LT101": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "AI",
+                "Controller": "PLC1"
+            },
+            "LT201": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "AI",
+                "Controller": "PLC1"
+            },
+            "LS001": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "DI",
+                "Controller": "PLC1"
+            },
+            "LS002": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "DI",
+                "Controller": "PLC1"
+            },
+            "LS003": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "DI",
+                "Controller": "PLC1"
+            },
+            "LS004": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "DI",
+                "Controller": "PLC1"
+            },
+            "LS005": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "DI",
+                "Controller": "PLC1"
+            },
+            "LS006": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "DI",
+                "Controller": "PLC1"
+            },
+            "LIC001": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "PID",
+                "Controller": "PLC1"
+            },
+            "LIC002": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "PID",
+                "Controller": "PLC1"
+            },
+            "LIC003": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "PID",
+                "Controller": "PLC1"
+            },
+            "LIC004": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "PID",
+                "Controller": "PLC1"
+            },
+            "LIC005": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "PID",
+                "Controller": "PLC1"
+            },
+            "LIC006": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "PID",
+                "Controller": "PLC1"
+            },
+            "FIC001": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "PID",
+                "Controller": "PLC1"
+            },
+            "FIC100": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "PID",
+                "Controller": "PLC1"
+            },
+            "FIC101": {
+                "Inputs": {},
+                "Outputs": {},
+                "Properties": {},
+                "Type": "PID",
+                "Controller": "PLC1"
+            }
+        }
+    },
+    "Equipment_Modules": {
+        "Config": {
+            "Template_IO": {
+                "errors": [],
+                "warnings": [],
+                "Inputs": {
+                    "sampletime": {
+                        "Data_Type": "REAL"
+                    }
+                },
+                "Outputs": {
+                    "steptime_s": {
+                        "Data_Type": "REAL"
+                    },
+                    "steptime_m": {
+                        "Data_Type": "REAL"
+                    },
+                    "steptime_h": {
+                        "Data_Type": "REAL"
+                    },
+                    "first_scan": {
+                        "Data_Type": "BOOL"
+                    },
+                    "last_scan": {
+                        "Data_Type": "BOOL"
+                    },
+                    "error_index_db": {
+                        "Data_Type": "BOOL"
+                    }
+                },
+                "InOuts": {},
+                "Stats": {
+                    "previous_Command": {
+                        "Data_Type": "INT"
+                    },
+                    "initial_scan": {
+                        "Data_Type": "BOOL"
+                    },
+                    "T_dbnum": {
+                        "Data_Type": "INT"
+                    },
+                    "T_address": {
+                        "Data_Type": "INT"
+                    },
+                    "T_length": {
+                        "Data_Type": "INT"
+                    }
+                },
+                "Temps": {}
+            }
+        },
+        "Types": {
+            "EM_I_OUT": {
+                "errors": [],
+                "warnings": [],
+                "Linked_Modules": {
+                    "Pump": {
+                        "Type": "Motor_VFD"
+                    },
+                    "FS01": {
+                        "Type": "DI",
+                        "Comment": "Flow Switch"
+                    },
+                    "PIC01": {
+                        "Type": "PID",
+                        "Comment": "Pressure Controller"
+                    },
+                    "LT01": {
+                        "Type": "AI",
+                        "Comment": "Level Transmitter (m)"
+                    },
+                    "XV_Bottom": {
+                        "Type": "Valve",
+                        "Comment": "Automatic Bottom Valve"
+                    },
+                    "BV_Bottom": {
+                        "Type": "Valve",
+                        "Comment": "Manual Bottom Valve"
+                    },
+                    "BV_Tran_M04": {
+                        "Type": "Valve",
+                        "Comment": "Trnasfer Valve to M04"
+                    }
+                },
+                "Inputs": {
+                    "em_id": {
+                        "Type": "Int",
+                        "Unit": ""
+                    },
+                    "Request": {
+                        "Type": "Int",
+                        "Unit": "",
+                        "Suffix": "_REQ"
+                    },
+                    "Command": {
+                        "Type": "Int",
+                        "Unit": "",
+                        "Suffix": "_CMD",
+                        "Primary": true
+                    },
+                    "Pressure_SP": {
+                        "Suffix": "_P_SP",
+                        "Type": "REAL",
+                        "is_Setpoint": true
+                    }
+                },
+                "Outputs": {
+                    "Owner": {
+                        "Type": "Int",
+                        "Unit": "",
+                        "Suffix": "_OWN"
+                    },
+                    "Status": {
+                        "Type": "Int",
+                        "Unit": "",
+                        "Suffix": "_STA",
+                        "Primary": true
+                    },
+                    "CM_error": {
+                        "Type": "Bool",
+                        "Suffix": "_ERR",
+                        "Error_Signal": true
+                    },
+                    "CM_error_no": {
+                        "Type": "DINT",
+                        "Suffix": "_ERRNO"
+                    },
+                    "q_bACTVIE": {
+                        "Type": "Bool",
+                        "Suffix": "_ACTIV"
+                    },
+                    "Level": {
+                        "Suffix": "_LT",
+                        "Type": "REAL",
+                        "Source": "LT01",
+                        "is_Process_Value": true
+                    },
+                    "Pressure": {
+                        "Suffix": "_PT",
+                        "Type": "REAL",
+                        "Source": "PIC01",
+                        "is_Process_Value": true
+                    }
+                },
+                "General_Actions": {
+                    "Before": [],
+                    "After": [
+                        "Level = LT01",
+                        "Pressure = PIC01"
+                    ]
+                },
+                "States": {
+                    "0": {
+                        "State": "Idle",
+                        "Actions": [
+                            "stop Pump",
+                            "close XV_Bottom",
+                            "close BV_Bottom",
+                            "close BV_Tran_M04"
+                        ],
+                        "Conditions": [
+                            "XV_Bottom close",
+                            "BV_Bottom close",
+                            "BV_Tran_M04 close"
+                        ]
+                    },
+                    "1": {
+                        "State": "Open_Path",
+                        "Actions": [
+                            "stop Pump",
+                            "open XV_Bottom"
+                        ],
+                        "Conditions": [
+                            "XV_Bottom open"
+                        ]
+                    },
+                    "2": {
+                        "State": "Pump_Fixed_Pressure",
+                        "Actions": [
+                            "start Pump",
+                            "auto 10.0 bar PIC01",
+                            "open XV_Bottom"
+                        ],
+                        "Conditions": [
+                            "Pump start",
+                            "XV_Bottom open"
+                        ]
+                    },
+                    "3": {
+                        "State": "Open_Other_Path",
+                        "Actions": [
+                            "stop Pump",
+                            "open BV_Bottom",
+                            "open BV_Tran_M04"
+                        ],
+                        "Conditions": [
+                            "BV_Bottom open",
+                            "BV_Tran_M04 open"
+                        ]
+                    },
+                    "4": {
+                        "State": "Pump_Variable_Pressure",
+                        "Actions": [
+                            "start Pump",
+                            "auto Pressure_SP PIC01",
+                            "open BV_Bottom",
+                            "open BV_Tran_M04"
+                        ],
+                        "Conditions": [
+                            "Pump start",
+                            "BV_Bottom open",
+                            "BV_Tran_M04 open"
+                        ]
+                    },
+                    "5": {
+                        "State": "Pump_Fixed_Speed",
+                        "Actions": [
+                            "start Pump",
+                            "manual 20.0 Hz PIC01",
+                            "open XV_Bottom"
+                        ],
+                        "Conditions": [
+                            "Pump start",
+                            "XV_Bottom open"
+                        ]
+                    }
+                }
+            }
+        },
+        "Instances": {
+            "EM_Instance_1": {
+                "id": 26,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M100",
+                        "FS01": "LS001",
+                        "PIC01": "LIC001",
+                        "LT01": "LT001",
+                        "BV_Bottom": "MV001",
+                        "BV_Tran_M04": "MV003"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 26
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_2": {
+                "id": 27,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M101",
+                        "FS01": "LS002",
+                        "PIC01": "LIC002",
+                        "LT01": "LT002",
+                        "BV_Bottom": "MV002",
+                        "BV_Tran_M04": "MV003"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 27
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_3": {
+                "id": 28,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M102",
+                        "FS01": "LS002",
+                        "PIC01": "LIC003",
+                        "LT01": "LT003",
+                        "BV_Bottom": "MV003",
+                        "BV_Tran_M04": "MV003"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 28
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_4": {
+                "id": 29,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M103",
+                        "FS01": "LS002",
+                        "PIC01": "LIC004",
+                        "LT01": "LT004",
+                        "BV_Bottom": "MV004",
+                        "BV_Tran_M04": "MV003"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 29
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_5": {
+                "id": 30,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M104",
+                        "FS01": "LS002",
+                        "PIC01": "LIC005",
+                        "LT01": "LT005",
+                        "BV_Bottom": "MV005",
+                        "BV_Tran_M04": "MV003"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 30
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_6": {
+                "id": 31,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M105",
+                        "FS01": "LS002",
+                        "PIC01": "LIC006",
+                        "LT01": "LT006",
+                        "BV_Bottom": "MV006",
+                        "BV_Tran_M04": "MV003"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 31
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_7": {
+                "id": 32,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M106",
+                        "FS01": "LS002",
+                        "PIC01": "FIC100",
+                        "LT01": "LT007",
+                        "BV_Bottom": "MV007",
+                        "BV_Tran_M04": "MV003"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 32
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_8": {
+                "id": 33,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M106",
+                        "FS01": "LS002",
+                        "PIC01": "FIC101",
+                        "LT01": "LT100",
+                        "BV_Bottom": "MV007",
+                        "BV_Tran_M04": "MV003"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 33
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_9": {
+                "id": 34,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M106",
+                        "FS01": "LS002",
+                        "PIC01": "FIC101",
+                        "LT01": "LT200",
+                        "BV_Bottom": "MV007",
+                        "BV_Tran_M04": "MV003"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 34
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_10": {
+                "id": 35,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M106",
+                        "FS01": "LS002",
+                        "PIC01": "FIC101",
+                        "LT01": "LT101",
+                        "BV_Bottom": "MV007"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 35
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_11": {
+                "id": 36,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M106",
+                        "FS01": "LS002",
+                        "PIC01": "FIC101",
+                        "LT01": "LT201",
+                        "XV_Bottom": "XV001"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 36
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_12": {
+                "id": 37,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M106",
+                        "FS01": "LS002",
+                        "PIC01": "FIC101",
+                        "LT01": "LT201",
+                        "XV_Bottom": "XV002"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 37
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_13": {
+                "id": 38,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M106",
+                        "FS01": "LS002",
+                        "PIC01": "FIC101",
+                        "LT01": "LT201",
+                        "XV_Bottom": "XV003"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 38
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            },
+            "EM_Instance_14": {
+                "id": 39,
+                "Links": {
+                    "Inputs": {},
+                    "Outputs": {},
+                    "Linked_Modules": {
+                        "Pump": "M106",
+                        "FS01": "LS002",
+                        "PIC01": "FIC101",
+                        "LT01": "LT201",
+                        "XV_Bottom": "XV004"
+                    }
+                },
+                "Inputs": {
+                    "em_id": 39
+                },
+                "Outputs": {},
+                "Controller": "PLC1",
+                "Type": "EM_I_OUT"
+            }
+        }
+    },
+    "Phases": {
+        "Config": {
+            "Step_Ranges": {
+                "Idle": 0,
+                "Running": [
+                    1,
+                    7998
+                ],
+                "Completed": 7999,
+                "Pausing": -1,
+                "Paused": -1,
+                "Holding": [
+                    8000,
+                    8998
+                ],
+                "Held": 8999,
+                "Restarting": -1,
+                "Stopping": -1,
+                "Stopped": -1,
+                "Aborting": [
+                    9000,
+                    9998
+                ],
+                "Aborted": 9999
+            },
+            "Available_Buttons": 3,
+            "Template_IO": {
+                "errors": [],
+                "warnings": [],
+                "Inputs": {
+                    "scantime": {
+                        "Data_Type": "REAL"
+                    }
+                },
+                "Outputs": {
+                    "phase_id": {
+                        "Data_Type": "INT"
+                    },
+                    "state": {
+                        "Data_Type": "INT"
+                    },
+                    "stepnumber": {
+                        "Data_Type": "INT"
+                    },
+                    "message": {
+                        "Data_Type": "DINT"
+                    },
+                    "button_1_text": {
+                        "Data_Type": "DINT"
+                    },
+                    "button_2_text": {
+                        "Data_Type": "DINT"
+                    },
+                    "button_3_text": {
+                        "Data_Type": "DINT"
+                    },
+                    "button_1_visible": {
+                        "Data_Type": "BOOL"
+                    },
+                    "button_2_visible": {
+                        "Data_Type": "BOOL"
+                    },
+                    "button_3_visible": {
+                        "Data_Type": "BOOL"
+                    },
+                    "state_idle": {
+                        "Data_Type": "BOOL"
+                    },
+                    "state_running": {
+                        "Data_Type": "BOOL"
+                    },
+                    "state_complete": {
+                        "Data_Type": "BOOL"
+                    },
+                    "state_pausing": {
+                        "Data_Type": "BOOL"
+                    },
+                    "state_paused": {
+                        "Data_Type": "BOOL"
+                    },
+                    "state_holding": {
+                        "Data_Type": "BOOL"
+                    },
+                    "state_held": {
+                        "Data_Type": "BOOL"
+                    },
+                    "state_restarting": {
+                        "Data_Type": "BOOL"
+                    },
+                    "state_stopping": {
+                        "Data_Type": "BOOL"
+                    },
+                    "state_stopped": {
+                        "Data_Type": "BOOL"
+                    },
+                    "state_aborting": {
+                        "Data_Type": "BOOL"
+                    },
+                    "state_aborted": {
+                        "Data_Type": "BOOL"
+                    },
+                    "enable_start": {
+                        "Data_Type": "INT"
+                    },
+                    "enable_stop": {
+                        "Data_Type": "INT"
+                    },
+                    "enable_hold": {
+                        "Data_Type": "INT"
+                    },
+                    "enable_restart": {
+                        "Data_Type": "INT"
+                    },
+                    "enable_abort": {
+                        "Data_Type": "INT"
+                    },
+                    "enable_reset": {
+                        "Data_Type": "INT"
+                    },
+                    "enable_pause": {
+                        "Data_Type": "INT"
+                    },
+                    "enable_resume": {
+                        "Data_Type": "INT"
+                    },
+                    "enable_auto": {
+                        "Data_Type": "BOOL"
+                    },
+                    "enable_man": {
+                        "Data_Type": "BOOL"
+                    },
+                    "auto": {
+                        "Data_Type": "BOOL"
+                    },
+                    "steptime_s": {
+                        "Data_Type": "REAL"
+                    },
+                    "steptime_m": {
+                        "Data_Type": "REAL"
+                    },
+                    "steptime_h": {
+                        "Data_Type": "REAL"
+                    },
+                    "MSG_no01": {
+                        "Data_Type": "DINT"
+                    },
+                    "MSG_no03": {
+                        "Data_Type": "DINT"
+                    },
+                    "MSG_no04": {
+                        "Data_Type": "DINT"
+                    },
+                    "MSG_no05": {
+                        "Data_Type": "DINT"
+                    },
+                    "MSG_no06": {
+                        "Data_Type": "DINT"
+                    },
+                    "MSG_no07": {
+                        "Data_Type": "DINT"
+                    },
+                    "MSG_no08": {
+                        "Data_Type": "DINT"
+                    },
+                    "MSG_no09": {
+                        "Data_Type": "DINT"
+                    },
+                    "MSG_no10": {
+                        "Data_Type": "DINT"
+                    }
+                },
+                "InOuts": {
+                    "plc_commands": {
+                        "Data_Type": "DWORD"
+                    },
+                    "hmi_commands": {
+                        "Data_Type": "DWORD"
+                    }
+                },
+                "Stats": {
+                    "previous_stepnumber": {
+                        "Data_Type": "INT"
+                    },
+                    "start_conditions": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_conditions": {
+                        "Data_Type": "BOOL"
+                    },
+                    "first_scan": {
+                        "Data_Type": "BOOL"
+                    },
+                    "last_scan": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_01": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_02": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_03": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_04": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_05": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_06": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_07": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_08": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_09": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_10": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_11": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_12": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_13": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_14": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_15": {
+                        "Data_Type": "BOOL"
+                    },
+                    "start_cond_16": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_01": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_02": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_03": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_04": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_05": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_06": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_07": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_08": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_09": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_10": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_11": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_12": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_13": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_14": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_15": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hold_cond_16": {
+                        "Data_Type": "BOOL"
+                    },
+                    "in_steprange": {
+                        "Data_Type": "BOOL"
+                    },
+                    "Module_Error": {
+                        "Data_Type": "BOOL"
+                    },
+                    "CM_Error_no": {
+                        "Data_Type": "DINT"
+                    },
+                    "EM_Error_no": {
+                        "Data_Type": "DINT"
+                    },
+                    "plc_start": {
+                        "Data_Type": "BOOL"
+                    },
+                    "plc_stop": {
+                        "Data_Type": "BOOL"
+                    },
+                    "plc_hold": {
+                        "Data_Type": "BOOL"
+                    },
+                    "plc_restart": {
+                        "Data_Type": "BOOL"
+                    },
+                    "plc_abort": {
+                        "Data_Type": "BOOL"
+                    },
+                    "plc_reset": {
+                        "Data_Type": "BOOL"
+                    },
+                    "plc_pause": {
+                        "Data_Type": "BOOL"
+                    },
+                    "plc_resume": {
+                        "Data_Type": "BOOL"
+                    },
+                    "plc_auto": {
+                        "Data_Type": "BOOL"
+                    },
+                    "plc_man": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hmi_start": {
+                        "Data_Type": "INT"
+                    },
+                    "hmi_stop": {
+                        "Data_Type": "INT"
+                    },
+                    "hmi_hold": {
+                        "Data_Type": "INT"
+                    },
+                    "hmi_restart": {
+                        "Data_Type": "INT"
+                    },
+                    "hmi_abort": {
+                        "Data_Type": "INT"
+                    },
+                    "hmi_reset": {
+                        "Data_Type": "INT"
+                    },
+                    "hmi_pause": {
+                        "Data_Type": "INT"
+                    },
+                    "hmi_resume": {
+                        "Data_Type": "INT"
+                    },
+                    "hmi_auto": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hmi_man": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hmi_BTN1": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hmi_BTN2": {
+                        "Data_Type": "BOOL"
+                    },
+                    "hmi_BTN3": {
+                        "Data_Type": "BOOL"
+                    },
+                    "command_start": {
+                        "Data_Type": "BOOL"
+                    },
+                    "command_stop": {
+                        "Data_Type": "BOOL"
+                    },
+                    "command_hold": {
+                        "Data_Type": "BOOL"
+                    },
+                    "command_restart": {
+                        "Data_Type": "BOOL"
+                    },
+                    "command_abort": {
+                        "Data_Type": "BOOL"
+                    },
+                    "command_reset": {
+                        "Data_Type": "BOOL"
+                    },
+                    "command_pause": {
+                        "Data_Type": "BOOL"
+                    },
+                    "command_resume": {
+                        "Data_Type": "BOOL"
+                    },
+                    "command_auto": {
+                        "Data_Type": "BOOL"
+                    },
+                    "command_man": {
+                        "Data_Type": "BOOL"
+                    },
+                    "button_1_pushed": {
+                        "Data_Type": "BOOL"
+                    },
+                    "button_2_pushed": {
+                        "Data_Type": "BOOL"
+                    },
+                    "button_3_pushed": {
+                        "Data_Type": "BOOL"
+                    },
+                    "sh_cond_01": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_02": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_03": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_04": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_05": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_06": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_07": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_08": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_09": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_10": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_11": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_12": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_13": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_14": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_15": {
+                        "Data_Type": "INT"
+                    },
+                    "sh_cond_16": {
+                        "Data_Type": "INT"
+                    },
+                    "initial_scan": {
+                        "Data_Type": "BOOL"
+                    },
+                    "Temp_stepnumber": {
+                        "Data_Type": "INT"
+                    }
+                },
+                "Temps": {}
+            }
+        },
+        "Types": {
+            "phase_example": {
+                "errors": [],
+                "warnings": [],
+                "Comment": "This some general description in a comment table.\r\nThis is a new line in the description.\r\nThis is another comment table without borders.\r\nThis is a new line in the 2nd table",
+                "Linked_Modules": {
+                    "XV003": {
+                        "Type": "Valve",
+                        "Comment": ""
+                    },
+                    "XV004": {
+                        "Type": "Valve",
+                        "Comment": ""
+                    },
+                    "XV005": {
+                        "Type": "Valve",
+                        "Comment": ""
+                    },
+                    "P001": {
+                        "Type": "Motor",
+                        "Comment": "test a CM"
+                    },
+                    "P002": {
+                        "Type": "Motor",
+                        "Comment": "test a CM where the casing doesn't match an existing type"
+                    },
+                    "EM_I_OUT": {
+                        "Type": "EM_I_OUT",
+                        "Comment": ""
+                    },
+                    "LT001": {
+                        "Type": "AI",
+                        "Comment": ""
+                    },
+                    "LT002": {
+                        "Type": "AI",
+                        "Comment": ""
+                    },
+                    "FIC001": {
+                        "Type": "PID",
+                        "Comment": ""
+                    },
+                    "Some_Dyn_EM": {
+                        "Type": "EM_I_OUT",
+                        "Comment": "An example of an EM that's dynamically linked to the phase"
+                    }
+                },
+                "Inputs": {
+                    "Bool1": {
+                        "Type": "Bool",
+                        "Comment": "",
+                        "Enum": ""
+                    },
+                    "Bool2": {
+                        "Type": "Bool",
+                        "Comment": "",
+                        "Enum": ""
+                    },
+                    "EM_I_OUT_ID": {
+                        "Type": "Int",
+                        "Comment": "",
+                        "Enum": "EM"
+                    },
+                    "Some_Dyn_EM_ID": {
+                        "Type": "Int",
+                        "Comment": "",
+                        "Enum": "EM"
+                    },
+                    "DB_NO": {
+                        "Type": "Int",
+                        "Comment": "",
+                        "Enum": ""
+                    }
+                },
+                "Outputs": {
+                    "Destination": {
+                        "Type": "Int",
+                        "Comment": "",
+                        "Enumeration": "enum_units"
+                    },
+                    "setpoint": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "some_bool_out": {
+                        "Type": "Bool",
+                        "Comment": "",
+                        "Enumeration": ""
+                    }
+                },
+                "in_outs": {},
+                "Internals": {
+                    "e": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "f": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "g": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "h": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "ii": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "j": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "k": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "l": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "mm": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "n": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "o": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "pp": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "qq": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "r": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "s": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "tt": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "u": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "v": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "ww": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "xx": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "y": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "z": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "foo": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "bar": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "stoplevel": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "startlevel": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "offset": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "var1": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "test1": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "test2": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": ""
+                    },
+                    "intvar": {
+                        "Type": "Int",
+                        "Comment": "",
+                        "Enumeration": ""
+                    }
+                },
+                "Parameters_Batch": {},
+                "Parameters_HMI": {
+                    "hmi_par_without_unit": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": "",
+                        "Minimum": "",
+                        "Maximum": "",
+                        "Unit": ""
+                    },
+                    "timesetting": {
+                        "Type": "Real",
+                        "Comment": "",
+                        "Enumeration": "",
+                        "Minimum": "",
+                        "Maximum": "",
+                        "Unit": "h"
+                    }
+                },
+                "Settings_HMI": {},
+                "Sequence_Idle": {
+                    "Steps": {
+                        "0": {
+                            "Actions": [],
+                            "Transitions": {
+                                "10": []
+                            },
+                            "Comment": "Test step with only a comment and transition"
+                        }
+                    }
+                },
+                "Sequence_Running": {
+                    "Steps": {
+                        "10": {
+                            "Actions": [],
+                            "Transitions": {
+                                "20": []
+                            },
+                            "Comment": "Test multiple comments\r\nthis is another line"
+                        },
+                        "20": {
+                            "Actions": [],
+                            "Transitions": {
+                                "30": []
+                            },
+                            "Comment": "Test some spacing before the comment\r\nTest some spacing before the first comment word"
+                        },
+                        "30": {
+                            "Actions": [
+                                "e = f"
+                            ],
+                            "Transitions": {
+                                "40": []
+                            },
+                            "Comment": "test a simple assignment with a variable"
+                        },
+                        "40": {
+                            "Actions": [
+                                "setpoint = 25.0"
+                            ],
+                            "Transitions": {
+                                "50": []
+                            },
+                            "Comment": "test a simple assignment with a REAL"
+                        },
+                        "50": {
+                            "Actions": [
+                                "XV003_CMD = true",
+                                "XV004_CMD = false"
+                            ],
+                            "Transitions": {
+                                "70": []
+                            },
+                            "Comment": "test a simple assignment with some BOOLS"
+                        },
+                        "70": {
+                            "Actions": [
+                                "open XV003"
+                            ],
+                            "Transitions": {
+                                "80": []
+                            },
+                            "Comment": "test opening a valve"
+                        },
+                        "80": {
+                            "Actions": [
+                                "close XV003"
+                            ],
+                            "Transitions": {
+                                "90": []
+                            },
+                            "Comment": "test closing a valve"
+                        },
+                        "90": {
+                            "Actions": [
+                                "start P001"
+                            ],
+                            "Transitions": {
+                                "100": []
+                            },
+                            "Comment": "test starting a motor"
+                        },
+                        "100": {
+                            "Actions": [
+                                "stop P001"
+                            ],
+                            "Transitions": {
+                                "120": []
+                            },
+                            "Comment": "test stopping a motor"
+                        },
+                        "120": {
+                            "Actions": [
+                                "Open XV003"
+                            ],
+                            "Transitions": {
+                                "130": []
+                            },
+                            "Comment": "test with some spaces and non-matching casing => should still work"
+                        },
+                        "130": {
+                            "Actions": [
+                                "Destination = PF-I-02"
+                            ],
+                            "Transitions": {
+                                "150": []
+                            },
+                            "Comment": "test enumeration"
+                        },
+                        "150": {
+                            "Actions": [
+                                "EM_I_OUT = Pump_Fixed_Pressure"
+                            ],
+                            "Transitions": {
+                                "170": []
+                            },
+                            "Comment": "test EM command"
+                        },
+                        "170": {
+                            "Actions": [
+                                "xx = y * z",
+                                "r = e / f",
+                                "g = h + ii",
+                                "j = k – mm",
+                                "n = o + 3.4",
+                                "pp = 7.3 / qq"
+                            ],
+                            "Transitions": {
+                                "180": []
+                            },
+                            "Comment": "test some simple calculations"
+                        },
+                        "180": {
+                            "Actions": [
+                                "r = (s + tt) / u * v / (ww – xx) + 2.3",
+                                "foo = bar + 1.0",
+                                "stoplevel = startlevel + setpoint – offset"
+                            ],
+                            "Transitions": {
+                                "190": []
+                            },
+                            "Comment": "test complex calculations"
+                        },
+                        "190": {
+                            "Actions": [
+                                "var1 = 3.0+2.0"
+                            ],
+                            "Transitions": {
+                                "200": []
+                            },
+                            "Comment": "add two REALs"
+                        },
+                        "200": {
+                            "Actions": [
+                                "y = 2.0"
+                            ],
+                            "Transitions": {
+                                "230": []
+                            },
+                            "Comment": "test first and last scan actions",
+                            "Actions_First_Scan": [
+                                "xx = 1.0"
+                            ],
+                            "Actions_Last_Scan": [
+                                "z = 3.0"
+                            ]
+                        },
+                        "230": {
+                            "Actions": [],
+                            "Transitions": {
+                                "250": [
+                                    "LT001 >= startlevel + setpoint – offset"
+                                ]
+                            },
+                            "Comment": "test a transition with calculation"
+                        },
+                        "250": {
+                            "Actions": [],
+                            "Transitions": {
+                                "260": [
+                                    "P001 running"
+                                ]
+                            },
+                            "Comment": "test natural language transition"
+                        },
+                        "260": {
+                            "Actions": [],
+                            "Transitions": {
+                                "280": [
+                                    "Destination = PF-I-04"
+                                ]
+                            },
+                            "Comment": "test enumeration"
+                        },
+                        "280": {
+                            "Actions": [],
+                            "Transitions": {
+                                "300": [
+                                    "EM_I_OUT = Pump_Fixed_Pressure"
+                                ]
+                            },
+                            "Comment": "test enumerated status of EM"
+                        },
+                        "300": {
+                            "Actions": [],
+                            "Transitions": {
+                                "310": [
+                                    "2.0 * LT001 = (LT001 + LT001 – LT001) * LT001"
+                                ]
+                            },
+                            "Comment": "test if primary suffixes are detected"
+                        },
+                        "310": {
+                            "Actions": [
+                                "test1 = (LT001 + LT001 – LT001) * LT001",
+                                "test2 = LT002"
+                            ],
+                            "Transitions": {
+                                "320": []
+                            },
+                            "Comment": "test primary suffixes in action side"
+                        },
+                        "320": {
+                            "Actions": [],
+                            "Transitions": {
+                                "330": [
+                                    "AND XV003 opened"
+                                ]
+                            },
+                            "Comment": "test with AND in front"
+                        },
+                        "330": {
+                            "Actions": [],
+                            "Transitions": {
+                                "340": [
+                                    "XV003 opened",
+                                    "XV004 opened"
+                                ]
+                            },
+                            "Comment": "test multiple conditions without explicit logic"
+                        },
+                        "340": {
+                            "Actions": [],
+                            "Transitions": {
+                                "350": [
+                                    "AND XV003 opened",
+                                    "AND XV004 opened"
+                                ]
+                            },
+                            "Comment": "test multiple conditions with logic"
+                        },
+                        "350": {
+                            "Actions": [],
+                            "Transitions": {
+                                "360": [
+                                    "OR XV003 opened",
+                                    "OR XV004 opened"
+                                ]
+                            },
+                            "Comment": "test OR-logic"
+                        },
+                        "360": {
+                            "Actions": [],
+                            "Transitions": {
+                                "370": [
+                                    "AND XV005 opened",
+                                    "AND(",
+                                    "OR XV003 opened",
+                                    "OR XV004 opened",
+                                    ")"
+                                ]
+                            },
+                            "Comment": "test combined logic"
+                        },
+                        "370": {
+                            "Actions": [],
+                            "Transitions": {
+                                "420": [
+                                    "AND XV005 opened",
+                                    "AND(",
+                                    "OR XV003 opened",
+                                    "OR XV004 opened",
+                                    ")"
+                                ]
+                            },
+                            "Comment": "test improved readability"
+                        },
+                        "420": {
+                            "Actions": [],
+                            "Transitions": {
+                                "430": [
+                                    "XV003 opened",
+                                    "AND XV004 opened",
+                                    "AND XV005 opened"
+                                ]
+                            },
+                            "Comment": "test first line without logic and rest with AND"
+                        },
+                        "430": {
+                            "Actions": [],
+                            "Transitions": {
+                                "440": [
+                                    "XV003 opened",
+                                    "OR XV004 opened",
+                                    "OR XV005 opened"
+                                ]
+                            },
+                            "Comment": "test first line without logic and rest with OR"
+                        },
+                        "440": {
+                            "Actions": [],
+                            "Transitions": {
+                                "450": [
+                                    "button “continue”"
+                                ]
+                            },
+                            "Comment": "test button"
+                        },
+                        "450": {
+                            "Actions": [],
+                            "Transitions": {
+                                "460": [
+                                    "Button “ok”"
+                                ]
+                            },
+                            "Comment": "test button with capital => no problem, the button is case insensitive"
+                        },
+                        "460": {
+                            "Actions": [],
+                            "Transitions": {
+                                "470": [
+                                    "button cancel”"
+                                ]
+                            },
+                            "Comment": "test button without opening quotation marks => no problem, any marks are just removed"
+                        },
+                        "470": {
+                            "Actions": [],
+                            "Transitions": {
+                                "480": [
+                                    "button “go back"
+                                ]
+                            },
+                            "Comment": "test button without closing quotation marks => no problem, any marks are just removed"
+                        },
+                        "480": {
+                            "Actions": [],
+                            "Transitions": {
+                                "490": [
+                                    "button “continue”",
+                                    "button “cancel”",
+                                    "button “go back”"
+                                ]
+                            },
+                            "Comment": "test 3 buttons"
+                        },
+                        "490": {
+                            "Actions": [],
+                            "Transitions": {
+                                "510": [
+                                    "button “continue”",
+                                    "button “cancel”",
+                                    "button “go back”"
+                                ]
+                            },
+                            "Comment": "test 4 buttons => not foreseen in the template, so should log an error"
+                        },
+                        "510": {
+                            "Actions": [
+                                "message “add the manual ingredients”"
+                            ],
+                            "Transitions": {
+                                "520": []
+                            },
+                            "Comment": "test message"
+                        },
+                        "520": {
+                            "Actions": [],
+                            "Transitions": {
+                                "530": [
+                                    "XV003 not opened"
+                                ]
+                            },
+                            "Comment": "test falseword with two words in transition"
+                        },
+                        "530": {
+                            "Actions": [
+                                "move to open position XV003"
+                            ],
+                            "Transitions": {
+                                "540": []
+                            },
+                            "Comment": "test trueword with multiple words in action"
+                        },
+                        "540": {
+                            "Actions": [
+                                "FIC001 auto"
+                            ],
+                            "Transitions": {
+                                "550": []
+                            },
+                            "Comment": "test putting controller in auto with pulseword"
+                        },
+                        "550": {
+                            "Actions": [
+                                "FIC001 switch to auto"
+                            ],
+                            "Transitions": {
+                                "560": []
+                            },
+                            "Comment": "test putting controller in auto with pulseword consisting of multiple words"
+                        },
+                        "560": {
+                            "Actions": [
+                                "auto FIC001"
+                            ],
+                            "Transitions": {
+                                "570": []
+                            },
+                            "Comment": "test with pulseword in front"
+                        },
+                        "570": {
+                            "Actions": [
+                                "switch to auto FIC001"
+                            ],
+                            "Transitions": {
+                                "580": []
+                            },
+                            "Comment": "test with pulseword in front"
+                        },
+                        "580": {
+                            "Actions": [],
+                            "Transitions": {
+                                "590": [
+                                    "steptime > 2.0s"
+                                ]
+                            },
+                            "Comment": "test steptime in s"
+                        },
+                        "590": {
+                            "Actions": [],
+                            "Transitions": {
+                                "600": [
+                                    "steptime > 1.50m"
+                                ]
+                            },
+                            "Comment": "test steptime in m"
+                        },
+                        "600": {
+                            "Actions": [],
+                            "Transitions": {
+                                "610": [
+                                    "steptime > 4.3h"
+                                ]
+                            },
+                            "Comment": "test steptime in h"
+                        },
+                        "610": {
+                            "Actions": [],
+                            "Transitions": {
+                                "640": [
+                                    "steptime > 1.50 m"
+                                ]
+                            },
+                            "Comment": "test steptime with unit separated by space => still works (because it takes the last character)"
+                        },
+                        "640": {
+                            "Actions": [],
+                            "Transitions": {
+                                "650": [
+                                    "steptime > timesetting"
+                                ]
+                            },
+                            "Comment": "test steptime with variable with unit"
+                        },
+                        "650": {
+                            "Actions": [
+                                "reset timer_dosing"
+                            ],
+                            "Transitions": {
+                                "660": []
+                            },
+                            "Comment": "reset a timer"
+                        },
+                        "660": {
+                            "Actions": [
+                                "start timer_mixing"
+                            ],
+                            "Transitions": {
+                                "670": []
+                            },
+                            "Comment": "start a timer"
+                        },
+                        "670": {
+                            "Actions": [
+                                "pause timer_circulation"
+                            ],
+                            "Transitions": {
+                                "680": []
+                            },
+                            "Comment": "pause a timer"
+                        },
+                        "680": {
+                            "Actions": [],
+                            "Transitions": {
+                                "690": [
+                                    "timer_dosing >= 5.2 m"
+                                ]
+                            },
+                            "Comment": "test timer in m"
+                        },
+                        "690": {
+                            "Actions": [],
+                            "Transitions": {
+                                "700": [
+                                    "timer_circulation < timesetting"
+                                ]
+                            },
+                            "Comment": "test timer with variable with unit"
+                        },
+                        "700": {
+                            "Actions": [
+                                "FIC001 manual"
+                            ],
+                            "Transitions": {
+                                "710": []
+                            },
+                            "Comment": "test putting a controller in manual"
+                        },
+                        "710": {
+                            "Actions": [
+                                "FIC001 manual 20.0"
+                            ],
+                            "Transitions": {
+                                "720": []
+                            },
+                            "Comment": "test putting a controller in manual while changing the output value"
+                        },
+                        "720": {
+                            "Actions": [
+                                "FIC001 manual 20.0 Hz"
+                            ],
+                            "Transitions": {
+                                "730": []
+                            },
+                            "Comment": "test putting a controller in manual while changing the output value that has a unit"
+                        },
+                        "730": {
+                            "Actions": [
+                                "FIC001 manual 20.0Hz"
+                            ],
+                            "Transitions": {
+                                "740": []
+                            },
+                            "Comment": "without space"
+                        },
+                        "740": {
+                            "Actions": [
+                                "FIC001 auto"
+                            ],
+                            "Transitions": {
+                                "750": []
+                            },
+                            "Comment": "put PID controller in auto"
+                        },
+                        "750": {
+                            "Actions": [
+                                "FIC001 auto 80.0%"
+                            ],
+                            "Transitions": {
+                                "760": []
+                            },
+                            "Comment": "auto with setpoint"
+                        },
+                        "760": {
+                            "Actions": [
+                                "FIC001 internal"
+                            ],
+                            "Transitions": {
+                                "770": []
+                            },
+                            "Comment": "internal mode"
+                        },
+                        "770": {
+                            "Actions": [
+                                "FIC001 internal 80.0"
+                            ],
+                            "Transitions": {
+                                "780": []
+                            },
+                            "Comment": "internal mode with value"
+                        },
+                        "780": {
+                            "Actions": [
+                                "FIC001 internal 80.0 %"
+                            ],
+                            "Transitions": {
+                                "790": []
+                            },
+                            "Comment": "value with unit"
+                        },
+                        "790": {
+                            "Actions": [
+                                "FIC001 internal80.0%"
+                            ],
+                            "Transitions": {
+                                "810": []
+                            },
+                            "Comment": "without space"
+                        },
+                        "810": {
+                            "Actions": [
+                                "FIC001 external"
+                            ],
+                            "Transitions": {
+                                "820": []
+                            },
+                            "Comment": "external mode"
+                        },
+                        "820": {
+                            "Actions": [
+                                "XV008.AUT_OP = true"
+                            ],
+                            "Transitions": {
+                                "830": []
+                            },
+                            "Comment": "test direct access to a CM instance in dot-format in the assignment => should convert to suffix"
+                        },
+                        "830": {
+                            "Actions": [],
+                            "Transitions": {
+                                "840": [
+                                    "XV008.QOPEN = true"
+                                ]
+                            },
+                            "Comment": "test direct access to a CM in dot-notation in the evaluation => should convert to suffix"
+                        },
+                        "840": {
+                            "Actions": [
+                                "XV003.AUT_OP = true"
+                            ],
+                            "Transitions": {
+                                "850": []
+                            },
+                            "Comment": "test dot-format to Linked CM in assignment => should convert to suffix"
+                        },
+                        "850": {
+                            "Actions": [],
+                            "Transitions": {
+                                "860": [
+                                    "XV003.QOPEN = true"
+                                ]
+                            },
+                            "Comment": "test dot-format from Linked CM in evaluation =>should convert to suffix"
+                        },
+                        "860": {
+                            "Actions": [
+                                "EM_Instance_4.Pressure_SP  = 4.2"
+                            ],
+                            "Transitions": {
+                                "870": []
+                            },
+                            "Comment": "test direct access to an EM instance in dot-format in the assignment => should stay in dot-format"
+                        },
+                        "870": {
+                            "Actions": [],
+                            "Transitions": {
+                                "880": [
+                                    "EM_Instance_4.Level >= 50.0"
+                                ]
+                            },
+                            "Comment": "test direct access to a EM in dot-notation in the evaluation => should stay in dot-format"
+                        },
+                        "880": {
+                            "Actions": [
+                                "Some_Dyn_EM.Pressure_SP  = 4.2"
+                            ],
+                            "Transitions": {
+                                "890": []
+                            },
+                            "Comment": "test dot-format to Linked EM in assignment => should stay in dot-format"
+                        },
+                        "890": {
+                            "Actions": [],
+                            "Transitions": {
+                                "910": [
+                                    "Some_Dyn_EM.Level >= 50.0"
+                                ]
+                            },
+                            "Comment": "test dot-format from Linked EM in evaluation =>should stay in dot-format"
+                        },
+                        "910": {
+                            "Actions": [
+                                "Some_Dyn_EM_P_SP  = 4.3"
+                            ],
+                            "Transitions": {
+                                "920": []
+                            },
+                            "Comment": "test suffix-format to Linked EM in assignment => should convert to dot-format"
+                        },
+                        "920": {
+                            "Actions": [],
+                            "Transitions": {
+                                "930": [
+                                    "Some_Dyn_EM_LT  >= 50.0"
+                                ]
+                            },
+                            "Comment": "test suffix-format from Linked EM in evaluation =>should convert to dot-format"
+                        },
+                        "930": {
+                            "Actions": [
+                                "some_bool_out = true"
+                            ],
+                            "Transitions": {
+                                "940": []
+                            },
+                            "Comment": "write a bool"
+                        },
+                        "940": {
+                            "Actions": [
+                                "test1 = abs(2.3)",
+                                "test2 = abs(test1)"
+                            ],
+                            "Transitions": {
+                                "950": []
+                            },
+                            "Comment": "test absolute value calculation"
+                        },
+                        "950": {
+                            "Actions": [
+                                "intvar = abs(4.6)",
+                                "intvar = abs(test1)"
+                            ],
+                            "Transitions": {
+                                "960": []
+                            },
+                            "Comment": "test absolute value calculation to int value"
+                        },
+                        "960": {
+                            "Actions": [
+                                "test1 = abs(test1 + test2)"
+                            ],
+                            "Transitions": {
+                                "970": []
+                            },
+                            "Comment": "test absolut function of another calc"
+                        },
+                        "970": {
+                            "Actions": [],
+                            "Transitions": {
+                                "980": [
+                                    "foo > 1.0"
+                                ],
+                                "990": [
+                                    "foo <= 1.0"
+                                ]
+                            },
+                            "Comment": "test multiple transitions in one step"
+                        },
+                        "980": {
+                            "Actions": [
+                                "Bool1 = Bool2"
+                            ],
+                            "Transitions": {
+                                "990": []
+                            },
+                            "Comment": "assignment where the right part is a boolean variable"
+                        },
+                        "990": {
+                            "Actions": [],
+                            "Transitions": {
+                                "1000": [
+                                    "Bool1 = Bool2"
+                                ]
+                            },
+                            "Comment": "comparison where the right part is a boolen variable"
+                        },
+                        "1000": {
+                            "Actions": [
+                                "write_to_DB_DW (50, 20, 123)",
+                                "write_to_DB_DW (DB_NO, 20, 123)"
+                            ],
+                            "Transitions": {
+                                "0": []
+                            },
+                            "Comment": "function call"
+                        }
+                    }
+                },
+                "Sequence_Holding": {
+                    "Steps": {
+                        "8000": {
+                            "Actions": [],
+                            "Transitions": {
+                                "8990": []
+                            },
+                            "Comment": "Holding"
+                        }
+                    }
+                },
+                "Start_Hold_Cond": []
+            }
+        },
+        "Instances": {
+            "phase_1": {
+                "Type": "phase_example",
+                "Links": {
+                    "Linked_Modules": {
+                        "LT001": "LT100",
+                        "LT002": "LT200",
+                        "FIC001": "FIC100",
+                        "XV003": "XV300",
+                        "XV004": "XV400",
+                        "XV005": "XV500",
+                        "P001": "P100",
+                        "P002": "P200"
+                    },
+                    "Inputs": {
+                        "EM_I_OUT_ID": "EM_I001_OUT"
+                    }
+                },
+                "Controller": "PLC1",
+                "FC": "auto",
+                "DB": "auto",
+                "Comment": "First instance of fds_example"
+            },
+            "phase_2": {
+                "Type": "phase_example",
+                "Links": {
+                    "Linked_Modules": {
+                        "LT001": "LT101",
+                        "LT002": "LT201",
+                        "FIC001": "FIC101",
+                        "XV003": "XV301",
+                        "XV004": "XV401",
+                        "XV005": "XV501",
+                        "P001": "P101",
+                        "P002": "P201"
+                    },
+                    "Inputs": {
+                        "EM_I_OUT_ID": "EM_I002_OUT"
+                    }
+                },
+                "Controller": "PLC1",
+                "FC": "auto",
+                "DB": "auto",
+                "Comment": "Second instance of fds_example"
+            }
+        }
+    },
+    "Units": {
+        "errors": [],
+        "warnings": [],
+        "Instances": {
+            "T100": {
+                "ID": 500,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T101": {
+                "ID": 501,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T102": {
+                "ID": 502,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T103": {
+                "ID": 503,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T104": {
+                "ID": 504,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T105": {
+                "ID": 505,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T106": {
+                "ID": 506,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T107": {
+                "ID": 507,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T108": {
+                "ID": 508,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T109": {
+                "ID": 509,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T110": {
+                "ID": 510,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T111": {
+                "ID": 511,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T112": {
+                "ID": 512,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T113": {
+                "ID": 513,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "T114": {
+                "ID": 514,
+                "Type": "Tank",
+                "Controller": "PLC1"
+            }
+        }
+    }
+}

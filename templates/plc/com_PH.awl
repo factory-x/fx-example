@@ -1,0 +1,313 @@
+FUNCTION_BLOCK FB 3
+TITLE =
+{ S7_m_c := 'true'; S7_blockview := 'big'; S7_tasklist := 'OB100' }
+VERSION : 0.1
+
+
+VAR_INPUT
+  i_Bool_1 : BOOL ;	//send to FB2 output
+  i_Bool_2 : BOOL ;	//send to FB2 output
+  i_Bool_3 : BOOL ;	//send to FB2 output
+  i_Bool_4 : BOOL ;	//send to FB2 output
+  i_Bool_5 : BOOL ;	//send to FB2 output
+  i_Bool_6 : BOOL ;	//send to FB2 output
+  i_Bool_7 : BOOL ;	//send to FB2 output
+  i_Bool_8 : BOOL ;	//send to FB2 output
+  i_Bool_9 : BOOL ;	//send to FB2 output
+  i_Bool_10 : BOOL ;	//send to FB2 output
+  i_Bool_11 : BOOL ;	//send to FB2 output
+  i_Bool_12 : BOOL ;	//send to FB2 output
+  i_Bool_13 : BOOL ;	//send to FB2 output
+  i_Bool_14 : BOOL ;	//send to FB2 output
+  i_Bool_15 : BOOL ;	//send to FB2 output
+  i_Bool_16 : BOOL ;	
+  i_Real_1 : REAL ;	//send to FB2 output
+  i_Real_2 : REAL ;	//send to FB2 output
+  i_Real_3 : REAL ;	//send to FB2 output
+  i_Real_4 : REAL ;	//send to FB2 output
+  i_Real_5 : REAL ;	//send to FB2 output
+  i_Int_1 : INT ;	//send to FB2 output
+  i_Int_2 : INT ;	//send to FB2 output
+  i_Int_3 : INT ;	//send to FB2 output
+  i_Int_4 : INT ;	//send to FB2 output
+  i_Int_5 : INT ;	//send to FB2 output
+  i_bACTIVE : BOOL ;	
+  i_iID_1 { S7_m_c := 'true' }: INT  := 999;	
+  i_iID_2 { S7_m_c := 'true' }: INT  := 999;	//check Int_1 from FB2 input
+END_VAR
+VAR_OUTPUT
+  q_Bool_1 : BOOL ;	//receive from FB2 input
+  q_Bool_2 : BOOL ;	//receive from FB2 input
+  q_Bool_3 : BOOL ;	//receive from FB2 input
+  q_Bool_4 : BOOL ;	//receive from FB2 input
+  q_Bool_5 : BOOL ;	//receive from FB2 input
+  q_Bool_6 : BOOL ;	//receive from FB2 input
+  q_Bool_7 : BOOL ;	//receive from FB2 input
+  q_Bool_8 : BOOL ;	//receive from FB2 input
+  q_Bool_9 : BOOL ;	//receive from FB2 input
+  q_Bool_10 : BOOL ;	//receive from FB2 input
+  q_Bool_11 : BOOL ;	//receive from FB2 input
+  q_Bool_12 : BOOL ;	//receive from FB2 input
+  q_Bool_13 : BOOL ;	//receive from FB2 input
+  q_Bool_14 : BOOL ;	//receive from FB2 input
+  q_Bool_15 : BOOL ;	//receive from FB2 input
+  q_Bool_16 : BOOL ;	//receive from FB2 input
+  q_Real_1 : REAL ;	//receive from FB2 input
+  q_Real_2 : REAL ;	//receive from FB2 input
+  q_Real_3 : REAL ;	//receive from FB2 input
+  q_Real_4 : REAL ;	//receive from FB2 input
+  q_Real_5 : REAL ;	//receive from FB2 input
+  q_Int_1 : INT ;	//receive from FB2 input
+  q_Int_2 : INT ;	//receive from FB2 input
+  q_Int_3 : INT ;	//receive from FB2 input
+  q_Int_4 : INT ;	//receive from FB2 input
+  q_Int_5 : INT ;	//receive from FB2 input
+  q_bACTVIE : BOOL ;	
+END_VAR
+VAR_TEMP
+  T_SRCBLK : ANY ;	
+  T_Ret_Val : INT ;	
+  T_DSTBLK : ANY ;	
+  T_dbnum_FB3 : INT ;	
+  T_address : INT ;	
+  T_length : INT ;	
+  T_dbnum_FB2 : INT ;	
+  TOP_SI : STRUCT 	
+   EV_CLASS : BYTE ;	
+   EV_NUM : BYTE ;	
+   PRIORITY : BYTE ;	
+   NUM : BYTE ;	
+   TYP2_3 : BYTE ;	
+   TYP1 : BYTE ;	
+   ZI1 : WORD ;	
+   ZI2_3 : DWORD ;	
+  END_STRUCT ;	
+  START_UP_SI : STRUCT 	
+   EV_CLASS : BYTE ;	
+   EV_NUM : BYTE ;	
+   PRIORITY : BYTE ;	
+   NUM : BYTE ;	
+   TYP2_3 : BYTE ;	
+   TYP1 : BYTE ;	
+   ZI1 : WORD ;	
+   ZI2_3 : DWORD ;	
+  END_STRUCT ;	
+  iRet : INT ;	
+END_VAR
+BEGIN
+NETWORK
+TITLE =
+//hot start
+      CALL SFC    6 (
+           RET_VAL                  := #iRet,
+           TOP_SI                   := #TOP_SI,
+           START_UP_SI              := #START_UP_SI);
+      L     #TOP_SI.NUM; 
+      L     100; 
+      ==I   ; 
+      JCN   star; 
+      R     #q_Bool_1; 
+      R     #q_Bool_2; 
+      R     #q_Bool_3; 
+      R     #q_Bool_4; 
+      R     #q_Bool_5; 
+      R     #q_Bool_6; 
+      R     #q_Bool_7; 
+      R     #q_Bool_8; 
+      R     #q_Bool_9; 
+      R     #q_Bool_10; 
+      R     #q_Bool_11; 
+      R     #q_Bool_12; 
+      R     #q_Bool_13; 
+      R     #q_Bool_14; 
+      R     #q_Bool_15; 
+      R     #q_Bool_16; 
+      R     #q_bACTVIE; 
+      L     0.000000e+000; 
+      T     #q_Real_1; 
+      T     #q_Real_2; 
+      T     #q_Real_3; 
+      T     #q_Real_4; 
+      T     #q_Real_5; 
+      L     0; 
+      T     #q_Int_1; 
+      T     #q_Int_2; 
+      T     #q_Int_3; 
+      T     #q_Int_4; 
+      T     #q_Int_5; 
+      T     #iRet; 
+star: NOP   0; 
+
+NETWORK
+TITLE =ID2
+//check if id_2 is too big
+//Open data block DB25 as shared data block.check the length of DB25
+      OPN   DB    25; 
+      L     DBLG; //Load length of shared data block (length of DB25).
+      T     #T_length; //transfer length to length
+      L     #T_length; //length=length/2
+      L     2; 
+      /I    ; 
+      T     #T_length; 
+//check if the i_iID_2 bigger than length
+      L     #T_length; 
+      L     #i_iID_2; 
+      <=D   ; 
+      JC    ID1; //if id is bigger than length ignor id2
+
+
+NETWORK
+TITLE =
+//find the right db number and cope the data from that db WITH ID_2
+//use id to find the right store address,address = id * 2 
+      L     #i_iID_2; 
+      L     2; 
+      *I    ; 
+      T     #T_address; 
+//get db number from  T_address
+      OPN   DB    25; 
+      L     P#DBX 0.0; 
+      L     #T_address; 
+      SLD   3; 
+      +D    ; 
+      LAR1  ; 
+      L     W [AR1,P#0.0]; 
+      T     #T_dbnum_FB2; 
+      L     0; 
+      ==I   ; 
+      BEC   ; 
+//set the recv address fb3
+      L     DINO; 
+      T     #T_dbnum_FB3; 
+NETWORK
+TITLE =RECV DATA FROM FB2 INPUT ACTIVE  
+//do move from FB2 to FB3
+//set the sending address FB2 INPUT ACTIVE  BYTE 2
+      LAR1  P##T_SRCBLK; 
+      L     W#16#1002; // Syntax ID (10h for S7, 2h bytes)
+      T     LW [AR1,P#0.0]; 
+      L     2; // Length in bytes
+      T     LW [AR1,P#2.0]; 
+      L     #T_dbnum_FB2; // DB-nummer EM
+      T     LW [AR1,P#4.0]; 
+      L     P#32.0; // Start address in DB EM
+      L     DW#16#84000000; 
+      OD    ; 
+      T     LD [AR1,P#6.0]; 
+//set the RECV address FB3 OUTPUT ACTIVE   BYTE 2
+      LAR1  P##T_DSTBLK; 
+      L     W#16#1002; // Syntax ID (10h for S7, 2h bytes)
+      T     LW [AR1,P#0.0]; 
+      L     2; // Length in bytes
+      T     LW [AR1,P#2.0]; 
+      L     #T_dbnum_FB3; // DB-nummer SEQ
+      T     LW [AR1,P#4.0]; 
+      L     P#70.0; // Start address in DB SEQ
+      L     DW#16#84000000; 
+      OD    ; 
+      T     LD [AR1,P#6.0]; 
+//transfer data from FB2 to FB3
+      CALL SFC   20 (
+           SRCBLK                   := #T_SRCBLK,
+           RET_VAL                  := #T_Ret_Val,
+           DSTBLK                   := #T_DSTBLK);
+
+NETWORK
+TITLE =ID1
+//check if id_1 is too big
+//check if the i_iID_1 bigger than length
+ID1:  L     #T_length; 
+      L     #i_iID_1; 
+      <=D   ; 
+      BEC   ; //if id_1 is bigger than length end the block
+
+NETWORK
+TITLE =
+//find the right db number of FB2 and cope the data from that db WITH ID_1
+//use id to find the right store address,address = id * 2 
+      L     #i_iID_1; 
+      L     2; 
+      *I    ; 
+      T     #T_address; 
+//get db number from  T_address
+      OPN   DB    25; 
+      L     P#DBX 0.0; 
+      L     #T_address; 
+      SLD   3; 
+      +D    ; 
+      LAR1  ; 
+      L     W [AR1,P#0.0]; 
+      T     #T_dbnum_FB2; 
+      L     0; 
+      ==I   ; 
+      BEC   ; 
+NETWORK
+TITLE =RECV DATA FROM FB2 
+//do move from FB2 to FB3
+//set the sending address FB2 INPUT 8BOOL+5REAL+5INT+ACTIVE 34BYTE
+      LAR1  P##T_SRCBLK; 
+      L     W#16#1002; // Syntax ID (10h for S7, 2h bytes)
+      T     LW [AR1,P#0.0]; 
+      L     34; // Length in bytes
+      T     LW [AR1,P#2.0]; 
+      L     #T_dbnum_FB2; // DB-nummer EM
+      T     LW [AR1,P#4.0]; 
+      L     P#0.0; // Start address in DB EM
+      L     DW#16#84000000; 
+      OD    ; 
+      T     LD [AR1,P#6.0]; 
+//set the RECV address FB3 OUTPUT 8BOOL+5REAL+5INT+ACTIVE 34BYTE
+      LAR1  P##T_DSTBLK; 
+      L     W#16#1002; // Syntax ID (10h for S7, 2h bytes)
+      T     LW [AR1,P#0.0]; 
+      L     34; // Length in bytes
+      T     LW [AR1,P#2.0]; 
+      L     #T_dbnum_FB3; // DB-nummer SEQ
+      T     LW [AR1,P#4.0]; 
+      L     P#38.0; // Start address in DB SEQ
+      L     DW#16#84000000; 
+      OD    ; 
+      T     LD [AR1,P#6.0]; 
+//transfer data from FB2 to FB3
+      CALL SFC   20 (
+           SRCBLK                   := #T_SRCBLK,
+           RET_VAL                  := #T_Ret_Val,
+           DSTBLK                   := #T_DSTBLK);
+
+NETWORK
+TITLE =
+//SEND DATA TO FB 2
+//set the recv address FB2 OUTPUT PH_ID+5BOOL+5REAL+5INT 34BYTE
+      LAR1  P##T_DSTBLK; 
+      L     W#16#1002; // Syntax ID (10h for S7, 2h bytes)
+      T     LW [AR1,P#0.0]; 
+      L     34; // Length in bytes
+      T     LW [AR1,P#2.0]; 
+      L     #T_dbnum_FB2; // DB-nummer EM
+      T     LW [AR1,P#4.0]; 
+      L     P#36.0; // Start address in DB EM
+      L     DW#16#84000000; 
+      OD    ; 
+      T     LD [AR1,P#6.0]; 
+//set the sending address FB3 INTPUT PH_ID+5BOOL+5REAL+5INT 34BYTE
+      L     DINO; 
+      T     #T_dbnum_FB3; // get the db number of fb3
+      LAR1  P##T_SRCBLK; 
+      L     W#16#1002; // Syntax ID (10h for S7, 2h bytes)
+      T     LW [AR1,P#0.0]; 
+      L     34; // Length in bytes
+      T     LW [AR1,P#2.0]; 
+      L     #T_dbnum_FB3; // DB-nummer SEQ
+      T     LW [AR1,P#4.0]; 
+      L     P#0.0; // Start address in DB SEQ
+      L     DW#16#84000000; 
+      OD    ; 
+      T     LD [AR1,P#6.0]; 
+//transfer data from fb3 to fb2
+      CALL SFC   20 (
+           SRCBLK                   := #T_SRCBLK,
+           RET_VAL                  := #T_Ret_Val,
+           DSTBLK                   := #T_DSTBLK);
+
+END_FUNCTION_BLOCK
+

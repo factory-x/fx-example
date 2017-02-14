@@ -1,0 +1,94 @@
+FUNCTION_BLOCK CM_ZS_400
+TITLE =
+{ S7_m_c := 'true'; S7_blockview := 'big'; S7_tasklist := 'OB100' }
+AUTHOR : 
+FAMILY : 
+NAME : DIN
+VERSION : 0.0
+
+
+VAR_INPUT
+  SAMPLE_T { S7_sampletime := 'true' }: REAL ;	//Sample time; Defined by OB during compiling
+  i_bDIN { S7_dynamic := 'true' }: BOOL ;	//1=Digital input signal; Linked to DI channel generally; Default=0
+  c_bNeg { S7_dynamic := 'true' }: BOOL ;	//1=Negation input signal active; Default=0
+  c_fDT { S7_dynamic := 'true' }: REAL  := 5.000000e+000;	//Digital input signal delay time; Default=5s
+  i_bSet { S7_dynamic := 'true' }: BOOL ;	//1=Negation input signal active; Default=0
+  i_bRset { S7_dynamic := 'true' }: BOOL ;	//1=Negation input signal active; Default=0
+  i_bType { S7_dynamic := 'true' }: INT ;	//1=Negation input signal active; Default=0
+END_VAR
+VAR_OUTPUT
+  QON { S7_dynamic := 'true'; S7_visible := 'false' }: BOOL ;	//1=ON; Default=0  
+  q_bON { S7_dynamic := 'true'; S7_m_c := 'true'; S7_archive := 'shortterm' }: BOOL ;	//1=ON with delay; Default=0
+  QOFF { S7_dynamic := 'true'; S7_visible := 'false' }: BOOL ;	//1=OFF; Default=0
+  q_bOFF { S7_dynamic := 'true' }: BOOL ;	//1=OFF with delay; Default=0
+  QbInp { S7_dynamic := 'true'; S7_visible := 'false' }: BOOL ;	//1=Input signal including negation information; Default=0
+  q_fDT { S7_dynamic := 'true' }: REAL ;	//1=Current delay time; Default=0  
+END_VAR
+VAR
+  QON_OLD : BOOL ;	
+  QOFF_OLD : BOOL ;	
+END_VAR
+BEGIN
+NETWORK
+TITLE =SCL network
+//compiled by SCL compiler version:  SCLCOMP K05.03.07.00_01.02.00.01 release
+      SET   ; 
+      SAVE  ; 
+      =     L      0.1; 
+      A     #c_bNeg; 
+      NOT   ; 
+      A     #i_bDIN; 
+      =     L      0.2; 
+      A     #i_bDIN; 
+      NOT   ; 
+      A     #c_bNeg; 
+      O     L      0.2; 
+      =     #QbInp; 
+      A     #QbInp; 
+      =     #QON; 
+      A     #QON; 
+      NOT   ; 
+      =     #QOFF; 
+      A     #QON_OLD; 
+      NOT   ; 
+      A     #QON; 
+      =     L      0.2; 
+      A     #QON; 
+      NOT   ; 
+      A     #QON_OLD; 
+      O     L      0.2; 
+      JCN   A7d0; 
+      L     0.000000e+000; 
+      T     #q_fDT; 
+      CLR   ; 
+      =     #q_bON; 
+      =     #q_bOFF; 
+      JU    A7d2; 
+A7d0: L     #q_fDT; 
+      L     #c_fDT; 
+      <R    ; 
+      JCN   A7d2; 
+      L     #q_fDT; 
+      L     #SAMPLE_T; 
+      +R    ; 
+      T     #q_fDT; 
+A7d2: L     #q_fDT; 
+      L     #c_fDT; 
+      >=R   ; 
+      A     #QON; 
+      =     #q_bON; 
+      L     #q_fDT; 
+      TAK   ; 
+      >=R   ; 
+      =     L      0.2; 
+      A     #QON; 
+      NOT   ; 
+      A     L      0.2; 
+      =     #q_bOFF; 
+      A     #QON; 
+      =     #QON_OLD; 
+      A     L      0.1; 
+      SAVE  ; 
+      BE    ; 
+END_FUNCTION_BLOCK
+

@@ -1,0 +1,26 @@
+FUNCTION FC30 : VOID
+TITLE =
+VERSION : 0.1
+
+
+VAR_INPUT
+  Diameter : REAL ;	
+  Cone_Height : REAL ;	
+  Zero : Real ;	
+  Level : Real ;
+  Density: Real ;
+END_VAR
+VAR_OUTPUT
+  Weight: Real ;
+END_VAR
+
+BEGIN
+NETWORK
+TITLE =Calculate the weight based on the level
+
+
+
+
+
+END_FUNCTION
+
