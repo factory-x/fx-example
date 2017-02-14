@@ -1,5 +1,4 @@
 {
-	"is_testconfig": true,
 	"model": {
 		"source": "./model/Model.json",
 		"model_A": "./output/model/debug_model_A.json",
