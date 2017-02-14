@@ -103,57 +103,11 @@
 //              END INDEX
 //#########################################
 
-// <SPLIT>AIN_400.awl</SPLIT>
-// ____AIN_400
-{% include "control_modules/AIN_400.SCL" %}
-// <SPLIT>CVALVE_400.awl</SPLIT>
-// ____CVALVE_400
-{% include "control_modules/CVALVE_400.SCL" %}
-// <SPLIT>Filter_400.awl</SPLIT>
-// ____Filter_400
 
-// <SPLIT>FS_PS_400.awl</SPLIT>
-// ____FS_PS_400
-
-// <SPLIT>MOTOR_400.awl</SPLIT>
-// ____MOTOR_400
-{% include "control_modules/MOTOR_400.SCL" %}
-// <SPLIT>PID_AIN_400.awl</SPLIT>
-// ____PID_AIN_400
-{% include "control_modules/PID_AIN_400.SCL" %}
-// <SPLIT>PID_AIN_CV_400.awl</SPLIT>
-// ____PID_AIN_CV_400
-
-// <SPLIT>PID_AINVFD400.awl</SPLIT>
-// ____PID_AINVFD400
-
-// <SPLIT>RFID_400.awl</SPLIT>
-// ____RFID_400
-{% include "control_modules/RFID_400.AWL" %}
-// <SPLIT>VFD_400.awl</SPLIT>
-// ____VFD_400
-{% include "control_modules/VFD_400.SCL" %}
-// <SPLIT>ZS_400.awl</SPLIT>
-// ____ZS_400
-{% include "control_modules/ZS_400.SCL" %}
-// <SPLIT>VALVE_400.awl</SPLIT>
-// ____VALVE_400
-{% include "control_modules/VALVE_400.SCL" %}
-// <SPLIT>DIN_400.awl</SPLIT>
-// ____DIN_400
-{% include "control_modules/DIN_400.SCL" %}
 
 // <SPLIT>EM_INDEX.awl</SPLIT>
 // ___EM_INDEX
 {% include "em_index.awl" %}
-
-// <SPLIT>com_EM.awl</SPLIT>
-// ___com_EM
-{% include "com_EM.awl" %}
-
-// <SPLIT>com_PH.awl</SPLIT>
-// ___com_PH
-{% include "com_PH.awl" %}
 
 // <SPLIT>stepinterval.awl</SPLIT>
 // ___stepinterval
