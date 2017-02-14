@@ -77,4 +77,12 @@ Re-render with:
 fx render
 ```
 
+Finally import the project to the development environment.
+In this example Simatic Manager: start from an empty project, import the symbols, and then the awl source.
+
+The standard PID-FB needs to be added.
+
+The project is configured to work with following Control Modules library from Siemens:
+<https://support.industry.siemens.com/cs/document/68679830/example-blocks-for-wincc-v7-and-step-7-v5-(for-s7-300-with-scl-and-s7-400-with-cfc-scl)?dti=0&lc=en-WW>
+
 
