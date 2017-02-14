@@ -1,9 +1,9 @@
 # Ignore the model: to download from AWS s3:
 # exclude everything
-somefolder/*
+model/*
 
 # exception to the rule
-!somefolder/.gitkeep 
+!model/.gitkeep 
 
 # Ignore temp
 temp/
