@@ -7,13 +7,13 @@
 	},
 	"templates": {
 		"plc": {
-			"source": "./../fx-beresfield/templates/plc/main.awl",
+			"source": "./../fx-example/templates/plc/main.awl",
 			"output": "./output/plc/PLC.awl",
 			"create_tags": "S7_AWL",
 			"output_tags": "./output/hmi/tags.json"
 		},
 		"plc_symbols": {
-			"source": "./../fx-beresfield/templates/plc/symbols.sdf",
+			"source": "./../fx-example/templates/plc/symbols.sdf",
 			"output": "./output/plc/symbols.sdf",
 			"symbols": true
 		}
