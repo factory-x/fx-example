@@ -1,0 +1,283 @@
+{% import "actions.xml" as actions %}
+
+{% macro render(lib, emtype_id, emtype) %}
+
+{{ lib.log('rendering EM type ' + emtype_id) }}
+
+{# Build the communication STRUCT #}
+          <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+            <dataType name="{{ emtype_id }}_COM">
+              <baseType>
+                <struct>
+				
+	{#- first part of the STRUCT contains the Setpoints from phase to EM -#}  
+	{%- for io_name, io in lib.select_interface_io(emtype.Inputs) %}
+<variable name="{{ io_name }}"><type><{{ lib.uppercase(io.Type) }} /></type></variable>
+	{%- endfor %}
+	{#- second part of the STRUCT contains the Process Values from EM to phase -#} 
+	{%- for io_name, io in lib.select_interface_io(emtype.Outputs) %}
+<variable name="{{ io_name }}"><type><{{ lib.uppercase(io.Type) }} /></type></variable>
+	{%- endfor %}
+				  
+                </struct>
+              </baseType>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>e1678b91-0764-4141-9edb-705c6e8be436</ObjectId>
+                </data>
+              </addData>
+            </dataType>
+          </data>
+
+{# Build the actual EM TYPE #}		  
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="{{ emtype_id }}" pouType="functionBlock">
+                <interface>
+				  <inputVars>
+				  
+<variable name="scantime">
+	<type><REAL /></type>
+	<initialValue><simpleValue value="200.0" /></initialValue>
+</variable>
+
+{% for input_name, input in emtype.Inputs %}
+<variable name="{{ input_name }}">
+	<type><{{ lib.uppercase(input.Type) }} /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">{{input.Comment | safe}}{% if input.Comment_io != undefined %} - {{ input.Comment_io }}{% endif %}</xhtml></documentation>
+</variable>
+{%- endfor %}		
+			  
+				  </inputVars>
+				  <outputVars>
+				  
+<variable name="steptime_s"><type><REAL /></type></variable>
+<variable name="steptime_m"><type><REAL /></type></variable>
+<variable name="steptime_h"><type><REAL /></type></variable>
+
+{% for output_name, output in emtype.Outputs %}
+<variable name="{{ output_name }}">
+	<type><{{ lib.uppercase(output.Type) }} /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">{{output.Comment | safe}}{% if output.Comment_io != undefined %} - {{ output.Comment_io }}{% endif %}</xhtml></documentation>
+</variable>
+{%- endfor %}
+				  
+				  </outputVars>
+                  <localVars>
+
+<variable name="first_scan"><type><BOOL /></type></variable>
+<variable name="last_scan"><type><BOOL /></type></variable>
+<variable name="previous_Command"><type><INT /></type></variable>
+				  
+<variable name="SP_PV"><type><derived name="{{emtype_id}}_COM" /></type></variable>
+					
+                  </localVars>
+				  <tempVars>
+
+<variable name="initial_scan"><type><BOOL /></type></variable>
+				  
+				  </tempVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+
+					
+// Copy all Setpoints from the COM
+//--------------------------------
+// 
+//--------------------------------
+
+{% for io_name, io in lib.select_interface_io(emtype.Inputs) %}
+{{io_name}}:= SP_PV.{{io_name}};
+{%- endfor %}
+
+
+// Acquiring logic
+//--------------------------------
+// 
+//--------------------------------
+
+Owner:= Request;
+
+
+// Steptimers
+//--------------------------------
+// If the previous Command is not the same as the current one
+// then reset the timers, else increase them
+// This is at the start of the FB because normal commandchanges will take
+// till the next cycle to become active
+//--------------------------------
+
+// if Command not changed then increase steptimer
+IF (Command = previous_Command) THEN
+	
+	steptime_s:= steptime_s + scantime;
+
+// else reset it at the start of a new step	
+ELSE
+
+	steptime_s:= 0.0;	
+	
+END_IF
+
+// calculate the other two timers
+steptime_m:= steptime_s / 60.0;
+steptime_h:= steptime_m / 60.0;
+		
+
+		
+// detect initial scan
+//--------------------------------
+// create a pulse active on the first cycle of a new scan
+// this signal can be used in the step to execute some actions in the first cycle of the step
+//--------------------------------
+
+initial_scan:= Command &lt;&gt; previous_Command;		
+
+
+// Save old step
+//--------------------------------
+// Save old step
+//--------------------------------
+
+previous_Command := Command;
+		
+		
+// Collect the errors from the CMs
+//--------------------------------
+//
+//--------------------------------
+
+{#- loop over all the inputs #}
+{%- set first_loop = true %}
+CM_Error:= (
+{%- for input_name, input_object in emtype.Inputs -%}
+	{%- if input_object.Error_Signal == true %}
+	{% if not first_loop -%}OR {% endif %}{{ input_name }}{% set first_loop = false %}
+	{%- endif %}
+{%- endfor %}
+);		
+	
+
+// Assign a message number to each error
+//--------------------------------
+// This code tries to assign an error message to each CM error
+// If multiple CMs have an error then it only stores one
+// This is the EM type so we don't know which CM/EM instance is connected
+// So the error only contains the general name of the CM/EM instance
+// If the actual name needs to be shown then it could be deducted
+// at a higher level using the CM/EM name and EM instance 
+//--------------------------------
+
+// todo	
+
+
+// START OF THE STATES
+//################################
+//################################
+// Placeholder network to indicate the start of the actual sequence
+//################################	  
+//################################		
+
+
+	{#- loop over all the states #}
+	{%- for state_number, state_object in emtype.States %}
+// Step {{state_number}}
+//___{{emtype.Type_Name}}_Step_{{state_number}}_
+//================================
+{{ lib.comment_all_lines(state_object.Comment) | safe }} 
+//================================	  
+
+IF (Command = {{state_number}}) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		{{ actions.render(lib, state_object.Actions_First_Scan) }}
+	ELSE
+	
+		// --- CONTINUOUS ---
+		{{ actions.render(lib, state_object.Actions) }}
+	END_IF
+	
+
+	// --- CONDITIONS ---
+	IF (
+		{%- for logic in state_object.Conditions.transition_logic %}
+			{%- if logic.operation != undefined %}
+		{{ lib.repeat('	', logic.depth) }}{% if (logic.index != 0) %}{{logic.logic}} {% endif %}{{logic.converted_calcultation_1}} {{logic.operation}} {{logic.converted_calcultation_2}}
+			{%- else %}
+		{{ lib.repeat('	', logic.depth) }}{% if (logic.index != 0) %}{{logic.logic}} {% endif %}{{logic.result.value}}	
+			{%- endif %}
+		{%- else %}
+		TRUE
+		{%- endfor %}
+	) THEN
+	
+		Status:= Command;
+		
+	END_IF
+	
+END_IF	
+
+IF (previous_Command = {{state_number}} and Command &lt;&gt; {{state_number}} ) THEN		
+	
+	
+	// --- LAST SCAN ---
+	{{- actions.render(lib, state_object.Actions_Last_Scan) }}	
+
+
+END_IF {# state #}
+
+	{% endfor %}{# state #}
+
+
+
+
+// END OF THE STATES
+//################################
+//################################
+// Placeholder network to indicate the end of the actual sequence
+//################################	  
+//################################
+
+
+// General Actions - After
+//--------------------------------
+// General Actions - After
+//--------------------------------
+	
+{{- actions.render(lib, emtype.General_Actions.After) -}}
+
+
+// Copy all Process Values to the UDT
+//--------------------------------
+// 
+//--------------------------------
+
+{% for io_name, io in lib.select_interface_io(emtype.Outputs) %}
+SP_PV.{{io_name}}:= {{io_name}};
+{%- endfor %}
+
+
+// Clean up request
+//--------------------------------
+// Phases don't clean up their requests on the EM side
+// So at the end of the EM reset the request
+// If the phase is still there then it will write the request again by the next scan
+//--------------------------------
+	
+request:= 0;
+
+					</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>fx-emtype-{{emtype_id}}</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+{% endmacro %}

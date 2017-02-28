@@ -16,6 +16,16 @@
 			"source": "./../fx-example/templates/plc/symbols.sdf",
 			"output": "./output/plc/symbols.sdf",
 			"symbols": true
+		},
+		"plc_bedrock": {
+			"source": "./../fx-example/templates/plc_bedrock/main.xml",
+			"output": "./output/plc_bedrock/PLC.xml",
+			"definitions":{
+				"%%prefix_EM_instances%%": "cstate.Equipment_Modules.",
+				"%%prefix_CM_instances%%": "cstate.Control_Modules.",
+				"%%prefix_Phase_instances%%": "cstate.Phases.",
+				"%%prefix_Unit_instances%%": "cstate.Units."
+			}
 		}
 	},
 	"version": "0.20.0"

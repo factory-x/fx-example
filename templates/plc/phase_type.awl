@@ -281,7 +281,7 @@ TITLE = Read EMs
 	   EM_ID                    := {{ LM_name }}_ID,
 	   UDT_LOCATION             := #{{ LM_name }},
 	   UDT_OFFSET               := 40,
-	   Length                   := 40,
+	   Length                   := 40,;
 	   EM_addressing_error      := M      0.0,
 	   RETVAL                   := MW     0);
 	{%- endif %}

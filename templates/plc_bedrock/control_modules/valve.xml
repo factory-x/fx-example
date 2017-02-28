@@ -1,0 +1,55 @@
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Valve" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+                    <variable name="Command">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Feedback_Open">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Feedback_Close">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <outputVars>
+                    <variable name="Opened">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Closed">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Monitoring_Error">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Command_Open">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </outputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>7d5ca5e0-6790-4ebd-b69a-25c3d9c73a27</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>

@@ -1,0 +1,30 @@
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="DI" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+                    <variable name="i_bInp">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <outputVars>
+                    <variable name="QON">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </outputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>99bf9058-2afc-47c9-9816-fd8492b681bf</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>

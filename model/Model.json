@@ -12,6 +12,10 @@
 			"DB_NO": "INT",
 			"Location": "INT",
 			"Value": "DWORD"
+		},
+		"somefunction": {
+				"arg1": "INT",
+				"arg2": "INT"
 		}
 	  }
 	},
@@ -257,7 +261,7 @@
 				"Inputs":{
 					"L_REMOTE":{
 						"Type": "Bool",
-						"Suffix": "_SET_EXT",
+						"Suffix": "_EXT",
 						"Comment": "Switch to External Mode",
 						"truewords": ["switch to external", "set external mode", "external mode", "external"],
 						"falsewords": ["switch to internal", "set internal mode", "internal mode", "internal"]
@@ -272,9 +276,9 @@
 					},
 					"L_AUT":{
 						"Type": "Bool",
-						"Suffix": "_SET_AUT",
+						"Suffix": "_AUT",
 						"Comment": "Switch to Auto Mode",
-						"pulsewords": ["switch to auto", "set auto", "auto"],
+						"truewords": ["switch to auto", "set auto", "auto"],
 						"falsewords": ["switch to manual", "set manual", "manual"]
 					},
 					"HMI_MAN":{

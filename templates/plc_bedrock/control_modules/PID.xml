@@ -1,0 +1,80 @@
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="PID" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+                    <variable name="i_bPCmdAUT">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="i_bPCmdMAN">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Operator_Setpoint">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                    <variable name="Set_SP">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="i_bPCmdPID">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="i_bPCmdOPE">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Output_Value">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                    <variable name="Set_Output">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                    <variable name="wVal">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <outputVars>
+                    <variable name="QfVal">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                    <variable name="QERR">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Q_wOP">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                  </outputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>ced372e3-2c33-4770-9de9-d99324da25e4</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>

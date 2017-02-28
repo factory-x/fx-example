@@ -1,0 +1,95 @@
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Motor" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+                    <variable name="Command_On">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Command_Off">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Auto">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Manual">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Feedback_On">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Remote">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Error">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Enable">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Repair">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <outputVars>
+                    <variable name="Running">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Stopped">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Command_Run">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Error_Mon">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Error_VFD">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Error_Out">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </outputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>b9aed22a-df59-4381-8fe2-4dc9dba35bf9</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>

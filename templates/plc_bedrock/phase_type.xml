@@ -1,0 +1,778 @@
+{% import "actions.xml" as actions %}
+
+{% macro render(lib, ptype_id, ptype) %}
+
+{{ lib.log('rendering phase type ' + ptype_id) }}
+
+{#- create label counters: reset also creates them if not existing -#}
+{{ lib.reset_counter('steplabel') }}
+{{ lib.reset_counter('transition_label') }}
+{{ lib.reset_counter('timer_label') }}
+{{ lib.reset_counter('shc') }}
+{{ lib.reset_counter('error_label') }}
+
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="{{ ptype_id }}" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+<variable name="scantime">
+	<type><REAL /></type>
+	<initialValue><simpleValue value="200.0" /></initialValue>
+</variable>
+{% for input_name, input in ptype.Inputs %}
+	{%- if input.Master_Type != 'EM' %}
+<variable name="{{ input_name }}">
+	<type><{{ lib.uppercase(input.Type) }} /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">{{input.Comment | safe}}{% if input.Comment_io != undefined %} - {{ input.Comment_io }}{% endif %}</xhtml></documentation>
+</variable>
+	{%- endif %}
+{%- endfor %}					
+				  </inputVars>
+				  <outputVars>
+<variable name="phase_id"><type><INT /></type></variable>
+<variable name="state"><type><INT /></type></variable>
+<variable name="stepnumber"><type><INT /></type></variable>
+<variable name="message"><type><DINT /></type></variable>
+<variable name="button_1_text"><type><DINT /></type></variable>
+<variable name="button_2_text"><type><DINT /></type></variable>
+<variable name="button_3_text"><type><DINT /></type></variable>
+<variable name="button_1_visible"><type><BOOL /></type></variable>
+<variable name="button_2_visible"><type><BOOL /></type></variable>
+<variable name="button_3_visible"><type><BOOL /></type></variable>
+
+<variable name="state_idle"><type><BOOL /></type></variable>
+<variable name="state_running"><type><BOOL /></type></variable>
+<variable name="state_complete"><type><BOOL /></type></variable>
+<variable name="state_pausing"><type><BOOL /></type></variable>
+<variable name="state_paused"><type><BOOL /></type></variable>
+<variable name="state_holding"><type><BOOL /></type></variable>
+<variable name="state_held"><type><BOOL /></type></variable>
+<variable name="state_restarting"><type><BOOL /></type></variable>
+<variable name="state_stopping"><type><BOOL /></type></variable>
+<variable name="state_stopped"><type><BOOL /></type></variable>
+<variable name="state_aborting"><type><BOOL /></type></variable>
+<variable name="state_aborted"><type><BOOL /></type></variable>
+
+<variable name="enable_start"><type><BOOL /></type></variable>
+<variable name="enable_stop"><type><BOOL /></type></variable>
+<variable name="enable_hold"><type><BOOL /></type></variable>
+<variable name="enable_restart"><type><BOOL /></type></variable>
+<variable name="enable_abort"><type><BOOL /></type></variable>
+<variable name="enable_reset"><type><BOOL /></type></variable>
+<variable name="enable_pause"><type><BOOL /></type></variable>
+<variable name="enable_resume"><type><BOOL /></type></variable>
+<variable name="enable_auto"><type><BOOL /></type></variable>
+<variable name="enable_man"><type><BOOL /></type></variable>
+<variable name="enable_byte"><type><BYTE /></type></variable>
+<variable name="auto"><type><BOOL /></type></variable>
+
+<variable name="steptime_s"><type><REAL /></type></variable>
+<variable name="steptime_m"><type><REAL /></type></variable>
+<variable name="steptime_h"><type><REAL /></type></variable>
+
+<variable name="message_number_01"><type><DINT /></type></variable>
+<variable name="message_number_02"><type><DINT /></type></variable>
+<variable name="message_number_03"><type><DINT /></type></variable>
+<variable name="message_number_04"><type><DINT /></type></variable>
+<variable name="message_number_05"><type><DINT /></type></variable>
+<variable name="message_number_06"><type><DINT /></type></variable>
+<variable name="message_number_07"><type><DINT /></type></variable>
+<variable name="message_number_08"><type><DINT /></type></variable>
+<variable name="message_number_09"><type><DINT /></type></variable>
+<variable name="message_number_10"><type><DINT /></type></variable>
+
+{% for output_name, output in ptype.Outputs %}
+	{%- if output.Master_Type != 'EM' %}
+<variable name="{{ output_name }}">
+	<type><{{ lib.uppercase(output.Type) }} /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">{{output.Comment | safe}}{% if output.Comment_io != undefined %} - {{ output.Comment_io }}{% endif %}</xhtml></documentation>
+</variable>
+	{%- endif %}
+{%- endfor %}	
+
+                  </outputVars>
+				  
+				  <inOutVars>
+
+				  </inOutVars>
+
+                  <localVars>
+<variable name="hmi_commands"><type><INT /></type></variable>
+<variable name="previous_stepnumber"><type><INT /></type></variable>
+<variable name="start_conditions"><type><BOOL /></type></variable>
+<variable name="hold_conditions"><type><BOOL /></type></variable>
+<variable name="first_scan"><type><BOOL /></type></variable>
+<variable name="last_scan"><type><BOOL /></type></variable>
+
+<variable name="start_cond_01"><type><BOOL /></type></variable>
+<variable name="start_cond_02"><type><BOOL /></type></variable>
+<variable name="start_cond_03"><type><BOOL /></type></variable>
+<variable name="start_cond_04"><type><BOOL /></type></variable>
+<variable name="start_cond_05"><type><BOOL /></type></variable>
+<variable name="start_cond_06"><type><BOOL /></type></variable>
+<variable name="start_cond_07"><type><BOOL /></type></variable>
+<variable name="start_cond_08"><type><BOOL /></type></variable>
+<variable name="start_cond_09"><type><BOOL /></type></variable>
+<variable name="start_cond_10"><type><BOOL /></type></variable>
+<variable name="start_cond_11"><type><BOOL /></type></variable>
+<variable name="start_cond_12"><type><BOOL /></type></variable>
+<variable name="start_cond_13"><type><BOOL /></type></variable>
+<variable name="start_cond_14"><type><BOOL /></type></variable>
+<variable name="start_cond_15"><type><BOOL /></type></variable>
+<variable name="start_cond_16"><type><BOOL /></type></variable>
+
+<variable name="hold_cond_01"><type><BOOL /></type></variable>
+<variable name="hold_cond_02"><type><BOOL /></type></variable>
+<variable name="hold_cond_03"><type><BOOL /></type></variable>
+<variable name="hold_cond_04"><type><BOOL /></type></variable>
+<variable name="hold_cond_05"><type><BOOL /></type></variable>
+<variable name="hold_cond_06"><type><BOOL /></type></variable>
+<variable name="hold_cond_07"><type><BOOL /></type></variable>
+<variable name="hold_cond_08"><type><BOOL /></type></variable>
+<variable name="hold_cond_09"><type><BOOL /></type></variable>
+<variable name="hold_cond_10"><type><BOOL /></type></variable>
+<variable name="hold_cond_11"><type><BOOL /></type></variable>
+<variable name="hold_cond_12"><type><BOOL /></type></variable>
+<variable name="hold_cond_13"><type><BOOL /></type></variable>
+<variable name="hold_cond_14"><type><BOOL /></type></variable>
+<variable name="hold_cond_15"><type><BOOL /></type></variable>
+<variable name="hold_cond_16"><type><BOOL /></type></variable>
+
+<variable name="in_steprange"><type><BOOL /></type></variable>
+
+<variable name="Module_Error"><type><BOOL /></type></variable>
+<variable name="CM_Error_no"><type><BOOL /></type></variable>
+<variable name="EM_Error_no"><type><BOOL /></type></variable>
+
+{#- CoDeSys expects the inouts to be defined when calling the FB #}
+{#- So render them in the local vars instead #}
+{#- Todo: find better solution #}
+{% for in_out_name, in_out in ptype.In_Outs %}
+<variable name="{{ in_out_name }}">
+	<type><{{ lib.uppercase(in_out.Type) }} /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">{{in_out.Comment | safe}}{% if in_out.Comment_io != undefined %} - {{ in_out.Comment_io }}{% endif %}</xhtml></documentation>
+</variable>
+{%- endfor %}
+
+{% for stat_name, stat in ptype.Internals %}
+<variable name="{{ stat_name }}">
+	<type><{{ lib.uppercase(stat.Type) }} /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">{{stat.Comment | safe}}{% if stat.Comment_io != undefined %} - {{ stat.Comment_io }}{% endif %}</xhtml></documentation>
+</variable>
+{%- endfor %}
+
+{# add the STRUCTs and POINTERS for the linked EMs -#}
+{%- for LM_name, LM in ptype.Linked_Modules %}
+	{%- if LM.Master_Type == 'EM' %}
+<variable name="{{ LM_name }}">
+	<type><derived name="{{ LM.Type }}_COM" /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Structure linking the EM</xhtml></documentation>
+</variable>
+<variable name="{{ LM_name }}_POINTER">
+	<type>
+		<pointer>
+			<baseType>
+				<derived name="{{ LM.Type }}_COM" /> 
+			</baseType>
+		</pointer>
+	</type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pointer needed for dereferencing the linked STRUCT</xhtml></documentation>
+</variable>
+	
+	{%- endif %}
+{%- endfor %}
+
+                  </localVars>
+                  <tempVars>
+
+<variable name="plc_start"><type><BOOL /></type></variable>
+<variable name="plc_stop"><type><BOOL /></type></variable>
+<variable name="plc_hold"><type><BOOL /></type></variable>	
+<variable name="plc_restart"><type><BOOL /></type></variable>
+<variable name="plc_abort"><type><BOOL /></type></variable>	
+<variable name="plc_reset"><type><BOOL /></type></variable>
+<variable name="plc_pause"><type><BOOL /></type></variable>	
+<variable name="plc_resume"><type><BOOL /></type></variable>
+<variable name="plc_auto"><type><BOOL /></type></variable>
+<variable name="plc_man"><type><BOOL /></type></variable>
+<variable name="plc_cmd"><type><BOOL /></type></variable>	
+
+<variable name="hmi_start"><type><BOOL /></type></variable>
+<variable name="hmi_stop"><type><BOOL /></type></variable>	
+<variable name="hmi_hold"><type><BOOL /></type></variable>
+<variable name="hmi_restart"><type><BOOL /></type></variable>	
+<variable name="hmi_abort"><type><BOOL /></type></variable>
+<variable name="hmi_reset"><type><BOOL /></type></variable>	
+<variable name="hmi_pause"><type><BOOL /></type></variable>
+<variable name="hmi_resume"><type><BOOL /></type></variable>	
+<variable name="hmi_auto"><type><BOOL /></type></variable>
+<variable name="hmi_man"><type><BOOL /></type></variable>	
+<variable name="hmi_cmd"><type><BYTE /></type></variable>
+
+<variable name="command_start"><type><BOOL /></type></variable>
+<variable name="command_stop"><type><BOOL /></type></variable>	
+<variable name="command_hold"><type><BOOL /></type></variable>
+<variable name="command_restart"><type><BOOL /></type></variable>	
+<variable name="command_abort"><type><BOOL /></type></variable>
+<variable name="command_reset"><type><BOOL /></type></variable>	
+<variable name="command_pause"><type><BOOL /></type></variable>
+<variable name="command_resume"><type><BOOL /></type></variable>
+<variable name="command_auto"><type><BOOL /></type></variable>
+<variable name="command_man"><type><BOOL /></type></variable>	
+<variable name="command_byte"><type><BYTE /></type></variable>
+
+<variable name="button_1_pushed"><type><BOOL /></type></variable>	
+<variable name="button_2_pushed"><type><BOOL /></type></variable>
+<variable name="button_3_pushed"><type><BOOL /></type></variable>	
+
+<variable name="sh_cond_01"><type><BOOL /></type></variable>
+<variable name="sh_cond_02"><type><BOOL /></type></variable>
+<variable name="sh_cond_03"><type><BOOL /></type></variable>
+<variable name="sh_cond_04"><type><BOOL /></type></variable>	
+<variable name="sh_cond_05"><type><BOOL /></type></variable>
+<variable name="sh_cond_06"><type><BOOL /></type></variable>	
+<variable name="sh_cond_07"><type><BOOL /></type></variable>
+<variable name="sh_cond_08"><type><BOOL /></type></variable>	
+<variable name="sh_cond_09"><type><BOOL /></type></variable>
+<variable name="sh_cond_10"><type><BOOL /></type></variable>	
+<variable name="sh_cond_11"><type><BOOL /></type></variable>
+<variable name="sh_cond_12"><type><BOOL /></type></variable>	
+<variable name="sh_cond_13"><type><BOOL /></type></variable>
+<variable name="sh_cond_14"><type><BOOL /></type></variable>	
+<variable name="sh_cond_15"><type><BOOL /></type></variable>
+<variable name="sh_cond_16"><type><BOOL /></type></variable>
+	
+<variable name="initial_scan"><type><BOOL /></type></variable>
+
+<variable name="current_stepnumber"><type><INT /></type></variable>
+
+					
+                  </tempVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+
+// INDEX
+//--------------------------------
+{#- loop over all the steps #}
+{%- for sequence in ['Sequence_Idle', 'Sequence_Running', 'Sequence_Completed', 'Sequence_Holding', 'Sequence_Aborting'] %}
+	{#- loop over all the sequences #}
+	{%- for step_number, step_object in ptype[sequence].Steps %}
+//___{{ptype.Type_Name}}_Step_{{step_number}}_  
+	{%- endfor %}
+{%- endfor %}
+//--------------------------------				
+		
+		
+// Read EMs
+//--------------------------------
+//
+//--------------------------------
+
+// todo: protect againt not a pointer
+
+{%- for LM_name, LM in ptype.Linked_Modules %}
+	{%- if LM.Master_Type == 'EM' %}
+	   
+{{ LM_name }}_Pointer:=cstate.EM_Index[{{ LM_name }}_ID];
+{{ LM_name }} := {{ LM_name }}_Pointer^;
+	{%- endif %}
+{%- endfor %}
+
+
+
+// HMI Commands
+//--------------------------------
+// Get the commands from the HMI that have been received in the last cycle
+// They come in a DWORD to save tags
+// They need to be transferred to BOOLS for easy use
+// Once transferred then clear the DWORD so new commands can be detected in the next cycle
+//--------------------------------
+hmi_start:= hmi_commands.0;
+hmi_stop:= hmi_commands.1;
+hmi_restart:= hmi_commands.2;
+hmi_abort:= hmi_commands.3;
+hmi_reset:= hmi_commands.4;
+hmi_pause:= hmi_commands.5;
+hmi_resume:= hmi_commands.6;
+hmi_auto:= hmi_commands.7;
+hmi_man:= hmi_commands.8;
+button_1_pushed:= hmi_commands.9;
+button_2_pushed:= hmi_commands.10;
+button_3_pushed:= hmi_commands.11;
+
+// clear the command
+hmi_commands:= 0;
+
+
+// Combined Commands
+//--------------------------------
+// Combine the commands from the HMI and PLC in one command
+// (OR-function)
+//--------------------------------
+
+command_start := hmi_start OR plc_start;
+command_stop := hmi_stop OR plc_stop;
+command_hold := hmi_hold OR plc_hold;
+command_restart := hmi_restart OR plc_restart;
+command_abort := hmi_abort OR plc_abort;
+command_reset := hmi_reset OR plc_reset;
+command_pause := hmi_pause OR plc_pause;
+command_resume := hmi_resume OR plc_resume;
+command_auto := hmi_auto OR plc_auto;
+command_man := hmi_man OR plc_man;
+
+IF (command_auto) THEN
+	auto:= TRUE;
+END_IF
+
+IF (command_man) THEN
+	auto:= FALSE;
+END_IF
+
+IF (auto) THEN
+	enable_man:= TRUE;
+	enable_auto:= FALSE;
+ELSE
+	enable_man:= FALSE;
+	enable_auto:= TRUE;
+END_IF
+
+
+
+// Steptimers
+//--------------------------------
+// If the previous stepnumber is not the same as the current one
+// then reset the timers, else increase them
+// This is at the start of the FB because normal stepchanges will take
+// till the next cycle to become active
+//--------------------------------
+
+// if stepnumber not changed then increase it
+IF (stepnumber = previous_stepnumber) THEN
+	
+	steptime_s:= steptime_s + scantime;
+
+// else reset it at the start of a new step	
+ELSE
+
+	steptime_s:= 0.0;	
+	
+END_IF
+
+// calculate the other two timers
+steptime_m:= steptime_s / 60.0;
+steptime_h:= steptime_m / 60.0;
+
+
+// Other Timers
+//--------------------------------
+// If timers are needed that cannot be solved with the steptime.
+// Timers need to start with the name 'timer'
+// They are paused by default
+// They can be unpaused
+// They can be reset by writing the value to 0 in the action
+// Every timer is available in s, m and h
+//--------------------------------
+
+{#- add all the auto-generated timers -#}
+{% for timer_name in ptype.Timers %}
+
+//--------------------------------
+// {{ timer_name }}
+//--------------------------------
+
+// if not paused...
+IF (NOT {{timer_name}}_pause) THEN
+
+	{{timer_name}}_s:= {{timer_name}}_s + scantime;
+
+END_IF
+
+// calculate the other two timers
+{{timer_name}}_m:= {{timer_name}}_s / 60.0;
+{{timer_name}}_h:= {{timer_name}}_m / 60.0;
+
+
+{%- endfor %}
+
+
+
+// detect initial scan
+//--------------------------------
+// create a pulse active on the first cycle of a new scan
+// this signal can be used in the step to execute some actions in the first cycle of the step
+//--------------------------------
+
+initial_scan:= stepnumber &lt;&gt; previous_stepnumber;
+
+
+// Save old step
+//--------------------------------
+// Save old step
+//--------------------------------
+
+previous_stepnumber := stepnumber;
+
+// Save current step
+//--------------------------------
+// This is used to detect a stepnumber change in the step
+// for example used to execute the last scan
+//--------------------------------
+
+current_stepnumber := stepnumber;
+
+
+// Change States
+//--------------------------------
+// Change States
+//--------------------------------
+// This phase template is design to let the stepnumber be the single
+// source of truth for the state of the phase.
+// All other indicators of state from this phase are deducted from the
+// stepnumber.
+// And the state can only be changed by changing the stepnumber 
+//
+// For every state we both create a bit, and an integer value
+// Both have the same meaning and can be chosen for usage based
+// on what is most convenient
+//--------------------------------
+
+
+// Stop Command
+IF (enable_stop AND command_stop) THEN
+	
+	stepnumber:= 0;
+
+END_IF
+
+// Hold Command
+IF (enable_hold AND (command_hold OR NOT hold_conditions)) THEN
+	
+	stepnumber:= 8000;
+
+END_IF
+
+// Abort Command
+IF (enable_abort AND command_abort) THEN
+	
+	stepnumber:= 9000;
+
+END_IF
+
+// Pause Command
+IF (enable_pause AND command_pause) THEN
+	
+	stepnumber:= 6000;
+
+END_IF
+
+
+// Phase States
+//--------------------------------
+// Update Phase States based on the stepnumber
+// 0 idle 
+// 1 running
+// 2 completed
+// 3 pausing
+// 4 paused
+// 5 holding
+// 6 held
+// 7 restarting
+// 8 stopping
+// 9 stopped
+// 10 aborting
+// 11 aborted
+//--------------------------------
+// See above for explanation
+//--------------------------------
+
+
+//--------------------------------
+// Disable all permissions for the commands
+// The individial permissions will be set again
+// in the next steps depending on the state
+//--------------------------------
+
+enable_start:= FALSE;
+enable_stop:= FALSE;
+enable_hold:= FALSE;
+enable_restart:= FALSE;
+// enable_abort:= FALSE;
+enable_reset:= FALSE;
+enable_pause:= FALSE;
+enable_resume:= FALSE;
+
+
+// 0 Idle state based on stepnumber
+IF (stepnumber &gt;= 0 AND stepnumber &lt;= 0) THEN
+	
+	state_idle:= TRUE;
+	state:= 0;
+	enable_start:= TRUE;
+
+END_IF
+
+// 1 Running state based on stepnumber
+IF (stepnumber &gt;= 1 AND stepnumber &lt;= 9999) THEN
+	
+	state_running := TRUE;
+	state:= 1;
+	enable_stop:= TRUE;
+	enable_hold:= TRUE;
+// enable_abort:= TRUE;
+	enable_pause:= TRUE;
+
+END_IF
+
+// 2 Completed state based on stepnumber
+IF (stepnumber &gt;= 700 AND stepnumber &lt;= 1000) THEN
+	
+	state_complete:= TRUE;
+	state:= 2;
+	enable_reset:= TRUE;
+
+END_IF
+
+// 3 Pausing state based on stepnumber
+IF (stepnumber &gt;= 6000 AND stepnumber &lt;= 6900) THEN
+	
+	state_pausing:= TRUE;
+	state:= 3;
+	enable_stop:= TRUE;
+	enable_hold:= TRUE;
+// enable_abort:= TRUE;	
+	
+END_IF
+
+// 4 Paused state based on stepnumber
+IF (stepnumber &gt;= 6900 AND stepnumber &lt;= 6999) THEN
+	
+	state_paused:= TRUE;
+	state:= 4;
+	enable_stop:= TRUE;
+	enable_hold:= TRUE;
+// enable_abort:= TRUE;	
+	enable_resume:= TRUE;
+	
+END_IF
+
+// 5 Holding state based on stepnumber
+IF (stepnumber &gt;= 8000 AND stepnumber &lt;= 8900) THEN
+	
+	state_holding:= TRUE;
+	state:= 5;
+	enable_stop:= TRUE;
+// enable_abort:= TRUE;	
+	
+END_IF
+
+// 6 Held state based on stepnumber
+IF (stepnumber &gt;= 8900 AND stepnumber &lt;= 8999) THEN
+	
+	state_held:= TRUE;
+	state:= 6;
+	enable_stop:= TRUE;
+	enable_restart:= TRUE;
+	enable_abort:= TRUE;
+	
+END_IF
+
+// 7 Restarting state based on stepnumber
+IF (stepnumber &gt;= 5000 AND stepnumber &lt;= 5900) THEN
+	
+	state_restarting:= TRUE;
+	state:= 7;
+	enable_stop:= TRUE;
+	enable_hold:= TRUE;
+// enable_abort:= TRUE;
+	
+END_IF
+
+// 8 Stopping state based on stepnumber
+IF (stepnumber &gt;= 7000 AND stepnumber &lt;= 7900) THEN
+	
+	state_stopping:= TRUE;
+	state:= 8;
+// enable_abort:= TRUE;
+	
+END_IF
+
+// 9 Stopped state based on stepnumber
+IF (stepnumber &gt;= 7900 AND stepnumber &lt;= 7999) THEN
+	
+	state_stopped:= TRUE;
+	state:= 9;
+// enable_abort:= TRUE;
+	enable_reset:= TRUE;
+	
+END_IF
+
+// 10 Aborting state based on stepnumber
+IF (stepnumber &gt;= 9000 AND stepnumber &lt;= 9900) THEN
+	
+	state_aborting:= TRUE;
+	state:= 10;
+
+END_IF
+
+// 11 Aborted state based on stepnumber
+IF(stepnumber &gt;= 9900 AND stepnumber &lt;= 9999) THEN
+	
+	state_aborted:= TRUE;
+	state:= 11;
+	enable_reset:= TRUE;
+
+END_IF
+
+
+// Disable start command if start_conditions are not ok
+IF (NOT start_conditions) THEN
+	
+	enable_start:= FALSE;
+
+END_IF
+
+
+// Collect the errors from the connected Modules (CMs and EMs)
+//--------------------------------
+//
+//--------------------------------
+
+{#- loop over all the inputs #}
+{%- set first_loop = true %}
+Module_Error:= (
+{%- for input_name, input_object in ptype.Inputs -%}
+	{%- if input_object.Error_Signal == true and input_object.Master_Type == 'EM' %}
+	{% if not first_loop -%}OR {% endif %}{{ input_object.Linked_Module }}.CM_error{% set first_loop = false %}
+	{%- elseif input_object.Error_Signal == true %}
+	{% if not first_loop -%}OR {% endif %}{{ input_name }}{% set first_loop = false %}
+	{%- endif %}
+{%- endfor %}
+);
+
+// Assign a message number to each error
+//--------------------------------
+// This code tries to assign an error message to each CM error
+// If multiple CMs have an error then it only stores one
+// This is the phase type so we don't know which CM/EM instance is connected
+// So the error only contains the general name of the CM/EM instance
+// If the actual name needs to be shown then it could be deducted
+// at a higher level using the CM/EM name and phase instance 
+//--------------------------------
+
+// todo
+
+// Start and Hold Conditions
+//--------------------------------
+// 
+//--------------------------------
+
+start_conditions:= FALSE;
+hold_conditions:= FALSE; // TRUE = safe condition
+
+{%- for shc in ptype.Start_Hold_Cond %}
+
+//-----------------------------------	
+// {{ shc.Comment }}
+//-----------------------------------	
+
+// todo: first do the steps and transitions
+	
+{%- endfor %}
+
+
+// START OF THE STEPS AND TRANSITIONS
+//################################
+//################################
+// Placeholder network to indicate the start of the actual sequence
+//################################	  
+//################################
+
+
+{# loop over all the sequences #}
+{%- for sequence in ['Sequence_Idle', 'Sequence_Running', 'Sequence_Completed', 'Sequence_Holding', 'Sequence_Aborting'] %}
+
+	{#- loop over all the steps #}
+	{%- for step_number, step_object in ptype[sequence].Steps %}
+// Step {{step_number}}
+//___{{ptype.Type_Name}}_Step_{{step_number}}_
+//================================
+{{ lib.comment_all_lines(step_object.Comment) | safe }} 
+//================================	  
+
+IF (stepnumber = {{step_number}}) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		{{ actions.render(lib, step_object.Actions_First_Scan) }}
+	ELSE
+	
+		// --- CONTINUOUS ---
+		{{ actions.render(lib, step_object.Actions) }}
+	END_IF
+	
+	{# loop over all the transitions -#}
+		{% for target, transition in step_object.Transitions %}
+	// --- TRANSITION TO S{{target}} ---
+	IF (
+		{%- for logic in transition.transition_logic %}
+			{%- if logic.operation != undefined %}
+		{{ lib.repeat('	', logic.depth) }}{% if (logic.index != 0) %}{{logic.logic}} {% endif %}{{logic.converted_calcultation_1}} {{logic.operation}} {{logic.converted_calcultation_2}}
+			{%- else %}
+		{{ lib.repeat('	', logic.depth) }}{% if (logic.index != 0) %}{{logic.logic}} {% endif %}{{logic.result.value}}	
+			{%- endif %}
+		{%- else %}
+		TRUE
+		{%- endfor %}
+	) THEN
+	
+		stepnumber:= {{target}};
+		
+	END_IF
+		
+		{% endfor %}
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+		{{- actions.render(lib, step_object.Actions_Last_Scan) }}	
+	
+	END_IF
+	
+
+END_IF {# step #}
+
+	{% endfor %}{# step #}
+
+{% endfor %}{# sequence #}
+
+// END OF THE STEPS AND TRANSITIONS
+//################################
+//################################
+// Placeholder network to indicate the end of the actual sequence
+//################################	  
+//################################
+
+
+// Write EMs
+//--------------------------------
+//
+//--------------------------------
+
+// TODO
+
+</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>fx-phasetype-{{ptype_id}}</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+{% endmacro %}

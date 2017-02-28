@@ -1,0 +1,6966 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="Bedrock IDE" productVersion="Bedrock IDE V1.4" creationDateTime="2017-02-21T09:02:52.9855728" />
+  <contentHeader name="factoryx.project" modificationDateTime="2017-02-21T09:02:15.4674269">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous />
+  </types>
+  <instances>
+    <configurations />
+  </instances>  
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/application" handleUnknown="implementation">
+
+			<resource name="App">
+			  <task name="Main" interval="PT0.2S" priority="1">
+				<pouInstance name="prog" typeName="">
+				  <documentation>
+					<xhtml xmlns="http://www.w3.org/1999/xhtml" />
+				  </documentation>
+				</pouInstance>
+				<addData>
+				  <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+					<TaskSettings KindOfTask="Cyclic" Interval="t#200ms" WithinSPSTimeSlicing="true">
+					  <Watchdog Enabled="false" TimeUnit="ms" Sensitivity="1" />
+					</TaskSettings>
+				  </data>
+				  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+					<ObjectId>4497f635-231f-42fd-8ed5-617f7b71dff3</ObjectId>
+				  </data>
+				</addData>
+			  </task>
+				  <globalVars name="cstate">
+					<variable name="Phases">
+					  <type>
+						<derived name="Phases" />
+					  </type>
+					</variable>
+					<variable name="Equipment_Modules">
+					  <type>
+						<derived name="Equipment_Modules" />
+					  </type>
+					</variable>
+					<variable name="Control_Modules">
+					  <type>
+						<derived name="Control_Modules" />
+					  </type>
+					</variable>
+					<variable name="EM_Index">
+					  <type>
+						<array>
+						  <dimension lower="0" upper="300" />
+						  <baseType>
+							<DWORD />
+						  </baseType>
+						</array>
+					  </type>
+					</variable>
+					<addData>
+					  <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+						<Attributes>
+						  <Attribute Name="qualified_only" Value="" />
+						</Attributes>
+					  </data>
+					  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+						<ObjectId>objectid-cstate</ObjectId>
+					  </data>
+					</addData>
+				  </globalVars>
+				
+			<addData>
+				<data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+      <pou name="somefunction" pouType="function">
+        <interface>
+          <returnType>
+            <INT />
+          </returnType>
+          <inputVars>
+            <variable name="arg1">
+              <type>
+                <INT />
+              </type>
+            </variable>
+            <variable name="arg2">
+              <type>
+                <INT />
+              </type>
+            </variable>
+          </inputVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+          </ST>
+        </body>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>lib-somefunction</ObjectId>
+          </data>	 
+        </addData>
+      </pou>
+</data>	  
+
+				<data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+      <pou name="write_to_DB_DW" pouType="function">
+        <interface>
+		  <returnType>
+            <BOOL />
+          </returnType>
+          <inputVars>
+            <variable name="DB_NO">
+              <type>
+                <INT />
+              </type>
+            </variable>
+            <variable name="Location">
+              <type>
+                <INT />
+              </type>
+            </variable>
+            <variable name="Value">
+              <type>
+                <INT />
+              </type>
+            </variable>
+          </inputVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+          </ST>
+        </body>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>lib-write_to_DB_DW</ObjectId>
+          </data>
+        </addData>
+      </pou>
+</data>	  
+				            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Valve" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+                    <variable name="Command">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Feedback_Open">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Feedback_Close">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <outputVars>
+                    <variable name="Opened">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Closed">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Monitoring_Error">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Command_Open">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </outputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>7d5ca5e0-6790-4ebd-b69a-25c3d9c73a27</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+				            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Motor" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+                    <variable name="Command_On">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Command_Off">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Auto">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Manual">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Feedback_On">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Remote">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Error">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Enable">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Repair">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <outputVars>
+                    <variable name="Running">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Stopped">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Command_Run">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Error_Mon">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Error_VFD">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Error_Out">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </outputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>b9aed22a-df59-4381-8fe2-4dc9dba35bf9</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+				            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Motor_VFD" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+                    <variable name="Command_On">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Command_Off">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Auto">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Manual">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Feedback_On">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Remote">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Error">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Enable">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Repair">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <outputVars>
+                    <variable name="Running">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Stopped">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Command_Run">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Error_MS">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Error_Out">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </outputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>daa993c5-0f58-41b1-a6ed-94637c3a0809</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+				            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="AI" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+                    <variable name="wVal">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <outputVars>
+                    <variable name="QfVal">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                    <variable name="LIM_QbAH">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="LIM_QbWH">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="LIM_QbWL">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="LIM_QbAL">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="QERR">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </outputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>e79efb93-b195-4bf3-afe4-9c7969f9c62f</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+				            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="DI" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+                    <variable name="i_bInp">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <outputVars>
+                    <variable name="QON">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                  </outputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>99bf9058-2afc-47c9-9816-fd8492b681bf</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+				            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="PID" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+                    <variable name="i_bPCmdAUT">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="i_bPCmdMAN">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Operator_Setpoint">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                    <variable name="Set_SP">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="i_bPCmdPID">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="i_bPCmdOPE">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Output_Value">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                    <variable name="Set_Output">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                    <variable name="wVal">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                  </inputVars>
+                  <outputVars>
+                    <variable name="QfVal">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                    <variable name="QERR">
+                      <type>
+                        <BOOL />
+                      </type>
+                    </variable>
+                    <variable name="Q_wOP">
+                      <type>
+                        <REAL />
+                      </type>
+                    </variable>
+                  </outputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>ced372e3-2c33-4770-9de9-d99324da25e4</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+				
+				
+
+
+
+
+          <data name="http://www.3s-software.com/plcopenxml/datatype" handleUnknown="implementation">
+            <dataType name="EM_I_OUT_COM">
+              <baseType>
+                <struct>
+<variable name="Request"><type><INT /></type></variable>
+<variable name="Command"><type><INT /></type></variable>
+<variable name="Pressure_SP"><type><REAL /></type></variable>
+<variable name="Owner"><type><INT /></type></variable>
+<variable name="Status"><type><INT /></type></variable>
+<variable name="CM_error"><type><BOOL /></type></variable>
+<variable name="CM_error_no"><type><DINT /></type></variable>
+<variable name="q_bACTVIE"><type><BOOL /></type></variable>
+<variable name="Level"><type><REAL /></type></variable>
+<variable name="Pressure"><type><REAL /></type></variable>
+				  
+                </struct>
+              </baseType>
+              <addData>
+                <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                  <ObjectId>e1678b91-0764-4141-9edb-705c6e8be436</ObjectId>
+                </data>
+              </addData>
+            </dataType>
+          </data>
+
+		  
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="EM_I_OUT" pouType="functionBlock">
+                <interface>
+				  <inputVars>
+				  
+<variable name="scantime">
+	<type><REAL /></type>
+	<initialValue><simpleValue value="200.0" /></initialValue>
+</variable>
+
+
+<variable name="em_id">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Request">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Command">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Pressure_SP">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Pump_RUN">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Pump_QERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> - General Error</xhtml></documentation>
+</variable>
+<variable name="Pump_EERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> - External Error</xhtml></documentation>
+</variable>
+<variable name="FS01_PV">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Flow Switch - Digital Measurement</xhtml></documentation>
+</variable>
+<variable name="PIC01_PV">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pressure Controller</xhtml></documentation>
+</variable>
+<variable name="PIC01_ERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pressure Controller</xhtml></documentation>
+</variable>
+<variable name="LT01_PV">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Level Transmitter (m)</xhtml></documentation>
+</variable>
+<variable name="LT01_AHH">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Level Transmitter (m)</xhtml></documentation>
+</variable>
+<variable name="LT01_AH">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Level Transmitter (m)</xhtml></documentation>
+</variable>
+<variable name="LT01_AL">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Level Transmitter (m)</xhtml></documentation>
+</variable>
+<variable name="LT01_ALL">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Level Transmitter (m)</xhtml></documentation>
+</variable>
+<variable name="LT01_ERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Level Transmitter (m)</xhtml></documentation>
+</variable>
+<variable name="XV_Bottom_OPN">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Automatic Bottom Valve</xhtml></documentation>
+</variable>
+<variable name="XV_Bottom_CLS">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Automatic Bottom Valve</xhtml></documentation>
+</variable>
+<variable name="XV_Bottom_MERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Automatic Bottom Valve</xhtml></documentation>
+</variable>
+<variable name="BV_Bottom_OPN">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Manual Bottom Valve</xhtml></documentation>
+</variable>
+<variable name="BV_Bottom_CLS">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Manual Bottom Valve</xhtml></documentation>
+</variable>
+<variable name="BV_Bottom_MERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Manual Bottom Valve</xhtml></documentation>
+</variable>
+<variable name="BV_Tran_M04_OPN">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Trnasfer Valve to M04</xhtml></documentation>
+</variable>
+<variable name="BV_Tran_M04_CLS">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Trnasfer Valve to M04</xhtml></documentation>
+</variable>
+<variable name="BV_Tran_M04_MERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Trnasfer Valve to M04</xhtml></documentation>
+</variable>		
+			  
+				  </inputVars>
+				  <outputVars>
+				  
+<variable name="steptime_s"><type><REAL /></type></variable>
+<variable name="steptime_m"><type><REAL /></type></variable>
+<variable name="steptime_h"><type><REAL /></type></variable>
+
+
+<variable name="Owner">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Status">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="CM_error">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="CM_error_no">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="q_bACTVIE">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Level">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Pressure">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Pump_ON">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> - Switch Motor ON</xhtml></documentation>
+</variable>
+<variable name="Pump_AUT">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> - Swtich Motor to AUTO</xhtml></documentation>
+</variable>
+<variable name="PIC01_EXT">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pressure Controller - Switch to External Mode</xhtml></documentation>
+</variable>
+<variable name="PIC01_SP">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pressure Controller - Operator Setpoint in Internal Mode</xhtml></documentation>
+</variable>
+<variable name="PIC01_AUT">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pressure Controller - Switch to Auto Mode</xhtml></documentation>
+</variable>
+<variable name="PIC01_VAL_OUT">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pressure Controller - Operator Output Value</xhtml></documentation>
+</variable>
+<variable name="PIC01_SET_SP">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pressure Controller</xhtml></documentation>
+</variable>
+<variable name="PIC01_SET_OUT">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pressure Controller</xhtml></documentation>
+</variable>
+<variable name="XV_Bottom_CMD">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Automatic Bottom Valve - Auto command from program</xhtml></documentation>
+</variable>
+<variable name="BV_Bottom_CMD">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Manual Bottom Valve - Auto command from program</xhtml></documentation>
+</variable>
+<variable name="BV_Tran_M04_CMD">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Trnasfer Valve to M04 - Auto command from program</xhtml></documentation>
+</variable>
+				  
+				  </outputVars>
+                  <localVars>
+
+<variable name="first_scan"><type><BOOL /></type></variable>
+<variable name="last_scan"><type><BOOL /></type></variable>
+<variable name="previous_Command"><type><INT /></type></variable>
+				  
+<variable name="SP_PV"><type><derived name="EM_I_OUT_COM" /></type></variable>
+					
+                  </localVars>
+				  <tempVars>
+
+<variable name="initial_scan"><type><BOOL /></type></variable>
+				  
+				  </tempVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+
+					
+// Copy all Setpoints from the COM
+//--------------------------------
+// 
+//--------------------------------
+
+
+Request:= SP_PV.Request;
+Command:= SP_PV.Command;
+Pressure_SP:= SP_PV.Pressure_SP;
+
+
+// Acquiring logic
+//--------------------------------
+// 
+//--------------------------------
+
+Owner:= Request;
+
+
+// Steptimers
+//--------------------------------
+// If the previous Command is not the same as the current one
+// then reset the timers, else increase them
+// This is at the start of the FB because normal commandchanges will take
+// till the next cycle to become active
+//--------------------------------
+
+// if Command not changed then increase steptimer
+IF (Command = previous_Command) THEN
+	
+	steptime_s:= steptime_s + scantime;
+
+// else reset it at the start of a new step	
+ELSE
+
+	steptime_s:= 0.0;	
+	
+END_IF
+
+// calculate the other two timers
+steptime_m:= steptime_s / 60.0;
+steptime_h:= steptime_m / 60.0;
+		
+
+		
+// detect initial scan
+//--------------------------------
+// create a pulse active on the first cycle of a new scan
+// this signal can be used in the step to execute some actions in the first cycle of the step
+//--------------------------------
+
+initial_scan:= Command &lt;&gt; previous_Command;		
+
+
+// Save old step
+//--------------------------------
+// Save old step
+//--------------------------------
+
+previous_Command := Command;
+		
+		
+// Collect the errors from the CMs
+//--------------------------------
+//
+//--------------------------------
+CM_Error:= (
+	Pump_QERR
+	OR Pump_EERR
+	OR PIC01_ERR
+	OR LT01_ERR
+	OR XV_Bottom_MERR
+	OR BV_Bottom_MERR
+	OR BV_Tran_M04_MERR
+);		
+	
+
+// Assign a message number to each error
+//--------------------------------
+// This code tries to assign an error message to each CM error
+// If multiple CMs have an error then it only stores one
+// This is the EM type so we don't know which CM/EM instance is connected
+// So the error only contains the general name of the CM/EM instance
+// If the actual name needs to be shown then it could be deducted
+// at a higher level using the CM/EM name and EM instance 
+//--------------------------------
+
+// todo	
+
+
+// START OF THE STATES
+//################################
+//################################
+// Placeholder network to indicate the start of the actual sequence
+//################################	  
+//################################
+// Step 0
+//___EM_I_OUT_Step_0_
+//================================
+ 
+//================================	  
+
+IF (Command = 0) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: stop Pump
+		Pump_ON:= false;
+
+		// Action: close XV_Bottom
+		XV_Bottom_CMD:= false;
+
+		// Action: close BV_Bottom
+		BV_Bottom_CMD:= false;
+
+		// Action: close BV_Tran_M04
+		BV_Tran_M04_CMD:= false;
+
+	END_IF
+	
+
+	// --- CONDITIONS ---
+	IF (
+		XV_Bottom_CLS
+		AND BV_Bottom_CLS
+		AND BV_Tran_M04_CLS
+	) THEN
+	
+		Status:= Command;
+		
+	END_IF
+	
+END_IF	
+
+IF (previous_Command = 0 and Command &lt;&gt; 0 ) THEN		
+	
+	
+	// --- LAST SCAN ---
+	
+
+
+END_IF 
+
+	
+// Step 1
+//___EM_I_OUT_Step_1_
+//================================
+ 
+//================================	  
+
+IF (Command = 1) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: stop Pump
+		Pump_ON:= false;
+
+		// Action: open XV_Bottom
+		XV_Bottom_CMD:= true;
+
+	END_IF
+	
+
+	// --- CONDITIONS ---
+	IF (
+		XV_Bottom_OPN
+	) THEN
+	
+		Status:= Command;
+		
+	END_IF
+	
+END_IF	
+
+IF (previous_Command = 1 and Command &lt;&gt; 1 ) THEN		
+	
+	
+	// --- LAST SCAN ---
+	
+
+
+END_IF 
+
+	
+// Step 2
+//___EM_I_OUT_Step_2_
+//================================
+ 
+//================================	  
+
+IF (Command = 2) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+		// Action: PIC01_SP = 10.0
+		PIC01_SP:= 10.0;
+
+		// Action: PIC01_SET_SP = true
+		PIC01_SET_SP:= true;
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: start Pump
+		Pump_ON:= true;
+
+		// Action: auto 10.0 bar PIC01
+		PIC01_AUT:= true;
+
+		// Action: open XV_Bottom
+		XV_Bottom_CMD:= true;
+
+		// Action: PIC01_SET_SP = false
+		PIC01_SET_SP:= false;
+
+	END_IF
+	
+
+	// --- CONDITIONS ---
+	IF (
+		Pump_RUN
+		AND XV_Bottom_OPN
+	) THEN
+	
+		Status:= Command;
+		
+	END_IF
+	
+END_IF	
+
+IF (previous_Command = 2 and Command &lt;&gt; 2 ) THEN		
+	
+	
+	// --- LAST SCAN ---
+	
+
+
+END_IF 
+
+	
+// Step 3
+//___EM_I_OUT_Step_3_
+//================================
+ 
+//================================	  
+
+IF (Command = 3) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: stop Pump
+		Pump_ON:= false;
+
+		// Action: open BV_Bottom
+		BV_Bottom_CMD:= true;
+
+		// Action: open BV_Tran_M04
+		BV_Tran_M04_CMD:= true;
+
+	END_IF
+	
+
+	// --- CONDITIONS ---
+	IF (
+		BV_Bottom_OPN
+		AND BV_Tran_M04_OPN
+	) THEN
+	
+		Status:= Command;
+		
+	END_IF
+	
+END_IF	
+
+IF (previous_Command = 3 and Command &lt;&gt; 3 ) THEN		
+	
+	
+	// --- LAST SCAN ---
+	
+
+
+END_IF 
+
+	
+// Step 4
+//___EM_I_OUT_Step_4_
+//================================
+ 
+//================================	  
+
+IF (Command = 4) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+		// Action: PIC01_SP = Pressure_SP
+		PIC01_SP:= Pressure_SP;
+
+		// Action: PIC01_SET_SP = true
+		PIC01_SET_SP:= true;
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: start Pump
+		Pump_ON:= true;
+
+		// Action: auto Pressure_SP PIC01
+		PIC01_AUT:= true;
+
+		// Action: open BV_Bottom
+		BV_Bottom_CMD:= true;
+
+		// Action: open BV_Tran_M04
+		BV_Tran_M04_CMD:= true;
+
+		// Action: PIC01_SET_SP = false
+		PIC01_SET_SP:= false;
+
+	END_IF
+	
+
+	// --- CONDITIONS ---
+	IF (
+		Pump_RUN
+		AND BV_Bottom_OPN
+		AND BV_Tran_M04_OPN
+	) THEN
+	
+		Status:= Command;
+		
+	END_IF
+	
+END_IF	
+
+IF (previous_Command = 4 and Command &lt;&gt; 4 ) THEN		
+	
+	
+	// --- LAST SCAN ---
+	
+
+
+END_IF 
+
+	
+// Step 5
+//___EM_I_OUT_Step_5_
+//================================
+ 
+//================================	  
+
+IF (Command = 5) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+		// Action: PIC01_VAL_OUT = 20.0
+		PIC01_VAL_OUT:= 20.0;
+
+		// Action: PIC01_SET_OUT = true
+		PIC01_SET_OUT:= true;
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: start Pump
+		Pump_ON:= true;
+
+		// Action: manual 20.0 Hz PIC01
+		PIC01_AUT:= false;
+
+		// Action: open XV_Bottom
+		XV_Bottom_CMD:= true;
+
+		// Action: PIC01_SET_OUT = false
+		PIC01_SET_OUT:= false;
+
+	END_IF
+	
+
+	// --- CONDITIONS ---
+	IF (
+		Pump_RUN
+		AND XV_Bottom_OPN
+	) THEN
+	
+		Status:= Command;
+		
+	END_IF
+	
+END_IF	
+
+IF (previous_Command = 5 and Command &lt;&gt; 5 ) THEN		
+	
+	
+	// --- LAST SCAN ---
+	
+
+
+END_IF 
+
+	
+
+
+
+
+// END OF THE STATES
+//################################
+//################################
+// Placeholder network to indicate the end of the actual sequence
+//################################	  
+//################################
+
+
+// General Actions - After
+//--------------------------------
+// General Actions - After
+//--------------------------------
+
+		// Action: Level = LT01
+		Level:= LT01_PV;
+
+		// Action: Pressure = PIC01
+		Pressure:= PIC01_PV;
+// Copy all Process Values to the UDT
+//--------------------------------
+// 
+//--------------------------------
+
+
+SP_PV.Owner:= Owner;
+SP_PV.Status:= Status;
+SP_PV.CM_error:= CM_error;
+SP_PV.CM_error_no:= CM_error_no;
+SP_PV.q_bACTVIE:= q_bACTVIE;
+SP_PV.Level:= Level;
+SP_PV.Pressure:= Pressure;
+
+
+// Clean up request
+//--------------------------------
+// Phases don't clean up their requests on the EM side
+// So at the end of the EM reset the request
+// If the phase is still there then it will write the request again by the next scan
+//--------------------------------
+	
+request:= 0;
+
+					</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>fx-emtype-EM_I_OUT</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+
+				
+
+
+
+
+
+
+
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="phase_example" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+<variable name="scantime">
+	<type><REAL /></type>
+	<initialValue><simpleValue value="200.0" /></initialValue>
+</variable>
+
+<variable name="Bool1">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Bool2">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="EM_I_OUT_ID">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Some_Dyn_EM_ID">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="DB_NO">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV003_OPN">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV003_CLS">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV003_MERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV004_OPN">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV004_CLS">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV004_MERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV005_OPN">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV005_CLS">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV005_MERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="P001_RUN">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM</xhtml></documentation>
+</variable>
+<variable name="P001_STOP">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM</xhtml></documentation>
+</variable>
+<variable name="P001_MERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM</xhtml></documentation>
+</variable>
+<variable name="P001_MPS">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM - Motor Protecting Switch</xhtml></documentation>
+</variable>
+<variable name="P002_RUN">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM where the casing doesn't match an existing type</xhtml></documentation>
+</variable>
+<variable name="P002_STOP">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM where the casing doesn't match an existing type</xhtml></documentation>
+</variable>
+<variable name="P002_MERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM where the casing doesn't match an existing type</xhtml></documentation>
+</variable>
+<variable name="P002_MPS">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM where the casing doesn't match an existing type - Motor Protecting Switch</xhtml></documentation>
+</variable>
+<variable name="LT001_PV">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="LT001_AHH">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="LT001_AH">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="LT001_AL">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="LT001_ALL">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="LT001_ERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="LT002_PV">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="LT002_AHH">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="LT002_AH">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="LT002_AL">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="LT002_ALL">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="LT002_ERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="FIC001_PV">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="FIC001_ERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV008_OPN">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV008_CLS">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV008_MERR">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>					
+				  </inputVars>
+				  <outputVars>
+<variable name="phase_id"><type><INT /></type></variable>
+<variable name="state"><type><INT /></type></variable>
+<variable name="stepnumber"><type><INT /></type></variable>
+<variable name="message"><type><DINT /></type></variable>
+<variable name="button_1_text"><type><DINT /></type></variable>
+<variable name="button_2_text"><type><DINT /></type></variable>
+<variable name="button_3_text"><type><DINT /></type></variable>
+<variable name="button_1_visible"><type><BOOL /></type></variable>
+<variable name="button_2_visible"><type><BOOL /></type></variable>
+<variable name="button_3_visible"><type><BOOL /></type></variable>
+
+<variable name="state_idle"><type><BOOL /></type></variable>
+<variable name="state_running"><type><BOOL /></type></variable>
+<variable name="state_complete"><type><BOOL /></type></variable>
+<variable name="state_pausing"><type><BOOL /></type></variable>
+<variable name="state_paused"><type><BOOL /></type></variable>
+<variable name="state_holding"><type><BOOL /></type></variable>
+<variable name="state_held"><type><BOOL /></type></variable>
+<variable name="state_restarting"><type><BOOL /></type></variable>
+<variable name="state_stopping"><type><BOOL /></type></variable>
+<variable name="state_stopped"><type><BOOL /></type></variable>
+<variable name="state_aborting"><type><BOOL /></type></variable>
+<variable name="state_aborted"><type><BOOL /></type></variable>
+
+<variable name="enable_start"><type><BOOL /></type></variable>
+<variable name="enable_stop"><type><BOOL /></type></variable>
+<variable name="enable_hold"><type><BOOL /></type></variable>
+<variable name="enable_restart"><type><BOOL /></type></variable>
+<variable name="enable_abort"><type><BOOL /></type></variable>
+<variable name="enable_reset"><type><BOOL /></type></variable>
+<variable name="enable_pause"><type><BOOL /></type></variable>
+<variable name="enable_resume"><type><BOOL /></type></variable>
+<variable name="enable_auto"><type><BOOL /></type></variable>
+<variable name="enable_man"><type><BOOL /></type></variable>
+<variable name="enable_byte"><type><BYTE /></type></variable>
+<variable name="auto"><type><BOOL /></type></variable>
+
+<variable name="steptime_s"><type><REAL /></type></variable>
+<variable name="steptime_m"><type><REAL /></type></variable>
+<variable name="steptime_h"><type><REAL /></type></variable>
+
+<variable name="message_number_01"><type><DINT /></type></variable>
+<variable name="message_number_02"><type><DINT /></type></variable>
+<variable name="message_number_03"><type><DINT /></type></variable>
+<variable name="message_number_04"><type><DINT /></type></variable>
+<variable name="message_number_05"><type><DINT /></type></variable>
+<variable name="message_number_06"><type><DINT /></type></variable>
+<variable name="message_number_07"><type><DINT /></type></variable>
+<variable name="message_number_08"><type><DINT /></type></variable>
+<variable name="message_number_09"><type><DINT /></type></variable>
+<variable name="message_number_10"><type><DINT /></type></variable>
+
+
+<variable name="Destination">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="setpoint">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="some_bool_out">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="XV003_CMD">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> - Auto command from program</xhtml></documentation>
+</variable>
+<variable name="XV004_CMD">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> - Auto command from program</xhtml></documentation>
+</variable>
+<variable name="XV005_CMD">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> - Auto command from program</xhtml></documentation>
+</variable>
+<variable name="P001_ON">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM - Switch Motor ON</xhtml></documentation>
+</variable>
+<variable name="P001_AUT">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM - Swtich Motor to AUTO</xhtml></documentation>
+</variable>
+<variable name="P002_ON">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM where the casing doesn't match an existing type - Switch Motor ON</xhtml></documentation>
+</variable>
+<variable name="P002_AUT">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM where the casing doesn't match an existing type - Swtich Motor to AUTO</xhtml></documentation>
+</variable>
+<variable name="FIC001_EXT">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> - Switch to External Mode</xhtml></documentation>
+</variable>
+<variable name="FIC001_SP">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> - Operator Setpoint in Internal Mode</xhtml></documentation>
+</variable>
+<variable name="FIC001_AUT">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> - Switch to Auto Mode</xhtml></documentation>
+</variable>
+<variable name="FIC001_VAL_OUT">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> - Operator Output Value</xhtml></documentation>
+</variable>
+<variable name="FIC001_SET_SP">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="FIC001_SET_OUT">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="timer_dosing_pause">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">timer paused</xhtml></documentation>
+</variable>
+<variable name="timer_dosing_s">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">timer in seconds</xhtml></documentation>
+</variable>
+<variable name="timer_dosing_m">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">timer in minutes</xhtml></documentation>
+</variable>
+<variable name="timer_dosing_h">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">timer in hours</xhtml></documentation>
+</variable>
+<variable name="timer_mixing_pause">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">timer paused</xhtml></documentation>
+</variable>
+<variable name="timer_mixing_s">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">timer in seconds</xhtml></documentation>
+</variable>
+<variable name="timer_mixing_m">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">timer in minutes</xhtml></documentation>
+</variable>
+<variable name="timer_mixing_h">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">timer in hours</xhtml></documentation>
+</variable>
+<variable name="timer_circulation_pause">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">timer paused</xhtml></documentation>
+</variable>
+<variable name="timer_circulation_s">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">timer in seconds</xhtml></documentation>
+</variable>
+<variable name="timer_circulation_m">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">timer in minutes</xhtml></documentation>
+</variable>
+<variable name="timer_circulation_h">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">timer in hours</xhtml></documentation>
+</variable>
+<variable name="XV008_CMD">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"> - Auto command from program</xhtml></documentation>
+</variable>	
+
+                  </outputVars>
+				  
+				  <inOutVars>
+
+				  </inOutVars>
+
+                  <localVars>
+<variable name="hmi_commands"><type><INT /></type></variable>
+<variable name="previous_stepnumber"><type><INT /></type></variable>
+<variable name="start_conditions"><type><BOOL /></type></variable>
+<variable name="hold_conditions"><type><BOOL /></type></variable>
+<variable name="first_scan"><type><BOOL /></type></variable>
+<variable name="last_scan"><type><BOOL /></type></variable>
+
+<variable name="start_cond_01"><type><BOOL /></type></variable>
+<variable name="start_cond_02"><type><BOOL /></type></variable>
+<variable name="start_cond_03"><type><BOOL /></type></variable>
+<variable name="start_cond_04"><type><BOOL /></type></variable>
+<variable name="start_cond_05"><type><BOOL /></type></variable>
+<variable name="start_cond_06"><type><BOOL /></type></variable>
+<variable name="start_cond_07"><type><BOOL /></type></variable>
+<variable name="start_cond_08"><type><BOOL /></type></variable>
+<variable name="start_cond_09"><type><BOOL /></type></variable>
+<variable name="start_cond_10"><type><BOOL /></type></variable>
+<variable name="start_cond_11"><type><BOOL /></type></variable>
+<variable name="start_cond_12"><type><BOOL /></type></variable>
+<variable name="start_cond_13"><type><BOOL /></type></variable>
+<variable name="start_cond_14"><type><BOOL /></type></variable>
+<variable name="start_cond_15"><type><BOOL /></type></variable>
+<variable name="start_cond_16"><type><BOOL /></type></variable>
+
+<variable name="hold_cond_01"><type><BOOL /></type></variable>
+<variable name="hold_cond_02"><type><BOOL /></type></variable>
+<variable name="hold_cond_03"><type><BOOL /></type></variable>
+<variable name="hold_cond_04"><type><BOOL /></type></variable>
+<variable name="hold_cond_05"><type><BOOL /></type></variable>
+<variable name="hold_cond_06"><type><BOOL /></type></variable>
+<variable name="hold_cond_07"><type><BOOL /></type></variable>
+<variable name="hold_cond_08"><type><BOOL /></type></variable>
+<variable name="hold_cond_09"><type><BOOL /></type></variable>
+<variable name="hold_cond_10"><type><BOOL /></type></variable>
+<variable name="hold_cond_11"><type><BOOL /></type></variable>
+<variable name="hold_cond_12"><type><BOOL /></type></variable>
+<variable name="hold_cond_13"><type><BOOL /></type></variable>
+<variable name="hold_cond_14"><type><BOOL /></type></variable>
+<variable name="hold_cond_15"><type><BOOL /></type></variable>
+<variable name="hold_cond_16"><type><BOOL /></type></variable>
+
+<variable name="in_steprange"><type><BOOL /></type></variable>
+
+<variable name="Module_Error"><type><BOOL /></type></variable>
+<variable name="CM_Error_no"><type><BOOL /></type></variable>
+<variable name="EM_Error_no"><type><BOOL /></type></variable>
+
+<variable name="hmi_par_without_unit">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="timesetting">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+
+
+<variable name="e">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="f">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="g">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="h">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="ii">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="j">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="k">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="l">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="mm">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="n">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="o">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="pp">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="qq">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="rr">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="ss">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="tt">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="u">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="v">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="ww">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="xx">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="y">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="z">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="foo">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="bar">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="stoplevel">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="startlevel">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="offset">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="var1">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="test1">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="test2">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="intvar">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+
+
+<variable name="EM_I_OUT">
+	<type><derived name="EM_I_OUT_COM" /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Structure linking the EM</xhtml></documentation>
+</variable>
+<variable name="EM_I_OUT_POINTER">
+	<type>
+		<pointer>
+			<baseType>
+				<derived name="EM_I_OUT_COM" /> 
+			</baseType>
+		</pointer>
+	</type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pointer needed for dereferencing the linked STRUCT</xhtml></documentation>
+</variable>
+<variable name="Some_Dyn_EM">
+	<type><derived name="EM_I_OUT_COM" /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Structure linking the EM</xhtml></documentation>
+</variable>
+<variable name="Some_Dyn_EM_POINTER">
+	<type>
+		<pointer>
+			<baseType>
+				<derived name="EM_I_OUT_COM" /> 
+			</baseType>
+		</pointer>
+	</type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">Pointer needed for dereferencing the linked STRUCT</xhtml></documentation>
+</variable>
+
+                  </localVars>
+                  <tempVars>
+
+<variable name="plc_start"><type><BOOL /></type></variable>
+<variable name="plc_stop"><type><BOOL /></type></variable>
+<variable name="plc_hold"><type><BOOL /></type></variable>	
+<variable name="plc_restart"><type><BOOL /></type></variable>
+<variable name="plc_abort"><type><BOOL /></type></variable>	
+<variable name="plc_reset"><type><BOOL /></type></variable>
+<variable name="plc_pause"><type><BOOL /></type></variable>	
+<variable name="plc_resume"><type><BOOL /></type></variable>
+<variable name="plc_auto"><type><BOOL /></type></variable>
+<variable name="plc_man"><type><BOOL /></type></variable>
+<variable name="plc_cmd"><type><BOOL /></type></variable>	
+
+<variable name="hmi_start"><type><BOOL /></type></variable>
+<variable name="hmi_stop"><type><BOOL /></type></variable>	
+<variable name="hmi_hold"><type><BOOL /></type></variable>
+<variable name="hmi_restart"><type><BOOL /></type></variable>	
+<variable name="hmi_abort"><type><BOOL /></type></variable>
+<variable name="hmi_reset"><type><BOOL /></type></variable>	
+<variable name="hmi_pause"><type><BOOL /></type></variable>
+<variable name="hmi_resume"><type><BOOL /></type></variable>	
+<variable name="hmi_auto"><type><BOOL /></type></variable>
+<variable name="hmi_man"><type><BOOL /></type></variable>	
+<variable name="hmi_cmd"><type><BYTE /></type></variable>
+
+<variable name="command_start"><type><BOOL /></type></variable>
+<variable name="command_stop"><type><BOOL /></type></variable>	
+<variable name="command_hold"><type><BOOL /></type></variable>
+<variable name="command_restart"><type><BOOL /></type></variable>	
+<variable name="command_abort"><type><BOOL /></type></variable>
+<variable name="command_reset"><type><BOOL /></type></variable>	
+<variable name="command_pause"><type><BOOL /></type></variable>
+<variable name="command_resume"><type><BOOL /></type></variable>
+<variable name="command_auto"><type><BOOL /></type></variable>
+<variable name="command_man"><type><BOOL /></type></variable>	
+<variable name="command_byte"><type><BYTE /></type></variable>
+
+<variable name="button_1_pushed"><type><BOOL /></type></variable>	
+<variable name="button_2_pushed"><type><BOOL /></type></variable>
+<variable name="button_3_pushed"><type><BOOL /></type></variable>	
+
+<variable name="sh_cond_01"><type><BOOL /></type></variable>
+<variable name="sh_cond_02"><type><BOOL /></type></variable>
+<variable name="sh_cond_03"><type><BOOL /></type></variable>
+<variable name="sh_cond_04"><type><BOOL /></type></variable>	
+<variable name="sh_cond_05"><type><BOOL /></type></variable>
+<variable name="sh_cond_06"><type><BOOL /></type></variable>	
+<variable name="sh_cond_07"><type><BOOL /></type></variable>
+<variable name="sh_cond_08"><type><BOOL /></type></variable>	
+<variable name="sh_cond_09"><type><BOOL /></type></variable>
+<variable name="sh_cond_10"><type><BOOL /></type></variable>	
+<variable name="sh_cond_11"><type><BOOL /></type></variable>
+<variable name="sh_cond_12"><type><BOOL /></type></variable>	
+<variable name="sh_cond_13"><type><BOOL /></type></variable>
+<variable name="sh_cond_14"><type><BOOL /></type></variable>	
+<variable name="sh_cond_15"><type><BOOL /></type></variable>
+<variable name="sh_cond_16"><type><BOOL /></type></variable>
+	
+<variable name="initial_scan"><type><BOOL /></type></variable>
+
+<variable name="current_stepnumber"><type><INT /></type></variable>
+
+					
+                  </tempVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+
+// INDEX
+//--------------------------------
+//___phase_example_Step_0_
+//___phase_example_Step_10_
+//___phase_example_Step_20_
+//___phase_example_Step_30_
+//___phase_example_Step_40_
+//___phase_example_Step_50_
+//___phase_example_Step_70_
+//___phase_example_Step_80_
+//___phase_example_Step_90_
+//___phase_example_Step_100_
+//___phase_example_Step_120_
+//___phase_example_Step_130_
+//___phase_example_Step_150_
+//___phase_example_Step_170_
+//___phase_example_Step_180_
+//___phase_example_Step_190_
+//___phase_example_Step_200_
+//___phase_example_Step_230_
+//___phase_example_Step_250_
+//___phase_example_Step_260_
+//___phase_example_Step_280_
+//___phase_example_Step_300_
+//___phase_example_Step_310_
+//___phase_example_Step_320_
+//___phase_example_Step_330_
+//___phase_example_Step_340_
+//___phase_example_Step_350_
+//___phase_example_Step_360_
+//___phase_example_Step_370_
+//___phase_example_Step_420_
+//___phase_example_Step_430_
+//___phase_example_Step_440_
+//___phase_example_Step_450_
+//___phase_example_Step_460_
+//___phase_example_Step_470_
+//___phase_example_Step_480_
+//___phase_example_Step_490_
+//___phase_example_Step_510_
+//___phase_example_Step_520_
+//___phase_example_Step_530_
+//___phase_example_Step_540_
+//___phase_example_Step_550_
+//___phase_example_Step_560_
+//___phase_example_Step_570_
+//___phase_example_Step_580_
+//___phase_example_Step_590_
+//___phase_example_Step_600_
+//___phase_example_Step_610_
+//___phase_example_Step_640_
+//___phase_example_Step_650_
+//___phase_example_Step_660_
+//___phase_example_Step_670_
+//___phase_example_Step_680_
+//___phase_example_Step_690_
+//___phase_example_Step_700_
+//___phase_example_Step_710_
+//___phase_example_Step_720_
+//___phase_example_Step_730_
+//___phase_example_Step_740_
+//___phase_example_Step_750_
+//___phase_example_Step_760_
+//___phase_example_Step_770_
+//___phase_example_Step_780_
+//___phase_example_Step_790_
+//___phase_example_Step_810_
+//___phase_example_Step_820_
+//___phase_example_Step_830_
+//___phase_example_Step_840_
+//___phase_example_Step_850_
+//___phase_example_Step_860_
+//___phase_example_Step_870_
+//___phase_example_Step_880_
+//___phase_example_Step_890_
+//___phase_example_Step_910_
+//___phase_example_Step_920_
+//___phase_example_Step_930_
+//___phase_example_Step_940_
+//___phase_example_Step_950_
+//___phase_example_Step_960_
+//___phase_example_Step_970_
+//___phase_example_Step_980_
+//___phase_example_Step_990_
+//___phase_example_Step_1000_
+//___phase_example_Step_8000_
+//--------------------------------				
+		
+		
+// Read EMs
+//--------------------------------
+//
+//--------------------------------
+
+// todo: protect againt not a pointer
+	   
+EM_I_OUT_Pointer:=cstate.EM_Index[EM_I_OUT_ID];
+EM_I_OUT := EM_I_OUT_Pointer^;
+	   
+Some_Dyn_EM_Pointer:=cstate.EM_Index[Some_Dyn_EM_ID];
+Some_Dyn_EM := Some_Dyn_EM_Pointer^;
+
+
+
+// HMI Commands
+//--------------------------------
+// Get the commands from the HMI that have been received in the last cycle
+// They come in a DWORD to save tags
+// They need to be transferred to BOOLS for easy use
+// Once transferred then clear the DWORD so new commands can be detected in the next cycle
+//--------------------------------
+hmi_start:= hmi_commands.0;
+hmi_stop:= hmi_commands.1;
+hmi_restart:= hmi_commands.2;
+hmi_abort:= hmi_commands.3;
+hmi_reset:= hmi_commands.4;
+hmi_pause:= hmi_commands.5;
+hmi_resume:= hmi_commands.6;
+hmi_auto:= hmi_commands.7;
+hmi_man:= hmi_commands.8;
+button_1_pushed:= hmi_commands.9;
+button_2_pushed:= hmi_commands.10;
+button_3_pushed:= hmi_commands.11;
+
+// clear the command
+hmi_commands:= 0;
+
+
+// Combined Commands
+//--------------------------------
+// Combine the commands from the HMI and PLC in one command
+// (OR-function)
+//--------------------------------
+
+command_start := hmi_start OR plc_start;
+command_stop := hmi_stop OR plc_stop;
+command_hold := hmi_hold OR plc_hold;
+command_restart := hmi_restart OR plc_restart;
+command_abort := hmi_abort OR plc_abort;
+command_reset := hmi_reset OR plc_reset;
+command_pause := hmi_pause OR plc_pause;
+command_resume := hmi_resume OR plc_resume;
+command_auto := hmi_auto OR plc_auto;
+command_man := hmi_man OR plc_man;
+
+IF (command_auto) THEN
+	auto:= TRUE;
+END_IF
+
+IF (command_man) THEN
+	auto:= FALSE;
+END_IF
+
+IF (auto) THEN
+	enable_man:= TRUE;
+	enable_auto:= FALSE;
+ELSE
+	enable_man:= FALSE;
+	enable_auto:= TRUE;
+END_IF
+
+
+
+// Steptimers
+//--------------------------------
+// If the previous stepnumber is not the same as the current one
+// then reset the timers, else increase them
+// This is at the start of the FB because normal stepchanges will take
+// till the next cycle to become active
+//--------------------------------
+
+// if stepnumber not changed then increase it
+IF (stepnumber = previous_stepnumber) THEN
+	
+	steptime_s:= steptime_s + scantime;
+
+// else reset it at the start of a new step	
+ELSE
+
+	steptime_s:= 0.0;	
+	
+END_IF
+
+// calculate the other two timers
+steptime_m:= steptime_s / 60.0;
+steptime_h:= steptime_m / 60.0;
+
+
+// Other Timers
+//--------------------------------
+// If timers are needed that cannot be solved with the steptime.
+// Timers need to start with the name 'timer'
+// They are paused by default
+// They can be unpaused
+// They can be reset by writing the value to 0 in the action
+// Every timer is available in s, m and h
+//--------------------------------
+
+//--------------------------------
+// timer_dosing
+//--------------------------------
+
+// if not paused...
+IF (NOT timer_dosing_pause) THEN
+
+	timer_dosing_s:= timer_dosing_s + scantime;
+
+END_IF
+
+// calculate the other two timers
+timer_dosing_m:= timer_dosing_s / 60.0;
+timer_dosing_h:= timer_dosing_m / 60.0;
+
+//--------------------------------
+// timer_mixing
+//--------------------------------
+
+// if not paused...
+IF (NOT timer_mixing_pause) THEN
+
+	timer_mixing_s:= timer_mixing_s + scantime;
+
+END_IF
+
+// calculate the other two timers
+timer_mixing_m:= timer_mixing_s / 60.0;
+timer_mixing_h:= timer_mixing_m / 60.0;
+
+//--------------------------------
+// timer_circulation
+//--------------------------------
+
+// if not paused...
+IF (NOT timer_circulation_pause) THEN
+
+	timer_circulation_s:= timer_circulation_s + scantime;
+
+END_IF
+
+// calculate the other two timers
+timer_circulation_m:= timer_circulation_s / 60.0;
+timer_circulation_h:= timer_circulation_m / 60.0;
+
+
+
+// detect initial scan
+//--------------------------------
+// create a pulse active on the first cycle of a new scan
+// this signal can be used in the step to execute some actions in the first cycle of the step
+//--------------------------------
+
+initial_scan:= stepnumber &lt;&gt; previous_stepnumber;
+
+
+// Save old step
+//--------------------------------
+// Save old step
+//--------------------------------
+
+previous_stepnumber := stepnumber;
+
+// Save current step
+//--------------------------------
+// This is used to detect a stepnumber change in the step
+// for example used to execute the last scan
+//--------------------------------
+
+current_stepnumber := stepnumber;
+
+
+// Change States
+//--------------------------------
+// Change States
+//--------------------------------
+// This phase template is design to let the stepnumber be the single
+// source of truth for the state of the phase.
+// All other indicators of state from this phase are deducted from the
+// stepnumber.
+// And the state can only be changed by changing the stepnumber 
+//
+// For every state we both create a bit, and an integer value
+// Both have the same meaning and can be chosen for usage based
+// on what is most convenient
+//--------------------------------
+
+
+// Stop Command
+IF (enable_stop AND command_stop) THEN
+	
+	stepnumber:= 0;
+
+END_IF
+
+// Hold Command
+IF (enable_hold AND (command_hold OR NOT hold_conditions)) THEN
+	
+	stepnumber:= 8000;
+
+END_IF
+
+// Abort Command
+IF (enable_abort AND command_abort) THEN
+	
+	stepnumber:= 9000;
+
+END_IF
+
+// Pause Command
+IF (enable_pause AND command_pause) THEN
+	
+	stepnumber:= 6000;
+
+END_IF
+
+
+// Phase States
+//--------------------------------
+// Update Phase States based on the stepnumber
+// 0 idle 
+// 1 running
+// 2 completed
+// 3 pausing
+// 4 paused
+// 5 holding
+// 6 held
+// 7 restarting
+// 8 stopping
+// 9 stopped
+// 10 aborting
+// 11 aborted
+//--------------------------------
+// See above for explanation
+//--------------------------------
+
+
+//--------------------------------
+// Disable all permissions for the commands
+// The individial permissions will be set again
+// in the next steps depending on the state
+//--------------------------------
+
+enable_start:= FALSE;
+enable_stop:= FALSE;
+enable_hold:= FALSE;
+enable_restart:= FALSE;
+// enable_abort:= FALSE;
+enable_reset:= FALSE;
+enable_pause:= FALSE;
+enable_resume:= FALSE;
+
+
+// 0 Idle state based on stepnumber
+IF (stepnumber &gt;= 0 AND stepnumber &lt;= 0) THEN
+	
+	state_idle:= TRUE;
+	state:= 0;
+	enable_start:= TRUE;
+
+END_IF
+
+// 1 Running state based on stepnumber
+IF (stepnumber &gt;= 1 AND stepnumber &lt;= 9999) THEN
+	
+	state_running := TRUE;
+	state:= 1;
+	enable_stop:= TRUE;
+	enable_hold:= TRUE;
+// enable_abort:= TRUE;
+	enable_pause:= TRUE;
+
+END_IF
+
+// 2 Completed state based on stepnumber
+IF (stepnumber &gt;= 700 AND stepnumber &lt;= 1000) THEN
+	
+	state_complete:= TRUE;
+	state:= 2;
+	enable_reset:= TRUE;
+
+END_IF
+
+// 3 Pausing state based on stepnumber
+IF (stepnumber &gt;= 6000 AND stepnumber &lt;= 6900) THEN
+	
+	state_pausing:= TRUE;
+	state:= 3;
+	enable_stop:= TRUE;
+	enable_hold:= TRUE;
+// enable_abort:= TRUE;	
+	
+END_IF
+
+// 4 Paused state based on stepnumber
+IF (stepnumber &gt;= 6900 AND stepnumber &lt;= 6999) THEN
+	
+	state_paused:= TRUE;
+	state:= 4;
+	enable_stop:= TRUE;
+	enable_hold:= TRUE;
+// enable_abort:= TRUE;	
+	enable_resume:= TRUE;
+	
+END_IF
+
+// 5 Holding state based on stepnumber
+IF (stepnumber &gt;= 8000 AND stepnumber &lt;= 8900) THEN
+	
+	state_holding:= TRUE;
+	state:= 5;
+	enable_stop:= TRUE;
+// enable_abort:= TRUE;	
+	
+END_IF
+
+// 6 Held state based on stepnumber
+IF (stepnumber &gt;= 8900 AND stepnumber &lt;= 8999) THEN
+	
+	state_held:= TRUE;
+	state:= 6;
+	enable_stop:= TRUE;
+	enable_restart:= TRUE;
+	enable_abort:= TRUE;
+	
+END_IF
+
+// 7 Restarting state based on stepnumber
+IF (stepnumber &gt;= 5000 AND stepnumber &lt;= 5900) THEN
+	
+	state_restarting:= TRUE;
+	state:= 7;
+	enable_stop:= TRUE;
+	enable_hold:= TRUE;
+// enable_abort:= TRUE;
+	
+END_IF
+
+// 8 Stopping state based on stepnumber
+IF (stepnumber &gt;= 7000 AND stepnumber &lt;= 7900) THEN
+	
+	state_stopping:= TRUE;
+	state:= 8;
+// enable_abort:= TRUE;
+	
+END_IF
+
+// 9 Stopped state based on stepnumber
+IF (stepnumber &gt;= 7900 AND stepnumber &lt;= 7999) THEN
+	
+	state_stopped:= TRUE;
+	state:= 9;
+// enable_abort:= TRUE;
+	enable_reset:= TRUE;
+	
+END_IF
+
+// 10 Aborting state based on stepnumber
+IF (stepnumber &gt;= 9000 AND stepnumber &lt;= 9900) THEN
+	
+	state_aborting:= TRUE;
+	state:= 10;
+
+END_IF
+
+// 11 Aborted state based on stepnumber
+IF(stepnumber &gt;= 9900 AND stepnumber &lt;= 9999) THEN
+	
+	state_aborted:= TRUE;
+	state:= 11;
+	enable_reset:= TRUE;
+
+END_IF
+
+
+// Disable start command if start_conditions are not ok
+IF (NOT start_conditions) THEN
+	
+	enable_start:= FALSE;
+
+END_IF
+
+
+// Collect the errors from the connected Modules (CMs and EMs)
+//--------------------------------
+//
+//--------------------------------
+Module_Error:= (
+	XV003_MERR
+	OR XV004_MERR
+	OR XV005_MERR
+	OR P001_MERR
+	OR P001_MPS
+	OR P002_MERR
+	OR P002_MPS
+	OR EM_I_OUT.CM_error
+	OR LT001_ERR
+	OR LT002_ERR
+	OR FIC001_ERR
+	OR Some_Dyn_EM.CM_error
+	OR XV008_MERR
+);
+
+// Assign a message number to each error
+//--------------------------------
+// This code tries to assign an error message to each CM error
+// If multiple CMs have an error then it only stores one
+// This is the phase type so we don't know which CM/EM instance is connected
+// So the error only contains the general name of the CM/EM instance
+// If the actual name needs to be shown then it could be deducted
+// at a higher level using the CM/EM name and phase instance 
+//--------------------------------
+
+// todo
+
+// Start and Hold Conditions
+//--------------------------------
+// 
+//--------------------------------
+
+start_conditions:= FALSE;
+hold_conditions:= FALSE; // TRUE = safe condition
+
+
+// START OF THE STEPS AND TRANSITIONS
+//################################
+//################################
+// Placeholder network to indicate the start of the actual sequence
+//################################	  
+//################################
+
+
+
+// Step 0
+//___phase_example_Step_0_
+//================================
+// Test step with only a comment and transition 
+//================================	  
+
+IF (stepnumber = 0) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S10 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 10;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+
+
+// Step 10
+//___phase_example_Step_10_
+//================================
+// Test multiple comments
+// this is another line 
+//================================	  
+
+IF (stepnumber = 10) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S20 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 20;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 20
+//___phase_example_Step_20_
+//================================
+// Test some spacing before the comment
+// Test some spacing before the first comment word 
+//================================	  
+
+IF (stepnumber = 20) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S30 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 30;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 30
+//___phase_example_Step_30_
+//================================
+// test a simple assignment with a variable 
+//================================	  
+
+IF (stepnumber = 30) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: e = f
+		e:= f;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S40 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 40;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 40
+//___phase_example_Step_40_
+//================================
+// test a simple assignment with a REAL 
+//================================	  
+
+IF (stepnumber = 40) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: setpoint = 25.0
+		setpoint:= 25.0;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S50 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 50;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 50
+//___phase_example_Step_50_
+//================================
+// test a simple assignment with some BOOLS 
+//================================	  
+
+IF (stepnumber = 50) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: XV003_CMD = true
+		XV003_CMD:= true;
+
+		// Action: XV004_CMD = false
+		XV004_CMD:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S70 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 70;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 70
+//___phase_example_Step_70_
+//================================
+// test opening a valve 
+//================================	  
+
+IF (stepnumber = 70) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: open XV003
+		XV003_CMD:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S80 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 80;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 80
+//___phase_example_Step_80_
+//================================
+// test closing a valve 
+//================================	  
+
+IF (stepnumber = 80) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: close XV003
+		XV003_CMD:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S90 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 90;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 90
+//___phase_example_Step_90_
+//================================
+// test starting a motor 
+//================================	  
+
+IF (stepnumber = 90) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: start P001
+		P001_ON:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S100 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 100;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 100
+//___phase_example_Step_100_
+//================================
+// test stopping a motor 
+//================================	  
+
+IF (stepnumber = 100) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: stop P001
+		P001_ON:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S120 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 120;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 120
+//___phase_example_Step_120_
+//================================
+// test with some spaces and non-matching casing => should still work 
+//================================	  
+
+IF (stepnumber = 120) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: Open XV003
+		XV003_CMD:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S130 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 130;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 130
+//___phase_example_Step_130_
+//================================
+// test enumeration 
+//================================	  
+
+IF (stepnumber = 130) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: Destination = PF-I-02
+		Destination:= 2;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S150 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 150;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 150
+//___phase_example_Step_150_
+//================================
+// test EM command 
+//================================	  
+
+IF (stepnumber = 150) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: EM_I_OUT = Pump_Fixed_Pressure
+		EM_I_OUT.Command:= 2;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S170 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 170;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 170
+//___phase_example_Step_170_
+//================================
+// test some simple calculations 
+//================================	  
+
+IF (stepnumber = 170) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: xx = y * z
+		xx:= y * z;
+
+		// Action: rr = e / 2.0
+		rr:= e / 2.0;
+
+		// Action: g = h + ii
+		g:= h + ii;
+
+		// Action: j = k – mm
+		j:= k - mm;
+
+		// Action: n = o + 3.4
+		n:= o + 3.4;
+
+		// Action: pp = 7.3 / qq
+		pp:= 7.3 / qq;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S180 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 180;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 180
+//___phase_example_Step_180_
+//================================
+// test complex calculations 
+//================================	  
+
+IF (stepnumber = 180) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: rr = (ss + tt) / u * v / (ww – xx + 1.34) + 2.3
+		rr:= (ss + tt) / u * v / (ww - xx + 1.34) + 2.3;
+
+		// Action: foo = bar + 1.0
+		foo:= bar + 1.0;
+
+		// Action: stoplevel = startlevel + setpoint – offset
+		stoplevel:= startlevel + setpoint - offset;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S190 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 190;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 190
+//___phase_example_Step_190_
+//================================
+// add two REALs 
+//================================	  
+
+IF (stepnumber = 190) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: var1 = 3.0+2.0
+		var1:= 3.0 + 2.0;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S200 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 200;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 200
+//___phase_example_Step_200_
+//================================
+// test first and last scan actions 
+//================================	  
+
+IF (stepnumber = 200) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+		// Action: xx = 1.0
+		xx:= 1.0;
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: y = 2.0
+		y:= 2.0;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S230 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 230;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+
+		// Action: z = 3.0
+		z:= 3.0;
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 230
+//___phase_example_Step_230_
+//================================
+// test a transition with calculation 
+//================================	  
+
+IF (stepnumber = 230) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S250 ---
+	IF (
+		LT001_PV &gt;= startlevel + setpoint - offset
+	) THEN
+	
+		stepnumber:= 250;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 250
+//___phase_example_Step_250_
+//================================
+// test natural language transition 
+//================================	  
+
+IF (stepnumber = 250) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S260 ---
+	IF (
+		P001_RUN
+	) THEN
+	
+		stepnumber:= 260;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 260
+//___phase_example_Step_260_
+//================================
+// test enumeration 
+//================================	  
+
+IF (stepnumber = 260) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S280 ---
+	IF (
+		Destination = 4
+	) THEN
+	
+		stepnumber:= 280;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 280
+//___phase_example_Step_280_
+//================================
+// test enumerated status of EM 
+//================================	  
+
+IF (stepnumber = 280) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S300 ---
+	IF (
+		EM_I_OUT.Status = 2
+	) THEN
+	
+		stepnumber:= 300;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 300
+//___phase_example_Step_300_
+//================================
+// test if primary suffixes are detected 
+//================================	  
+
+IF (stepnumber = 300) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S310 ---
+	IF (
+		2.0 * LT001_PV = (LT001_PV + LT001_PV - LT001_PV) * LT001_PV
+	) THEN
+	
+		stepnumber:= 310;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 310
+//___phase_example_Step_310_
+//================================
+// test primary suffixes in action side 
+//================================	  
+
+IF (stepnumber = 310) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: test1 = (LT001 + LT001 – LT001) * LT001
+		test1:= (LT001_PV + LT001_PV - LT001_PV) * LT001_PV;
+
+		// Action: test2 = LT002
+		test2:= LT002_PV;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S320 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 320;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 320
+//___phase_example_Step_320_
+//================================
+// test with AND in front 
+//================================	  
+
+IF (stepnumber = 320) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S330 ---
+	IF (
+		XV003_OPN
+	) THEN
+	
+		stepnumber:= 330;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 330
+//___phase_example_Step_330_
+//================================
+// test multiple conditions without explicit logic 
+//================================	  
+
+IF (stepnumber = 330) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S340 ---
+	IF (
+		XV003_OPN
+		AND XV004_OPN
+	) THEN
+	
+		stepnumber:= 340;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 340
+//___phase_example_Step_340_
+//================================
+// test multiple conditions with logic 
+//================================	  
+
+IF (stepnumber = 340) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S350 ---
+	IF (
+		XV003_OPN
+		AND XV004_OPN
+	) THEN
+	
+		stepnumber:= 350;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 350
+//___phase_example_Step_350_
+//================================
+// test OR-logic 
+//================================	  
+
+IF (stepnumber = 350) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S360 ---
+	IF (
+		XV003_OPN
+		OR XV004_OPN
+	) THEN
+	
+		stepnumber:= 360;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 360
+//___phase_example_Step_360_
+//================================
+// test combined logic 
+//================================	  
+
+IF (stepnumber = 360) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S370 ---
+	IF (
+		XV005_OPN
+		AND( 
+			XV003_OPN
+			OR XV004_OPN
+		) 
+	) THEN
+	
+		stepnumber:= 370;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 370
+//___phase_example_Step_370_
+//================================
+// test improved readability 
+//================================	  
+
+IF (stepnumber = 370) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S420 ---
+	IF (
+		XV005_OPN
+		AND( 
+			XV003_OPN
+			OR XV004_OPN
+		) 
+	) THEN
+	
+		stepnumber:= 420;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 420
+//___phase_example_Step_420_
+//================================
+// test first line without logic and rest with AND 
+//================================	  
+
+IF (stepnumber = 420) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S430 ---
+	IF (
+		XV003_OPN
+		AND XV004_OPN
+		AND XV005_OPN
+	) THEN
+	
+		stepnumber:= 430;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 430
+//___phase_example_Step_430_
+//================================
+// test first line without logic and rest with OR 
+//================================	  
+
+IF (stepnumber = 430) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S440 ---
+	IF (
+		XV003_OPN
+		OR XV004_OPN
+		OR XV005_OPN
+	) THEN
+	
+		stepnumber:= 440;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 440
+//___phase_example_Step_440_
+//================================
+// test button 
+//================================	  
+
+IF (stepnumber = 440) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: show button_1
+		button_1_visible:= true;
+
+		// Action: select text with ID 16: continue
+		button_1_text:= 16;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S450 ---
+	IF (
+		button_1_pushed
+	) THEN
+	
+		stepnumber:= 450;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+
+		// Action: hide button_1
+		button_1_visible:= false;
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 450
+//___phase_example_Step_450_
+//================================
+// test button with capital => no problem, the button is case insensitive 
+//================================	  
+
+IF (stepnumber = 450) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: show button_1
+		button_1_visible:= true;
+
+		// Action: select text with ID 17: ok
+		button_1_text:= 17;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S460 ---
+	IF (
+		button_1_pushed
+	) THEN
+	
+		stepnumber:= 460;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+
+		// Action: hide button_1
+		button_1_visible:= false;
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 460
+//___phase_example_Step_460_
+//================================
+// test button without opening quotation marks => no problem, any marks are just removed 
+//================================	  
+
+IF (stepnumber = 460) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: show button_1
+		button_1_visible:= true;
+
+		// Action: select text with ID 18: cancel
+		button_1_text:= 18;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S470 ---
+	IF (
+		button_1_pushed
+	) THEN
+	
+		stepnumber:= 470;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+
+		// Action: hide button_1
+		button_1_visible:= false;
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 470
+//___phase_example_Step_470_
+//================================
+// test button without closing quotation marks => no problem, any marks are just removed 
+//================================	  
+
+IF (stepnumber = 470) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: show button_1
+		button_1_visible:= true;
+
+		// Action: select text with ID 19: go back
+		button_1_text:= 19;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S480 ---
+	IF (
+		button_1_pushed
+	) THEN
+	
+		stepnumber:= 480;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+
+		// Action: hide button_1
+		button_1_visible:= false;
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 480
+//___phase_example_Step_480_
+//================================
+// test 3 buttons 
+//================================	  
+
+IF (stepnumber = 480) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: show button_1
+		button_1_visible:= true;
+
+		// Action: select text with ID 16: continue
+		button_1_text:= 16;
+
+		// Action: show button_2
+		button_2_visible:= true;
+
+		// Action: select text with ID 18: cancel
+		button_2_text:= 18;
+
+		// Action: show button_3
+		button_3_visible:= true;
+
+		// Action: select text with ID 19: go back
+		button_3_text:= 19;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S490 ---
+	IF (
+		button_1_pushed
+		AND button_2_pushed
+		AND button_3_pushed
+	) THEN
+	
+		stepnumber:= 490;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+
+		// Action: hide button_1
+		button_1_visible:= false;
+
+		// Action: hide button_2
+		button_2_visible:= false;
+
+		// Action: hide button_3
+		button_3_visible:= false;
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 490
+//___phase_example_Step_490_
+//================================
+// test 4 buttons => not foreseen in the template, so should log an error 
+//================================	  
+
+IF (stepnumber = 490) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: show button_1
+		button_1_visible:= true;
+
+		// Action: select text with ID 16: continue
+		button_1_text:= 16;
+
+		// Action: show button_2
+		button_2_visible:= true;
+
+		// Action: select text with ID 18: cancel
+		button_2_text:= 18;
+
+		// Action: show button_3
+		button_3_visible:= true;
+
+		// Action: select text with ID 19: go back
+		button_3_text:= 19;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S510 ---
+	IF (
+		button_1_pushed
+		AND button_2_pushed
+		AND button_3_pushed
+	) THEN
+	
+		stepnumber:= 510;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+
+		// Action: hide button_1
+		button_1_visible:= false;
+
+		// Action: hide button_2
+		button_2_visible:= false;
+
+		// Action: hide button_3
+		button_3_visible:= false;
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 510
+//___phase_example_Step_510_
+//================================
+// test message 
+//================================	  
+
+IF (stepnumber = 510) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: message “add the manual ingredients”
+		message:= 21;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S520 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 520;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+
+		// Action: clear message
+		message:= 0;
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 520
+//___phase_example_Step_520_
+//================================
+// test falseword with two words in transition 
+//================================	  
+
+IF (stepnumber = 520) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S530 ---
+	IF (
+		XV003_OPN
+	) THEN
+	
+		stepnumber:= 530;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 530
+//___phase_example_Step_530_
+//================================
+// test trueword with multiple words in action 
+//================================	  
+
+IF (stepnumber = 530) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: move to open position XV003
+		XV003_CMD:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S540 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 540;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 540
+//___phase_example_Step_540_
+//================================
+// test putting controller in auto with pulseword 
+//================================	  
+
+IF (stepnumber = 540) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 auto
+		FIC001_AUT:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S550 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 550;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 550
+//___phase_example_Step_550_
+//================================
+// test putting controller in auto with pulseword consisting of multiple words 
+//================================	  
+
+IF (stepnumber = 550) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 switch to auto
+		FIC001_AUT:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S560 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 560;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 560
+//___phase_example_Step_560_
+//================================
+// test with pulseword in front 
+//================================	  
+
+IF (stepnumber = 560) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: auto FIC001
+		FIC001_AUT:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S570 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 570;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 570
+//___phase_example_Step_570_
+//================================
+// test with pulseword in front 
+//================================	  
+
+IF (stepnumber = 570) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: switch to auto FIC001
+		FIC001_AUT:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S580 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 580;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 580
+//___phase_example_Step_580_
+//================================
+// test steptime in s 
+//================================	  
+
+IF (stepnumber = 580) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S590 ---
+	IF (
+		steptime_s &gt; 2.0
+	) THEN
+	
+		stepnumber:= 590;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 590
+//___phase_example_Step_590_
+//================================
+// test steptime in m 
+//================================	  
+
+IF (stepnumber = 590) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S600 ---
+	IF (
+		steptime_m &gt; 1.50
+	) THEN
+	
+		stepnumber:= 600;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 600
+//___phase_example_Step_600_
+//================================
+// test steptime in h 
+//================================	  
+
+IF (stepnumber = 600) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S610 ---
+	IF (
+		steptime_h &gt; 4.3
+	) THEN
+	
+		stepnumber:= 610;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 610
+//___phase_example_Step_610_
+//================================
+// test steptime with unit separated by space => still works (because it takes the last character) 
+//================================	  
+
+IF (stepnumber = 610) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S640 ---
+	IF (
+		steptime_m &gt; 1.50
+	) THEN
+	
+		stepnumber:= 640;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 640
+//___phase_example_Step_640_
+//================================
+// test steptime with variable with unit 
+//================================	  
+
+IF (stepnumber = 640) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S650 ---
+	IF (
+		steptime_h &gt; timesetting
+	) THEN
+	
+		stepnumber:= 650;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 650
+//___phase_example_Step_650_
+//================================
+// reset a timer 
+//================================	  
+
+IF (stepnumber = 650) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: reset timer_dosing
+		timer_dosing_s:= 0.0;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S660 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 660;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 660
+//___phase_example_Step_660_
+//================================
+// start a timer 
+//================================	  
+
+IF (stepnumber = 660) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: start timer_mixing
+		timer_mixing_pause:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S670 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 670;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 670
+//___phase_example_Step_670_
+//================================
+// pause a timer 
+//================================	  
+
+IF (stepnumber = 670) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: pause timer_circulation
+		timer_circulation_pause:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S680 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 680;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 680
+//___phase_example_Step_680_
+//================================
+// test timer in m 
+//================================	  
+
+IF (stepnumber = 680) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S690 ---
+	IF (
+		timer_dosing_m &gt;= 5.2
+	) THEN
+	
+		stepnumber:= 690;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 690
+//___phase_example_Step_690_
+//================================
+// test timer with variable with unit 
+//================================	  
+
+IF (stepnumber = 690) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S700 ---
+	IF (
+		timer_circulation_h &lt; timesetting
+	) THEN
+	
+		stepnumber:= 700;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 700
+//___phase_example_Step_700_
+//================================
+// test putting a controller in manual 
+//================================	  
+
+IF (stepnumber = 700) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 manual
+		FIC001_AUT:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S710 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 710;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 710
+//___phase_example_Step_710_
+//================================
+// test putting a controller in manual while changing the output value 
+//================================	  
+
+IF (stepnumber = 710) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+		// Action: FIC001_VAL_OUT = 20.0
+		FIC001_VAL_OUT:= 20.0;
+
+		// Action: FIC001_SET_OUT = true
+		FIC001_SET_OUT:= true;
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 manual 20.0
+		FIC001_AUT:= false;
+
+		// Action: FIC001_SET_OUT = false
+		FIC001_SET_OUT:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S720 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 720;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 720
+//___phase_example_Step_720_
+//================================
+// test putting a controller in manual while changing the output value that has a unit 
+//================================	  
+
+IF (stepnumber = 720) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+		// Action: FIC001_VAL_OUT = 20.0
+		FIC001_VAL_OUT:= 20.0;
+
+		// Action: FIC001_SET_OUT = true
+		FIC001_SET_OUT:= true;
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 manual 20.0 Hz
+		FIC001_AUT:= false;
+
+		// Action: FIC001_SET_OUT = false
+		FIC001_SET_OUT:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S730 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 730;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 730
+//___phase_example_Step_730_
+//================================
+// without space 
+//================================	  
+
+IF (stepnumber = 730) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+		// Action: FIC001_VAL_OUT = 20.0
+		FIC001_VAL_OUT:= 20.0;
+
+		// Action: FIC001_SET_OUT = true
+		FIC001_SET_OUT:= true;
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 manual 20.0Hz
+		FIC001_AUT:= false;
+
+		// Action: FIC001_SET_OUT = false
+		FIC001_SET_OUT:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S740 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 740;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 740
+//___phase_example_Step_740_
+//================================
+// put PID controller in auto 
+//================================	  
+
+IF (stepnumber = 740) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 auto
+		FIC001_AUT:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S750 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 750;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 750
+//___phase_example_Step_750_
+//================================
+// auto with setpoint 
+//================================	  
+
+IF (stepnumber = 750) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+		// Action: FIC001_SP = 80.0
+		FIC001_SP:= 80.0;
+
+		// Action: FIC001_SET_SP = true
+		FIC001_SET_SP:= true;
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 auto 80.0%
+		FIC001_AUT:= true;
+
+		// Action: FIC001_SET_SP = false
+		FIC001_SET_SP:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S760 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 760;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 760
+//___phase_example_Step_760_
+//================================
+// internal mode 
+//================================	  
+
+IF (stepnumber = 760) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 internal
+		FIC001_EXT:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S770 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 770;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 770
+//___phase_example_Step_770_
+//================================
+// internal mode with value 
+//================================	  
+
+IF (stepnumber = 770) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+		// Action: FIC001_SP = 80.0
+		FIC001_SP:= 80.0;
+
+		// Action: FIC001_SET_SP = true
+		FIC001_SET_SP:= true;
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 internal 80.0
+		FIC001_EXT:= false;
+
+		// Action: FIC001_SET_SP = false
+		FIC001_SET_SP:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S780 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 780;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 780
+//___phase_example_Step_780_
+//================================
+// value with unit 
+//================================	  
+
+IF (stepnumber = 780) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+		// Action: FIC001_SP = 80.0
+		FIC001_SP:= 80.0;
+
+		// Action: FIC001_SET_SP = true
+		FIC001_SET_SP:= true;
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 internal 80.0 %
+		FIC001_EXT:= false;
+
+		// Action: FIC001_SET_SP = false
+		FIC001_SET_SP:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S790 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 790;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 790
+//___phase_example_Step_790_
+//================================
+// without space 
+//================================	  
+
+IF (stepnumber = 790) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+		// Action: FIC001_SP = 80.0
+		FIC001_SP:= 80.0;
+
+		// Action: FIC001_SET_SP = true
+		FIC001_SET_SP:= true;
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 internal80.0%
+		FIC001_EXT:= false;
+
+		// Action: FIC001_SET_SP = false
+		FIC001_SET_SP:= false;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S810 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 810;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 810
+//___phase_example_Step_810_
+//================================
+// external mode 
+//================================	  
+
+IF (stepnumber = 810) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: FIC001 external
+		FIC001_EXT:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S820 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 820;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 820
+//___phase_example_Step_820_
+//================================
+// test direct access to a CM instance in dot-format in the assignment => should convert to suffix 
+//================================	  
+
+IF (stepnumber = 820) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: XV008.AUT_OP = true
+		XV008_CMD:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S830 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 830;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 830
+//___phase_example_Step_830_
+//================================
+// test direct access to a CM in dot-notation in the evaluation => should convert to suffix 
+//================================	  
+
+IF (stepnumber = 830) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S840 ---
+	IF (
+		XV008_OPN = true
+	) THEN
+	
+		stepnumber:= 840;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 840
+//___phase_example_Step_840_
+//================================
+// test dot-format to Linked CM in assignment => should convert to suffix 
+//================================	  
+
+IF (stepnumber = 840) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: XV003.AUT_OP = true
+		XV003_CMD:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S850 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 850;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 850
+//___phase_example_Step_850_
+//================================
+// test dot-format from Linked CM in evaluation =>should convert to suffix 
+//================================	  
+
+IF (stepnumber = 850) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S860 ---
+	IF (
+		XV003_OPN = true
+	) THEN
+	
+		stepnumber:= 860;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 860
+//___phase_example_Step_860_
+//================================
+// test direct access to an EM instance in dot-format in the assignment => should stay in dot-format 
+//================================	  
+
+IF (stepnumber = 860) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: EM_Instance_4.Pressure_SP  = 4.2
+		cstate.Equipment_Modules.EM_Instance_4.Pressure_SP:= 4.2;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S870 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 870;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 870
+//___phase_example_Step_870_
+//================================
+// test direct access to a EM in dot-notation in the evaluation => should stay in dot-format 
+//================================	  
+
+IF (stepnumber = 870) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S880 ---
+	IF (
+		cstate.Equipment_Modules.EM_Instance_4.Level &gt;= 50.0
+	) THEN
+	
+		stepnumber:= 880;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 880
+//___phase_example_Step_880_
+//================================
+// test dot-format to Linked EM in assignment => should stay in dot-format 
+//================================	  
+
+IF (stepnumber = 880) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: Some_Dyn_EM.Pressure_SP  = 4.2
+		Some_Dyn_EM.Pressure_SP:= 4.2;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S890 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 890;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 890
+//___phase_example_Step_890_
+//================================
+// test dot-format from Linked EM in evaluation =>should stay in dot-format 
+//================================	  
+
+IF (stepnumber = 890) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S910 ---
+	IF (
+		Some_Dyn_EM.Level &gt;= 50.0
+	) THEN
+	
+		stepnumber:= 910;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 910
+//___phase_example_Step_910_
+//================================
+// test suffix-format to Linked EM in assignment => should convert to dot-format 
+//================================	  
+
+IF (stepnumber = 910) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: Some_Dyn_EM_P_SP  = 4.3
+		Some_Dyn_EM.Pressure_SP:= 4.3;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S920 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 920;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 920
+//___phase_example_Step_920_
+//================================
+// test suffix-format from Linked EM in evaluation =>should convert to dot-format 
+//================================	  
+
+IF (stepnumber = 920) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S930 ---
+	IF (
+		Some_Dyn_EM.Level &gt;= 50.0
+	) THEN
+	
+		stepnumber:= 930;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 930
+//___phase_example_Step_930_
+//================================
+// write a bool 
+//================================	  
+
+IF (stepnumber = 930) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: some_bool_out = true
+		some_bool_out:= true;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S940 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 940;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 940
+//___phase_example_Step_940_
+//================================
+// test absolute value calculation 
+//================================	  
+
+IF (stepnumber = 940) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: test1 = abs(2.3)
+		test1:= abs(2.3);
+
+		// Action: test2 = abs(test1)
+		test2:= abs(test1);
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S950 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 950;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 950
+//___phase_example_Step_950_
+//================================
+// test absolute value calculation to int value 
+//================================	  
+
+IF (stepnumber = 950) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: intvar = abs(4.6)
+		intvar:= REAL_TO_INT( abs(4.6) );
+
+		// Action: intvar = abs(test1)
+		intvar:= REAL_TO_INT( abs(test1) );
+
+		// Action: intvar = intvar + (intvar+ abs(3.2))
+		intvar:= REAL_TO_INT( intvar + (intvar + abs(3.2)) );
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S960 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 960;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 960
+//___phase_example_Step_960_
+//================================
+// test absolut function of another calc 
+//================================	  
+
+IF (stepnumber = 960) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: test1 = abs(test1 + test2)
+		test1:= abs(test1 + test2);
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S970 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 970;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 970
+//___phase_example_Step_970_
+//================================
+// test multiple transitions in one step 
+//================================	  
+
+IF (stepnumber = 970) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S980 ---
+	IF (
+		foo &gt; 1.0
+	) THEN
+	
+		stepnumber:= 980;
+		
+	END_IF
+		
+		
+	// --- TRANSITION TO S990 ---
+	IF (
+		foo &lt;= 1.0
+	) THEN
+	
+		stepnumber:= 990;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 980
+//___phase_example_Step_980_
+//================================
+// assignment where the right part is a boolean variable 
+//================================	  
+
+IF (stepnumber = 980) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: Bool1 = Bool2
+		Bool1:= Bool2;
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S990 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 990;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 990
+//___phase_example_Step_990_
+//================================
+// comparison where the right part is a boolen variable 
+//================================	  
+
+IF (stepnumber = 990) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S1000 ---
+	IF (
+		Bool1 = Bool2
+	) THEN
+	
+		stepnumber:= 1000;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+// Step 1000
+//___phase_example_Step_1000_
+//================================
+// function call 
+//================================	  
+
+IF (stepnumber = 1000) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+		// Action: function call: write_to_DB_DW (50, 20, 123)
+		write_to_DB_DW(
+			DB_NO:= 50,
+			Location:= 20,
+			Value:= 123
+		);
+
+		// Action: function call: write_to_DB_DW (DB_NO, 20, 123)
+		write_to_DB_DW(
+			DB_NO:= DB_NO,
+			Location:= 20,
+			Value:= 123
+		);
+
+		// Action: function call: intvar = somefunction(34,32)
+		intvar:= somefunction(
+			arg1:= 34,
+			arg2:= 32
+		);
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S0 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 0;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+
+
+
+
+// Step 8000
+//___phase_example_Step_8000_
+//================================
+// Holding 
+//================================	  
+
+IF (stepnumber = 8000) THEN
+
+	
+	IF (first_scan) THEN
+	
+		// --- FIRST SCAN ---
+		
+
+	ELSE
+	
+		// --- CONTINUOUS ---
+		
+
+	END_IF
+	
+	
+	// --- TRANSITION TO S8990 ---
+	IF (
+		TRUE
+	) THEN
+	
+		stepnumber:= 8990;
+		
+	END_IF
+		
+		
+		
+	IF (stepnumber &lt;&gt; current_stepnumber) THEN
+	
+		// --- LAST SCAN ---
+	
+	
+	END_IF
+	
+
+END_IF 
+
+	
+
+
+
+
+
+// END OF THE STEPS AND TRANSITIONS
+//################################
+//################################
+// Placeholder network to indicate the end of the actual sequence
+//################################	  
+//################################
+
+
+// Write EMs
+//--------------------------------
+//
+//--------------------------------
+
+// TODO
+
+</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>fx-phasetype-phase_example</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+
+				
+
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="prog" pouType="program">
+                <interface>
+                  <localVars>
+
+                  </localVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+
+
+// put some EM IDs in the phases for testing
+cstate.Phases.phase_1.EM_I_OUT_ID:= 26;
+cstate.Phases.phase_1.Some_Dyn_EM_ID:= 27;					
+
+
+cstate.Phases.phase_2.EM_I_OUT_ID:= 28;
+cstate.Phases.phase_2.Some_Dyn_EM_ID:= 29;						
+				
+
+cstate.Control_Modules();
+cstate.Equipment_Modules();
+cstate.Phases();
+
+</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>c8b29197-f143-495a-a769-50ae63a9d5c5</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+
+
+				<data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Control_Modules" pouType="functionBlock">
+                <interface>
+                  <localVars>
+<variable name="XV001"><type><derived name="Valve" /></type></variable>
+<variable name="XV002"><type><derived name="Valve" /></type></variable>
+<variable name="XV003"><type><derived name="Valve" /></type></variable>
+<variable name="XV004"><type><derived name="Valve" /></type></variable>
+<variable name="XV300"><type><derived name="Valve" /></type></variable>
+<variable name="XV400"><type><derived name="Valve" /></type></variable>
+<variable name="XV500"><type><derived name="Valve" /></type></variable>
+<variable name="XV301"><type><derived name="Valve" /></type></variable>
+<variable name="XV501"><type><derived name="Valve" /></type></variable>
+<variable name="XV401"><type><derived name="Valve" /></type></variable>
+<variable name="MV001"><type><derived name="Valve" /></type></variable>
+<variable name="MV002"><type><derived name="Valve" /></type></variable>
+<variable name="MV003"><type><derived name="Valve" /></type></variable>
+<variable name="MV004"><type><derived name="Valve" /></type></variable>
+<variable name="MV005"><type><derived name="Valve" /></type></variable>
+<variable name="MV006"><type><derived name="Valve" /></type></variable>
+<variable name="MV007"><type><derived name="Valve" /></type></variable>
+<variable name="P100"><type><derived name="Motor" /></type></variable>
+<variable name="P200"><type><derived name="Motor" /></type></variable>
+<variable name="P101"><type><derived name="Motor" /></type></variable>
+<variable name="P201"><type><derived name="Motor" /></type></variable>
+<variable name="M100"><type><derived name="Motor_VFD" /></type></variable>
+<variable name="M101"><type><derived name="Motor_VFD" /></type></variable>
+<variable name="M102"><type><derived name="Motor_VFD" /></type></variable>
+<variable name="M103"><type><derived name="Motor_VFD" /></type></variable>
+<variable name="M104"><type><derived name="Motor_VFD" /></type></variable>
+<variable name="M105"><type><derived name="Motor_VFD" /></type></variable>
+<variable name="M106"><type><derived name="Motor_VFD" /></type></variable>
+<variable name="LT001"><type><derived name="AI" /></type></variable>
+<variable name="LT002"><type><derived name="AI" /></type></variable>
+<variable name="LT003"><type><derived name="AI" /></type></variable>
+<variable name="LT004"><type><derived name="AI" /></type></variable>
+<variable name="LT005"><type><derived name="AI" /></type></variable>
+<variable name="LT006"><type><derived name="AI" /></type></variable>
+<variable name="LT007"><type><derived name="AI" /></type></variable>
+<variable name="LT100"><type><derived name="AI" /></type></variable>
+<variable name="LT200"><type><derived name="AI" /></type></variable>
+<variable name="LT101"><type><derived name="AI" /></type></variable>
+<variable name="LT201"><type><derived name="AI" /></type></variable>
+<variable name="LS001"><type><derived name="DI" /></type></variable>
+<variable name="LS002"><type><derived name="DI" /></type></variable>
+<variable name="LIC001"><type><derived name="PID" /></type></variable>
+<variable name="LIC002"><type><derived name="PID" /></type></variable>
+<variable name="LIC003"><type><derived name="PID" /></type></variable>
+<variable name="LIC004"><type><derived name="PID" /></type></variable>
+<variable name="LIC005"><type><derived name="PID" /></type></variable>
+<variable name="LIC006"><type><derived name="PID" /></type></variable>
+<variable name="FIC100"><type><derived name="PID" /></type></variable>
+<variable name="FIC101"><type><derived name="PID" /></type></variable>
+                  </localVars>
+				  
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+XV001();
+XV002();
+XV003();
+XV004();
+XV300();
+XV400();
+XV500();
+XV301();
+XV501();
+XV401();
+MV001();
+MV002();
+MV003();
+MV004();
+MV005();
+MV006();
+MV007();
+P100();
+P200();
+P101();
+P201();
+M100();
+M101();
+M102();
+M103();
+M104();
+M105();
+M106();
+LT001();
+LT002();
+LT003();
+LT004();
+LT005();
+LT006();
+LT007();
+LT100();
+LT200();
+LT101();
+LT201();
+LS001();
+LS002();
+LIC001();
+LIC002();
+LIC003();
+LIC004();
+LIC005();
+LIC006();
+FIC100();
+FIC101();
+					</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>3efbdef7-f37c-482e-89cb-852396e16603</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+				</data>
+				<data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Equipment_Modules" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+				  
+					
+<variable name="EM_Instance_1"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_2"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_3"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_4"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_5"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_6"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_7"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_8"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_9"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_10"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_11"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_12"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_13"><type><derived name="EM_I_OUT" /></type></variable>
+					
+<variable name="EM_Instance_14"><type><derived name="EM_I_OUT" /></type></variable>
+					
+					
+                  </inputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+					
+					
+EM_Instance_1.EM_ID:= 26;
+cstate.EM_Index[26]:= ADR(EM_Instance_1);
+EM_Instance_1();
+					
+EM_Instance_2.EM_ID:= 27;
+cstate.EM_Index[27]:= ADR(EM_Instance_2);
+EM_Instance_2();
+					
+EM_Instance_3.EM_ID:= 28;
+cstate.EM_Index[28]:= ADR(EM_Instance_3);
+EM_Instance_3();
+					
+EM_Instance_4.EM_ID:= 29;
+cstate.EM_Index[29]:= ADR(EM_Instance_4);
+EM_Instance_4();
+					
+EM_Instance_5.EM_ID:= 30;
+cstate.EM_Index[30]:= ADR(EM_Instance_5);
+EM_Instance_5();
+					
+EM_Instance_6.EM_ID:= 31;
+cstate.EM_Index[31]:= ADR(EM_Instance_6);
+EM_Instance_6();
+					
+EM_Instance_7.EM_ID:= 32;
+cstate.EM_Index[32]:= ADR(EM_Instance_7);
+EM_Instance_7();
+					
+EM_Instance_8.EM_ID:= 33;
+cstate.EM_Index[33]:= ADR(EM_Instance_8);
+EM_Instance_8();
+					
+EM_Instance_9.EM_ID:= 34;
+cstate.EM_Index[34]:= ADR(EM_Instance_9);
+EM_Instance_9();
+					
+EM_Instance_10.EM_ID:= 35;
+cstate.EM_Index[35]:= ADR(EM_Instance_10);
+EM_Instance_10();
+					
+EM_Instance_11.EM_ID:= 36;
+cstate.EM_Index[36]:= ADR(EM_Instance_11);
+EM_Instance_11();
+					
+EM_Instance_12.EM_ID:= 37;
+cstate.EM_Index[37]:= ADR(EM_Instance_12);
+EM_Instance_12();
+					
+EM_Instance_13.EM_ID:= 38;
+cstate.EM_Index[38]:= ADR(EM_Instance_13);
+EM_Instance_13();
+					
+EM_Instance_14.EM_ID:= 39;
+cstate.EM_Index[39]:= ADR(EM_Instance_14);
+EM_Instance_14();
+										
+
+					</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>5a30c451-e3a6-4e80-9951-ee341d8999f6</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+				</data>
+				<data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Phases" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+				  
+					
+<variable name="phase_1"><type><derived name="phase_example" /></type></variable>
+					
+<variable name="phase_2"><type><derived name="phase_example" /></type></variable>
+					
+					
+                  </inputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+					
+					
+phase_1();
+					
+phase_2();
+										
+
+					</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>phases</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+				</data>
+				<data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+              <Libraries>
+                <Library Name="#IecSfc" Namespace="IecSfc" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="IecSfc, 3.4.2.0 (System)" />
+                <Library Name="#Analyzation" Namespace="Analyzation" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="Analyzation, 3.5.2.0 (System)">
+                  <Parameters>
+                    <Parameter Name="TABLE_UPPER_BOUND" Value="15" />
+                    <Parameter Name="STRING_LENGTH_EXP" Value="255" />
+                    <Parameter Name="STRING_LENGTH_ADDRESS" Value="20" />
+                    <Parameter Name="STRING_LENGTH_COMMENT" Value="255" />
+                    <Parameter Name="STRING_LENGTH_OUTSTRING" Value="255" />
+                    <Parameter Name="TABLE_SHOW_VALID_ITEMS" Value="FALSE" />
+                  </Parameters>
+                </Library>
+                <Library Name="Bedrock_lib_1, 1.4.6178.18981 (Bedrock Automation)" Namespace="Bedrock_lib_1" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" />
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>d9dabb48-9ffe-4162-959a-89ae11f82cc7</ObjectId>
+                  </data>
+                </addData>
+              </Libraries>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>5a6c952f-6cb9-452d-aa9e-85a8a6915a6d</ObjectId>
+            </data>
+				
+			  </addData>
+			</resource>
+	</data>
+
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+
+          <Object Name="App" ObjectId="5a6c952f-6cb9-452d-aa9e-85a8a6915a6d">
+            <Folder Name="state">
+              <Object Name="cstate" ObjectId="objectid-cstate" />
+              <Object Name="Equipment_Modules" ObjectId="5a30c451-e3a6-4e80-9951-ee341d8999f6" />
+              <Object Name="Control_Modules" ObjectId="3efbdef7-f37c-482e-89cb-852396e16603" />
+			  <Object Name="Phases" ObjectId="phases" />
+            </Folder>
+            <Folder Name="Phases">
+			
+			  <Object Name="phase_example" ObjectId="fx-phasetype-phase_example" />
+			
+            </Folder>
+            <Object Name="Library Manager" ObjectId="d9dabb48-9ffe-4162-959a-89ae11f82cc7" />
+            <Object Name="Main" ObjectId="4497f635-231f-42fd-8ed5-617f7b71dff3" />
+            <Folder Name="Program">
+              <Object Name="prog" ObjectId="c8b29197-f143-495a-a769-50ae63a9d5c5" />
+            </Folder>
+            <Folder Name="Equipment_Modules">
+              <Object Name="EM_OUT" ObjectId="7353cc95-e061-4fc9-a6d5-b7f7f62e107d" />
+              <Object Name="EM_IN_COM" ObjectId="e1678b91-0764-4141-9edb-705c6e8be436" />
+              <Object Name="EM_IN" ObjectId="32875f82-16ea-44e3-b013-2e3783b378ed" />
+			  
+			  <Object Name="EM_I_OUT" ObjectId="fx-emtype-EM_I_OUT" />
+			  
+            </Folder>
+            <Folder Name="Control_Modules">
+              <Object Name="Valve" ObjectId="7d5ca5e0-6790-4ebd-b69a-25c3d9c73a27" />
+              <Object Name="Motor" ObjectId="b9aed22a-df59-4381-8fe2-4dc9dba35bf9" />
+              <Object Name="Motor_VFD" ObjectId="daa993c5-0f58-41b1-a6ed-94637c3a0809" />
+              <Object Name="AI" ObjectId="e79efb93-b195-4bf3-afe4-9c7969f9c62f" />
+              <Object Name="DI" ObjectId="99bf9058-2afc-47c9-9816-fd8492b681bf" />
+              <Object Name="PID" ObjectId="ced372e3-2c33-4770-9de9-d99324da25e4" />
+            </Folder>
+			<Folder Name="lib">
+				<Object Name="write_to_DB_DW" ObjectId="lib-write_to_DB_DW" />
+				<Object Name="somefunction" ObjectId="lib-somefunction" />
+			</Folder>
+          </Object>
+
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>

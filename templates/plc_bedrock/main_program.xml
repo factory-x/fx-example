@@ -1,0 +1,39 @@
+{% macro render(lib, model) %}
+
+            <data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="prog" pouType="program">
+                <interface>
+                  <localVars>
+
+                  </localVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+
+
+// put some EM IDs in the phases for testing
+cstate.Phases.phase_1.EM_I_OUT_ID:= 26;
+cstate.Phases.phase_1.Some_Dyn_EM_ID:= 27;					
+
+
+cstate.Phases.phase_2.EM_I_OUT_ID:= 28;
+cstate.Phases.phase_2.Some_Dyn_EM_ID:= 29;						
+				
+
+cstate.Control_Modules();
+cstate.Equipment_Modules();
+cstate.Phases();
+
+</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>c8b29197-f143-495a-a769-50ae63a9d5c5</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+            </data>
+
+{% endmacro %}

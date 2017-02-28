@@ -1,0 +1,301 @@
+{%- import "phase_type.xml" as phase_type %}
+{%- import "em_type.xml" as em_type %}
+{%- import "main_program.xml" as main_program %}
+
+{{- lib.set_controller_name ('PLC1') }}
+{#- remove all whitespaces before the xml definition -#}
+<?xml version="1.0" encoding="utf-8"?>
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="" productName="Bedrock IDE" productVersion="Bedrock IDE V1.4" creationDateTime="2017-02-21T09:02:52.9855728" />
+  <contentHeader name="factoryx.project" modificationDateTime="2017-02-21T09:02:15.4674269">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.3s-software.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous />
+  </types>
+  <instances>
+    <configurations />
+  </instances>  
+  <addData>
+    <data name="http://www.3s-software.com/plcopenxml/application" handleUnknown="implementation">
+
+			<resource name="App">
+			  <task name="Main" interval="PT0.2S" priority="1">
+				<pouInstance name="prog" typeName="">
+				  <documentation>
+					<xhtml xmlns="http://www.w3.org/1999/xhtml" />
+				  </documentation>
+				</pouInstance>
+				<addData>
+				  <data name="http://www.3s-software.com/plcopenxml/tasksettings" handleUnknown="implementation">
+					<TaskSettings KindOfTask="Cyclic" Interval="t#200ms" WithinSPSTimeSlicing="true">
+					  <Watchdog Enabled="false" TimeUnit="ms" Sensitivity="1" />
+					</TaskSettings>
+				  </data>
+				  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+					<ObjectId>4497f635-231f-42fd-8ed5-617f7b71dff3</ObjectId>
+				  </data>
+				</addData>
+			  </task>
+			  
+				{#- START cstate #}
+				  <globalVars name="cstate">
+					<variable name="Phases">
+					  <type>
+						<derived name="Phases" />
+					  </type>
+					</variable>
+					<variable name="Equipment_Modules">
+					  <type>
+						<derived name="Equipment_Modules" />
+					  </type>
+					</variable>
+					<variable name="Control_Modules">
+					  <type>
+						<derived name="Control_Modules" />
+					  </type>
+					</variable>
+					<variable name="EM_Index">
+					  <type>
+						<array>
+						  <dimension lower="0" upper="300" />
+						  <baseType>
+							<DWORD />
+						  </baseType>
+						</array>
+					  </type>
+					</variable>
+					<addData>
+					  <data name="http://www.3s-software.com/plcopenxml/attributes" handleUnknown="implementation">
+						<Attributes>
+						  <Attribute Name="qualified_only" Value="" />
+						</Attributes>
+					  </data>
+					  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+						<ObjectId>objectid-cstate</ObjectId>
+					  </data>
+					</addData>
+				  </globalVars>
+				{#- END Main State #}
+				
+			<addData>
+				
+				{#- LIB / FUNCTIONS) #}
+				{% include "./lib/somefunction.xml" %}
+				{% include "./lib/write_to_DB_DW.xml" %}
+				
+				{#- CONTROL MODULES #}
+				{% include "./control_modules/valve.xml" %}
+				{% include "./control_modules/motor.xml" %}
+				{% include "./control_modules/motor_vfd.xml" %}
+				{% include "./control_modules/AI.xml" %}
+				{% include "./control_modules/DI.xml" %}
+				{% include "./control_modules/PID.xml" %}
+				
+				{#- EM Types #}
+				{% for emtype_id, emtype in model.Equipment_Modules.Types %}
+				{{ em_type.render(lib, emtype_id, emtype) }}
+				{%- endfor %}
+
+				{#- Phase Types #}
+				{%- for ptype_id, ptype in model.Phases.Types %}
+				{{ phase_type.render(lib, ptype_id, ptype) }}
+				{%- endfor %}
+
+				{#- MAIN PROGRAM #}
+				{{ main_program.render(lib, model) }}
+				
+				{#- START CM Instances #}
+				<data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Control_Modules" pouType="functionBlock">
+                <interface>
+                  <localVars>
+					{%- for instance_id, instance in model.Control_Modules.Instances %}
+						{#- only render the CM's that are used #}
+						{%- if instance.used == true %}
+<variable name="{{instance_id}}"><type><derived name="{{instance.Type}}" /></type></variable>
+						{%- endif %}
+					{%- endfor %}
+                  </localVars>
+				  
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+					{%- for instance_id, instance in model.Control_Modules.Instances %}
+						{#- only render the CM's that are used #}
+						{%- if instance.used == true %}
+{{instance_id}}();
+						{%- endif %}
+					{%- endfor %}
+					</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>3efbdef7-f37c-482e-89cb-852396e16603</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+				</data>				
+				{#- END CM Instances #}
+				
+				{#- START EM Instances #}
+				<data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Equipment_Modules" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+				  
+					{% for em_id, em in model.Equipment_Modules.Instances %}
+<variable name="{{ em_id }}"><type><derived name="{{ em.Type }}" /></type></variable>
+					{% endfor %}
+					
+                  </inputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+					
+					{% for em_id, em in model.Equipment_Modules.Instances %}
+{{ em_id }}.EM_ID:= {{ em.id }};
+cstate.EM_Index[{{ em.id }}]:= ADR({{ em_id }});
+{{ em_id }}();
+					{% endfor %}					
+
+					</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>5a30c451-e3a6-4e80-9951-ee341d8999f6</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+				</data>
+				{#- END EM Instances #}
+				
+				{#- START Phase Instances #}
+				<data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+              <pou name="Phases" pouType="functionBlock">
+                <interface>
+                  <inputVars>
+				  
+					{% for phase_id, phase in model.Phases.Instances %}
+<variable name="{{ phase_id }}"><type><derived name="{{ phase.Type }}" /></type></variable>
+					{% endfor %}
+					
+                  </inputVars>
+                </interface>
+                <body>
+                  <ST>
+                    <xhtml xmlns="http://www.w3.org/1999/xhtml">
+					
+					{% for phase_id, em in model.Phases.Instances %}
+{{ phase_id }}();
+					{% endfor %}					
+
+					</xhtml>
+                  </ST>
+                </body>
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>phases</ObjectId>
+                  </data>
+                </addData>
+              </pou>
+				</data>
+				{#- END Phase Instances #}
+				
+				{#- TODO: NEEDED? START #}
+				<data name="http://www.3s-software.com/plcopenxml/libraries" handleUnknown="implementation">
+              <Libraries>
+                <Library Name="#IecSfc" Namespace="IecSfc" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="IecSfc, 3.4.2.0 (System)" />
+                <Library Name="#Analyzation" Namespace="Analyzation" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="true" LinkAllContent="false" DefaultResolution="Analyzation, 3.5.2.0 (System)">
+                  <Parameters>
+                    <Parameter Name="TABLE_UPPER_BOUND" Value="15" />
+                    <Parameter Name="STRING_LENGTH_EXP" Value="255" />
+                    <Parameter Name="STRING_LENGTH_ADDRESS" Value="20" />
+                    <Parameter Name="STRING_LENGTH_COMMENT" Value="255" />
+                    <Parameter Name="STRING_LENGTH_OUTSTRING" Value="255" />
+                    <Parameter Name="TABLE_SHOW_VALID_ITEMS" Value="FALSE" />
+                  </Parameters>
+                </Library>
+                <Library Name="Bedrock_lib_1, 1.4.6178.18981 (Bedrock Automation)" Namespace="Bedrock_lib_1" HideWhenReferencedAsDependency="false" PublishSymbolsInContainer="false" SystemLibrary="false" LinkAllContent="false" />
+                <addData>
+                  <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+                    <ObjectId>d9dabb48-9ffe-4162-959a-89ae11f82cc7</ObjectId>
+                  </data>
+                </addData>
+              </Libraries>
+            </data>
+            <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+              <ObjectId>5a6c952f-6cb9-452d-aa9e-85a8a6915a6d</ObjectId>
+            </data>
+				{#- TODO: NEEDED? END #}
+				
+			  </addData>
+			</resource>
+	</data>
+
+    <data name="http://www.3s-software.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+
+          <Object Name="App" ObjectId="5a6c952f-6cb9-452d-aa9e-85a8a6915a6d">
+            <Folder Name="state">
+              <Object Name="cstate" ObjectId="objectid-cstate" />
+              <Object Name="Equipment_Modules" ObjectId="5a30c451-e3a6-4e80-9951-ee341d8999f6" />
+              <Object Name="Control_Modules" ObjectId="3efbdef7-f37c-482e-89cb-852396e16603" />
+			  <Object Name="Phases" ObjectId="phases" />
+            </Folder>
+            <Folder Name="Phases">
+			{% for phase_id, phase in model.Phases.Types %}
+			  <Object Name="{{phase_id}}" ObjectId="fx-phasetype-{{phase_id}}" />
+			{% endfor %}
+            </Folder>
+            <Object Name="Library Manager" ObjectId="d9dabb48-9ffe-4162-959a-89ae11f82cc7" />
+            <Object Name="Main" ObjectId="4497f635-231f-42fd-8ed5-617f7b71dff3" />
+            <Folder Name="Program">
+              <Object Name="prog" ObjectId="c8b29197-f143-495a-a769-50ae63a9d5c5" />
+            </Folder>
+            <Folder Name="Equipment_Modules">
+              <Object Name="EM_OUT" ObjectId="7353cc95-e061-4fc9-a6d5-b7f7f62e107d" />
+              <Object Name="EM_IN_COM" ObjectId="e1678b91-0764-4141-9edb-705c6e8be436" />
+              <Object Name="EM_IN" ObjectId="32875f82-16ea-44e3-b013-2e3783b378ed" />
+			  {% for em_id, em in model.Equipment_Modules.Types %}
+			  <Object Name="{{em_id}}" ObjectId="fx-emtype-{{em_id}}" />
+			  {% endfor %}
+            </Folder>
+            <Folder Name="Control_Modules">
+              <Object Name="Valve" ObjectId="7d5ca5e0-6790-4ebd-b69a-25c3d9c73a27" />
+              <Object Name="Motor" ObjectId="b9aed22a-df59-4381-8fe2-4dc9dba35bf9" />
+              <Object Name="Motor_VFD" ObjectId="daa993c5-0f58-41b1-a6ed-94637c3a0809" />
+              <Object Name="AI" ObjectId="e79efb93-b195-4bf3-afe4-9c7969f9c62f" />
+              <Object Name="DI" ObjectId="99bf9058-2afc-47c9-9816-fd8492b681bf" />
+              <Object Name="PID" ObjectId="ced372e3-2c33-4770-9de9-d99324da25e4" />
+            </Folder>
+			<Folder Name="lib">
+				<Object Name="write_to_DB_DW" ObjectId="lib-write_to_DB_DW" />
+				<Object Name="somefunction" ObjectId="lib-somefunction" />
+			</Folder>
+          </Object>
+
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>

@@ -1,0 +1,31 @@
+<data name="http://www.3s-software.com/plcopenxml/pou" handleUnknown="implementation">
+      <pou name="somefunction" pouType="function">
+        <interface>
+          <returnType>
+            <INT />
+          </returnType>
+          <inputVars>
+            <variable name="arg1">
+              <type>
+                <INT />
+              </type>
+            </variable>
+            <variable name="arg2">
+              <type>
+                <INT />
+              </type>
+            </variable>
+          </inputVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml" />
+          </ST>
+        </body>
+        <addData>
+          <data name="http://www.3s-software.com/plcopenxml/objectid" handleUnknown="discard">
+            <ObjectId>lib-somefunction</ObjectId>
+          </data>	 
+        </addData>
+      </pou>
+</data>	  

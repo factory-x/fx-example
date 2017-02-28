@@ -1,0 +1,40 @@
+{%- macro render(lib, actions) -%}
+	{%- for action in actions -%}
+	
+		{%- if (action.error == true) %}
+
+		// Action error: {{action.fds | safe}}
+
+		{%- elseif (action.boolean == true) %}
+
+		// Action: {{action.fds | safe}}
+		{{action.converted_calculation_left}}:= {{action.converted_calculation_right}};
+
+		{%- elseif (action.function_call != undefined) %}
+
+		// Action: function call: {{action.fds | safe}}
+		{% if action.converted_calculation_left != undefined %}{{action.converted_calculation_left}}:= {% endif %}{{ action.function_call.name }}(
+		{%- for property, var in action.function_call.args %}
+		{%- if loop.length == 1 %}
+			{{property}}:= {{ var.value }}
+		{%- elseif loop.last == true %}
+			{{property}}:= {{ var.value }}
+		{%- else %}
+			{{property}}:= {{ var.value }},
+		{%- endif %}
+		{%- endfor %}
+		);
+		
+		{%- else %}
+
+		// Action: {{action.fds | safe}}
+		{%- if lib.IEC_get_conversion(action.left_conversion) == '' %}
+		{{action.converted_calculation_left}}:= {{action.converted_calculation_right}};
+		{%- else %}
+		{{action.converted_calculation_left}}:= {{lib.IEC_get_conversion(action.left_conversion)}}( {{action.converted_calculation_right}} );
+		{%- endif %}
+
+		{%- endif -%}
+	
+	{% endfor %}
+{% endmacro %}

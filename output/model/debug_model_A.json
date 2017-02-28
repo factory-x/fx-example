@@ -11,6 +11,10 @@
                 "DB_NO": "INT",
                 "Location": "INT",
                 "Value": "DWORD"
+            },
+            "somefunction": {
+                "arg1": "INT",
+                "arg2": "INT"
             }
         }
     },
@@ -316,7 +320,7 @@
                 "Inputs": {
                     "L_REMOTE": {
                         "Type": "Bool",
-                        "Suffix": "_SET_EXT",
+                        "Suffix": "_EXT",
                         "Comment": "Switch to External Mode",
                         "truewords": [
                             "switch to external",
@@ -349,9 +353,9 @@
                     },
                     "L_AUT": {
                         "Type": "Bool",
-                        "Suffix": "_SET_AUT",
+                        "Suffix": "_AUT",
                         "Comment": "Switch to Auto Mode",
-                        "pulsewords": [
+                        "truewords": [
                             "switch to auto",
                             "set auto",
                             "auto"
@@ -2207,7 +2211,7 @@
                         "Enumeration": ""
                     }
                 },
-                "in_outs": {},
+                "In_Outs": {},
                 "Internals": {
                     "e": {
                         "Type": "Real",
@@ -2274,12 +2278,12 @@
                         "Comment": "",
                         "Enumeration": ""
                     },
-                    "r": {
+                    "rr": {
                         "Type": "Real",
                         "Comment": "",
                         "Enumeration": ""
                     },
-                    "s": {
+                    "ss": {
                         "Type": "Real",
                         "Comment": "",
                         "Enumeration": ""
@@ -2506,7 +2510,7 @@
                         "170": {
                             "Actions": [
                                 "xx = y * z",
-                                "r = e / f",
+                                "rr = e / 2.0",
                                 "g = h + ii",
                                 "j = k – mm",
                                 "n = o + 3.4",
@@ -2519,7 +2523,7 @@
                         },
                         "180": {
                             "Actions": [
-                                "r = (s + tt) / u * v / (ww – xx) + 2.3",
+                                "rr = (ss + tt) / u * v / (ww – xx + 1.34) + 2.3",
                                 "foo = bar + 1.0",
                                 "stoplevel = startlevel + setpoint – offset"
                             ],
@@ -3116,7 +3120,8 @@
                         "950": {
                             "Actions": [
                                 "intvar = abs(4.6)",
-                                "intvar = abs(test1)"
+                                "intvar = abs(test1)",
+                                "intvar = intvar + (intvar+ abs(3.2))"
                             ],
                             "Transitions": {
                                 "960": []
@@ -3165,7 +3170,8 @@
                         "1000": {
                             "Actions": [
                                 "write_to_DB_DW (50, 20, 123)",
-                                "write_to_DB_DW (DB_NO, 20, 123)"
+                                "write_to_DB_DW (DB_NO, 20, 123)",
+                                "intvar = somefunction(34,32)"
                             ],
                             "Transitions": {
                                 "0": []
