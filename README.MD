@@ -84,7 +84,7 @@ fx render
 Finally import the project to the development environment:
 
 ## For Siemens Simatic Manager:
-Export file under fx-example\output\plc\PLC.awl
+The exported file can be found under fx-example\output\plc\PLC.awl
 
 Start from an empty project, import the symbols, and then the awl source.
 
@@ -94,7 +94,7 @@ The project is configured to work with following Control Modules library from Si
 <https://support.industry.siemens.com/cs/document/68679830/example-blocks-for-wincc-v7-and-step-7-v5-(for-s7-300-with-scl-and-s7-400-with-cfc-scl)?dti=0&lc=en-WW>
 
 ## For Bedrock Automation / CoDeSys:
-Export file under fx-example\output\plc_Bedrock\PLC.xml
+The exported file can be found under fx-example\output\plc_Bedrock\PLC.xml
 
 - Start from an empty project
 - Add a device (Bedrock SCC)
