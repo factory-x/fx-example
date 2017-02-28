@@ -93,6 +93,9 @@ The standard PID-FB needs to be added.
 The project is configured to work with following Control Modules library from Siemens:
 <https://support.industry.siemens.com/cs/document/68679830/example-blocks-for-wincc-v7-and-step-7-v5-(for-s7-300-with-scl-and-s7-400-with-cfc-scl)?dti=0&lc=en-WW>
 
+Todo's for Siemens:
+- Test the template
+
 ## For Bedrock Automation / CoDeSys:
 The exported file can be found under fx-example\output\plc_Bedrock\PLC.xml
 
@@ -101,3 +104,8 @@ The exported file can be found under fx-example\output\plc_Bedrock\PLC.xml
 - Delete the application (keep the PLC Logic Folder)
 - Select PLC Logic folder
 - Menu > Project > Import PLCopenXML > select the  PLC.xml file
+
+Todo's for CoDeSys:
+- Control Modules (Valve, Motor, ... ) are empty dummy project. You can insert your own standard by changing the config in Model.json
+- Phase Type template: logic missing to write the Equipment Modules
+- test the template
