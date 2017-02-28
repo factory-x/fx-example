@@ -1,4 +1,4 @@
-# Factory-X example project
+# Factory-X example project for Bedrock Automation/CoDeSys Instruction List and Siemens S7 STL
 
 ## What is Factory-X?
 
