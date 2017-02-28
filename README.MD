@@ -16,6 +16,10 @@ Once Model-A is generated it is transformed into Model-T (T standing for Tranfor
 
 Finally Model-T is sent through a templating engine that creates the the controller logic. The code-generator is brand and language-independent. Generating code for a different type of controller or language is as simple as changing the templates. 
 
+This example has following templates:
+- Siemens Step 7 STL (AWL)
+- Codesys/Bedrock Automation Instruction List (PLCopenXML)
+
 ## What is the status of Factory-X?
 The project is currently in beta, with two pilot projects having been auto-generated for more than 90%, including phases and equipment modules. The templates for the pilots are Siemens S7 STL. (Not TIA)
 
@@ -77,12 +81,23 @@ Re-render with:
 fx render
 ```
 
-Finally import the project to the development environment.
-In this example Simatic Manager: start from an empty project, import the symbols, and then the awl source.
+Finally import the project to the development environment:
+
+## For Siemens Simatic Manager:
+Export file under fx-example\output\plc\PLC.awl
+
+Start from an empty project, import the symbols, and then the awl source.
 
 The standard PID-FB needs to be added.
 
 The project is configured to work with following Control Modules library from Siemens:
 <https://support.industry.siemens.com/cs/document/68679830/example-blocks-for-wincc-v7-and-step-7-v5-(for-s7-300-with-scl-and-s7-400-with-cfc-scl)?dti=0&lc=en-WW>
 
+## For Bedrock Automation / CoDeSys:
+Export file under fx-example\output\plc_Bedrock\PLC.xml
 
+- Start from an empty project
+- Add a device (Bedrock SCC)
+- Delete the application (keep the PLC Logic Folder)
+- Select PLC Logic folder
+- Menu > Project > Import PLCopenXML > select the  PLC.xml file
