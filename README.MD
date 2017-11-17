@@ -67,7 +67,7 @@ npm install
 ```
 Install the CLI tools:
 ```
-npm install factory-x-cli --save
+npm install -g factory-x-cli --save
 ```
 finally render the project:
 ```
