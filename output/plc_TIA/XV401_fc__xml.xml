@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Document>
+  <Engineering version="V15"/>
+  <DocumentInfo>
+    <Created>2018-05-29T12:25:38.1552518Z</Created>
+    <ExportSetting>WithDefaults</ExportSetting>
+    <InstalledProducts>
+      <Product>
+        <DisplayName>Totally Integrated Automation Portal</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>STEP 7 Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>WinCC Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </OptionPackage>
+    </InstalledProducts>
+  </DocumentInfo>
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <AutoNumber>true</AutoNumber>
+      <HeaderAuthor/>
+      <HeaderFamily/>
+      <HeaderName/>
+      <HeaderVersion>0.1</HeaderVersion>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">
+          <Section Name="Input"/>
+          <Section Name="Output"/>
+          <Section Name="InOut"/>
+          <Section Name="Temp"/>
+          <Section Name="Constant"/>
+          <Section Name="Return">
+            <Member Name="Ret_Val" Datatype="Void" Accessibility="Public"/>
+          </Section>
+        </Sections>
+      </Interface>
+      <MemoryLayout ReadOnly="true">Optimized</MemoryLayout>
+      <Name>XV401_fc</Name>
+      <Number>1</Number>
+      <ProgrammingLanguage>STL</ProgrammingLanguage>
+      <UDABlockProperties/>
+      <UDAEnableTagReadback>false</UDAEnableTagReadback>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>&#xD;
+Some Valve  on drawing 21 test			  &#xD;
+			  </Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <MultilingualText ID="D" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="E" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>XV401_fc</Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="10146" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+              <StlStatement UId="693">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="694">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="695">
+                <LineComment Inserted="false">
+                  <Text> Call the CM FB with the corresponding DB instance</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement>
+                <StlToken Text="CALL"/>
+                <Access Scope="Call">
+                  <CallInfo Name="BST_VALVE_400" BlockType="FB">
+                    <Instance Scope="GlobalVariable">
+                      <Component Name="XV401"/>
+                    </Instance>
+                    <Parameter Name="AUT_OP" Section="Input" Type="Bool"/>
+                    <Parameter Name="FB_OPEN" Section="Input" Type="Bool"/>
+                    <Parameter Name="FB_CLOSE" Section="Input" Type="Bool"/>
+                    <Parameter Name="QOPEN" Section="Output" Type="Bool"/>
+                    <Parameter Name="QCLOSE" Section="Output" Type="Bool"/>
+                    <Parameter Name="QMON_ERR" Section="Output" Type="Bool"/>
+                    <Parameter Name="QCMD_OP" Section="Output" Type="Bool"/>
+                  </CallInfo>
+                </Access>
+              </StlStatement>
+            </StatementList>
+          </NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10147" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10148" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>&#xD;
+&#xD;
+comment: PLC1&#xD;
+&#xD;
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10149" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10150" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Main</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>

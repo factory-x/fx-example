@@ -1256,6 +1256,11 @@
                     "Comment": "",
                     "Block": "FC817",
                     "Type": "FC817"
+                },
+                "EM_I_OUT_UDT": {
+                    "Comment": "",
+                    "Block": "UDT11",
+                    "Type": "UDT11"
                 }
             }
         }
@@ -6034,7 +6039,9 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_1 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "718",
@@ -6047,6 +6054,7 @@
                         "FS01": "LS001",
                         "PIC01": "LIC001",
                         "LT01": "LT001",
+                        "XV_Bottom": "not_defined",
                         "BV_Bottom": "MV001",
                         "BV_Tran_M04": "MV003"
                     }
@@ -6322,7 +6330,9 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_2 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "719",
@@ -6335,6 +6345,7 @@
                         "FS01": "LS002",
                         "PIC01": "LIC002",
                         "LT01": "LT002",
+                        "XV_Bottom": "not_defined",
                         "BV_Bottom": "MV002",
                         "BV_Tran_M04": "MV003"
                     }
@@ -6610,7 +6621,9 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_3 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "720",
@@ -6623,6 +6636,7 @@
                         "FS01": "LS002",
                         "PIC01": "LIC003",
                         "LT01": "LT003",
+                        "XV_Bottom": "not_defined",
                         "BV_Bottom": "MV003",
                         "BV_Tran_M04": "MV003"
                     }
@@ -6898,7 +6912,9 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_4 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "721",
@@ -6911,6 +6927,7 @@
                         "FS01": "LS002",
                         "PIC01": "LIC004",
                         "LT01": "LT004",
+                        "XV_Bottom": "not_defined",
                         "BV_Bottom": "MV004",
                         "BV_Tran_M04": "MV003"
                     }
@@ -7186,7 +7203,9 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_5 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "722",
@@ -7199,6 +7218,7 @@
                         "FS01": "LS002",
                         "PIC01": "LIC005",
                         "LT01": "LT005",
+                        "XV_Bottom": "not_defined",
                         "BV_Bottom": "MV005",
                         "BV_Tran_M04": "MV003"
                     }
@@ -7474,7 +7494,9 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_6 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "723",
@@ -7487,6 +7509,7 @@
                         "FS01": "LS002",
                         "PIC01": "LIC006",
                         "LT01": "LT006",
+                        "XV_Bottom": "not_defined",
                         "BV_Bottom": "MV006",
                         "BV_Tran_M04": "MV003"
                     }
@@ -7762,7 +7785,9 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_7 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "724",
@@ -7775,6 +7800,7 @@
                         "FS01": "LS002",
                         "PIC01": "FIC100",
                         "LT01": "LT007",
+                        "XV_Bottom": "not_defined",
                         "BV_Bottom": "MV007",
                         "BV_Tran_M04": "MV003"
                     }
@@ -8050,7 +8076,9 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_8 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "725",
@@ -8063,6 +8091,7 @@
                         "FS01": "LS002",
                         "PIC01": "FIC101",
                         "LT01": "LT100",
+                        "XV_Bottom": "not_defined",
                         "BV_Bottom": "MV007",
                         "BV_Tran_M04": "MV003"
                     }
@@ -8338,7 +8367,9 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_9 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "726",
@@ -8351,6 +8382,7 @@
                         "FS01": "LS002",
                         "PIC01": "FIC101",
                         "LT01": "LT200",
+                        "XV_Bottom": "not_defined",
                         "BV_Bottom": "MV007",
                         "BV_Tran_M04": "MV003"
                     }
@@ -8591,7 +8623,10 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_10 : Instance not_defined(Valve) not found in the CM instances",
+                    "transform_json.js | EM instance EM_Instance_10 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "727",
@@ -8604,7 +8639,9 @@
                         "FS01": "LS002",
                         "PIC01": "FIC101",
                         "LT01": "LT101",
-                        "BV_Bottom": "MV007"
+                        "XV_Bottom": "not_defined",
+                        "BV_Bottom": "MV007",
+                        "BV_Tran_M04": "not_defined"
                     }
                 }
             },
@@ -8843,7 +8880,10 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_11 : Instance not_defined(Valve) not found in the CM instances",
+                    "transform_json.js | EM instance EM_Instance_11 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "728",
@@ -8856,7 +8896,9 @@
                         "FS01": "LS002",
                         "PIC01": "FIC101",
                         "LT01": "LT201",
-                        "XV_Bottom": "XV001"
+                        "XV_Bottom": "XV001",
+                        "BV_Bottom": "not_defined",
+                        "BV_Tran_M04": "not_defined"
                     }
                 }
             },
@@ -9095,7 +9137,10 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_12 : Instance not_defined(Valve) not found in the CM instances",
+                    "transform_json.js | EM instance EM_Instance_12 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "729",
@@ -9108,7 +9153,9 @@
                         "FS01": "LS002",
                         "PIC01": "FIC101",
                         "LT01": "LT201",
-                        "XV_Bottom": "XV002"
+                        "XV_Bottom": "XV002",
+                        "BV_Bottom": "not_defined",
+                        "BV_Tran_M04": "not_defined"
                     }
                 }
             },
@@ -9347,7 +9394,10 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_13 : Instance not_defined(Valve) not found in the CM instances",
+                    "transform_json.js | EM instance EM_Instance_13 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "730",
@@ -9360,7 +9410,9 @@
                         "FS01": "LS002",
                         "PIC01": "FIC101",
                         "LT01": "LT201",
-                        "XV_Bottom": "XV003"
+                        "XV_Bottom": "XV003",
+                        "BV_Bottom": "not_defined",
+                        "BV_Tran_M04": "not_defined"
                     }
                 }
             },
@@ -9599,7 +9651,10 @@
                 "bool_counter": {
                     "value": 0
                 },
-                "errors": [],
+                "errors": [
+                    "transform_json.js | EM instance EM_Instance_14 : Instance not_defined(Valve) not found in the CM instances",
+                    "transform_json.js | EM instance EM_Instance_14 : Instance not_defined(Valve) not found in the CM instances"
+                ],
                 "warnings": [],
                 "Additional_Instance_Blocks": {},
                 "DB": "731",
@@ -9612,7 +9667,9 @@
                         "FS01": "LS002",
                         "PIC01": "FIC101",
                         "LT01": "LT201",
-                        "XV_Bottom": "XV004"
+                        "XV_Bottom": "XV004",
+                        "BV_Bottom": "not_defined",
+                        "BV_Tran_M04": "not_defined"
                     }
                 }
             }
@@ -10165,27 +10222,27 @@
                     "Bool1": {
                         "Type": "BOOL",
                         "Comment": "",
-                        "Enum": ""
+                        "Enumeration": ""
                     },
                     "Bool2": {
                         "Type": "BOOL",
                         "Comment": "",
-                        "Enum": ""
+                        "Enumeration": ""
                     },
                     "EM_I_OUT_ID": {
                         "Type": "INT",
                         "Comment": "",
-                        "Enum": "EM"
+                        "Enumeration": "EM"
                     },
                     "Some_Dyn_EM_ID": {
                         "Type": "INT",
                         "Comment": "",
-                        "Enum": "EM"
+                        "Enumeration": "EM"
                     },
                     "DB_NO": {
                         "Type": "INT",
                         "Comment": "",
-                        "Enum": ""
+                        "Enumeration": ""
                     },
                     "XV003_OPN": {
                         "Type": "BOOL",
@@ -17143,7 +17200,7 @@
                                     "comment": "",
                                     "code": "EM_Instance_4.Pressure_SP  = 4.2",
                                     "left": {
-                                        "value": "%%prefix_EM_instances%%EM_Instance_4.Pressure_SP",
+                                        "value": "cstate.Equipment_Modules.EM_Instance_4.Pressure_SP",
                                         "module_info": {
                                             "type": "phase_example",
                                             "master_type": "Phase"
@@ -17158,7 +17215,7 @@
                                         "data_type": "REAL"
                                     },
                                     "right": "4.2",
-                                    "converted_calculation_left": "%%prefix_EM_instances%%EM_Instance_4.Pressure_SP",
+                                    "converted_calculation_left": "cstate.Equipment_Modules.EM_Instance_4.Pressure_SP",
                                     "calc_array": [],
                                     "converted_calculation_right": "4.2",
                                     "result": {
@@ -17205,7 +17262,7 @@
                                                 "io_source": "Temps",
                                                 "data_type": "BOOL"
                                             },
-                                            "converted_calcultation_1": "%%prefix_EM_instances%%EM_Instance_4.Level",
+                                            "converted_calcultation_1": "cstate.Equipment_Modules.EM_Instance_4.Level",
                                             "converted_calcultation_2": "50.0",
                                             "operation": ">="
                                         }
@@ -17213,7 +17270,7 @@
                                     "transition_calc": [
                                         {
                                             "v1": {
-                                                "value": "%%prefix_EM_instances%%EM_Instance_4.Level",
+                                                "value": "cstate.Equipment_Modules.EM_Instance_4.Level",
                                                 "module_info": {
                                                     "type": "phase_example",
                                                     "master_type": "Phase"
@@ -17249,7 +17306,7 @@
                                             },
                                             "operation": ">=",
                                             "boolean": true,
-                                            "comment": "%%prefix_EM_instances%%EM_Instance_4.Level >= 50.0"
+                                            "comment": "cstate.Equipment_Modules.EM_Instance_4.Level >= 50.0"
                                         }
                                     ]
                                 }
@@ -19636,7 +19693,84 @@
             "shell": null
         }
     },
-    "errors": [],
+    "errors": [
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_1 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_2 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_3 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_4 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_5 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_6 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_7 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_8 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_9 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_10 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_10 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_11 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_11 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_12 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_12 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_13 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_13 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_14 : Instance not_defined(Valve) not found in the CM instances"
+        ],
+        [
+            12,
+            "transform_json.js | EM instance EM_Instance_14 : Instance not_defined(Valve) not found in the CM instances"
+        ]
+    ],
     "message_counter": {
         "value": 1
     },
@@ -19839,6 +19973,86 @@
         "49": {
             "text": "function call",
             "used": true
+        },
+        "50": {
+            "text": "CM error: Pump_QERR",
+            "used": true
+        },
+        "51": {
+            "text": "CM error: Pump_EERR",
+            "used": true
+        },
+        "52": {
+            "text": "CM error: PIC01_ERR",
+            "used": true
+        },
+        "53": {
+            "text": "CM error: LT01_ERR",
+            "used": true
+        },
+        "54": {
+            "text": "CM error: XV_Bottom_MERR",
+            "used": true
+        },
+        "55": {
+            "text": "CM error: BV_Bottom_MERR",
+            "used": true
+        },
+        "56": {
+            "text": "CM error: BV_Tran_M04_MERR",
+            "used": true
+        },
+        "57": {
+            "text": "CM error: XV003_MERR",
+            "used": true
+        },
+        "58": {
+            "text": "CM error: XV004_MERR",
+            "used": true
+        },
+        "59": {
+            "text": "CM error: XV005_MERR",
+            "used": true
+        },
+        "60": {
+            "text": "CM error: P001_MERR",
+            "used": true
+        },
+        "61": {
+            "text": "CM error: P001_MPS",
+            "used": true
+        },
+        "62": {
+            "text": "CM error: P002_MERR",
+            "used": true
+        },
+        "63": {
+            "text": "CM error: P002_MPS",
+            "used": true
+        },
+        "64": {
+            "text": "EM error: EM_I_OUT_ERR",
+            "used": true
+        },
+        "65": {
+            "text": "CM error: LT001_ERR",
+            "used": true
+        },
+        "66": {
+            "text": "CM error: LT002_ERR",
+            "used": true
+        },
+        "67": {
+            "text": "CM error: FIC001_ERR",
+            "used": true
+        },
+        "68": {
+            "text": "EM error: Some_Dyn_EM_ERR",
+            "used": true
+        },
+        "69": {
+            "text": "CM error: XV008_MERR",
+            "used": true
         }
     },
     "blockcounters": {
@@ -19879,5 +20093,108 @@
             }
         ]
     ],
-    "errors_sorted": []
+    "errors_sorted": {
+        "12": [
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_1 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_2 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_3 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_4 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_5 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_6 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_7 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_8 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_9 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_10 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_10 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_11 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_11 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_12 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_12 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_13 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_13 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_14 : Instance not_defined(Valve) not found in the CM instances"
+            },
+            {
+                "0": 12,
+                "1": "transform_json.js | EM instance EM_Instance_14 : Instance not_defined(Valve) not found in the CM instances"
+            }
+        ]
+    },
+    "warnings_sorted": {
+        "28": [
+            {
+                "0": 28,
+                "1": "WARNING: converting REAL to INT",
+                "state_key": "950",
+                "type_name": "phase_example",
+                "fds": "intvar = abs(test1)",
+                "number": 28,
+                "message": "WARNING: converting REAL to INT",
+                "type": "warning"
+            },
+            {
+                "0": 28,
+                "1": "WARNING: converting REAL to INT",
+                "state_key": "950",
+                "type_name": "phase_example",
+                "fds": "intvar = intvar + (intvar+ abs(3.2))",
+                "number": 28,
+                "message": "WARNING: converting REAL to INT",
+                "type": "warning"
+            }
+        ]
+    }
 }

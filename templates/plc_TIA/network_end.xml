@@ -1,0 +1,19 @@
+{% macro render(lib, Title) %}
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="{{ lib.increase_counter('ID') }}" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="{{ lib.increase_counter('ID') }}" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>{{ Title | safe }}</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+{% endmacro %}

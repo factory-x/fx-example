@@ -1,0 +1,2179 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V15" />
+  <DocumentInfo>
+    <Created>2018-05-29T12:25:38.1552518Z</Created>
+    <ExportSetting>WithDefaults</ExportSetting>
+    <InstalledProducts>
+      <Product>
+        <DisplayName>Totally Integrated Automation Portal</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </OptionPackage>
+      <Product>
+        <DisplayName>STEP 7 Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>WinCC Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+    </InstalledProducts>
+  </DocumentInfo>
+  <SW.Blocks.FB ID="0">
+    <AttributeList>
+      <AutoNumber>true</AutoNumber>
+      <HeaderAuthor />
+      <HeaderFamily />
+      <HeaderName />
+      <HeaderVersion>0.1</HeaderVersion>
+      <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">
+  <Section Name="Input">	
+	<Member Name="sampletime" Datatype="Real" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">the scantime of this EM/phase, used to increase timers</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="em_id" Datatype="Int" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="Request" Datatype="Int" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="Command" Datatype="Int" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="Pressure_SP" Datatype="REAL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="Pump_RUN" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="Pump_QERR" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - General Error</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="Pump_EERR" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - External Error</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="FS01_PV" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Flow Switch - Digital Measurement</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="PIC01_PV" Datatype="REAL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Pressure Controller - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="PIC01_ERR" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Pressure Controller - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="LT01_PV" Datatype="Real" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Level Transmitter (m) - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="LT01_AHH" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Level Transmitter (m) - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="LT01_AH" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Level Transmitter (m) - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="LT01_AL" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Level Transmitter (m) - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="LT01_ALL" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Level Transmitter (m) - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="LT01_ERR" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Level Transmitter (m) - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="XV_Bottom_OPN" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Automatic Bottom Valve - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="XV_Bottom_CLS" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Automatic Bottom Valve - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="XV_Bottom_MERR" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Automatic Bottom Valve - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="BV_Bottom_OPN" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Manual Bottom Valve - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="BV_Bottom_CLS" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Manual Bottom Valve - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="BV_Bottom_MERR" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Manual Bottom Valve - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="BV_Tran_M04_OPN" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Trnasfer Valve to M04 - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="BV_Tran_M04_CLS" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Trnasfer Valve to M04 - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="BV_Tran_M04_MERR" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Trnasfer Valve to M04 - undefined</MultiLanguageText></Comment>
+	</Member>
+
+  </Section>
+  <Section Name="Output">
+		
+	<Member Name="steptime_s" Datatype="Real" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">complete steptime in seconds. same value as the other steptimes</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="steptime_m" Datatype="Real" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">complete steptime in minutes. same value as the other steptimes</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="steptime_h" Datatype="Real" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">complete steptime in hours. same value as the other steptimes</MultiLanguageText></Comment>
+	</Member>
+
+	
+		
+	<Member Name="first_scan" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">first scan of the step active</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="last_scan" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">last scan of the step active</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="error_index_db" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">em_id doesn&#39;t fit in the index db</MultiLanguageText></Comment>
+	</Member>
+
+	
+		
+	<Member Name="Owner" Datatype="Int" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="Status" Datatype="Int" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="CM_error" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="CM_error_no" Datatype="DINT" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="q_bACTVIE" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="Level" Datatype="REAL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="Pressure" Datatype="REAL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="Pump_ON" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - Switch Motor ON</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="Pump_AUT" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">undefined - Swtich Motor to AUTO</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="PIC01_EXT" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Pressure Controller - Switch to External Mode</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="PIC01_SP" Datatype="Real" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Pressure Controller - Operator Setpoint in Internal Mode</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="PIC01_AUT" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Pressure Controller - Switch to Auto Mode</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="PIC01_VAL_OUT" Datatype="Real" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Pressure Controller - Operator Output Value</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="PIC01_SET_SP" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Pressure Controller - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="PIC01_SET_OUT" Datatype="Bool" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Pressure Controller - undefined</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="XV_Bottom_CMD" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Automatic Bottom Valve - Auto command from program</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="BV_Bottom_CMD" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Manual Bottom Valve - Auto command from program</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="BV_Tran_M04_CMD" Datatype="BOOL" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">Trnasfer Valve to M04 - Auto command from program</MultiLanguageText></Comment>
+	</Member>
+  
+  </Section>
+  <Section Name="Static">
+		
+	<Member Name="previous_Command" Datatype="Int" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">previous Command</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="SP_PV" Datatype="&quot;EM_I_OUT_UDT&quot;" Remanence="SetInIDB">
+	  <AttributeList>
+        <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">UDT for receiving Setpoints and sending Process Values</MultiLanguageText></Comment>
+	</Member>
+
+  </Section>
+  <Section Name="Temp">
+		
+	<Member Name="initial_scan" Datatype="Bool" >
+	  <AttributeList>
+        
+		
+		
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">pulse active on the first cycle of a new scan</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="T_dbnum" Datatype="Int" >
+	  <AttributeList>
+        
+		
+		
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">DB number of this block</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="T_address" Datatype="Int" >
+	  <AttributeList>
+        
+		
+		
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">address in the Index Table DB</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="T_length" Datatype="Int" >
+	  <AttributeList>
+        
+		
+		
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">length of the Index Table DB</MultiLanguageText></Comment>
+	</Member>
+
+
+  </Section>
+  <Section Name="Constant" />
+</Sections></Interface>
+      <MemoryLayout ReadOnly="true">Optimized</MemoryLayout>
+      <Name>EM_I_OUT</Name>
+      <Number>1</Number>
+      <ProgrammingLanguage>STL</ProgrammingLanguage>
+      <UDABlockProperties />
+      <UDAEnableTagReadback>false</UDAEnableTagReadback>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>
+EM_I_OUT
+			  
+			  </Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="10001" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+//### 0] init
+	CLR
+	=	error_index_db
+
+	
+//### 1] Check if the ID of this EM fits inside the EM Index table
+
+    OPN   EM_Index //Open data block as shared data block
+    L     DBLG //Load length of shared data block (length of DB)
+    T     #T_length //transfer length to length
+	
+    L     #T_length //length=length/2
+    L     2 
+    /I    
+    T     #T_length 
+
+// Error and end the block if id bigger than length of the DB
+    L     #T_length 
+    L     #em_id 
+    &lt;=D
+	= error_index_db
+    BEC    //if id is bigger than length end the block
+	
+//### 2] Write this DB number to the EM Index table
+
+// find the number of the current fb
+    L     DINO
+    T     #T_dbnum //find the db number of current fb
+
+// calculate the real address	
+    L     #em_id
+    L     2 
+    *I     
+    T     #T_address 
+	
+// prepare the pointer for the location in the EM Index DB
+// todo: can this code not simpeler? Probably no need to add with the zero-pointer	
+    OPN   EM_Index 
+    L     P#DBX 0.0 
+    L     #T_address 
+    SLD   3 
+    +D     
+    LAR1   
+
+//write the DB number to the real address
+    L     #T_dbnum 
+    T     DBW [AR1,P#0.0] 
+	
+	
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10002" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10003" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+The EM will publish its DB number to the EM Index table
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10004" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10005" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Publish DB number to EM Index</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10006" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+
+
+	
+	L	#SP_PV.Request
+	T	Request
+	
+
+	
+	L	#SP_PV.Command
+	T	Command
+	
+
+	
+	L	#SP_PV.Pressure_SP
+	T	Pressure_SP
+	
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10007" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10008" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+network comment
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10009" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10010" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Copy all Setpoints from the UDT</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10011" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+	L	Request
+	T 	Owner
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10012" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10013" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+network comment
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10014" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10015" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Acquiring logic</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10016" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+// check if Command == previous_Command
+	L 	Command
+	L	previous_Command
+	==I			// if condition true then {
+	JCN TIM1
+	
+	// increase timer
+	L	sampletime
+	L	steptime_s
+	+R
+	T	steptime_s
+	
+	JU TIM2		// } else {
+TIM1: NOP 0		
+
+	// reset timer
+	L	0.0
+	T	steptime_s	
+
+TIM2: NOP 0		// end if
+
+// calculate the other two timers
+	L 	steptime_s
+	L 	60.0
+	/R
+	T   steptime_m
+	
+	L	60.0
+	/R
+	T	steptime_h
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10017" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10018" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+If the previous Command is not the same as the current one
+then reset the timers, else increase them
+This is at the start of the FB because normal commandchanges will take
+till the next cycle to become active
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10019" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10020" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Steptimers</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10021" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+	L 	Command
+	L	previous_Command
+	&lt;&gt;I
+	=	initial_scan
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10022" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10023" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+create a pulse active on the first cycle of a new scan
+this signal can be used in the state to execute some actions in the first cycle of the state
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10024" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10025" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>detect initial scan</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10026" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+	L 	Command
+	T	previous_Command
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10027" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10028" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+network comment
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10029" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10030" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Save old step</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10031" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+	CLR
+	O	Pump_QERR
+	O	Pump_EERR
+	O	PIC01_ERR
+	O	LT01_ERR
+	O	XV_Bottom_MERR
+	O	BV_Bottom_MERR
+	O	BV_Tran_M04_MERR
+	=	CM_error
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10032" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10033" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+network comment
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10034" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10035" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Collect the errors from the CMs</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10036" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+	CLR
+	
+	// clear the error no
+	L	0
+	T CM_error_no
+	
+	
+		
+	A	Pump_QERR
+	JCN	E1
+
+	L	50 // 'CM error: Pump_QERR'
+	T 	CM_error_no
+	
+E1:	NOP 0
+		
+	A	Pump_EERR
+	JCN	E2
+
+	L	51 // 'CM error: Pump_EERR'
+	T 	CM_error_no
+	
+E2:	NOP 0
+		
+	A	PIC01_ERR
+	JCN	E3
+
+	L	52 // 'CM error: PIC01_ERR'
+	T 	CM_error_no
+	
+E3:	NOP 0
+		
+	A	LT01_ERR
+	JCN	E4
+
+	L	53 // 'CM error: LT01_ERR'
+	T 	CM_error_no
+	
+E4:	NOP 0
+		
+	A	XV_Bottom_MERR
+	JCN	E5
+
+	L	54 // 'CM error: XV_Bottom_MERR'
+	T 	CM_error_no
+	
+E5:	NOP 0
+		
+	A	BV_Bottom_MERR
+	JCN	E6
+
+	L	55 // 'CM error: BV_Bottom_MERR'
+	T 	CM_error_no
+	
+E6:	NOP 0
+		
+	A	BV_Tran_M04_MERR
+	JCN	E7
+
+	L	56 // 'CM error: BV_Tran_M04_MERR'
+	T 	CM_error_no
+	
+E7:	NOP 0
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10037" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10038" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+This code tries to assign an error message to each CM error
+If multiple CMs have an error then it only stores one
+This is the EM type so we don't know which CM instance is connected
+So the error only contains the general name of the CM instance
+If the actual name needs to be shown then it could be deducted
+at a higher level using the CM name and EM instance 
+network_end.render(lib, "ssign a message number to each error") }}
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10039" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10040" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Assign a message number to each error</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10041" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+// empty placeholder network
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10042" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10043" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+################################
+################################
+	Placeholder network to indicate the start of the actual sequence
+################################	  
+################################
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10044" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10045" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>START OF THE STATES</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10046" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+// skip this network if stepnumber not equal to 0
+	L 	Command
+	L 	0
+	==I
+	JCN J1
+
+//---------------------------------
+// Actions (continuous)
+//---------------------------------
+
+// Action: stop Pump
+	CLR
+	=	Pump_ON
+
+// Action: close XV_Bottom
+	CLR
+	=	XV_Bottom_CMD
+
+// Action: close BV_Bottom
+	CLR
+	=	BV_Bottom_CMD
+
+// Action: close BV_Tran_M04
+	CLR
+	=	BV_Tran_M04_CMD
+//---------------------------------
+// --- CONDITIONS ---
+//---------------------------------
+
+// Condition Logic
+	SET	// make sure RLO is high so the state can happen when no conditions present
+			
+	A	XV_Bottom_CLS 	// XV_Bottom close
+	A	BV_Bottom_CLS 	// BV_Bottom close
+	A	BV_Tran_M04_CLS 	// BV_Tran_M04 close
+	JCN L1
+	
+	L   Command
+	T   Status
+	
+L1: NOP 0
+
+D1: NOP 0	
+
+//---------------------------------
+// End of network: jump here if step not active
+// Jump to end of this FB if the step has been active to avoid
+// execution of another step in the same scan
+//---------------------------------		
+	JU	ENDS
+J1: NOP 0
+
+	
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10047" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10048" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+ 
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10049" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10050" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>State 0: undefined</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+	
+      <SW.Blocks.CompileUnit ID="10051" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+// skip this network if stepnumber not equal to 1
+	L 	Command
+	L 	1
+	==I
+	JCN J2
+
+//---------------------------------
+// Actions (continuous)
+//---------------------------------
+
+// Action: stop Pump
+	CLR
+	=	Pump_ON
+
+// Action: open XV_Bottom
+	SET
+	=	XV_Bottom_CMD
+//---------------------------------
+// --- CONDITIONS ---
+//---------------------------------
+
+// Condition Logic
+	SET	// make sure RLO is high so the state can happen when no conditions present
+			
+	A	XV_Bottom_OPN 	// XV_Bottom open
+	JCN L2
+	
+	L   Command
+	T   Status
+	
+L2: NOP 0
+
+D2: NOP 0	
+
+//---------------------------------
+// End of network: jump here if step not active
+// Jump to end of this FB if the step has been active to avoid
+// execution of another step in the same scan
+//---------------------------------		
+	JU	ENDS
+J2: NOP 0
+
+	
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10052" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10053" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+ 
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10054" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10055" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>State 1: undefined</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+	
+      <SW.Blocks.CompileUnit ID="10056" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+// skip this network if stepnumber not equal to 2
+	L 	Command
+	L 	2
+	==I
+	JCN J3
+	
+//---------------------------------
+// Actions (first scan)
+//---------------------------------
+	A	initial_scan 
+	JCN   C3
+		L -1.0	 // value to show that the EM is in a state transition
+		T Status
+			
+// Action: PIC01_SP = 10.0
+	L 	10.0
+	T 	PIC01_SP
+
+// Action: PIC01_SET_SP = true
+	SET
+	=	PIC01_SET_SP
+
+	JU	D3	//skip the continuous steps during the initial scan
+C3: NOP   0 
+
+
+//---------------------------------
+// Actions (continuous)
+//---------------------------------
+
+// Action: start Pump
+	SET
+	=	Pump_ON
+
+// Action: auto 10.0 bar PIC01
+	SET
+	=	PIC01_AUT
+
+// Action: open XV_Bottom
+	SET
+	=	XV_Bottom_CMD
+
+// Action: PIC01_SET_SP = false
+	CLR
+	=	PIC01_SET_SP
+//---------------------------------
+// --- CONDITIONS ---
+//---------------------------------
+
+// Condition Logic
+	SET	// make sure RLO is high so the state can happen when no conditions present
+			
+	A	Pump_RUN 	// Pump start
+	A	XV_Bottom_OPN 	// XV_Bottom open
+	JCN L3
+	
+	L   Command
+	T   Status
+	
+L3: NOP 0
+
+D3: NOP 0	
+
+//---------------------------------
+// End of network: jump here if step not active
+// Jump to end of this FB if the step has been active to avoid
+// execution of another step in the same scan
+//---------------------------------		
+	JU	ENDS
+J3: NOP 0
+
+	
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10057" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10058" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+ 
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10059" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10060" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>State 2: undefined</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+	
+      <SW.Blocks.CompileUnit ID="10061" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+// skip this network if stepnumber not equal to 3
+	L 	Command
+	L 	3
+	==I
+	JCN J4
+
+//---------------------------------
+// Actions (continuous)
+//---------------------------------
+
+// Action: stop Pump
+	CLR
+	=	Pump_ON
+
+// Action: open BV_Bottom
+	SET
+	=	BV_Bottom_CMD
+
+// Action: open BV_Tran_M04
+	SET
+	=	BV_Tran_M04_CMD
+//---------------------------------
+// --- CONDITIONS ---
+//---------------------------------
+
+// Condition Logic
+	SET	// make sure RLO is high so the state can happen when no conditions present
+			
+	A	BV_Bottom_OPN 	// BV_Bottom open
+	A	BV_Tran_M04_OPN 	// BV_Tran_M04 open
+	JCN L4
+	
+	L   Command
+	T   Status
+	
+L4: NOP 0
+
+D4: NOP 0	
+
+//---------------------------------
+// End of network: jump here if step not active
+// Jump to end of this FB if the step has been active to avoid
+// execution of another step in the same scan
+//---------------------------------		
+	JU	ENDS
+J4: NOP 0
+
+	
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10062" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10063" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+ 
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10064" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10065" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>State 3: undefined</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+	
+      <SW.Blocks.CompileUnit ID="10066" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+// skip this network if stepnumber not equal to 4
+	L 	Command
+	L 	4
+	==I
+	JCN J5
+	
+//---------------------------------
+// Actions (first scan)
+//---------------------------------
+	A	initial_scan 
+	JCN   C5
+		L -1.0	 // value to show that the EM is in a state transition
+		T Status
+			
+// Action: PIC01_SP = Pressure_SP
+	L 	Pressure_SP
+	T 	PIC01_SP
+
+// Action: PIC01_SET_SP = true
+	SET
+	=	PIC01_SET_SP
+
+	JU	D5	//skip the continuous steps during the initial scan
+C5: NOP   0 
+
+
+//---------------------------------
+// Actions (continuous)
+//---------------------------------
+
+// Action: start Pump
+	SET
+	=	Pump_ON
+
+// Action: auto Pressure_SP PIC01
+	SET
+	=	PIC01_AUT
+
+// Action: open BV_Bottom
+	SET
+	=	BV_Bottom_CMD
+
+// Action: open BV_Tran_M04
+	SET
+	=	BV_Tran_M04_CMD
+
+// Action: PIC01_SET_SP = false
+	CLR
+	=	PIC01_SET_SP
+//---------------------------------
+// --- CONDITIONS ---
+//---------------------------------
+
+// Condition Logic
+	SET	// make sure RLO is high so the state can happen when no conditions present
+			
+	A	Pump_RUN 	// Pump start
+	A	BV_Bottom_OPN 	// BV_Bottom open
+	A	BV_Tran_M04_OPN 	// BV_Tran_M04 open
+	JCN L5
+	
+	L   Command
+	T   Status
+	
+L5: NOP 0
+
+D5: NOP 0	
+
+//---------------------------------
+// End of network: jump here if step not active
+// Jump to end of this FB if the step has been active to avoid
+// execution of another step in the same scan
+//---------------------------------		
+	JU	ENDS
+J5: NOP 0
+
+	
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10067" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10068" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+ 
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10069" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10070" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>State 4: undefined</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+	
+      <SW.Blocks.CompileUnit ID="10071" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+// skip this network if stepnumber not equal to 5
+	L 	Command
+	L 	5
+	==I
+	JCN J6
+	
+//---------------------------------
+// Actions (first scan)
+//---------------------------------
+	A	initial_scan 
+	JCN   C6
+		L -1.0	 // value to show that the EM is in a state transition
+		T Status
+			
+// Action: PIC01_VAL_OUT = 20.0
+	L 	20.0
+	T 	PIC01_VAL_OUT
+
+// Action: PIC01_SET_OUT = true
+	SET
+	=	PIC01_SET_OUT
+
+	JU	D6	//skip the continuous steps during the initial scan
+C6: NOP   0 
+
+
+//---------------------------------
+// Actions (continuous)
+//---------------------------------
+
+// Action: start Pump
+	SET
+	=	Pump_ON
+
+// Action: manual 20.0 Hz PIC01
+	CLR
+	=	PIC01_AUT
+
+// Action: open XV_Bottom
+	SET
+	=	XV_Bottom_CMD
+
+// Action: PIC01_SET_OUT = false
+	CLR
+	=	PIC01_SET_OUT
+//---------------------------------
+// --- CONDITIONS ---
+//---------------------------------
+
+// Condition Logic
+	SET	// make sure RLO is high so the state can happen when no conditions present
+			
+	A	Pump_RUN 	// Pump start
+	A	XV_Bottom_OPN 	// XV_Bottom open
+	JCN L6
+	
+	L   Command
+	T   Status
+	
+L6: NOP 0
+
+D6: NOP 0	
+
+//---------------------------------
+// End of network: jump here if step not active
+// Jump to end of this FB if the step has been active to avoid
+// execution of another step in the same scan
+//---------------------------------		
+	JU	ENDS
+J6: NOP 0
+
+	
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10072" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10073" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+ 
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10074" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10075" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>State 5: undefined</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+	
+      <SW.Blocks.CompileUnit ID="10076" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+// jump location for the state that is currently active
+ENDS:	NOP 0
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10077" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10078" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+################################
+################################
+	Placeholder network to indicate the end of the actual sequence
+################################	  
+################################
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10079" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10080" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>END OF THE STATES</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10081" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+			
+// Action: Level = LT01
+	L 	LT01_PV
+	T 	Level
+			
+// Action: Pressure = PIC01
+	L 	PIC01_PV
+	T 	Pressure
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10082" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10083" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+General Actions - After
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10084" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10085" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>eneral Actions - After</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10086" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+
+
+	
+	L	Owner
+	T	#SP_PV.Owner
+	
+
+	
+	L	Status
+	T	#SP_PV.Status
+	
+
+	
+	A 	CM_error
+	=	#SP_PV.CM_error
+	
+
+	
+	L	CM_error_no
+	T	#SP_PV.CM_error_no
+	
+
+	
+	A 	q_bACTVIE
+	=	#SP_PV.q_bACTVIE
+	
+
+	
+	L	Level
+	T	#SP_PV.Level
+	
+
+	
+	L	Pressure
+	T	#SP_PV.Pressure
+	
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10087" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10088" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+network comment
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10089" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10090" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Copy all Process Values to the UDT</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10091" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+	L 	0
+	T 	request
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10092" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10093" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+Phases don't clean up their requests on the EM side
+So at the end of the EM reset the request
+If the phase is still there then it will write the request again by the next scan
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10094" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10095" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Clean up request</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+      <SW.Blocks.CompileUnit ID="10096" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+// empty placeholder network
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="10097" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="10098" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+network comment
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="10099" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="10100" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>network title</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+		
+  
+      <MultilingualText ID="D" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="E" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>EM_I_OUT_fc</Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.FB>
+</Document>
+
+

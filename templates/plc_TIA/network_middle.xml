@@ -1,0 +1,12 @@
+{% macro render(lib, ProgrammingLanguage) %}
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>{{ ProgrammingLanguage }}</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="{{ lib.increase_counter('ID') }}" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="{{ lib.increase_counter('ID') }}" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+{% endmacro %}

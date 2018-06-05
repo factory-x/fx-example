@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Document>
+  <Engineering version="V15"/>
+  <DocumentInfo>
+    <Created>2018-05-29T12:25:38.1552518Z</Created>
+    <ExportSetting>WithDefaults</ExportSetting>
+    <InstalledProducts>
+      <Product>
+        <DisplayName>Totally Integrated Automation Portal</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>STEP 7 Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>WinCC Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </OptionPackage>
+    </InstalledProducts>
+  </DocumentInfo>
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <AutoNumber>true</AutoNumber>
+      <HeaderAuthor/>
+      <HeaderFamily/>
+      <HeaderName/>
+      <HeaderVersion>0.1</HeaderVersion>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">
+          <Section Name="Input"/>
+          <Section Name="Output"/>
+          <Section Name="InOut"/>
+          <Section Name="Temp"/>
+          <Section Name="Constant"/>
+          <Section Name="Return">
+            <Member Name="Ret_Val" Datatype="Void" Accessibility="Public"/>
+          </Section>
+        </Sections>
+      </Interface>
+      <MemoryLayout ReadOnly="true">Optimized</MemoryLayout>
+      <Name>LIC003_fc</Name>
+      <Number>1</Number>
+      <ProgrammingLanguage>STL</ProgrammingLanguage>
+      <UDABlockProperties/>
+      <UDAEnableTagReadback>false</UDAEnableTagReadback>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>&#xD;
+ test			  &#xD;
+			  </Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <MultilingualText ID="D" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="E" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>LIC003_fc</Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="3" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+              <StlStatement UId="219">
+                <StlToken Text="CALL"/>
+                <Access Scope="Call">
+                  <CallInfo Name="BST_PIDAIN_400" BlockType="FB">
+                    <Instance Scope="GlobalVariable">
+                      <Component Name="DB"/>
+                    </Instance>
+                  </CallInfo>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="220">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="221">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="222">
+                <LineComment Inserted="false">
+                  <Text>Write the Operator_Setpoint</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="223">
+                <StlToken Text="A"/>
+                <Access Scope="GlobalVariable">
+                  <Symbol>
+                    <Component Name="LIC003_sp"/>
+                    <Component Name="Set_SP"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="224">
+                <StlToken Text="JCN"/>
+                <Access Scope="Label">
+                  <Label Name="J001"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="225">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="226">
+                <StlToken Text="L"/>
+                <Access Scope="GlobalVariable">
+                  <Symbol>
+                    <Component Name="LIC003_sp"/>
+                    <Component Name="Operator_Setpoint"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="227">
+                <StlToken Text="T"/>
+                <Access Scope="GlobalVariable">
+                  <Symbol>
+                    <Component Name="LIC003"/>
+                    <Component Name="i_fOCmdSP"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="228">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="229">
+                <LabelDeclaration>
+                  <Label Name="J001"/>
+                </LabelDeclaration>
+                <StlToken Text="NOP_0"/>
+              </StlStatement>
+              <StlStatement UId="230">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="231">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="232">
+                <LineComment Inserted="false">
+                  <Text>Write the Output_Value</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="233">
+                <StlToken Text="A"/>
+                <Access Scope="GlobalVariable">
+                  <Symbol>
+                    <Component Name="LIC003_sp"/>
+                    <Component Name="Set_Output"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="234">
+                <StlToken Text="JCN"/>
+                <Access Scope="Label">
+                  <Label Name="J002"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="235">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="236">
+                <StlToken Text="L"/>
+                <Access Scope="GlobalVariable">
+                  <Symbol>
+                    <Component Name="LIC003_sp"/>
+                    <Component Name="Output_Value"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="237">
+                <StlToken Text="T"/>
+                <Access Scope="GlobalVariable">
+                  <Symbol>
+                    <Component Name="LIC003"/>
+                    <Component Name="i_fOCmdMANOP"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="238">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="239">
+                <LabelDeclaration>
+                  <Label Name="J002"/>
+                </LabelDeclaration>
+                <StlToken Text="NOP_0"/>
+              </StlStatement>
+              <StlStatement UId="240">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="241">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+            </StatementList>
+          </NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="4" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="5" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>&#xD;
+&#xD;
+The phase FBs write on the operator setpoints of the PID-controller&#xD;
+To avoid that the setpoints are always overwritten (and blocking operator control)&#xD;
+we use pulses generated by the phase to set the setpoints only at specific moments&#xD;
+i_fOCmdSP (setpoint)&#xD;
+i_fOCmdMANOP (output)&#xD;
+&#xD;
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="6" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="7" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Change PID Setpoints</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <SW.Blocks.CompileUnit ID="3" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+              <StlStatement UId="242">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="243">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="244">
+                <LineComment Inserted="false">
+                  <Text>Call the CM FB with the corresponding DB instance</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+            </StatementList>
+          </NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="4" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="5" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>&#xD;
+&#xD;
+comment: PLC1&#xD;
+&#xD;
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="6" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="7" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Main</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <SW.Blocks.CompileUnit ID="8" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2"/>
+          </NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="9" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="A" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text/>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="B" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="C" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text/>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>

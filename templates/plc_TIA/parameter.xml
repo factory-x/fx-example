@@ -1,0 +1,13 @@
+{% macro render(lib, partype, parname, datatype, comment) %}	
+	<Member Name="{{ parname }}" Datatype="{{ datatype }}" {% if partype != "Temp" %}Remanence="SetInIDB"{% endif %}>
+	  <AttributeList>
+        {% if partype != "Temp" %}<BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>{% endif %}
+		{% if partype != "Temp" %}<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>{% endif %}
+		{% if partype != "Temp" %}<BooleanAttribute Name="ExternalWritable" SystemDefined="true">true</BooleanAttribute>{% endif %}
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">{{ comment }}</MultiLanguageText></Comment>
+	</Member>
+{% endmacro %}

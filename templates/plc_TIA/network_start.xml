@@ -1,0 +1,5 @@
+{% macro render(lib) %}
+      <SW.Blocks.CompileUnit ID="{{ lib.increase_counter('ID') }}" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+{% endmacro %}
