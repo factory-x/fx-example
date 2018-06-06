@@ -40,8 +40,8 @@ VAR_OUTPUT
       stepnumber { S7_m_c := 'true' }: INT;		// actual stepnumber
 	message { S7_m_c := 'true' }: DINT;			// number of the message to be displayed     
 	button_1_text { S7_m_c := 'true' }: DINT;		// number of the text to be displayed on the button_1_text
-	button_2_text { S7_m_c := 'true' }: DINT;		// number of the text to be displayed on the button_1_text   
-	button_3_text { S7_m_c := 'true' }: DINT;		// number of the text to be displayed on the button_1_text
+	button_2_text { S7_m_c := 'true' }: DINT;		// number of the text to be displayed on the button_2_text   
+	button_3_text { S7_m_c := 'true' }: DINT;		// number of the text to be displayed on the button_3_text
 	button_1_visible { S7_m_c := 'true' }: BOOL;	// 1 = visible      
 	button_2_visible { S7_m_c := 'true' }: BOOL;	// 1 = visible
 	button_3_visible { S7_m_c := 'true' }: BOOL;	// 1 = visible
@@ -68,8 +68,8 @@ VAR_OUTPUT
 	enable_reset{ S7_m_c := 'true' }: BOOL;			// 6 reset command from hmi or other operator interface
 	enable_pause{ S7_m_c := 'true' }: BOOL;			// 7 pause command from hmi or other operator interface
 	enable_resume{ S7_m_c := 'true' }: BOOL;		// 8 resume command from hmi or other operator interface
-	enable_auto{ S7_m_c := 'true' }: BOOL;			// 1 auto command from plc program 
- 	enable_man{ S7_m_c := 'true' }: BOOL;			// 1 auto command from plc program      
+	enable_auto{ S7_m_c := 'true' }: BOOL;			// 1 = auto command from plc program 
+ 	enable_man{ S7_m_c := 'true' }: BOOL;			// 1 = manual command from plc program      
 	enable_byte: Byte;
       auto: BOOL;
       
@@ -82,8 +82,9 @@ VAR_OUTPUT
 {#	CM_Error_no: DINT;		// Error no of the CM in error -#}
 {#	EM_Error_no: DINT;		// Error no of the EM in error-#}
       MSG_no01{ S7_m_c := 'true' }: DINT;   
+	  MSG_no02{ S7_m_c := 'true' }: DINT;  
       MSG_no03{ S7_m_c := 'true' }: DINT;      
-	MSG_no04{ S7_m_c := 'true' }: DINT;
+	  MSG_no04{ S7_m_c := 'true' }: DINT;
       MSG_no05{ S7_m_c := 'true' }: DINT;
       MSG_no06{ S7_m_c := 'true' }: DINT;
       MSG_no07{ S7_m_c := 'true' }: DINT;
@@ -401,7 +402,8 @@ TITLE = plc Commands
 // reset operator command		  
       L     DW#16#F000; 
       T     #hmi_commands; 		   
-      T     #plc_commands; 		  
+      T     #plc_commands; 
+	  
 NETWORK
 TITLE = Combined Commands
 //--------------------------------
@@ -474,6 +476,8 @@ TITLE = Combined Commands
       
       A hmi_BTN3;
       = button_3_pushed;
+	  
+	  
 NETWORK
 TITLE = Steptimers
 //--------------------------------

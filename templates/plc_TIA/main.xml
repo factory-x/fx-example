@@ -2,8 +2,15 @@
 {%- import "cm_instance_sp.xml" as cm_instance_sp %}
 {%- import "cm_instance_weight.xml" as cm_instance_weight %}
 {%- import "cm_instance_fc.xml" as cm_instance_fc %}
-{%- import "em_type_interface.xml" as em_type_interface %}
+{%- import "em_interface.xml" as em_interface %}
 {%- import "em_type.xml" as em_type %}
+{%- import "em_instance_db.xml" as em_instance_db %}
+{%- import "em_instance_fc.xml" as em_instance_fc %}
+{%- import "phase_type.xml" as phase_type %}
+{%- import "phase_instance_db.xml" as phase_instance_db %}
+{%- import "phase_instance_fc.xml" as phase_instance_fc %}
+{%- import "unit_instance_db.xml" as unit_instance_db %}
+{%- import "unit_instance_fc.xml" as unit_instance_fc %}
 {%- import "em_index.xml" as em_index %}
 {{ lib.init_counter('ID', 10000) }}
 {#- this line removes all whitespaces before the xml definition -#}
@@ -11,6 +18,12 @@
 {#- Other Modules #}
 <SPLIT>blockname: "weight_calculation"</SPLIT>
 {% include "./modules/weight_calculation.xml" %}
+<SPLIT>blockname: "em_write"</SPLIT>
+{% include "./modules/em_write.xml" %}
+<SPLIT>blockname: "em_read"</SPLIT>
+{% include "./modules/em_read.xml" %}
+<SPLIT>blockname: "stepinterval"</SPLIT>
+{% include "./modules/stepinterval.xml" %}
 
 {#- EM Index, used to store the DB numbers of all EM #}
 <SPLIT>blockname: "em_index"</SPLIT>
@@ -21,6 +34,12 @@
 	{{- lib.log('rendering EM type ' + emtype_id) -}}
 	{{ em_type_interface.render(lib, emtype_id, emtype) }}
 	{{ em_type.render(lib, emtype_id, emtype) }}
+{% endfor %}
+
+{# Phase Types #}
+{% for ptype_id, ptype in model.Phases.Types %}
+	<SPLIT>blockname: "{{ptype_id}}"</SPLIT>
+	{{ phase_type.render(lib, ptype_id, ptype) }}
 {% endfor %}
 
 {#- CM Types #}
@@ -36,6 +55,14 @@
 {% include "./control_modules/cm_di.xml" %}
 <SPLIT>blockname: "cm_pid"</SPLIT>
 {% include "./control_modules/cm_pid.xml" %}
+
+{#- Unit Instances #}
+{% for unit_id, unit in model.Units.Instances %}
+	<SPLIT>blockname: "{{unit_id}}_db"</SPLIT>
+	{{ unit_instance_db.render(lib, unit_id, unit) }}
+	SPLIT>blockname: "{{unit_id}}_fb"</SPLIT>
+	{{ unit_instance_fb.render(lib, unit_id, unit) }}
+{% endfor %}
 
 {#- CM Instances #}
 {% for instance_id, instance in model.Control_Modules.Instances %}
@@ -54,6 +81,22 @@
 		{#- create the FC #}
 		{{ cm_instance_fc.render(lib, instance_id, instance) }}rrrr
 	{%- endif %}
+{% endfor %}
+
+{#- EM Instances #}
+{% for emtype_id, emtype in model.Equipment_Modules.Instances %}
+	<SPLIT>blockname: "{{emtype_id}}_db"</SPLIT>
+	{{ em_instance_db.render(lib, emtype_id, emtype) }}
+	<SPLIT>blockname: "{{em_id}}_fc"</SPLIT>
+	{{ em_instance_fc.render(lib, emtype_id, emtype) }}
+{% endfor %}
+
+{#- Phase Instances #}
+{% for phase_id, phase in model.Phases.Instances %}
+	<SPLIT>blockname: "{{phase_id}}_db"</SPLIT>
+	{{ phase_instance_db.render(lib, phase_id, phase) }}
+	<SPLIT>blockname: "{{phase_id}}_fc"</SPLIT>
+	{{ phase_instance_fc.render(lib, phase_id, phase) }}
 {% endfor %}
 
 
