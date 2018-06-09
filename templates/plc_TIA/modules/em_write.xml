@@ -53,13 +53,14 @@
 	<Member Name="source_pointer" Datatype="Any" Accessibility="Public" />
 	<Member Name="dest_pointer" Datatype="Any" Accessibility="Public" />
 	<Member Name="adjusted_length" Datatype="Int" Accessibility="Public" />
+	<Member Name="blkmov_retval" Datatype="Int" Accessibility="Public" />
   </Section>
   <Section Name="Constant" />
   <Section Name="Return">
     <Member Name="Ret_Val" Datatype="Void" Accessibility="Public" />
   </Section>
 </Sections></Interface>
-      <MemoryLayout ReadOnly="true">Optimized</MemoryLayout>
+      <MemoryLayout ReadOnly="true">Standard</MemoryLayout>
       <Name>em_write</Name>
       <Number>1</Number>
       <ProgrammingLanguage>STL</ProgrammingLanguage>
@@ -84,116 +85,117 @@
 
 // Skip the entire FC if Request = 0
 
-	L	Request;
-	L	0;
-	==I;
-	JCN	ENDS;
+	L	Request
+	L	0
+	==I
+	JCN	ENDS
 	 
 // Reduce the length to one Integer if the EM has not been acquired yet
-	L 	Owner;
-	L 	Request;
-	&lt;&gt;I;
-	JCN REDU;
+	L 	Owner
+	L 	Request
+	&lt;&gt;I
+	JCN REDU
 	
-	L 	2;
-	T 	adjusted_length;
+	L 	2
+	T 	adjusted_length
 	
 REDU:	NOP 0
 
 
 // Calculate the amount of EMs in the EM_Index
-      OPN   DB    25; 
-      L     DBLG; 
-      L     4; 
-      /I    ; 
-      T     #em_index_length; 
+      OPN   DB    25 
+      L     DBLG 
+      L     4 
+      /I     
+      T     #em_index_length 
 	  
 	  
 // protect against an address outside db25
-      L     #EM_ID; 
-      L     #em_index_length; 
-      &gt;I    ; 
-      =     #EM_addressing_error; 
-      JC    ENDS; 
+      L     #EM_ID 
+      L     #em_index_length 
+      &gt;I     
+      =     #EM_addressing_error 
+      JC    ENDS 
 
 
 // calculate the address of the EM in DB25
-      L     #EM_ID; 
-      L     4; 
-      *I    ; 
-      T     #em_address; 
+      L     #EM_ID 
+      L     4 
+      *I     
+      T     #em_address 
 
 // prepare the pointer for the location in EM Index DB
 // todo: probably don't need to load the 0-pointer
-      L     P#DBX 0.0; 
-      L     #em_address; 
-      SLD   3; 
-      +D    ; 
-      LAR1  ; 
+      L     P#DBX 0.0 
+      L     #em_address 
+      SLD   3 
+      +D     
+      LAR1   
 
 // read the DB number
-      L     DBW [AR1,P#0.0]; 
-      T     #em_db; 
+      L     DBW [AR1,P#0.0] 
+      T     #em_db 
 
 // read the UDT location
-      L     DBW [AR1,P#2.0]; 
-      T     #em_udt; 
+      L     DBW [AR1,P#2.0] 
+      T     #em_udt 
 
 // read the start of the UDT in the phase
-      L     P##UDT_LOCATION; 
-      LAR1  ; 
-      L     D [AR1,P#2.0]; 
-      L     DW#16#7FFF8; 
-      AD    ; 
-      SRD   3; 
-      T     #phase_udt; 
+      L     P##UDT_LOCATION 
+      LAR1   
+      L     D [AR1,P#2.0] 
+      L     DW#16#7FFF8 
+      AD     
+      SRD   3 
+      T     #phase_udt 
 
 // read the phase DB
-      L     W [AR1,P#0.0]; 
-      T     #phase_db; 
+      L     W [AR1,P#0.0] 
+      T     #phase_db 
 
 // prepare the receiving address
-      LAR1  P##dest_pointer; 
-      L     W#16#1002; // Syntax ID (10h for S7, 2h bytes)
-      T     LW [AR1,P#0.0]; 
-      L     #adjusted_length; // Length in bytes
-      T     LW [AR1,P#2.0]; 
-      L     #em_db; // DB-nummer EM
-      T     LW [AR1,P#4.0]; 
-      L     #em_udt; // Start address in DB EM
-      L     #UDT_OFFSET; 
-      +I    ; 
-      SLD   3; 
-      L     DW#16#84000000; 
-      OD    ; 
-      T     LD [AR1,P#6.0]; 
+      LAR1  P##dest_pointer 
+      L     W#16#1002 // Syntax ID (10h for S7, 2h bytes)
+      T     LW [AR1,P#0.0] 
+      L     #adjusted_length // Length in bytes
+      T     LW [AR1,P#2.0] 
+      L     #em_db // DB-nummer EM
+      T     LW [AR1,P#4.0] 
+      L     #em_udt // Start address in DB EM
+      L     #UDT_OFFSET 
+      +I     
+      SLD   3 
+      L     DW#16#84000000 
+      OD     
+      T     LD [AR1,P#6.0] 
 
 // prepare the sending address
-      LAR1  P##source_pointer; 
-      L     W#16#1002; // Syntax ID (10h for S7, 2h bytes)
-      T     LW [AR1,P#0.0]; 
-      L     #adjusted_length; // Length in bytes
-      T     LW [AR1,P#2.0]; 
-      L     #phase_db; // DB-nummer SEQ
-      T     LW [AR1,P#4.0]; 
-      L     #phase_udt; // Start address in DB SEQ
-      L     #UDT_OFFSET; 
-      +I    ; 
-      SLD   3; 
-      L     DW#16#84000000; 
-      OD    ; 
-      T     LD [AR1,P#6.0]; 
+      LAR1  P##source_pointer 
+      L     W#16#1002 // Syntax ID (10h for S7, 2h bytes)
+      T     LW [AR1,P#0.0] 
+      L     #adjusted_length // Length in bytes
+      T     LW [AR1,P#2.0] 
+      L     #phase_db // DB-nummer SEQ
+      T     LW [AR1,P#4.0] 
+      L     #phase_udt // Start address in DB SEQ
+      L     #UDT_OFFSET 
+      +I     
+      SLD   3 
+      L     DW#16#84000000 
+      OD     
+      T     LD [AR1,P#6.0] 
 
 // copy the data
-      CALL SFC   20 (
-           SRCBLK                   := #source_pointer,
-           RET_VAL                  := #RETVAL,
-           DSTBLK                   := #dest_pointer);
+      CALL BLKMOV
+		   Variant
+           SRCBLK                   := #source_pointer
+           RET_VAL                  := #blkmov_retval
+           DSTBLK                   := #dest_pointer
 
 
 
 
-ENDS: NOP   0; 
+ENDS: NOP   0 
 
 		  
 </StatementList></NetworkSource>

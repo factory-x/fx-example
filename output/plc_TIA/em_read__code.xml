@@ -1,0 +1,219 @@
+
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V15" />
+  <DocumentInfo>
+    <Created>2018-05-29T12:25:38.1552518Z</Created>
+    <ExportSetting>WithDefaults</ExportSetting>
+    <InstalledProducts>
+      <Product>
+        <DisplayName>Totally Integrated Automation Portal</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </OptionPackage>
+      <Product>
+        <DisplayName>STEP 7 Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>WinCC Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+    </InstalledProducts>
+  </DocumentInfo>
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <AutoNumber>true</AutoNumber>
+      <HeaderAuthor />
+      <HeaderFamily />
+      <HeaderName />
+      <HeaderVersion>0.1</HeaderVersion>
+      <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">
+  <Section Name="Input">
+    <Member Name="EM_ID" Datatype="Int" Accessibility="Public" />
+	<Member Name="UDT_LOCATION" Datatype="Pointer" Accessibility="Public" />
+	<Member Name="UDT_OFFSET" Datatype="Int" Accessibility="Public" />
+	<Member Name="Length" Datatype="Int" Accessibility="Public" />
+  </Section>
+  <Section Name="Output">
+	<Member Name="EM_addressing_error" Datatype="Bool" Accessibility="Public" />
+  </Section>
+  <Section Name="InOut" />
+  <Section Name="Temp">
+	<Member Name="em_address" Datatype="Int" Accessibility="Public" />
+	<Member Name="em_index_length" Datatype="Int" Accessibility="Public" />
+	<Member Name="em_db" Datatype="Int" Accessibility="Public" />
+	<Member Name="em_udt" Datatype="Int" Accessibility="Public" />
+	<Member Name="phase_db" Datatype="Int" Accessibility="Public" />
+	<Member Name="phase_udt" Datatype="Int" Accessibility="Public" />
+	<Member Name="source_pointer" Datatype="Any" Accessibility="Public" />
+	<Member Name="dest_pointer" Datatype="Any" Accessibility="Public" />
+	<Member Name="blkmov_retval" Datatype="Int" Accessibility="Public" />
+  </Section>
+  <Section Name="Constant" />
+  <Section Name="Return">
+    <Member Name="Ret_Val" Datatype="Void" Accessibility="Public" />
+  </Section>
+</Sections></Interface>
+      <MemoryLayout ReadOnly="true">Optimized</MemoryLayout>
+      <Name>em_read</Name>
+      <Number>1</Number>
+      <ProgrammingLanguage>STL</ProgrammingLanguage>
+      <UDABlockProperties />
+      <UDAEnableTagReadback>false</UDAEnableTagReadback>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+	  
+      <SW.Blocks.CompileUnit ID="3" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+// Calculate the amount of EMs in the EM_Index
+
+	OPN   DB    25
+     L     DBLG
+     L     4
+     /I    
+     T     #em_index_length
+	 
+// protect against an address outside db25
+      L     #EM_ID 
+      L     #em_index_length 
+      &gt;I     
+      =     #EM_addressing_error 
+      JC    ENDS 
+
+
+// calculate the address of the EM in DB25
+      L     #EM_ID 
+      L     4 
+      *I     
+      T     #em_address 
+
+// prepare the pointer for the location in EM Index DB
+// todo: probably don't need to load the 0-pointer
+      L     P#DBX 0.0 
+      L     #em_address 
+      SLD   3 
+      +D     
+      LAR1   
+
+// read the DB number
+      L     DBW [AR1,P#0.0] 
+      T     #em_db 
+
+// read the UDT location
+      L     DBW [AR1,P#2.0] 
+      T     #em_udt 
+
+// read the start of the UDT in the phase
+      L     P##UDT_LOCATION 
+      LAR1   
+      L     D [AR1,P#2.0] 
+      L     DW#16#7FFF8 
+      AD     
+      SRD   3 
+      T     #phase_udt 
+
+// read the phase DB
+      L     W [AR1,P#0.0] 
+      T     #phase_db 
+
+// prepare the sending address
+      LAR1  P##source_pointer 
+      L     W#16#1002 // Syntax ID (10h for S7, 2h bytes)
+      T     LW [AR1,P#0.0] 
+      L     #Length // Length in bytes
+      T     LW [AR1,P#2.0] 
+      L     #em_db // DB-nummer EM
+      T     LW [AR1,P#4.0] 
+      L     #em_udt // Start address in DB EM
+      L     #UDT_OFFSET 
+      +I     
+      SLD   3 
+      L     DW#16#84000000 
+      OD     
+      T     LD [AR1,P#6.0] 
+
+// prepare the receiving address
+      LAR1  P##dest_pointer 
+      L     W#16#1002 // Syntax ID (10h for S7, 2h bytes)
+      T     LW [AR1,P#0.0] 
+      L     #Length // Length in bytes
+      T     LW [AR1,P#2.0] 
+      L     #phase_db // DB-nummer SEQ
+      T     LW [AR1,P#4.0] 
+      L     #phase_udt // Start address in DB SEQ
+      L     #UDT_OFFSET 
+      +I     
+      SLD   3 
+      L     DW#16#84000000 
+      OD     
+      T     LD [AR1,P#6.0] 
+
+// copy the data
+      CALL BLKMOV
+		   Variant
+           SRCBLK                   := #source_pointer
+           RET_VAL                  := #blkmov_retval
+           DSTBLK                   := #dest_pointer
+
+
+
+
+ENDS: NOP   0 
+
+		  
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="4" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="5" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="6" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="7" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+	  
+      <MultilingualText ID="D" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="E" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>

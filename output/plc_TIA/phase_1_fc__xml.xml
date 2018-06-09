@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Document>
+  <Engineering version="V15"/>
+  <DocumentInfo>
+    <Created>2018-05-29T12:25:38.1552518Z</Created>
+    <ExportSetting>WithDefaults</ExportSetting>
+    <InstalledProducts>
+      <Product>
+        <DisplayName>Totally Integrated Automation Portal</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>STEP 7 Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>WinCC Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </OptionPackage>
+    </InstalledProducts>
+  </DocumentInfo>
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <AutoNumber>true</AutoNumber>
+      <HeaderAuthor/>
+      <HeaderFamily/>
+      <HeaderName/>
+      <HeaderVersion>0.1</HeaderVersion>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">
+          <Section Name="Input"/>
+          <Section Name="Output"/>
+          <Section Name="InOut"/>
+          <Section Name="Temp"/>
+          <Section Name="Constant"/>
+          <Section Name="Return">
+            <Member Name="Ret_Val" Datatype="Void" Accessibility="Public"/>
+          </Section>
+        </Sections>
+      </Interface>
+      <MemoryLayout ReadOnly="true">Optimized</MemoryLayout>
+      <Name>phase_1_fc</Name>
+      <Number>1</Number>
+      <ProgrammingLanguage>STL</ProgrammingLanguage>
+      <UDABlockProperties/>
+      <UDAEnableTagReadback>false</UDAEnableTagReadback>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>&#xD;
+First instance of fds_example test			  &#xD;
+			  </Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <MultilingualText ID="D" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="E" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>_fc</Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="11046" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+              <StlStatement UId="6078">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="6079">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="6080">
+                <LineComment Inserted="false">
+                  <Text> Call the EM FB with the corresponding DB instance</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="6081">
+                <StlToken Text="CALL"/>
+                <Access Scope="Call">
+                  <CallInfo Name="phase_example" BlockType="FB">
+                    <Instance Scope="GlobalVariable">
+                      <Component Name="phase_1"/>
+                    </Instance>
+                    <Parameter Name="scantime" Section="Input" Type="Real"/>
+                    <Parameter Name="Bool1" Section="Input" Type="BOOL"/>
+                    <Parameter Name="Bool2" Section="Input" Type="BOOL"/>
+                    <Parameter Name="EM_I_OUT_ID" Section="Input" Type="INT">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name=""/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="Some_Dyn_EM_ID" Section="Input" Type="INT"/>
+                    <Parameter Name="DB_NO" Section="Input" Type="INT"/>
+                    <Parameter Name="XV003_OPN" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="XV300.QOPEN"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="XV003_CLS" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="XV300.QCLOSE"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="XV003_MERR" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="XV300.QMON_ERR"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="XV004_OPN" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="XV400.QOPEN"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="XV004_CLS" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="XV400.QCLOSE"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="XV004_MERR" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="XV400.QMON_ERR"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="XV005_OPN" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="XV500.QOPEN"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="XV005_CLS" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="XV500.QCLOSE"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="XV005_MERR" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="XV500.QMON_ERR"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="P001_RUN" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="P100.QRUN"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="P001_STOP" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="P100.QSTOP"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="P001_MERR" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="P100.QMON_ERR"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="P001_MPS" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="P100.QMPS"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="P002_RUN" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="P200.QRUN"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="P002_STOP" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="P200.QSTOP"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="P002_MERR" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="P200.QMON_ERR"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="P002_MPS" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="P200.QMPS"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="EM_I_OUT_OWN" Section="Input" Type="INT"/>
+                    <Parameter Name="EM_I_OUT_STA" Section="Input" Type="INT"/>
+                    <Parameter Name="EM_I_OUT_ERR" Section="Input" Type="BOOL"/>
+                    <Parameter Name="EM_I_OUT_ERRNO" Section="Input" Type="DINT"/>
+                    <Parameter Name="EM_I_OUT_ACTIV" Section="Input" Type="BOOL"/>
+                    <Parameter Name="EM_I_OUT_LT" Section="Input" Type="REAL"/>
+                    <Parameter Name="EM_I_OUT_PT" Section="Input" Type="REAL"/>
+                    <Parameter Name="LT001_PV" Section="Input" Type="REAL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="LT100.QfVal"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="LT001_AHH" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="LT100.LIM_Qb01"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="LT001_AH" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="LT100.LIM_Qb02"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="LT001_AL" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="LT100.LIM_Qb03"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="LT001_ALL" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="LT100.LIM_Qb04"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="LT001_ERR" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="LT100.QERR"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="LT002_PV" Section="Input" Type="REAL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="LT200.QfVal"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="LT002_AHH" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="LT200.LIM_Qb01"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="LT002_AH" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="LT200.LIM_Qb02"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="LT002_AL" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="LT200.LIM_Qb03"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="LT002_ALL" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="LT200.LIM_Qb04"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="LT002_ERR" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="LT200.QERR"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="FIC001_PV" Section="Input" Type="REAL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="FIC100.PV"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="FIC001_ERR" Section="Input" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="FIC100.QERR"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="Some_Dyn_EM_OWN" Section="Input" Type="INT"/>
+                    <Parameter Name="Some_Dyn_EM_STA" Section="Input" Type="INT"/>
+                    <Parameter Name="Some_Dyn_EM_ERR" Section="Input" Type="BOOL"/>
+                    <Parameter Name="Some_Dyn_EM_ERRNO" Section="Input" Type="DINT"/>
+                    <Parameter Name="Some_Dyn_EM_ACTIV" Section="Input" Type="BOOL"/>
+                    <Parameter Name="Some_Dyn_EM_LT" Section="Input" Type="REAL"/>
+                    <Parameter Name="Some_Dyn_EM_PT" Section="Input" Type="REAL"/>
+                    <Parameter Name="XV008_OPN" Section="Input" Type="BOOL"/>
+                    <Parameter Name="XV008_CLS" Section="Input" Type="BOOL"/>
+                    <Parameter Name="XV008_MERR" Section="Input" Type="BOOL"/>
+                    <Parameter Name="phase_id" Section="Output" Type="Int"/>
+                    <Parameter Name="state" Section="Output" Type="Int"/>
+                    <Parameter Name="stepnumber" Section="Output" Type="Int"/>
+                    <Parameter Name="message" Section="Output" Type="DInt"/>
+                    <Parameter Name="button_1_text" Section="Output" Type="DInt"/>
+                    <Parameter Name="button_2_text" Section="Output" Type="DInt"/>
+                    <Parameter Name="button_3_text" Section="Output" Type="DInt"/>
+                    <Parameter Name="button_1_visible" Section="Output" Type="Bool"/>
+                    <Parameter Name="button_2_visible" Section="Output" Type="Bool"/>
+                    <Parameter Name="button_3_visible" Section="Output" Type="Bool"/>
+                    <Parameter Name="button_reverse" Section="Output" Type="Byte"/>
+                    <Parameter Name="state_idle" Section="Output" Type="Bool"/>
+                    <Parameter Name="state_running" Section="Output" Type="Bool"/>
+                    <Parameter Name="state_complete" Section="Output" Type="Bool"/>
+                    <Parameter Name="state_pausing" Section="Output" Type="Bool"/>
+                    <Parameter Name="state_paused" Section="Output" Type="Bool"/>
+                    <Parameter Name="state_holding" Section="Output" Type="Bool"/>
+                    <Parameter Name="state_held" Section="Output" Type="Bool"/>
+                    <Parameter Name="state_restarting" Section="Output" Type="Bool"/>
+                    <Parameter Name="state_stopping" Section="Output" Type="Bool"/>
+                    <Parameter Name="state_stopped" Section="Output" Type="Bool"/>
+                    <Parameter Name="state_aborting" Section="Output" Type="Bool"/>
+                    <Parameter Name="state_aborted" Section="Output" Type="Bool"/>
+                    <Parameter Name="enable_start" Section="Output" Type="Bool"/>
+                    <Parameter Name="enable_stop" Section="Output" Type="Bool"/>
+                    <Parameter Name="enable_hold" Section="Output" Type="Bool"/>
+                    <Parameter Name="enable_restart" Section="Output" Type="Bool"/>
+                    <Parameter Name="enable_abort" Section="Output" Type="Bool"/>
+                    <Parameter Name="enable_reset" Section="Output" Type="Bool"/>
+                    <Parameter Name="enable_pause" Section="Output" Type="Bool"/>
+                    <Parameter Name="enable_resume" Section="Output" Type="Bool"/>
+                    <Parameter Name="enable_auto" Section="Output" Type="Bool"/>
+                    <Parameter Name="enable_man" Section="Output" Type="Bool"/>
+                    <Parameter Name="enable_byte" Section="Output" Type="Bool"/>
+                    <Parameter Name="auto" Section="Output" Type="Bool"/>
+                    <Parameter Name="steptime_s" Section="Output" Type="Real"/>
+                    <Parameter Name="steptime_m" Section="Output" Type="Real"/>
+                    <Parameter Name="steptime_h" Section="Output" Type="Real"/>
+                    <Parameter Name="MSG_no01" Section="Output" Type="Dint"/>
+                    <Parameter Name="MSG_no02" Section="Output" Type="Dint"/>
+                    <Parameter Name="MSG_no03" Section="Output" Type="Dint"/>
+                    <Parameter Name="MSG_no04" Section="Output" Type="Dint"/>
+                    <Parameter Name="MSG_no05" Section="Output" Type="Dint"/>
+                    <Parameter Name="MSG_no06" Section="Output" Type="Dint"/>
+                    <Parameter Name="MSG_no07" Section="Output" Type="Dint"/>
+                    <Parameter Name="MSG_no08" Section="Output" Type="Dint"/>
+                    <Parameter Name="MSG_no09" Section="Output" Type="Dint"/>
+                    <Parameter Name="MSG_no10" Section="Output" Type="Dint"/>
+                    <Parameter Name="Destination" Section="Output" Type="INT"/>
+                    <Parameter Name="setpoint" Section="Output" Type="REAL"/>
+                    <Parameter Name="some_bool_out" Section="Output" Type="BOOL"/>
+                    <Parameter Name="XV003_CMD" Section="Output" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="XV300.AUT_OP"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="XV004_CMD" Section="Output" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="XV400.AUT_OP"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="XV005_CMD" Section="Output" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="XV500.AUT_OP"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="P001_ON" Section="Output" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="P100.AUTO_ON"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="P001_AUT" Section="Output" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="P100.L_AUT"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="P002_ON" Section="Output" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="P200.AUTO_ON"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="P002_AUT" Section="Output" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="P200.L_AUT"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="EM_I_OUT_REQ" Section="Output" Type="INT"/>
+                    <Parameter Name="EM_I_OUT_CMD" Section="Output" Type="INT"/>
+                    <Parameter Name="EM_I_OUT_P_SP" Section="Output" Type="REAL"/>
+                    <Parameter Name="FIC001_EXT" Section="Output" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="FIC100.L_REMOTE"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="FIC001_SP" Section="Output" Type="REAL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="FIC100.HMI_SP_INT"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="FIC001_AUT" Section="Output" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="FIC100.L_AUT"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="FIC001_VAL_OUT" Section="Output" Type="REAL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="FIC100.HMI_MAN"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="FIC001_SET_SP" Section="Output" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="FIC100.Set_SP"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="FIC001_SET_OUT" Section="Output" Type="BOOL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="FIC100.Set_Output"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="Some_Dyn_EM_REQ" Section="Output" Type="INT"/>
+                    <Parameter Name="Some_Dyn_EM_CMD" Section="Output" Type="INT"/>
+                    <Parameter Name="Some_Dyn_EM_P_SP" Section="Output" Type="REAL"/>
+                    <Parameter Name="timer_dosing_pause" Section="Output" Type="BOOL"/>
+                    <Parameter Name="timer_dosing_s" Section="Output" Type="REAL"/>
+                    <Parameter Name="timer_dosing_m" Section="Output" Type="REAL"/>
+                    <Parameter Name="timer_dosing_h" Section="Output" Type="REAL"/>
+                    <Parameter Name="timer_mixing_pause" Section="Output" Type="BOOL"/>
+                    <Parameter Name="timer_mixing_s" Section="Output" Type="REAL"/>
+                    <Parameter Name="timer_mixing_m" Section="Output" Type="REAL"/>
+                    <Parameter Name="timer_mixing_h" Section="Output" Type="REAL"/>
+                    <Parameter Name="timer_circulation_pause" Section="Output" Type="BOOL"/>
+                    <Parameter Name="timer_circulation_s" Section="Output" Type="REAL"/>
+                    <Parameter Name="timer_circulation_m" Section="Output" Type="REAL"/>
+                    <Parameter Name="timer_circulation_h" Section="Output" Type="REAL"/>
+                    <Parameter Name="XV008_CMD" Section="Output" Type="BOOL"/>
+                    <Parameter Name="plc_commands" Section="InOut" Type="DWord"/>
+                    <Parameter Name="hmi_commands" Section="InOut" Type="DWord"/>
+                    <Parameter Name="hmi_par_without_unit" Section="InOut" Type="Real"/>
+                    <Parameter Name="timesetting" Section="InOut" Type="Real"/>
+                  </CallInfo>
+                </Access>
+              </StlStatement>
+            </StatementList>
+          </NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="11047" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="11048" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>&#xD;
+&#xD;
+comment: First instance of fds_example&#xD;
+&#xD;
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="11049" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="11050" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Main</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>

@@ -62,7 +62,7 @@
         </ObjectList>
       </MultilingualText>
 
-      <SW.Blocks.CompileUnit ID="10191" CompositionName="CompileUnits">
+      <SW.Blocks.CompileUnit ID="10781" CompositionName="CompileUnits">
         <AttributeList>
           <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
 
@@ -73,9 +73,9 @@ CALL BST_MOTOR_400, P200
           <ProgrammingLanguage>STL</ProgrammingLanguage>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="10192" CompositionName="Comment">
+          <MultilingualText ID="10782" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="10193" CompositionName="Items">
+              <MultilingualTextItem ID="10783" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text>
@@ -87,9 +87,9 @@ comment: PLC1
               </MultilingualTextItem>
             </ObjectList>
           </MultilingualText>
-          <MultilingualText ID="10194" CompositionName="Title">
+          <MultilingualText ID="10784" CompositionName="Title">
             <ObjectList>
-              <MultilingualTextItem ID="10195" CompositionName="Items">
+              <MultilingualTextItem ID="10785" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text>Main</Text>

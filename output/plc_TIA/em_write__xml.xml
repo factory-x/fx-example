@@ -1,0 +1,813 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Document>
+  <Engineering version="V15"/>
+  <DocumentInfo>
+    <Created>2018-05-29T12:25:38.1552518Z</Created>
+    <ExportSetting>WithDefaults</ExportSetting>
+    <InstalledProducts>
+      <Product>
+        <DisplayName>Totally Integrated Automation Portal</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>STEP 7 Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>WinCC Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </OptionPackage>
+    </InstalledProducts>
+  </DocumentInfo>
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <AutoNumber>true</AutoNumber>
+      <HeaderAuthor/>
+      <HeaderFamily/>
+      <HeaderName/>
+      <HeaderVersion>0.1</HeaderVersion>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">
+          <Section Name="Input">
+            <Member Name="EM_ID" Datatype="Int" Accessibility="Public"/>
+            <Member Name="UDT_LOCATION" Datatype="Pointer" Accessibility="Public"/>
+            <Member Name="UDT_OFFSET" Datatype="Int" Accessibility="Public"/>
+            <Member Name="Length" Datatype="Int" Accessibility="Public"/>
+            <Member Name="Request" Datatype="Int" Accessibility="Public"/>
+            <Member Name="Owner" Datatype="Int" Accessibility="Public"/>
+          </Section>
+          <Section Name="Output">
+            <Member Name="EM_addressing_error" Datatype="Bool" Accessibility="Public"/>
+          </Section>
+          <Section Name="InOut"/>
+          <Section Name="Temp">
+            <Member Name="em_address" Datatype="Int" Accessibility="Public"/>
+            <Member Name="em_index_length" Datatype="Int" Accessibility="Public"/>
+            <Member Name="em_db" Datatype="Int" Accessibility="Public"/>
+            <Member Name="em_udt" Datatype="Int" Accessibility="Public"/>
+            <Member Name="phase_db" Datatype="Int" Accessibility="Public"/>
+            <Member Name="phase_udt" Datatype="Int" Accessibility="Public"/>
+            <Member Name="source_pointer" Datatype="Any" Accessibility="Public"/>
+            <Member Name="dest_pointer" Datatype="Any" Accessibility="Public"/>
+            <Member Name="adjusted_length" Datatype="Int" Accessibility="Public"/>
+            <Member Name="blkmov_retval" Datatype="Int" Accessibility="Public"/>
+          </Section>
+          <Section Name="Constant"/>
+          <Section Name="Return">
+            <Member Name="Ret_Val" Datatype="Void" Accessibility="Public"/>
+          </Section>
+        </Sections>
+      </Interface>
+      <MemoryLayout ReadOnly="true">Standard</MemoryLayout>
+      <Name>em_write</Name>
+      <Number>1</Number>
+      <ProgrammingLanguage>STL</ProgrammingLanguage>
+      <UDABlockProperties/>
+      <UDAEnableTagReadback>false</UDAEnableTagReadback>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text/>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <MultilingualText ID="D" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="E" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text/>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="3" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource>
+            <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+              <StlStatement UId="4">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="5">
+                <LineComment Inserted="false">
+                  <Text> Skip the entire FC if Request = 0</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="6">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="7">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="Request"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="8">
+                <StlToken Text="L"/>
+                <Access Scope="LiteralConstant">
+                  <Constant>
+                    <ConstantType>Int</ConstantType>
+                    <ConstantValue>0</ConstantValue>
+                  </Constant>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="9">
+                <StlToken Text="EQ_I"/>
+              </StlStatement>
+              <StlStatement UId="10">
+                <StlToken Text="JCN"/>
+                <Access Scope="Label">
+                  <Label Name="ENDS"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="11">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="12">
+                <LineComment Inserted="false">
+                  <Text> Reduce the length to one Integer if the EM has not been acquired yet</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="13">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="Owner"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="14">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="Request"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="15">
+                <StlToken Text="NE_I"/>
+              </StlStatement>
+              <StlStatement UId="16">
+                <StlToken Text="JCN"/>
+                <Access Scope="Label">
+                  <Label Name="REDU"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="17">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="18">
+                <StlToken Text="L"/>
+                <Access Scope="LiteralConstant">
+                  <Constant>
+                    <ConstantType>Int</ConstantType>
+                    <ConstantValue>2</ConstantValue>
+                  </Constant>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="19">
+                <StlToken Text="T"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="adjusted_length"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="20">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="21">
+                <LabelDeclaration>
+                  <Label Name="REDU"/>
+                </LabelDeclaration>
+                <StlToken Text="NOP_0"/>
+              </StlStatement>
+              <StlStatement UId="22">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="23">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="24">
+                <LineComment Inserted="false">
+                  <Text> Calculate the amount of EMs in the EM_Index</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="25">
+                <StlToken Text="OPEN_DB"/>
+                <Access Scope="GlobalVariable">
+                  <Symbol>
+                    <Component Name="db25"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="26">
+                <StlToken Text="L_DBLG"/>
+              </StlStatement>
+              <StlStatement UId="27">
+                <StlToken Text="L"/>
+                <Access Scope="LiteralConstant">
+                  <Constant>
+                    <ConstantType>Int</ConstantType>
+                    <ConstantValue>4</ConstantValue>
+                  </Constant>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="28">
+                <StlToken Text="DIV_I"/>
+              </StlStatement>
+              <StlStatement UId="29">
+                <StlToken Text="T"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="em_index_length"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="30">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="31">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="32">
+                <LineComment Inserted="false">
+                  <Text> protect against an address outside db25</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="33">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="EM_ID"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="34">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="em_index_length"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="35">
+                <StlToken Text="GT_I"/>
+              </StlStatement>
+              <StlStatement UId="36">
+                <StlToken Text="Assign"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="EM_addressing_error"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="37">
+                <StlToken Text="JC"/>
+                <Access Scope="Label">
+                  <Label Name="ENDS"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="38">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="39">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="40">
+                <LineComment Inserted="false">
+                  <Text> calculate the address of the EM in DB25</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="41">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="EM_ID"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="42">
+                <StlToken Text="L"/>
+                <Access Scope="LiteralConstant">
+                  <Constant>
+                    <ConstantType>Int</ConstantType>
+                    <ConstantValue>4</ConstantValue>
+                  </Constant>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="43">
+                <StlToken Text="MUL_I"/>
+              </StlStatement>
+              <StlStatement UId="44">
+                <StlToken Text="T"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="em_address"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="45">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="46">
+                <LineComment Inserted="false">
+                  <Text> prepare the pointer for the location in EM Index DB</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="47">
+                <LineComment Inserted="false">
+                  <Text> todo: probably don't need to load the 0-pointer</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="48">
+                <StlToken Text="L"/>
+                <Access Scope="LiteralConstant">
+                  <Constant>
+                    <ConstantType>ARef</ConstantType>
+                    <ConstantValue>P#DBX0.0</ConstantValue>
+                  </Constant>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="49">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="em_address"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="50">
+                <StlToken Text="SLD"/>
+                <Access Scope="LiteralConstant">
+                  <Constant>
+                    <ConstantType>Int</ConstantType>
+                    <ConstantValue>3</ConstantValue>
+                  </Constant>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="51">
+                <StlToken Text="ADD_D"/>
+              </StlStatement>
+              <StlStatement UId="52">
+                <StlToken Text="LAR1"/>
+              </StlStatement>
+              <StlStatement UId="53">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="54">
+                <LineComment Inserted="false">
+                  <Text> read the DB number</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="55">
+                <StlToken Text="L"/>
+                <Access Scope="Address">
+                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="0"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="56">
+                <StlToken Text="T"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="em_db"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="57">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="58">
+                <LineComment Inserted="false">
+                  <Text> read the UDT location</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="59">
+                <StlToken Text="L"/>
+                <Access Scope="Address">
+                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="16"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="60">
+                <StlToken Text="T"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="em_udt"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="61">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="62">
+                <LineComment Inserted="false">
+                  <Text> read the start of the UDT in the phase</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="63">
+                <StlToken Text="L"/>
+                <Access Scope="AddressConstant">
+                  <Constant Name="UDT_LOCATION"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="64">
+                <StlToken Text="LAR1"/>
+              </StlStatement>
+              <StlStatement UId="65">
+                <StlToken Text="L"/>
+                <Access Scope="Address">
+                  <Indirect Width="Double" Area="DB" Register="AR1" BitOffset="16"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="66">
+                <StlToken Text="L"/>
+                <Access Scope="TypedConstant">
+                  <Constant>
+                    <ConstantValue>DW#16#7FFF8</ConstantValue>
+                  </Constant>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="67">
+                <StlToken Text="AD"/>
+              </StlStatement>
+              <StlStatement UId="68">
+                <StlToken Text="SRD"/>
+                <Access Scope="LiteralConstant">
+                  <Constant>
+                    <ConstantType>Int</ConstantType>
+                    <ConstantValue>3</ConstantValue>
+                  </Constant>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="69">
+                <StlToken Text="T"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="phase_udt"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="70">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="71">
+                <LineComment Inserted="false">
+                  <Text> read the phase DB</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="72">
+                <StlToken Text="L"/>
+                <Access Scope="Address">
+                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="0"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="73">
+                <StlToken Text="T"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="phase_db"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="74">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="75">
+                <LineComment Inserted="false">
+                  <Text> prepare the receiving address</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="76">
+                <StlToken Text="LAR1_ACCU1"/>
+                <Access Scope="AddressConstant">
+                  <Constant Name="dest_pointer"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="77">
+                <StlToken Text="L"/>
+                <Access Scope="TypedConstant">
+                  <Constant>
+                    <ConstantValue>W#16#1002</ConstantValue>
+                  </Constant>
+                  <LineComment Inserted="false">
+                    <Text>Syntax ID (10h for S7, 2h bytes)</Text>
+                  </LineComment>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="78">
+                <StlToken Text="T"/>
+                <Access Scope="Address">
+                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="0"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="79">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="adjusted_length"/>
+                  </Symbol>
+                  <LineComment Inserted="false">
+                    <Text>Length in bytes</Text>
+                  </LineComment>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="80">
+                <StlToken Text="T"/>
+                <Access Scope="Address">
+                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="16"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="81">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="em_db"/>
+                  </Symbol>
+                  <LineComment Inserted="false">
+                    <Text>DB-nummer EM</Text>
+                  </LineComment>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="82">
+                <StlToken Text="T"/>
+                <Access Scope="Address">
+                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="32"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="83">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="em_udt"/>
+                  </Symbol>
+                  <LineComment Inserted="false">
+                    <Text>Start address in DB EM</Text>
+                  </LineComment>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="84">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="UDT_OFFSET"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="85">
+                <StlToken Text="ADD_I"/>
+              </StlStatement>
+              <StlStatement UId="86">
+                <StlToken Text="SLD"/>
+                <Access Scope="LiteralConstant">
+                  <Constant>
+                    <ConstantType>Int</ConstantType>
+                    <ConstantValue>3</ConstantValue>
+                  </Constant>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="87">
+                <StlToken Text="L"/>
+                <Access Scope="TypedConstant">
+                  <Constant>
+                    <ConstantValue>DW#16#84000000</ConstantValue>
+                  </Constant>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="88">
+                <StlToken Text="OD"/>
+              </StlStatement>
+              <StlStatement UId="89">
+                <StlToken Text="T"/>
+                <Access Scope="Address">
+                  <Indirect Width="Double" Area="DB" Register="AR1" BitOffset="48"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="90">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="91">
+                <LineComment Inserted="false">
+                  <Text> prepare the sending address</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="92">
+                <StlToken Text="LAR1_ACCU1"/>
+                <Access Scope="AddressConstant">
+                  <Constant Name="source_pointer"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="93">
+                <StlToken Text="L"/>
+                <Access Scope="TypedConstant">
+                  <Constant>
+                    <ConstantValue>W#16#1002</ConstantValue>
+                  </Constant>
+                  <LineComment Inserted="false">
+                    <Text>Syntax ID (10h for S7, 2h bytes)</Text>
+                  </LineComment>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="94">
+                <StlToken Text="T"/>
+                <Access Scope="Address">
+                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="0"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="95">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="adjusted_length"/>
+                  </Symbol>
+                  <LineComment Inserted="false">
+                    <Text>Length in bytes</Text>
+                  </LineComment>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="96">
+                <StlToken Text="T"/>
+                <Access Scope="Address">
+                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="16"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="97">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="phase_db"/>
+                  </Symbol>
+                  <LineComment Inserted="false">
+                    <Text>DB-nummer SEQ</Text>
+                  </LineComment>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="98">
+                <StlToken Text="T"/>
+                <Access Scope="Address">
+                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="32"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="99">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="phase_udt"/>
+                  </Symbol>
+                  <LineComment Inserted="false">
+                    <Text>Start address in DB SEQ</Text>
+                  </LineComment>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="100">
+                <StlToken Text="L"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="UDT_OFFSET"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="101">
+                <StlToken Text="ADD_I"/>
+              </StlStatement>
+              <StlStatement UId="102">
+                <StlToken Text="SLD"/>
+                <Access Scope="LiteralConstant">
+                  <Constant>
+                    <ConstantType>Int</ConstantType>
+                    <ConstantValue>3</ConstantValue>
+                  </Constant>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="103">
+                <StlToken Text="L"/>
+                <Access Scope="TypedConstant">
+                  <Constant>
+                    <ConstantValue>DW#16#84000000</ConstantValue>
+                  </Constant>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="104">
+                <StlToken Text="OD"/>
+              </StlStatement>
+              <StlStatement UId="105">
+                <StlToken Text="T"/>
+                <Access Scope="Address">
+                  <Indirect Width="Double" Area="DB" Register="AR1" BitOffset="48"/>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="106">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="107">
+                <LineComment Inserted="false">
+                  <Text> copy the data</Text>
+                </LineComment>
+                <StlToken Text="COMMENT"/>
+              </StlStatement>
+              <StlStatement UId="108">
+                <StlToken Text="CALL"/>
+                <Access Scope="Call">
+                  <Instruction Name="BLKMOV">
+                    <TemplateValue Name="blk_type" Type="Type">Any</TemplateValue>
+                    <Parameter Name="SRCBLK">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="source_pointer"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="RET_VAL">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="blkmov_retval"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                    <Parameter Name="DSTBLK">
+                      <Access Scope="LocalVariable">
+                        <Symbol>
+                          <Component Name="dest_pointer"/>
+                        </Symbol>
+                      </Access>
+                    </Parameter>
+                  </Instruction>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="109">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="110">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="111">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="112">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="113">
+                <LabelDeclaration>
+                  <Label Name="ENDS"/>
+                </LabelDeclaration>
+                <StlToken Text="NOP_0"/>
+              </StlStatement>
+              <StlStatement UId="114">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="115">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+            </StatementList>
+          </NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="4" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="5" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text/>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="6" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="7" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text/>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>

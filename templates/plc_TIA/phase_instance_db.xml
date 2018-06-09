@@ -1,5 +1,4 @@
 {% macro render(lib, phase_id, phase) %}
-<SPLIT>blockname: "{{phase_id}}_db"</SPLIT>
 <?xml version="1.0" encoding="utf-8"?>
 <Document>
   <Engineering version="V15" />

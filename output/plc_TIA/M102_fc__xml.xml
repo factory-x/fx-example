@@ -72,23 +72,23 @@
           </MultilingualTextItem>
         </ObjectList>
       </MultilingualText>
-      <SW.Blocks.CompileUnit ID="10216" CompositionName="CompileUnits">
+      <SW.Blocks.CompileUnit ID="10806" CompositionName="CompileUnits">
         <AttributeList>
           <NetworkSource>
             <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
-              <StlStatement UId="735">
+              <StlStatement UId="5742">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="736">
+              <StlStatement UId="5743">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="737">
+              <StlStatement UId="5744">
                 <LineComment Inserted="false">
                   <Text> Call the CM FB with the corresponding DB instance</Text>
                 </LineComment>
                 <StlToken Text="COMMENT"/>
               </StlStatement>
-              <StlStatement>
+              <StlStatement UId="5745">
                 <StlToken Text="CALL"/>
                 <Access Scope="Call">
                   <CallInfo Name="BST_SINAG120_400" BlockType="FB">
@@ -108,9 +108,9 @@
           <ProgrammingLanguage>STL</ProgrammingLanguage>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="10217" CompositionName="Comment">
+          <MultilingualText ID="10807" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="10218" CompositionName="Items">
+              <MultilingualTextItem ID="10808" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text>&#xD;
@@ -122,9 +122,9 @@ comment: PLC1&#xD;
               </MultilingualTextItem>
             </ObjectList>
           </MultilingualText>
-          <MultilingualText ID="10219" CompositionName="Title">
+          <MultilingualText ID="10809" CompositionName="Title">
             <ObjectList>
-              <MultilingualTextItem ID="10220" CompositionName="Items">
+              <MultilingualTextItem ID="10810" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text>Main</Text>

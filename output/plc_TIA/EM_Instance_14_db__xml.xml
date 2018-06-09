@@ -1,8 +1,6 @@
-{% macro render(lib, unit_id, unit) %}
-<SPLIT>blockname: "{{unit_id}}_db"</SPLIT>
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Document>
-  <Engineering version="V15" />
+  <Engineering version="V15"/>
   <DocumentInfo>
     <Created>2018-05-31T14:49:00.3360138Z</Created>
     <ExportSetting>WithDefaults, WithReadOnly</ExportSetting>
@@ -11,10 +9,6 @@
         <DisplayName>Totally Integrated Automation Portal</DisplayName>
         <DisplayVersion>V15</DisplayVersion>
       </Product>
-      <OptionPackage>
-        <DisplayName>TIA Portal Openness</DisplayName>
-        <DisplayVersion>V15</DisplayVersion>
-      </OptionPackage>
       <Product>
         <DisplayName>STEP 7 Professional</DisplayName>
         <DisplayVersion>V15</DisplayVersion>
@@ -23,6 +17,10 @@
         <DisplayName>WinCC Professional</DisplayName>
         <DisplayVersion>V15</DisplayVersion>
       </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </OptionPackage>
     </InstalledProducts>
   </DocumentInfo>
   <SW.Blocks.InstanceDB ID="0">
@@ -31,30 +29,32 @@
       <CodeModifiedDate ReadOnly="true">2018-05-31T14:48:47.2782669Z</CodeModifiedDate>
       <CompileDate ReadOnly="true">2018-05-31T14:48:47.7282927Z</CompileDate>
       <CreationDate ReadOnly="true">2018-05-31T14:47:07.2805474Z</CreationDate>
-      <HeaderAuthor />
-      <HeaderFamily />
-      <HeaderName />
+      <HeaderAuthor/>
+      <HeaderFamily/>
+      <HeaderName/>
       <HeaderVersion>0.1</HeaderVersion>
-      <InstanceOfName>{{ unit.Block_Name }}</InstanceOfName>
-      <InstanceOfNumber ReadOnly="true"></InstanceOfNumber>
+      <InstanceOfName/>
+      <InstanceOfNumber ReadOnly="true"/>
       <InstanceOfType ReadOnly="true">FB</InstanceOfType>
-      <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">
-  <Section Name="Input" />
-  <Section Name="Output" />
-  <Section Name="InOut" />
-  <Section Name="Static" />
-</Sections></Interface>
+      <Interface>
+        <Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">
+          <Section Name="Input"/>
+          <Section Name="Output"/>
+          <Section Name="InOut"/>
+          <Section Name="Static"/>
+        </Sections>
+      </Interface>
       <InterfaceModifiedDate ReadOnly="true">2018-05-31T08:09:02.725429Z</InterfaceModifiedDate>
       <IsConsistent ReadOnly="true">true</IsConsistent>
       <IsKnowHowProtected ReadOnly="true">false</IsKnowHowProtected>
       <MemoryLayout ReadOnly="true">Standard</MemoryLayout>
       <ModifiedDate ReadOnly="true">2018-05-31T14:48:47.2782669Z</ModifiedDate>
-      <Name>{{unit_id}}</Name>
+      <Name>EM_Instance_14</Name>
       <Number>9</Number>
       <ParameterModified ReadOnly="true">2018-05-31T08:09:02.725429Z</ParameterModified>
       <ProgrammingLanguage>DB</ProgrammingLanguage>
       <StructureModified ReadOnly="true">2018-05-31T08:09:02.725429Z</StructureModified>
-      <UDABlockProperties ReadOnly="true" />
+      <UDABlockProperties ReadOnly="true"/>
       <UDAEnableTagReadback ReadOnly="true">false</UDAEnableTagReadback>
     </AttributeList>
     <ObjectList>
@@ -63,7 +63,7 @@
           <MultilingualTextItem ID="2" CompositionName="Items">
             <AttributeList>
               <Culture>en-US</Culture>
-              <Text />
+              <Text/>
             </AttributeList>
           </MultilingualTextItem>
         </ObjectList>
@@ -73,7 +73,7 @@
           <MultilingualTextItem ID="4" CompositionName="Items">
             <AttributeList>
               <Culture>en-US</Culture>
-              <Text />
+              <Text/>
             </AttributeList>
           </MultilingualTextItem>
         </ObjectList>
@@ -81,4 +81,3 @@
     </ObjectList>
   </SW.Blocks.InstanceDB>
 </Document>
-{% endmacro %}

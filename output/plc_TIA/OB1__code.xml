@@ -1,0 +1,135 @@
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V15" />
+  <DocumentInfo>
+    <Created>2018-06-08T08:02:20.3305421Z</Created>
+    <ExportSetting>WithDefaults, WithReadOnly</ExportSetting>
+    <InstalledProducts>
+      <Product>
+        <DisplayName>Totally Integrated Automation Portal</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </OptionPackage>
+      <Product>
+        <DisplayName>STEP 7 Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>WinCC Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+    </InstalledProducts>
+  </DocumentInfo>
+  <SW.Blocks.OB ID="0">
+    <AttributeList>
+      <AutoNumber ReadOnly="true">false</AutoNumber>
+      <CodeModifiedDate ReadOnly="true">2018-06-08T08:01:58.298282Z</CodeModifiedDate>
+      <CompileDate ReadOnly="true">2018-06-08T08:01:58.2972819Z</CompileDate>
+      <CreationDate ReadOnly="true">2018-05-29T13:31:39.8908501Z</CreationDate>
+      <HeaderAuthor />
+      <HeaderFamily />
+      <HeaderName />
+      <HeaderVersion>0.1</HeaderVersion>
+      <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">
+  <Section Name="Temp">
+    <Member Name="OB1_EV_CLASS" Datatype="Byte"><AttributeList><IntegerAttribute Name="Offset" Informative="true" SystemDefined="true">0</IntegerAttribute></AttributeList><Comment><MultiLanguageText Lang="en-US">Bits 0-3 = 1 (Coming event), Bits 4-7 = 1 (Event class 1)</MultiLanguageText></Comment></Member>
+    <Member Name="OB1_SCAN_1" Datatype="Byte"><AttributeList><IntegerAttribute Name="Offset" Informative="true" SystemDefined="true">8</IntegerAttribute></AttributeList><Comment><MultiLanguageText Lang="en-US">1 (Cold restart scan 1 of OB 1), 3 (Scan 2-n of OB 1)</MultiLanguageText></Comment></Member>
+    <Member Name="OB1_PRIORITY" Datatype="Byte"><AttributeList><IntegerAttribute Name="Offset" Informative="true" SystemDefined="true">16</IntegerAttribute></AttributeList><Comment><MultiLanguageText Lang="en-US">Priority of OB Execution</MultiLanguageText></Comment></Member>
+    <Member Name="OB1_OB_NUMBR" Datatype="Byte"><AttributeList><IntegerAttribute Name="Offset" Informative="true" SystemDefined="true">24</IntegerAttribute></AttributeList><Comment><MultiLanguageText Lang="en-US">1 (Organization block 1, OB1)</MultiLanguageText></Comment></Member>
+    <Member Name="OB1_RESERVED_1" Datatype="Byte"><AttributeList><IntegerAttribute Name="Offset" Informative="true" SystemDefined="true">32</IntegerAttribute></AttributeList><Comment><MultiLanguageText Lang="en-US">Reserved for system</MultiLanguageText></Comment></Member>
+    <Member Name="OB1_RESERVED_2" Datatype="Byte"><AttributeList><IntegerAttribute Name="Offset" Informative="true" SystemDefined="true">40</IntegerAttribute></AttributeList><Comment><MultiLanguageText Lang="en-US">Reserved for system</MultiLanguageText></Comment></Member>
+    <Member Name="OB1_PREV_CYCLE" Datatype="Int"><AttributeList><IntegerAttribute Name="Offset" Informative="true" SystemDefined="true">48</IntegerAttribute></AttributeList><Comment><MultiLanguageText Lang="en-US">Cycle time of previous OB1 scan (milliseconds)</MultiLanguageText></Comment></Member>
+    <Member Name="OB1_MIN_CYCLE" Datatype="Int"><AttributeList><IntegerAttribute Name="Offset" Informative="true" SystemDefined="true">64</IntegerAttribute></AttributeList><Comment><MultiLanguageText Lang="en-US">Minimum cycle time of OB1 (milliseconds)</MultiLanguageText></Comment></Member>
+    <Member Name="OB1_MAX_CYCLE" Datatype="Int"><AttributeList><IntegerAttribute Name="Offset" Informative="true" SystemDefined="true">80</IntegerAttribute></AttributeList><Comment><MultiLanguageText Lang="en-US">Maximum cycle time of OB1 (milliseconds)</MultiLanguageText></Comment></Member>
+    <Member Name="OB1_DATE_TIME" Datatype="Date_And_Time"><AttributeList><IntegerAttribute Name="Offset" Informative="true" SystemDefined="true">96</IntegerAttribute></AttributeList><Comment><MultiLanguageText Lang="en-US">Date and time OB1 started</MultiLanguageText></Comment></Member>
+  </Section>
+  <Section Name="Constant" />
+</Sections></Interface>
+      <InterfaceModifiedDate ReadOnly="true">2007-08-03T16:55:08.419547Z</InterfaceModifiedDate>
+      <IsConsistent ReadOnly="true">true</IsConsistent>
+      <IsKnowHowProtected ReadOnly="true">false</IsKnowHowProtected>
+      <IsWriteProtected ReadOnly="true">false</IsWriteProtected>
+      <MemoryLayout ReadOnly="true">Standard</MemoryLayout>
+      <ModifiedDate ReadOnly="true">2018-06-08T08:01:58.298282Z</ModifiedDate>
+      <Name>Main</Name>
+      <Number>1</Number>
+      <ParameterModified ReadOnly="true">2007-08-03T16:55:08.419547Z</ParameterModified>
+      <ProgrammingLanguage>STL</ProgrammingLanguage>
+      <SecondaryType>ProgramCycle</SecondaryType>
+      <StructureModified ReadOnly="true">2007-08-03T16:55:08.419547Z</StructureModified>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text />
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="11081" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+	CALL	Main_Program
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="11082" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="11083" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+comment
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="11084" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="11085" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Main</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+
+
+		
+  
+      <MultilingualText ID="D" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="E" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>"Main Program Sweep (Cycle)"</Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.OB>
+</Document>
+
+
+

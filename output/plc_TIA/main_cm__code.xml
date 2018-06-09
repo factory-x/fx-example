@@ -1,0 +1,169 @@
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V15" />
+  <DocumentInfo>
+    <Created>2018-05-29T12:25:38.1552518Z</Created>
+    <ExportSetting>WithDefaults</ExportSetting>
+    <InstalledProducts>
+      <Product>
+        <DisplayName>Totally Integrated Automation Portal</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </OptionPackage>
+      <Product>
+        <DisplayName>STEP 7 Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>WinCC Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+    </InstalledProducts>
+  </DocumentInfo>
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <AutoNumber>true</AutoNumber>
+      <HeaderAuthor />
+      <HeaderFamily />
+      <HeaderName />
+      <HeaderVersion>0.1</HeaderVersion>
+      <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">
+  <Section Name="Input" />
+  <Section Name="Output" />
+  <Section Name="InOut" />
+  <Section Name="Temp" />
+  <Section Name="Constant" />
+  <Section Name="Return">
+    <Member Name="Ret_Val" Datatype="Void" Accessibility="Public" />
+  </Section>
+</Sections></Interface>
+      <MemoryLayout ReadOnly="true">Optimized</MemoryLayout>
+      <Name>Control_Modules</Name>
+      <Number>1</Number>
+      <ProgrammingLanguage>STL</ProgrammingLanguage>
+      <UDABlockProperties />
+      <UDAEnableTagReadback>false</UDAEnableTagReadback>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>
+Call all the Control Modules		  
+			  </Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="11056" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+	CALL	XV001_fc
+	CALL	XV002_fc
+	CALL	XV003_fc
+	CALL	XV004_fc
+	CALL	XV300_fc
+	CALL	XV400_fc
+	CALL	XV500_fc
+	CALL	XV301_fc
+	CALL	XV501_fc
+	CALL	XV401_fc
+	CALL	MV001_fc
+	CALL	MV002_fc
+	CALL	MV003_fc
+	CALL	MV004_fc
+	CALL	MV005_fc
+	CALL	MV006_fc
+	CALL	MV007_fc
+	CALL	P100_fc
+	CALL	P200_fc
+	CALL	P101_fc
+	CALL	P201_fc
+	CALL	M100_fc
+	CALL	M101_fc
+	CALL	M102_fc
+	CALL	M103_fc
+	CALL	M104_fc
+	CALL	M105_fc
+	CALL	M106_fc
+	CALL	LT001_fc
+	CALL	LT002_fc
+	CALL	LT003_fc
+	CALL	LT004_fc
+	CALL	LT005_fc
+	CALL	LT006_fc
+	CALL	LT007_fc
+	CALL	LT100_fc
+	CALL	LT200_fc
+	CALL	LT101_fc
+	CALL	LT201_fc
+	CALL	LS001_fc
+	CALL	LS002_fc
+	CALL	LIC001_fc
+	CALL	LIC002_fc
+	CALL	LIC003_fc
+	CALL	LIC004_fc
+	CALL	LIC005_fc
+	CALL	LIC006_fc
+	CALL	FIC100_fc
+	CALL	FIC101_fc
+
+
+
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="11057" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="11058" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+comment
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="11059" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="11060" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Main</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+
+
+		
+  
+      <MultilingualText ID="D" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="E" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>Program</Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>
+

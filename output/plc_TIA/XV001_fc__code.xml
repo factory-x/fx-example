@@ -62,7 +62,7 @@ Some Valve  on drawing 1 test
         </ObjectList>
       </MultilingualText>
 
-      <SW.Blocks.CompileUnit ID="10101" CompositionName="CompileUnits">
+      <SW.Blocks.CompileUnit ID="10691" CompositionName="CompileUnits">
         <AttributeList>
           <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
 
@@ -73,9 +73,9 @@ CALL BST_VALVE_400, XV001
           <ProgrammingLanguage>STL</ProgrammingLanguage>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="10102" CompositionName="Comment">
+          <MultilingualText ID="10692" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="10103" CompositionName="Items">
+              <MultilingualTextItem ID="10693" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text>
@@ -87,9 +87,9 @@ comment: PLC1
               </MultilingualTextItem>
             </ObjectList>
           </MultilingualText>
-          <MultilingualText ID="10104" CompositionName="Title">
+          <MultilingualText ID="10694" CompositionName="Title">
             <ObjectList>
-              <MultilingualTextItem ID="10105" CompositionName="Items">
+              <MultilingualTextItem ID="10695" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text>Main</Text>

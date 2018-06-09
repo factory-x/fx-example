@@ -62,7 +62,7 @@
         </ObjectList>
       </MultilingualText>
 
-      <SW.Blocks.CompileUnit ID="10231" CompositionName="CompileUnits">
+      <SW.Blocks.CompileUnit ID="10821" CompositionName="CompileUnits">
         <AttributeList>
           <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
 
@@ -73,9 +73,9 @@ CALL BST_SINAG120_400, M105
           <ProgrammingLanguage>STL</ProgrammingLanguage>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="10232" CompositionName="Comment">
+          <MultilingualText ID="10822" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="10233" CompositionName="Items">
+              <MultilingualTextItem ID="10823" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text>
@@ -87,9 +87,9 @@ comment: PLC1
               </MultilingualTextItem>
             </ObjectList>
           </MultilingualText>
-          <MultilingualText ID="10234" CompositionName="Title">
+          <MultilingualText ID="10824" CompositionName="Title">
             <ObjectList>
-              <MultilingualTextItem ID="10235" CompositionName="Items">
+              <MultilingualTextItem ID="10825" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text>Main</Text>

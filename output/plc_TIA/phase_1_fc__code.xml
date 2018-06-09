@@ -1,0 +1,167 @@
+
+	
+<?xml version="1.0" encoding="utf-8"?>
+<Document>
+  <Engineering version="V15" />
+  <DocumentInfo>
+    <Created>2018-05-29T12:25:38.1552518Z</Created>
+    <ExportSetting>WithDefaults</ExportSetting>
+    <InstalledProducts>
+      <Product>
+        <DisplayName>Totally Integrated Automation Portal</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <OptionPackage>
+        <DisplayName>TIA Portal Openness</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </OptionPackage>
+      <Product>
+        <DisplayName>STEP 7 Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+      <Product>
+        <DisplayName>WinCC Professional</DisplayName>
+        <DisplayVersion>V15</DisplayVersion>
+      </Product>
+    </InstalledProducts>
+  </DocumentInfo>
+  <SW.Blocks.FC ID="0">
+    <AttributeList>
+      <AutoNumber>true</AutoNumber>
+      <HeaderAuthor />
+      <HeaderFamily />
+      <HeaderName />
+      <HeaderVersion>0.1</HeaderVersion>
+      <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">
+  <Section Name="Input" />
+  <Section Name="Output" />
+  <Section Name="InOut" />
+  <Section Name="Temp" />
+  <Section Name="Constant" />
+  <Section Name="Return">
+    <Member Name="Ret_Val" Datatype="Void" Accessibility="Public" />
+  </Section>
+</Sections></Interface>
+      <MemoryLayout ReadOnly="true">Optimized</MemoryLayout>
+      <Name>phase_1_fc</Name>
+      <Number>1</Number>
+      <ProgrammingLanguage>STL</ProgrammingLanguage>
+      <UDABlockProperties />
+      <UDAEnableTagReadback>false</UDAEnableTagReadback>
+    </AttributeList>
+    <ObjectList>
+      <MultilingualText ID="1" CompositionName="Comment">
+        <ObjectList>
+          <MultilingualTextItem ID="2" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>
+First instance of fds_example test			  
+			  </Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+      <SW.Blocks.CompileUnit ID="11046" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
+
+
+// Call the EM FB with the corresponding DB instance
+CALL phase_example, phase_1
+	EM_I_OUT_ID := 
+	XV003_OPN := XV300.QOPEN
+	XV003_CLS := XV300.QCLOSE
+	XV003_MERR := XV300.QMON_ERR
+	XV004_OPN := XV400.QOPEN
+	XV004_CLS := XV400.QCLOSE
+	XV004_MERR := XV400.QMON_ERR
+	XV005_OPN := XV500.QOPEN
+	XV005_CLS := XV500.QCLOSE
+	XV005_MERR := XV500.QMON_ERR
+	P001_RUN := P100.QRUN
+	P001_STOP := P100.QSTOP
+	P001_MERR := P100.QMON_ERR
+	P001_MPS := P100.QMPS
+	P002_RUN := P200.QRUN
+	P002_STOP := P200.QSTOP
+	P002_MERR := P200.QMON_ERR
+	P002_MPS := P200.QMPS
+	LT001_PV := LT100.QfVal
+	LT001_AHH := LT100.LIM_Qb01
+	LT001_AH := LT100.LIM_Qb02
+	LT001_AL := LT100.LIM_Qb03
+	LT001_ALL := LT100.LIM_Qb04
+	LT001_ERR := LT100.QERR
+	LT002_PV := LT200.QfVal
+	LT002_AHH := LT200.LIM_Qb01
+	LT002_AH := LT200.LIM_Qb02
+	LT002_AL := LT200.LIM_Qb03
+	LT002_ALL := LT200.LIM_Qb04
+	LT002_ERR := LT200.QERR
+	FIC001_PV := FIC100.PV
+	FIC001_ERR := FIC100.QERR
+	XV003_CMD := XV300.AUT_OP
+	XV004_CMD := XV400.AUT_OP
+	XV005_CMD := XV500.AUT_OP
+	P001_ON := P100.AUTO_ON
+	P001_AUT := P100.L_AUT
+	P002_ON := P200.AUTO_ON
+	P002_AUT := P200.L_AUT
+	FIC001_EXT := FIC100.L_REMOTE
+	FIC001_SP := FIC100.HMI_SP_INT
+	FIC001_AUT := FIC100.L_AUT
+	FIC001_VAL_OUT := FIC100.HMI_MAN
+	FIC001_SET_SP := FIC100.Set_SP
+	FIC001_SET_OUT := FIC100.Set_Output
+</StatementList></NetworkSource>
+          <ProgrammingLanguage>STL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="11047" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="11048" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>
+
+comment: First instance of fds_example
+
+				  </Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="11049" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="11050" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text>Main</Text>
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+
+
+
+		
+  
+      <MultilingualText ID="D" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="E" CompositionName="Items">
+            <AttributeList>
+              <Culture>en-US</Culture>
+              <Text>_fc</Text>
+            </AttributeList>
+          </MultilingualTextItem>
+        </ObjectList>
+      </MultilingualText>
+    </ObjectList>
+  </SW.Blocks.FC>
+</Document>
+
+
+	

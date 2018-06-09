@@ -184,7 +184,6 @@
   </Section>
   
   <Section Name="Temp">
-    {{ p.render(lib, "Temp", "NAME", "DATATYPE", "") }}
 	
 	{{ p.render(lib, "Temp", "plc_start", "Bool", "1 start command from plc program") }}
 	{{ p.render(lib, "Temp", "plc_stop", "Bool", "2 stop command from plc program") }}
@@ -339,13 +338,13 @@ Make the Phase ID based on its DB number
 {%- for LM_name, LM in ptype.Linked_Modules %}
 	{%- if LM.Master_Type == 'EM' %}
 	
-	CALL FC20 (
-	   EM_ID                    := {{ LM_name }}_ID,
-	   UDT_LOCATION             := #{{ LM_name }},
-	   UDT_OFFSET               := 40,
-	   Length                   := 40,
-	   EM_addressing_error      := M      0.0,
-	   RETVAL                   := MW     0)
+	CALL em_read 
+	   EM_ID                    := {{ LM_name }}_ID
+	   UDT_LOCATION             := #{{ LM_name }}
+	   UDT_OFFSET               := 40
+	   Length                   := 40
+	   EM_addressing_error      := M      0.0
+	   RETVAL                   := MW     0
 	{%- endif %}
 {%- endfor %}
 
@@ -687,7 +686,7 @@ Every timer is available in s, m and h
 
 	L 	stepnumber
 	L	previous_stepnumber
-	<>I
+	{{ "<>" | escape }}I
 	=	initial_scan
 
 {{ network_middle.render(lib, 'STL') }}
@@ -833,9 +832,9 @@ on what is most convenient
 //--------------------------------
 	L	0			// config: lowest step (-1 if state not used)
 	L	stepnumber
-	>=I
+	{{ ">=I" | escape }}
 	L	0			// config: highest step (-1 if state not used)
-	<=I      
+	{{ "<=I" | escape }}     
 	=	state_idle	// update state bit
 	JCN ST00
 	
@@ -854,9 +853,9 @@ ST00: NOP 0
 //--------------------------------
 	L	1			// config: lowest step (-1 if state not used)
 	L	stepnumber
-	<=I
+	{{ "<=I" | escape }} 
 	L	9999			// config: highest step (-1 if state not used)
-	<=I
+	{{ "<=I" | escape }} 
 	=	state_running	// update state bit
 	JCN ST01
 	
@@ -878,9 +877,9 @@ ST01: NOP 0
 //--------------------------------
 	L	700			// config: lowest step (-1 if state not used)
 	L	stepnumber
-	<=I
+	{{ "<=I" | escape }} 
 	L	1000			// config: highest step (-1 if state not used)
-	<=I
+	{{ "<=I" | escape }} 
 	=	state_complete	// update state bit
 	JCN ST02
 	
@@ -899,9 +898,9 @@ ST02: NOP 0
 //--------------------------------
 	L	6000			// config: lowest step (-1 if state not used)
 	L	stepnumber
-	<=I
+	{{ "<=I" | escape }} 
 	L	6900			// config: highest step (-1 if state not used)
-	<I
+	{{ "<I" | escape }} 
 	=	state_pausing	// update state bit
 	JCN ST03
 	
@@ -923,9 +922,9 @@ ST03: NOP 0
 //--------------------------------
 	L	6900			// config: lowest step (-1 if state not used)
 	L	stepnumber
-	<=I
+	{{ "<=I" | escape }} 
 	L	6999			// config: highest step (-1 if state not used)
-	<=I
+	{{ "<=I" | escape }} 
 	=	state_paused	// update state bit
 	JCN ST04
 	
@@ -947,9 +946,9 @@ ST04: NOP 0
 //--------------------------------
 	L	8000			// config: lowest step (-1 if state not used)
 	L	stepnumber
-	<=I
+	{{ "<=I" | escape }} 
 	L	8900			// config: highest step (-1 if state not used)
-	<I
+	{{ "<I" | escape }} 
 	=	state_holding	// update state bit
 	JCN ST05
 	
@@ -969,9 +968,9 @@ ST05: NOP 0
 //--------------------------------
 	L	8900			// config: lowest step (-1 if state not used)
 	L	stepnumber
-	<=I
+	{{ "<=I" | escape }} 
 	L	8999			// config: highest step (-1 if state not used)
-	<=I
+	{{ "<=I" | escape }} 
 	=	state_held	// update state bit
 	JCN ST06
 	
@@ -992,9 +991,9 @@ ST06: NOP 0
 //--------------------------------
 	L	5000			// config: lowest step (-1 if state not used)
 	L	stepnumber
-	<=I
+	{{ "<=I" | escape }} 
 	L	5900			// config: highest step (-1 if state not used)
-	<=I
+	{{ "<=I" | escape }} 
 	=	state_restarting	// update state bit
 	JCN ST07
 	
@@ -1015,9 +1014,9 @@ ST07: NOP 0
 //--------------------------------
 	L	7000			// config: lowest step (-1 if state not used)
 	L	stepnumber
-	<=I
+	{{ "<=I" | escape }} 
 	L	7900			// config: highest step (-1 if state not used)
-	<I
+	{{ "<I" | escape }} 
 	=	state_stopping	// update state bit
 	JCN ST08
 	
@@ -1036,9 +1035,9 @@ ST08: NOP 0
 //--------------------------------
 	L	7900			// config: lowest step (-1 if state not used)
 	L	stepnumber
-	<=I
+	{{ "<=I" | escape }} 
 	L	7999			// config: highest step (-1 if state not used)
-	<=I
+	{{ "<=I" | escape }} 
 	=	state_stopped	// update state bit
 	JCN ST09
 	
@@ -1058,9 +1057,9 @@ ST09: NOP 0
 //--------------------------------
 	L	9000			// config: lowest step (-1 if state not used)
 	L	stepnumber
-	<=I
+	{{ "<=I" | escape }} 
 	L	9900			// config: highest step (-1 if state not used)
-	<I
+	{{ "<I" | escape }} 
 	=	state_aborting	// update state bit
 	JCN ST10
 	
@@ -1075,9 +1074,9 @@ ST10: NOP 0
 //--------------------------------
 	L	9900			// config: lowest step (-1 if state not used)
 	L	stepnumber
-	<=I
+	{{ "<=I" | escape }} 
 	L	9999			// config: highest step (-1 if state not used)
-	<=I
+	{{ "<=I" | escape }} 
 	=	state_aborted	// update state bit
 	JCN ST11
 	
@@ -1226,7 +1225,7 @@ at a higher level using the CM/EM name and phase instance
 		{#- first make calculations if the transition logic is too complex -#}
 		{%- for calc in shc.Conditions.condition_calc %}
 			
-// Calculation: {{calc.comment | safe}}
+// Calculation: {{calc.comment | escape}}
 {%- if calc.v1.data_type == 'BOOL' %}
 	X 	{{calc.v1.value}}
 	X 	{{calc.v2.value}}
@@ -1243,7 +1242,7 @@ at a higher level using the CM/EM name and phase instance
 	{%- if (action.v2_conversion != undefined) %}
 	{{ lib.s7_get_conversion(action.v2_conversion) }}
 	{%- endif %}
-	{{calc.operation | safe}}R
+	{{calc.operation | escape}}R
 	{%- if calc.boolean %}
 	=	{{calc.result.value}}
 	{%- else %}
@@ -1254,7 +1253,7 @@ at a higher level using the CM/EM name and phase instance
 		{%- endfor %}
 		
 		{%- for logic in shc.Conditions.transition_logic %}
-	{{ lib.compact_logic(logic.logic, logic.invert) }}	{{logic.result.value}} {% if logic.condition != undefined %}	// {{logic.condition | safe}}{% endif %}
+	{{ lib.compact_logic(logic.logic, logic.invert) }}	{{logic.result.value}} {% if logic.condition != undefined %}	// {{logic.condition | escape}}{% endif %}
 		{%- endfor %}
 	=	sh_cond_{{ lib.fill_before(lib.increase_counter('shc', 16), '0', 2) }}
 		
@@ -1371,7 +1370,7 @@ C{{ lib.get_counter('steplabel') }}: NOP   0
 			{#- first make calculations if the transition logic is too complex -#}
 			{%- for calc in transition.transition_calc %}
 			
-// Calculation: {{calc.comment | safe}}
+// Calculation: {{calc.comment | escape}}
 {%- if calc.v1.data_type == 'BOOL' %}
 	X 	{{calc.v1.value}}
 	X 	{{calc.v2.value}}
@@ -1388,7 +1387,7 @@ C{{ lib.get_counter('steplabel') }}: NOP   0
 	{%- if (calc.v2_conversion != undefined) %}
 	{{ lib.s7_get_conversion(calc.v2_conversion) }}
 	{%- endif %}
-	{{ lib.build_s7_operation(calc) | safe }}
+	{{ lib.build_s7_operation(calc) | escape }}
 	{%- if calc.boolean %}
 	=	{{calc.result.value}}
 	{%- else %}
@@ -1402,7 +1401,7 @@ C{{ lib.get_counter('steplabel') }}: NOP   0
 	SET	// make sure RLO is high so the transition can happen when no conditions present
 			{# then loop over the transaction logic -#}
 			{%- for logic in transition.transition_logic %}
-	{{ lib.compact_logic(logic.logic, logic.invert) }}	{{logic.result.value}} {% if logic.condition != undefined %}	// {{logic.condition | safe}}{% endif %}
+	{{ lib.compact_logic(logic.logic, logic.invert) }}	{{logic.result.value}} {% if logic.condition != undefined %}	// {{logic.condition | escape}}{% endif %}
 			{%- endfor -%}
 			{#- code for transferring to the next step #}
 	JCN L{{ lib.increase_counter('transition_label') }}
@@ -1419,7 +1418,7 @@ L{{ lib.get_counter('transition_label') }}: NOP 0
 //---------------------------------
 	L	stepnumber
 	L	previous_stepnumber
-	<>I
+	{{ "<>" | escape }}I
 	JCN D{{ lib.get_counter('steplabel') }}
 		{{- actions.render(lib, step_object.Actions_Last_Scan) }}	
 {% endif %}
@@ -1435,7 +1434,7 @@ J{{ lib.get_counter('steplabel') }}: NOP 0
 
 {{ network_middle.render(lib, 'STL') }}
 {#- put comment here -#}
-{{ step_object.Comment | safe }} {# todo: create mini-FDS in each step comment as option #}
+{{ step_object.Comment | escape }} {# todo: create mini-FDS in each step comment as option #}
 {{ network_end.render(lib, TITLE) }}
 {#--#}
 {#--#}
@@ -1479,15 +1478,15 @@ Placeholder network to indicate the end of the actual sequence
 {%- for LM_name, LM in ptype.Linked_Modules %}
 	{%- if LM.Master_Type == 'EM' %}
 	
-	CALL FC21 (
-	   EM_ID                    := {{ LM_name }}_ID,
-	   UDT_LOCATION             := #{{ LM_name }},
-	   UDT_OFFSET               := 40,
-	   Length                   := 40,
-	   Request					:={{ LM_name }}.Request,
-	   Owner					:={{ LM_name }}.Owner,
-	   EM_addressing_error      := M      0.0,
-	   RETVAL                   := MW     0)
+	CALL em_write 
+	   EM_ID                    := {{ LM_name }}_ID
+	   UDT_LOCATION             := #{{ LM_name }}
+	   UDT_OFFSET               := 40
+	   Length                   := 40
+	   Request					:={{ LM_name }}.Request
+	   Owner					:={{ LM_name }}.Owner
+	   EM_addressing_error      := M      0.0
+	   RETVAL                   := MW     0
 	{%- endif %}
 {%- endfor %}
 

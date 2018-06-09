@@ -73,7 +73,7 @@
 {{ network_start.render(lib) }}
 
 // Call the EM FB with the corresponding DB instance
-CALL {{ em.Block_Name }}, {{ em_id }}
+CALL {{ em.Type }}, {{ em_id }}
 {#- loop over all the inputs and outputs #}
 {%- for link in lib.concat(em.Links.Inputs, em.Links.Outputs) %}
 	{{ link.connection_left }} := {{ link.connection_right }}

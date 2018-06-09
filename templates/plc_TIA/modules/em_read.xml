@@ -50,6 +50,7 @@
 	<Member Name="phase_udt" Datatype="Int" Accessibility="Public" />
 	<Member Name="source_pointer" Datatype="Any" Accessibility="Public" />
 	<Member Name="dest_pointer" Datatype="Any" Accessibility="Public" />
+	<Member Name="blkmov_retval" Datatype="Int" Accessibility="Public" />
   </Section>
   <Section Name="Constant" />
   <Section Name="Return">
@@ -163,10 +164,11 @@
       T     LD [AR1,P#6.0] 
 
 // copy the data
-      CALL SFC   20 (
-           SRCBLK                   := #source_pointer,
-           RET_VAL                  := #RETVAL,
-           DSTBLK                   := #dest_pointer)
+      CALL BLKMOV
+		   Variant
+           SRCBLK                   := #source_pointer
+           RET_VAL                  := #blkmov_retval
+           DSTBLK                   := #dest_pointer
 
 
 

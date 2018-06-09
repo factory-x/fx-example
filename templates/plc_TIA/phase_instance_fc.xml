@@ -1,4 +1,4 @@
-﻿{% macro render(lib, phase_id, em) %}
+﻿{% macro render(lib, phase_id, phase) %}
 {%- import "network_start.xml" as network_start %}
 {%- import "network_middle.xml" as network_middle %}
 {%- import "network_end.xml" as network_end %}
@@ -73,7 +73,7 @@
 {{ network_start.render(lib) }}
 
 // Call the EM FB with the corresponding DB instance
-CALL {{ phase.Block_Name }}, {{ phase_id }}
+CALL {{ phase.Type }}, {{ phase_id }}
 {#- loop over all the inputs and outputs #}
 {%- for link in lib.concat(phase.Links.Inputs, phase.Links.Outputs) %}
 	{{ link.connection_left }} := {{ link.connection_right }}

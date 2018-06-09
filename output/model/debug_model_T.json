@@ -9816,6 +9816,9 @@
                     "MSG_no01": {
                         "Data_Type": "DINT"
                     },
+                    "MSG_no02": {
+                        "Data_Type": "DINT"
+                    },
                     "MSG_no03": {
                         "Data_Type": "DINT"
                     },
