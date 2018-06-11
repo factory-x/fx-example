@@ -2833,7 +2833,7 @@
 
 
 		
-	<Member Name="&quot;EM_I_OUT&quot;" Datatype="&quot;EM_I_OUT_UDT&quot;" Remanence="SetInIDB">
+	<Member Name="EM_I_OUT" Datatype="&quot;EM_I_OUT_UDT&quot;" Remanence="SetInIDB">
 	  <AttributeList>
         <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
 		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
@@ -2846,7 +2846,7 @@
 	</Member>
 
 		
-	<Member Name="&quot;Some_Dyn_EM&quot;" Datatype="&quot;EM_I_OUT_UDT&quot;" Remanence="SetInIDB">
+	<Member Name="Some_Dyn_EM" Datatype="&quot;EM_I_OUT_UDT&quot;" Remanence="SetInIDB">
 	  <AttributeList>
         <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>
 		<BooleanAttribute Name="ExternalVisible" SystemDefined="true">true</BooleanAttribute>
@@ -3609,6 +3609,19 @@
 	  <Comment><MultiLanguageText Lang="en-US">actual stepnumber</MultiLanguageText></Comment>
 	</Member>
 
+		
+	<Member Name="Addressing_Error" Datatype="Bool" >
+	  <AttributeList>
+        
+		
+		
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">addressing error from reading or writing EM</MultiLanguageText></Comment>
+	</Member>
+
 	
 
 
@@ -3834,7 +3847,7 @@
 	</Member>
 
 		
-	<Member Name="B1" Datatype="Real" >
+	<Member Name="V18" Datatype="Real" >
 	  <AttributeList>
         
 		
@@ -3847,7 +3860,7 @@
 	</Member>
 
 		
-	<Member Name="B2" Datatype="Real" >
+	<Member Name="B1" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -3860,7 +3873,7 @@
 	</Member>
 
 		
-	<Member Name="B3" Datatype="Real" >
+	<Member Name="B2" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -3873,7 +3886,7 @@
 	</Member>
 
 		
-	<Member Name="B4" Datatype="Real" >
+	<Member Name="B3" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -3886,7 +3899,7 @@
 	</Member>
 
 		
-	<Member Name="B5" Datatype="Real" >
+	<Member Name="B4" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -3899,7 +3912,7 @@
 	</Member>
 
 		
-	<Member Name="B6" Datatype="Real" >
+	<Member Name="B5" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -3912,7 +3925,7 @@
 	</Member>
 
 		
-	<Member Name="B7" Datatype="Real" >
+	<Member Name="B6" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -3925,7 +3938,7 @@
 	</Member>
 
 		
-	<Member Name="B8" Datatype="Real" >
+	<Member Name="B7" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -3938,7 +3951,7 @@
 	</Member>
 
 		
-	<Member Name="B9" Datatype="Real" >
+	<Member Name="B8" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -3951,7 +3964,7 @@
 	</Member>
 
 		
-	<Member Name="B10" Datatype="Real" >
+	<Member Name="B9" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -3964,7 +3977,7 @@
 	</Member>
 
 		
-	<Member Name="B11" Datatype="Real" >
+	<Member Name="B10" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -3977,7 +3990,7 @@
 	</Member>
 
 		
-	<Member Name="B12" Datatype="Real" >
+	<Member Name="B11" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -3990,7 +4003,7 @@
 	</Member>
 
 		
-	<Member Name="B13" Datatype="Real" >
+	<Member Name="B12" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -4003,7 +4016,7 @@
 	</Member>
 
 		
-	<Member Name="B14" Datatype="Real" >
+	<Member Name="B13" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -4016,7 +4029,7 @@
 	</Member>
 
 		
-	<Member Name="B15" Datatype="Real" >
+	<Member Name="B14" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -4029,7 +4042,7 @@
 	</Member>
 
 		
-	<Member Name="B16" Datatype="Real" >
+	<Member Name="B15" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -4042,7 +4055,20 @@
 	</Member>
 
 		
-	<Member Name="B17" Datatype="Real" >
+	<Member Name="B16" Datatype="Bool" >
+	  <AttributeList>
+        
+		
+		
+		<BooleanAttribute Name="UserVisible" Informative="true" SystemDefined="true">true</BooleanAttribute>
+		<BooleanAttribute Name="UserReadOnly" Informative="true" SystemDefined="true">false</BooleanAttribute>
+		<BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
+      </AttributeList>
+	  <Comment><MultiLanguageText Lang="en-US">intermediate value for calculation</MultiLanguageText></Comment>
+	</Member>
+
+		
+	<Member Name="B17" Datatype="Bool" >
 	  <AttributeList>
         
 		
@@ -4251,7 +4277,7 @@ Make the Phase ID based on its DB number
 	   UDT_LOCATION             := #EM_I_OUT
 	   UDT_OFFSET               := 40
 	   Length                   := 40
-	   EM_addressing_error      := M      0.0
+	   EM_addressing_error      := Addressing_Error
 	   RETVAL                   := MW     0
 	
 	CALL em_read 
@@ -4259,7 +4285,7 @@ Make the Phase ID based on its DB number
 	   UDT_LOCATION             := #Some_Dyn_EM
 	   UDT_OFFSET               := 40
 	   Length                   := 40
-	   EM_addressing_error      := M      0.0
+	   EM_addressing_error      := Addressing_Error
 	   RETVAL                   := MW     0
 
 
@@ -11265,7 +11291,7 @@ test dot-format from Linked CM in evaluation =&gt;should convert to suffix
 			
 // Action: EM_Instance_4.Pressure_SP  = 4.2
 	L 	4.2
-	T 	cstate.Equipment_Modules.EM_Instance_4.Pressure_SP
+	T 	EM_Instance_4.Pressure_SP
 
 //---------------------------------
 // --- TRANSITION TO S870 ---
@@ -11342,8 +11368,8 @@ test direct access to an EM instance in dot-format in the assignment =&gt; shoul
 // --- TRANSITION TO S880 ---
 //---------------------------------
 			
-// Calculation: cstate.Equipment_Modules.EM_Instance_4.Level &gt;= 50.0
-	L 	cstate.Equipment_Modules.EM_Instance_4.Level
+// Calculation: EM_Instance_4.Level &gt;= 50.0
+	L 	EM_Instance_4.Level
 	L 	50.0
 	&gt;=R
 	=	B12
@@ -11881,13 +11907,13 @@ test absolute value calculation
 // Action: intvar = abs(4.6)
 	L	4.6
 	ABS
-	RND;
+	RND
 	T	intvar
 			
 // Action: intvar = abs(test1)
 	L	test1
 	ABS
-	RND;
+	RND
 	T	intvar
 			
 // Calculation: abs(3.2)
@@ -11897,19 +11923,19 @@ test absolute value calculation
 			
 // Calculation: intvar + (abs(3.2))
 	L 	intvar
-	ITD;
-DTR;
+	ITD
+DTR
 	L 	V16
 	+R
 	T 	V17
 			
 // Action: intvar = intvar + (intvar+ abs(3.2))
 	L	intvar
-	ITD;
-DTR;
+	ITD
+DTR
 	L	V17
 	+I
-	RND;
+	RND
 	T	intvar
 
 //---------------------------------
@@ -12525,7 +12551,7 @@ Placeholder network to indicate the end of the actual sequence
 	   Length                   := 40
 	   Request					:=EM_I_OUT.Request
 	   Owner					:=EM_I_OUT.Owner
-	   EM_addressing_error      := M      0.0
+	   EM_addressing_error      := Addressing_Error
 	   RETVAL                   := MW     0
 	
 	CALL em_write 
@@ -12535,7 +12561,7 @@ Placeholder network to indicate the end of the actual sequence
 	   Length                   := 40
 	   Request					:=Some_Dyn_EM.Request
 	   Owner					:=Some_Dyn_EM.Owner
-	   EM_addressing_error      := M      0.0
+	   EM_addressing_error      := Addressing_Error
 	   RETVAL                   := MW     0
 
 

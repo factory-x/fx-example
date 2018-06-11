@@ -35,7 +35,7 @@
       <HeaderFamily />
       <HeaderName />
       <HeaderVersion>0.1</HeaderVersion>
-      <InstanceOfName></InstanceOfName>
+      <InstanceOfName>EM_I_OUT</InstanceOfName>
       <InstanceOfNumber ReadOnly="true"></InstanceOfNumber>
       <InstanceOfType ReadOnly="true">FB</InstanceOfType>
       <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">

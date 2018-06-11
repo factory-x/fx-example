@@ -34,7 +34,7 @@
       <HeaderFamily />
       <HeaderName />
       <HeaderVersion>0.1</HeaderVersion>
-      <InstanceOfName>{{ phase.Block_Name }}</InstanceOfName>
+      <InstanceOfName>{{ phase.Type }}</InstanceOfName>
       <InstanceOfNumber ReadOnly="true"></InstanceOfNumber>
       <InstanceOfType ReadOnly="true">FB</InstanceOfType>
       <Interface><Sections xmlns="http://www.siemens.com/automation/Openness/SW/Interface/v3">

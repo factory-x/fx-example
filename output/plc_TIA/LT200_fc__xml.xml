@@ -100,7 +100,7 @@
                     <Parameter Name="LIM_Qb01" Section="Output" Type="Bool"/>
                     <Parameter Name="LIM_Qb02" Section="Output" Type="Bool"/>
                     <Parameter Name="LIM_Qb03" Section="Output" Type="Bool"/>
-                    <Parameter Name="LIM_b04" Section="Output" Type="Bool"/>
+                    <Parameter Name="LIM_Qb04" Section="Output" Type="Bool"/>
                     <Parameter Name="QERR" Section="Output" Type="Bool"/>
                   </CallInfo>
                 </Access>

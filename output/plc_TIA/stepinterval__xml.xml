@@ -84,79 +84,79 @@
               </StlStatement>
               <StlStatement UId="210">
                 <StlToken Text="O"/>
-                <Access Scope="GlobalVariable">
+                <Access Scope="LocalVariable">
                   <Symbol>
-                    <Component Name="in_steprange;"/>
+                    <Component Name="in_steprange"/>
                   </Symbol>
                 </Access>
               </StlStatement>
               <StlStatement UId="211">
-                <StlToken Text="O(;"/>
+                <StlToken Text="O_BRACK"/>
               </StlStatement>
               <StlStatement UId="212">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
               <StlStatement UId="213">
-                <StlToken Text="A(;"/>
+                <StlToken Text="A_BRACK"/>
               </StlStatement>
               <StlStatement UId="214">
                 <StlToken Text="L"/>
-                <Access Scope="GlobalVariable">
+                <Access Scope="LocalVariable">
                   <Symbol>
-                    <Component Name="low;"/>
+                    <Component Name="low"/>
                   </Symbol>
                 </Access>
               </StlStatement>
               <StlStatement UId="215">
                 <StlToken Text="L"/>
-                <Access Scope="GlobalVariable">
+                <Access Scope="LocalVariable">
                   <Symbol>
-                    <Component Name="stepnumber;"/>
+                    <Component Name="stepnumber"/>
                   </Symbol>
                 </Access>
               </StlStatement>
               <StlStatement UId="216">
-                <StlToken Text="&lt;=I;"/>
+                <StlToken Text="LE_I"/>
               </StlStatement>
               <StlStatement UId="217">
-                <StlToken Text=");"/>
+                <StlToken Text="BRACKET"/>
               </StlStatement>
               <StlStatement UId="218">
-                <StlToken Text="A(;"/>
+                <StlToken Text="A_BRACK"/>
               </StlStatement>
               <StlStatement UId="219">
                 <StlToken Text="L"/>
-                <Access Scope="GlobalVariable">
+                <Access Scope="LocalVariable">
                   <Symbol>
-                    <Component Name="stepnumber;"/>
+                    <Component Name="stepnumber"/>
                   </Symbol>
                 </Access>
               </StlStatement>
               <StlStatement UId="220">
                 <StlToken Text="L"/>
-                <Access Scope="GlobalVariable">
+                <Access Scope="LocalVariable">
                   <Symbol>
-                    <Component Name="high;"/>
+                    <Component Name="high"/>
                   </Symbol>
                 </Access>
               </StlStatement>
               <StlStatement UId="221">
-                <StlToken Text="&lt;=I;"/>
+                <StlToken Text="LE_I"/>
               </StlStatement>
               <StlStatement UId="222">
-                <StlToken Text=");"/>
+                <StlToken Text="BRACKET"/>
               </StlStatement>
               <StlStatement UId="223">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
               <StlStatement UId="224">
-                <StlToken Text=");"/>
+                <StlToken Text="BRACKET"/>
               </StlStatement>
               <StlStatement UId="225">
                 <StlToken Text="Assign"/>
-                <Access Scope="GlobalVariable">
+                <Access Scope="LocalVariable">
                   <Symbol>
-                    <Component Name="in_steprange;"/>
+                    <Component Name="in_steprange"/>
                   </Symbol>
                 </Access>
               </StlStatement>

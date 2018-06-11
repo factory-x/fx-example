@@ -68,22 +68,22 @@
         <AttributeList>
           <NetworkSource><StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
 
-	O	in_steprange;
-	O(;
+	O	in_steprange
+	O(
 	
-	A(;
-	L	low;
-	L	stepnumber;
-	&lt;=I;
-	);
-	A(;
-	L	stepnumber;
-	L	high;
-	&lt;=I;
-	);
+	A(
+	L	low
+	L	stepnumber
+	&lt;=I
+	)
+	A(
+	L	stepnumber
+	L	high
+	&lt;=I
+	)
 	
-	);
-	=	in_steprange;
+	)
+	=	in_steprange
 
 		  
 </StatementList></NetworkSource>

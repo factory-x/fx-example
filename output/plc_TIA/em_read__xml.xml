@@ -107,7 +107,7 @@
                 <StlToken Text="OPEN_DB"/>
                 <Access Scope="GlobalVariable">
                   <Symbol>
-                    <Component Name="db25"/>
+                    <Component Name="EM_Index"/>
                   </Symbol>
                 </Access>
               </StlStatement>
@@ -330,7 +330,7 @@
               <StlStatement UId="158">
                 <StlToken Text="L"/>
                 <Access Scope="Address">
-                  <Indirect Width="Double" Area="DB" Register="AR1" BitOffset="16"/>
+                  <Indirect Width="Double" Area="None" Register="AR1" BitOffset="16"/>
                 </Access>
               </StlStatement>
               <StlStatement UId="159">
@@ -373,7 +373,7 @@
               <StlStatement UId="165">
                 <StlToken Text="L"/>
                 <Access Scope="Address">
-                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="0"/>
+                  <Indirect Width="Word" Area="None" Register="AR1" BitOffset="0"/>
                 </Access>
               </StlStatement>
               <StlStatement UId="166">
@@ -413,7 +413,7 @@
               <StlStatement UId="171">
                 <StlToken Text="T"/>
                 <Access Scope="Address">
-                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="0"/>
+                  <Indirect Width="Word" Area="None" Register="AR1" BitOffset="0"/>
                 </Access>
               </StlStatement>
               <StlStatement UId="172">
@@ -430,7 +430,7 @@
               <StlStatement UId="173">
                 <StlToken Text="T"/>
                 <Access Scope="Address">
-                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="16"/>
+                  <Indirect Width="Word" Area="None" Register="AR1" BitOffset="16"/>
                 </Access>
               </StlStatement>
               <StlStatement UId="174">
@@ -447,7 +447,7 @@
               <StlStatement UId="175">
                 <StlToken Text="T"/>
                 <Access Scope="Address">
-                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="32"/>
+                  <Indirect Width="Word" Area="None" Register="AR1" BitOffset="32"/>
                 </Access>
               </StlStatement>
               <StlStatement UId="176">
@@ -495,7 +495,7 @@
               <StlStatement UId="182">
                 <StlToken Text="T"/>
                 <Access Scope="Address">
-                  <Indirect Width="Double" Area="DB" Register="AR1" BitOffset="48"/>
+                  <Indirect Width="Double" Area="None" Register="AR1" BitOffset="48"/>
                 </Access>
               </StlStatement>
               <StlStatement UId="183">
@@ -527,7 +527,7 @@
               <StlStatement UId="187">
                 <StlToken Text="T"/>
                 <Access Scope="Address">
-                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="0"/>
+                  <Indirect Width="Word" Area="None" Register="AR1" BitOffset="0"/>
                 </Access>
               </StlStatement>
               <StlStatement UId="188">
@@ -544,7 +544,7 @@
               <StlStatement UId="189">
                 <StlToken Text="T"/>
                 <Access Scope="Address">
-                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="16"/>
+                  <Indirect Width="Word" Area="None" Register="AR1" BitOffset="16"/>
                 </Access>
               </StlStatement>
               <StlStatement UId="190">
@@ -561,7 +561,7 @@
               <StlStatement UId="191">
                 <StlToken Text="T"/>
                 <Access Scope="Address">
-                  <Indirect Width="Word" Area="DB" Register="AR1" BitOffset="32"/>
+                  <Indirect Width="Word" Area="None" Register="AR1" BitOffset="32"/>
                 </Access>
               </StlStatement>
               <StlStatement UId="192">
@@ -609,7 +609,7 @@
               <StlStatement UId="198">
                 <StlToken Text="T"/>
                 <Access Scope="Address">
-                  <Indirect Width="Double" Area="DB" Register="AR1" BitOffset="48"/>
+                  <Indirect Width="Double" Area="None" Register="AR1" BitOffset="48"/>
                 </Access>
               </StlStatement>
               <StlStatement UId="199">

@@ -93,7 +93,7 @@
                 <BooleanAttribute Name="UserDeletable" Informative="true" SystemDefined="true">true</BooleanAttribute>
               </AttributeList>
             </Member>
-            <Member Name="LIM_b04" Datatype="Bool" Remanence="SetInIDB">
+            <Member Name="LIM_Qb04" Datatype="Bool" Remanence="SetInIDB">
               <AttributeList>
                 <IntegerAttribute Name="Offset" Informative="true" SystemDefined="true">67</IntegerAttribute>
                 <BooleanAttribute Name="ExternalAccessible" SystemDefined="true">true</BooleanAttribute>

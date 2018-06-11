@@ -7066,13 +7066,13 @@ TITLE = Step 950
 // Action: intvar = abs(4.6);
 	L	4.6;
 	ABS;
-	RND;
+	RND
 	T	intvar;
 			
 // Action: intvar = abs(test1);
 	L	test1;
 	ABS;
-	RND;
+	RND
 	T	intvar;
 			
 // Calculation: abs(3.2)
@@ -7082,19 +7082,19 @@ TITLE = Step 950
 			
 // Calculation: intvar + (abs(3.2))
 	L 	intvar;
-	ITD;
-DTR;
+	ITD
+DTR
 	L 	V16;
 	+R;
 	T 	V17;
 			
 // Action: intvar = intvar + (intvar+ abs(3.2));
 	L	intvar;
-	ITD;
-DTR;
+	ITD
+DTR
 	L	V17;
 	+I;
-	RND;
+	RND
 	T	intvar;
 
 //---------------------------------

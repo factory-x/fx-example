@@ -33,7 +33,7 @@
       <HeaderFamily/>
       <HeaderName/>
       <HeaderVersion>0.1</HeaderVersion>
-      <InstanceOfName/>
+      <InstanceOfName>phase_example</InstanceOfName>
       <InstanceOfNumber ReadOnly="true"/>
       <InstanceOfType ReadOnly="true">FB</InstanceOfType>
       <Interface>

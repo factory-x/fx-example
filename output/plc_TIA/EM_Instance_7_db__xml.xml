@@ -33,7 +33,7 @@
       <HeaderFamily/>
       <HeaderName/>
       <HeaderVersion>0.1</HeaderVersion>
-      <InstanceOfName/>
+      <InstanceOfName>EM_I_OUT</InstanceOfName>
       <InstanceOfNumber ReadOnly="true"/>
       <InstanceOfType ReadOnly="true">FB</InstanceOfType>
       <Interface>

@@ -5852,7 +5852,7 @@ IF (stepnumber = 860) THEN
 		
 
 		// Action: EM_Instance_4.Pressure_SP  = 4.2
-		cstate.Equipment_Modules.EM_Instance_4.Pressure_SP:= 4.2;
+		EM_Instance_4.Pressure_SP:= 4.2;
 
 	END_IF
 	
@@ -5903,7 +5903,7 @@ IF (stepnumber = 870) THEN
 	
 	// --- TRANSITION TO S880 ---
 	IF (
-		cstate.Equipment_Modules.EM_Instance_4.Level &gt;= 50.0
+		EM_Instance_4.Level &gt;= 50.0
 	) THEN
 	
 		stepnumber:= 880;

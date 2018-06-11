@@ -899,7 +899,7 @@ EM_I_OUT&#xD;
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
               <StlStatement UId="245">
-                <StlToken Text="OPN"/>
+                <StlToken Text="OPEN_DB"/>
                 <Access Scope="GlobalVariable">
                   <Symbol>
                     <Component Name="EM_Index"/>
@@ -1087,7 +1087,7 @@ EM_I_OUT&#xD;
                 <StlToken Text="COMMENT"/>
               </StlStatement>
               <StlStatement UId="275">
-                <StlToken Text="OPN"/>
+                <StlToken Text="OPEN_DB"/>
                 <Access Scope="GlobalVariable">
                   <Symbol>
                     <Component Name="EM_Index"/>

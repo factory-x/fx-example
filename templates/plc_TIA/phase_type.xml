@@ -177,7 +177,7 @@
 {# add the UDTs for the linked EMs -#}
 {%- for LM_name, LM in ptype.Linked_Modules %}
 	{%- if LM.Master_Type == 'EM' %}
-	{{ p.render(lib, "Static", '"' + LM_name + '"', '"' + LM.Type + '_UDT' + '"' , "UDT for the linked EM") }}
+	{{ p.render(lib, "Static", LM_name, '"' + LM.Type + '_UDT' + '"' , "UDT for the linked EM") }}
 	{%- endif %}
 {%- endfor %}
 
@@ -247,15 +247,16 @@
 	
 	{{ p.render(lib, "Temp", "initial_scan", "Bool", "pulse active on the first cycle of a new scan") }}
 	{{ p.render(lib, "Temp", "Temp_stepnumber", "Int", "actual stepnumber") }}
+	{{ p.render(lib, "Temp", "Addressing_Error", "Bool", "addressing error from reading or writing EM") }}
 	
 
 {# add all the auto-generated temps -#}
 {# start with the calculation values -#}
-{% for i in range(1, ptype.var_counter.value) %}
+{% for i in range(1, ptype.var_counter.value + 1) %}
 	{{ p.render(lib, "Temp", "V" + i, "Real", "intermediate value for calculation") }}
 {%- endfor %}
 {%- for i in range(1, ptype.bool_counter.value + 1) %}
-	{{ p.render(lib, "Temp", "B" + i, "Real", "intermediate value for calculation") }}
+	{{ p.render(lib, "Temp", "B" + i, "Bool", "intermediate value for calculation") }}
 {%- endfor %}
   </Section>
   <Section Name="Constant" />
@@ -343,7 +344,7 @@ Make the Phase ID based on its DB number
 	   UDT_LOCATION             := #{{ LM_name }}
 	   UDT_OFFSET               := 40
 	   Length                   := 40
-	   EM_addressing_error      := M      0.0
+	   EM_addressing_error      := Addressing_Error
 	   RETVAL                   := MW     0
 	{%- endif %}
 {%- endfor %}
@@ -1485,7 +1486,7 @@ Placeholder network to indicate the end of the actual sequence
 	   Length                   := 40
 	   Request					:={{ LM_name }}.Request
 	   Owner					:={{ LM_name }}.Owner
-	   EM_addressing_error      := M      0.0
+	   EM_addressing_error      := Addressing_Error
 	   RETVAL                   := MW     0
 	{%- endif %}
 {%- endfor %}

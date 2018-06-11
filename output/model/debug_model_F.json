@@ -17203,7 +17203,7 @@
                                     "comment": "",
                                     "code": "EM_Instance_4.Pressure_SP  = 4.2",
                                     "left": {
-                                        "value": "cstate.Equipment_Modules.EM_Instance_4.Pressure_SP",
+                                        "value": "EM_Instance_4.Pressure_SP",
                                         "module_info": {
                                             "type": "phase_example",
                                             "master_type": "Phase"
@@ -17218,7 +17218,7 @@
                                         "data_type": "REAL"
                                     },
                                     "right": "4.2",
-                                    "converted_calculation_left": "cstate.Equipment_Modules.EM_Instance_4.Pressure_SP",
+                                    "converted_calculation_left": "EM_Instance_4.Pressure_SP",
                                     "calc_array": [],
                                     "converted_calculation_right": "4.2",
                                     "result": {
@@ -17265,7 +17265,7 @@
                                                 "io_source": "Temps",
                                                 "data_type": "BOOL"
                                             },
-                                            "converted_calcultation_1": "cstate.Equipment_Modules.EM_Instance_4.Level",
+                                            "converted_calcultation_1": "EM_Instance_4.Level",
                                             "converted_calcultation_2": "50.0",
                                             "operation": ">="
                                         }
@@ -17273,7 +17273,7 @@
                                     "transition_calc": [
                                         {
                                             "v1": {
-                                                "value": "cstate.Equipment_Modules.EM_Instance_4.Level",
+                                                "value": "EM_Instance_4.Level",
                                                 "module_info": {
                                                     "type": "phase_example",
                                                     "master_type": "Phase"
@@ -17309,7 +17309,7 @@
                                             },
                                             "operation": ">=",
                                             "boolean": true,
-                                            "comment": "cstate.Equipment_Modules.EM_Instance_4.Level >= 50.0"
+                                            "comment": "EM_Instance_4.Level >= 50.0"
                                         }
                                     ]
                                 }

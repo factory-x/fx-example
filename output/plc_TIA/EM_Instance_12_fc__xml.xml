@@ -97,117 +97,133 @@
                     </Instance>
                     <Parameter Name="sampletime" Section="Input" Type="Real"/>
                     <Parameter Name="em_id" Section="Input" Type="Int">
-                      <Access Scope="LocalVariable">
-                        <Symbol>
-                          <Component Name="37"/>
-                        </Symbol>
+                      <Access Scope="LiteralConstant">
+                        <Constant>
+                          <ConstantType>Int</ConstantType>
+                          <ConstantValue>37</ConstantValue>
+                        </Constant>
                       </Access>
                     </Parameter>
                     <Parameter Name="Request" Section="Input" Type="Int"/>
                     <Parameter Name="Command" Section="Input" Type="Int"/>
                     <Parameter Name="Pressure_SP" Section="Input" Type="REAL"/>
                     <Parameter Name="Pump_RUN" Section="Input" Type="Bool">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="M106.QNOFF2"/>
+                          <Component Name="M106"/>
+                          <Component Name="QNOFF2"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="Pump_QERR" Section="Input" Type="BOOL">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="M106.QERR"/>
+                          <Component Name="M106"/>
+                          <Component Name="QERR"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="Pump_EERR" Section="Input" Type="BOOL">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="M106.QERR_EXT"/>
+                          <Component Name="M106"/>
+                          <Component Name="QERR_EXT"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="FS01_PV" Section="Input" Type="Bool">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="LS002.QON"/>
+                          <Component Name="LS002"/>
+                          <Component Name="QON"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="PIC01_PV" Section="Input" Type="REAL">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="FIC101.PV"/>
+                          <Component Name="FIC101"/>
+                          <Component Name="PV"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="PIC01_ERR" Section="Input" Type="BOOL">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="FIC101.QERR"/>
+                          <Component Name="FIC101"/>
+                          <Component Name="QERR"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="LT01_PV" Section="Input" Type="Real">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="LT201.QfVal"/>
+                          <Component Name="LT201"/>
+                          <Component Name="QfVal"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="LT01_AHH" Section="Input" Type="Bool">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="LT201.LIM_Qb01"/>
+                          <Component Name="LT201"/>
+                          <Component Name="LIM_Qb01"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="LT01_AH" Section="Input" Type="Bool">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="LT201.LIM_Qb02"/>
+                          <Component Name="LT201"/>
+                          <Component Name="LIM_Qb02"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="LT01_AL" Section="Input" Type="Bool">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="LT201.LIM_Qb03"/>
+                          <Component Name="LT201"/>
+                          <Component Name="LIM_Qb03"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="LT01_ALL" Section="Input" Type="Bool">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="LT201.LIM_Qb04"/>
+                          <Component Name="LT201"/>
+                          <Component Name="LIM_Qb04"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="LT01_ERR" Section="Input" Type="BOOL">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="LT201.QERR"/>
+                          <Component Name="LT201"/>
+                          <Component Name="QERR"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="XV_Bottom_OPN" Section="Input" Type="BOOL">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="XV002.QOPEN"/>
+                          <Component Name="XV002"/>
+                          <Component Name="QOPEN"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="XV_Bottom_CLS" Section="Input" Type="BOOL">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="XV002.QCLOSE"/>
+                          <Component Name="XV002"/>
+                          <Component Name="QCLOSE"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="XV_Bottom_MERR" Section="Input" Type="BOOL">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="XV002.QMON_ERR"/>
+                          <Component Name="XV002"/>
+                          <Component Name="QMON_ERR"/>
                         </Symbol>
                       </Access>
                     </Parameter>
@@ -231,65 +247,74 @@
                     <Parameter Name="Level" Section="Output" Type="REAL"/>
                     <Parameter Name="Pressure" Section="Output" Type="REAL"/>
                     <Parameter Name="Pump_ON" Section="Output" Type="Bool">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="M106.L_ON"/>
+                          <Component Name="M106"/>
+                          <Component Name="L_ON"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="Pump_AUT" Section="Output" Type="Bool">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="M106.L_AUT"/>
+                          <Component Name="M106"/>
+                          <Component Name="L_AUT"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="PIC01_EXT" Section="Output" Type="Bool">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="FIC101.L_REMOTE"/>
+                          <Component Name="FIC101"/>
+                          <Component Name="L_REMOTE"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="PIC01_SP" Section="Output" Type="Real">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="FIC101.HMI_SP_INT"/>
+                          <Component Name="FIC101"/>
+                          <Component Name="HMI_SP_INT"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="PIC01_AUT" Section="Output" Type="Bool">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="FIC101.L_AUT"/>
+                          <Component Name="FIC101"/>
+                          <Component Name="L_AUT"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="PIC01_VAL_OUT" Section="Output" Type="Real">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="FIC101.HMI_MAN"/>
+                          <Component Name="FIC101"/>
+                          <Component Name="HMI_MAN"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="PIC01_SET_SP" Section="Output" Type="Bool">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="FIC101.Set_SP"/>
+                          <Component Name="FIC101"/>
+                          <Component Name="Set_SP"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="PIC01_SET_OUT" Section="Output" Type="Bool">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="FIC101.Set_Output"/>
+                          <Component Name="FIC101"/>
+                          <Component Name="Set_Output"/>
                         </Symbol>
                       </Access>
                     </Parameter>
                     <Parameter Name="XV_Bottom_CMD" Section="Output" Type="BOOL">
-                      <Access Scope="LocalVariable">
+                      <Access Scope="GlobalVariable">
                         <Symbol>
-                          <Component Name="XV002.AUT_OP"/>
+                          <Component Name="XV002"/>
+                          <Component Name="AUT_OP"/>
                         </Symbol>
                       </Access>
                     </Parameter>

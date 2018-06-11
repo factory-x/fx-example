@@ -103,7 +103,7 @@ REDU:	NOP 0
 
 
 // Calculate the amount of EMs in the EM_Index
-      OPN   DB    25 
+      OPN   EM_Index
       L     DBLG 
       L     4 
       /I     

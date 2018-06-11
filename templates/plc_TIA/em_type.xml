@@ -74,7 +74,7 @@
 	{{ p.render(lib, "Temp", "T_length", "Int", "length of the Index Table DB") }}
 {# add all the auto-generated temps -#}
 {# start with the calculation values -#}
-{% for i in range(1, emtype.var_counter.value) %}
+{% for i in range(1, emtype.var_counter.value + 1) %}
 	{{ p.render(lib, "Temp", "V" + i, "Real", "intermediate value for calculation") }}
 {%- endfor %}
   </Section>
