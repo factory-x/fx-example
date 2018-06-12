@@ -76,7 +76,7 @@
         <AttributeList>
           <NetworkSource>
             <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
-              <StlStatement UId="6118">
+              <StlStatement UId="6120">
                 <StlToken Text="A"/>
                 <Access Scope="LocalVariable">
                   <Symbol>
@@ -84,7 +84,7 @@
                   </Symbol>
                 </Access>
               </StlStatement>
-              <StlStatement UId="6119">
+              <StlStatement UId="6121">
                 <StlToken Text="AN"/>
                 <Access Scope="LocalVariable">
                   <Symbol>
@@ -92,7 +92,7 @@
                   </Symbol>
                 </Access>
               </StlStatement>
-              <StlStatement UId="6120">
+              <StlStatement UId="6122">
                 <StlToken Text="S"/>
                 <Access Scope="LocalVariable">
                   <Symbol>
@@ -100,7 +100,7 @@
                   </Symbol>
                 </Access>
               </StlStatement>
-              <StlStatement UId="6121">
+              <StlStatement UId="6123">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
             </StatementList>
@@ -134,24 +134,8 @@
         <AttributeList>
           <NetworkSource>
             <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
-              <StlStatement UId="6122">
-                <StlToken Text="A"/>
-                <Access Scope="LocalVariable">
-                  <Symbol>
-                    <Component Name="test"/>
-                  </Symbol>
-                </Access>
-              </StlStatement>
-              <StlStatement UId="6123">
-                <StlToken Text="AN"/>
-                <Access Scope="LocalVariable">
-                  <Symbol>
-                    <Component Name="test"/>
-                  </Symbol>
-                </Access>
-              </StlStatement>
               <StlStatement UId="6124">
-                <StlToken Text="S"/>
+                <StlToken Text="A"/>
                 <Access Scope="LocalVariable">
                   <Symbol>
                     <Component Name="test"/>
@@ -159,17 +143,6 @@
                 </Access>
               </StlStatement>
               <StlStatement UId="6125">
-                <StlToken Text="EMPTY_LINE"/>
-              </StlStatement>
-              <StlStatement UId="6126">
-                <StlToken Text="A"/>
-                <Access Scope="LocalVariable">
-                  <Symbol>
-                    <Component Name="test"/>
-                  </Symbol>
-                </Access>
-              </StlStatement>
-              <StlStatement UId="6127">
                 <StlToken Text="AN"/>
                 <Access Scope="LocalVariable">
                   <Symbol>
@@ -177,7 +150,7 @@
                   </Symbol>
                 </Access>
               </StlStatement>
-              <StlStatement UId="6128">
+              <StlStatement UId="6126">
                 <StlToken Text="S"/>
                 <Access Scope="LocalVariable">
                   <Symbol>
@@ -185,13 +158,40 @@
                   </Symbol>
                 </Access>
               </StlStatement>
-              <StlStatement UId="6129">
+              <StlStatement UId="6127">
                 <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="6128">
+                <StlToken Text="A"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="test"/>
+                  </Symbol>
+                </Access>
+              </StlStatement>
+              <StlStatement UId="6129">
+                <StlToken Text="AN"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="test"/>
+                  </Symbol>
+                </Access>
               </StlStatement>
               <StlStatement UId="6130">
-                <StlToken Text="EMPTY_LINE"/>
+                <StlToken Text="S"/>
+                <Access Scope="LocalVariable">
+                  <Symbol>
+                    <Component Name="test"/>
+                  </Symbol>
+                </Access>
               </StlStatement>
               <StlStatement UId="6131">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="6132">
+                <StlToken Text="EMPTY_LINE"/>
+              </StlStatement>
+              <StlStatement UId="6133">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
             </StatementList>
