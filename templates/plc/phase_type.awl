@@ -26,7 +26,7 @@ VAR_INPUT
       
 {#- add all the auto-generated inputs -#}
 {% for input_name, input in ptype.Inputs %}
-	{%- if input.Master_Type != 'EM' %}
+	{%- if input.template_io != true %}
 	{{ input_name }} {%- if input.Parameter_Type != 'Batch' %}{ S7_m_c := 'true' }{%- endif %}: {{ input.Type }};		// {{input.Comment | safe}}{% if input.Comment_io != undefined %} - {{ input.Comment_io }}{% endif %}
 	{%- endif %}
 {%- endfor %}
@@ -93,7 +93,7 @@ VAR_OUTPUT
       MSG_no10{ S7_m_c := 'true' }: DINT;
 	{# add all the auto-generated outputs -#}
 {% for output_name, output in ptype.Outputs %}
-	{%- if output.Master_Type != 'EM' %}
+	{%- if output.template_io != true %}
 	{{ output_name }}: {{ output.Type }};		// {{output.Comment | safe}}{% if output.Comment_io != undefined %} - {{ output.Comment_io }}{% endif %}
 	{%- endif %}
 {%- endfor %}
@@ -107,7 +107,9 @@ VAR_IN_OUT
 	
 	{# add all the auto-generated In_Outs -#}
 {% for in_out_name, in_out in ptype.In_Outs %}
+	{%- if in_out.template_io != true %}
 	{{ in_out_name }}{ S7_m_c := 'true' }: {{ in_out.Type }};		// {{in_out.Comment | safe}}{% if in_out.Comment_io != undefined %} - {{ in_out.Comment_io }}{% endif %}
+	{%- endif %}
 {%- endfor %}
 
   
@@ -160,7 +162,9 @@ VAR
 	CM_Error_no: DINT;		// Error no of the CM in error 
 	EM_Error_no: DINT;		// Error no of the EM in error
 {% for stat_name, stat in ptype.Internals %}
+	{%- if stat.template_io != true %}
 	{{ stat_name }}: {{ stat.Type }};		// {{stat.Comment}}{% if stat.Comment_io != undefined %} - {{ stat.Comment_io }}{% endif %}
+	{%- endif %}
 {%- endfor %}
 
 	{# add the UDTs for the linked EMs -#}

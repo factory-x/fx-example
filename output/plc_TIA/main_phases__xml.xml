@@ -76,22 +76,22 @@ Call all the Phases	  &#xD;
         <AttributeList>
           <NetworkSource>
             <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
-              <StlStatement UId="6096">
+              <StlStatement UId="6171">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6097">
+              <StlStatement UId="6172">
                 <StlToken Text="CALL"/>
                 <Access Scope="Call">
                   <CallInfo Name="phase_2_fc" BlockType="FC"/>
                 </Access>
               </StlStatement>
-              <StlStatement UId="6098">
+              <StlStatement UId="6173">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6099">
+              <StlStatement UId="6174">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6100">
+              <StlStatement UId="6175">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
             </StatementList>

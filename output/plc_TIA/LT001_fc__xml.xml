@@ -76,19 +76,19 @@
         <AttributeList>
           <NetworkSource>
             <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
-              <StlStatement UId="5762">
+              <StlStatement UId="5837">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="5763">
+              <StlStatement UId="5838">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="5764">
+              <StlStatement UId="5839">
                 <LineComment Inserted="false">
                   <Text> Call the CM FB with the corresponding DB instance</Text>
                 </LineComment>
                 <StlToken Text="COMMENT"/>
               </StlStatement>
-              <StlStatement UId="5765">
+              <StlStatement UId="5840">
                 <StlToken Text="CALL"/>
                 <Access Scope="Call">
                   <CallInfo Name="BST_ANALOG_400" BlockType="FB">

@@ -76,19 +76,19 @@ Some Valve  on drawing 21 test			  &#xD;
         <AttributeList>
           <NetworkSource>
             <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
-              <StlStatement UId="5686">
+              <StlStatement UId="5761">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="5687">
+              <StlStatement UId="5762">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="5688">
+              <StlStatement UId="5763">
                 <LineComment Inserted="false">
                   <Text> Call the CM FB with the corresponding DB instance</Text>
                 </LineComment>
                 <StlToken Text="COMMENT"/>
               </StlStatement>
-              <StlStatement UId="5689">
+              <StlStatement UId="5764">
                 <StlToken Text="CALL"/>
                 <Access Scope="Call">
                   <CallInfo Name="BST_VALVE_400" BlockType="FB">

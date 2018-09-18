@@ -76,19 +76,19 @@ Second instance of fds_example test			  &#xD;
         <AttributeList>
           <NetworkSource>
             <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
-              <StlStatement UId="6082">
+              <StlStatement UId="6157">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6083">
+              <StlStatement UId="6158">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6084">
+              <StlStatement UId="6159">
                 <LineComment Inserted="false">
                   <Text> Call the EM FB with the corresponding DB instance</Text>
                 </LineComment>
                 <StlToken Text="COMMENT"/>
               </StlStatement>
-              <StlStatement UId="6085">
+              <StlStatement UId="6160">
                 <StlToken Text="CALL"/>
                 <Access Scope="Call">
                   <CallInfo Name="phase_example" BlockType="FB">

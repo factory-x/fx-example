@@ -602,6 +602,10 @@
 </variable>
 
 
+<variable name="sampletime">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
 <variable name="em_id">
 	<type><INT /></type>
 	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
@@ -711,6 +715,30 @@
 <variable name="steptime_h"><type><REAL /></type></variable>
 
 
+<variable name="steptime_s">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="steptime_m">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="steptime_h">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="first_scan">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="last_scan">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="error_index_db">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
 <variable name="Owner">
 	<type><INT /></type>
 	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
@@ -1324,20 +1352,16 @@ request:= 0;
 	<initialValue><simpleValue value="200.0" /></initialValue>
 </variable>
 
+<variable name="scantime">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
 <variable name="Bool1">
 	<type><BOOL /></type>
 	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
 </variable>
 <variable name="Bool2">
 	<type><BOOL /></type>
-	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
-</variable>
-<variable name="EM_I_OUT_ID">
-	<type><INT /></type>
-	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
-</variable>
-<variable name="Some_Dyn_EM_ID">
-	<type><INT /></type>
 	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
 </variable>
 <variable name="DB_NO">
@@ -1412,6 +1436,10 @@ request:= 0;
 	<type><BOOL /></type>
 	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">test a CM where the casing doesn't match an existing type - Motor Protecting Switch</xhtml></documentation>
 </variable>
+<variable name="EM_I_OUT_ID">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">fixed value linked to input</xhtml></documentation>
+</variable>
 <variable name="LT001_PV">
 	<type><REAL /></type>
 	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
@@ -1467,6 +1495,10 @@ request:= 0;
 <variable name="FIC001_ERR">
 	<type><BOOL /></type>
 	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Some_Dyn_EM_AUT">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">EM ID: selection based on route or recipy</xhtml></documentation>
 </variable>
 <variable name="XV008_OPN">
 	<type><BOOL /></type>
@@ -1535,6 +1567,190 @@ request:= 0;
 <variable name="message_number_10"><type><DINT /></type></variable>
 
 
+<variable name="phase_id">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="stepnumber">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="message">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="button_1_text">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="button_2_text">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="button_3_text">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="button_1_visible">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="button_2_visible">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="button_3_visible">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state_idle">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state_running">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state_complete">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state_pausing">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state_paused">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state_holding">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state_held">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state_restarting">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state_stopping">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state_stopped">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state_aborting">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="state_aborted">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="enable_start">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="enable_stop">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="enable_hold">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="enable_restart">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="enable_abort">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="enable_reset">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="enable_pause">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="enable_resume">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="enable_auto">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="enable_man">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="auto">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="steptime_s">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="steptime_m">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="steptime_h">
+	<type><REAL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="MSG_no01">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="MSG_no02">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="MSG_no03">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="MSG_no04">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="MSG_no05">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="MSG_no06">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="MSG_no07">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="MSG_no08">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="MSG_no09">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="MSG_no10">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
 <variable name="Destination">
 	<type><INT /></type>
 	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
@@ -1598,6 +1814,10 @@ request:= 0;
 <variable name="FIC001_SET_OUT">
 	<type><BOOL /></type>
 	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Some_Dyn_EM_ID">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">EM ID: receives value from _AUT or _MN, depending on the mode of the sequence</xhtml></documentation>
 </variable>
 <variable name="timer_dosing_pause">
 	<type><BOOL /></type>
@@ -1706,6 +1926,18 @@ request:= 0;
 <variable name="CM_Error_no"><type><BOOL /></type></variable>
 <variable name="EM_Error_no"><type><BOOL /></type></variable>
 
+<variable name="plc_commands">
+	<type><DWORD /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_commands">
+	<type><DWORD /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Some_Dyn_EM_MN">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml">EM ID: direct EM selection from HMI</xhtml></documentation>
+</variable>
 <variable name="hmi_par_without_unit">
 	<type><REAL /></type>
 	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
@@ -1716,6 +1948,386 @@ request:= 0;
 </variable>
 
 
+<variable name="previous_stepnumber">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_conditions">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_conditions">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="first_scan">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="last_scan">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_01">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_02">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_03">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_04">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_05">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_06">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_07">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_08">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_09">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_10">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_11">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_12">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_13">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_14">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_15">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="start_cond_16">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_01">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_02">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_03">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_04">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_05">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_06">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_07">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_08">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_09">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_10">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_11">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_12">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_13">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_14">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_15">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hold_cond_16">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="in_steprange">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Module_Error">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="CM_Error_no">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="EM_Error_no">
+	<type><DINT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="plc_start">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="plc_stop">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="plc_hold">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="plc_restart">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="plc_abort">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="plc_reset">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="plc_pause">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="plc_resume">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="plc_auto">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="plc_man">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_start">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_stop">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_hold">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_restart">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_abort">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_reset">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_pause">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_resume">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_auto">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_man">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_BTN1">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_BTN2">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="hmi_BTN3">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="command_start">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="command_stop">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="command_hold">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="command_restart">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="command_abort">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="command_reset">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="command_pause">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="command_resume">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="command_auto">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="command_man">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="button_1_pushed">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="button_2_pushed">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="button_3_pushed">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_01">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_02">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_03">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_04">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_05">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_06">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_07">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_08">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_09">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_10">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_11">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_12">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_13">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_14">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_15">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="sh_cond_16">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="initial_scan">
+	<type><BOOL /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
+<variable name="Temp_stepnumber">
+	<type><INT /></type>
+	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
+</variable>
 <variable name="e">
 	<type><REAL /></type>
 	<documentation><xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml></documentation>
@@ -2435,11 +3047,9 @@ Module_Error:= (
 	OR P001_MPS
 	OR P002_MERR
 	OR P002_MPS
-	OR EM_I_OUT.CM_error
 	OR LT001_ERR
 	OR LT002_ERR
 	OR FIC001_ERR
-	OR Some_Dyn_EM.CM_error
 	OR XV008_MERR
 );
 
@@ -6017,7 +6627,9 @@ END_IF
 // Step 910
 //___phase_example_Step_910_
 //================================
-// test suffix-format to Linked EM in assignment => should convert to dot-format 
+// test suffix-format to Linked EM in assignment => should convert to dot-format
+// Some_Dyn_EM_P_SP  = 4.3
+// Not longer supported: only support dot notation because it is more natural to use. Keep it simple. 
 //================================	  
 
 IF (stepnumber = 910) THEN
@@ -6032,9 +6644,6 @@ IF (stepnumber = 910) THEN
 	
 		// --- CONTINUOUS ---
 		
-
-		// Action: Some_Dyn_EM_P_SP  = 4.3
-		Some_Dyn_EM.Pressure_SP:= 4.3;
 
 	END_IF
 	
@@ -6064,7 +6673,8 @@ END_IF
 // Step 920
 //___phase_example_Step_920_
 //================================
-// test suffix-format from Linked EM in evaluation =>should convert to dot-format 
+// test suffix-format from Linked EM in evaluation =>should convert to dot-format
+// Cancelled support for this: simplify and only allow dot format 
 //================================	  
 
 IF (stepnumber = 920) THEN
@@ -6085,7 +6695,7 @@ IF (stepnumber = 920) THEN
 	
 	// --- TRANSITION TO S930 ---
 	IF (
-		Some_Dyn_EM.Level &gt;= 50.0
+		TRUE
 	) THEN
 	
 		stepnumber:= 930;

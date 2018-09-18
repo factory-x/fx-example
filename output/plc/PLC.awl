@@ -53,6 +53,8 @@
 //	___T112
 //	___T113
 //	___T114
+//	___R100
+//	___R101
 
 //-----------------------------------------
 // Phase Instances
@@ -1476,8 +1478,6 @@ VAR_INPUT
 	scantime { S7_sampletime := 'true' }: REAL ; // the scantime of this phase, used to increase timers
 	Bool1{ S7_m_c := 'true' }: BOOL;		// 
 	Bool2{ S7_m_c := 'true' }: BOOL;		// 
-	EM_I_OUT_ID{ S7_m_c := 'true' }: INT;		// 
-	Some_Dyn_EM_ID{ S7_m_c := 'true' }: INT;		// 
 	DB_NO{ S7_m_c := 'true' }: INT;		// 
 	XV003_OPN{ S7_m_c := 'true' }: BOOL;		// 
 	XV003_CLS{ S7_m_c := 'true' }: BOOL;		// 
@@ -1496,6 +1496,7 @@ VAR_INPUT
 	P002_STOP{ S7_m_c := 'true' }: BOOL;		// test a CM where the casing doesn't match an existing type
 	P002_MERR{ S7_m_c := 'true' }: BOOL;		// test a CM where the casing doesn't match an existing type
 	P002_MPS{ S7_m_c := 'true' }: BOOL;		// test a CM where the casing doesn't match an existing type - Motor Protecting Switch
+	EM_I_OUT_ID{ S7_m_c := 'true' }: INT;		// fixed value linked to input
 	LT001_PV{ S7_m_c := 'true' }: REAL;		// 
 	LT001_AHH{ S7_m_c := 'true' }: BOOL;		// 
 	LT001_AH{ S7_m_c := 'true' }: BOOL;		// 
@@ -1510,6 +1511,7 @@ VAR_INPUT
 	LT002_ERR{ S7_m_c := 'true' }: BOOL;		// 
 	FIC001_PV{ S7_m_c := 'true' }: REAL;		// 
 	FIC001_ERR{ S7_m_c := 'true' }: BOOL;		// 
+	Some_Dyn_EM_AUT{ S7_m_c := 'true' }: INT;		// EM ID: selection based on route or recipy
 	XV008_OPN{ S7_m_c := 'true' }: BOOL;		// 
 	XV008_CLS{ S7_m_c := 'true' }: BOOL;		// 
 	XV008_MERR{ S7_m_c := 'true' }: BOOL;		// 
@@ -1588,6 +1590,7 @@ MSG_no01{ S7_m_c := 'true' }: DINT;
 	FIC001_VAL_OUT: REAL;		//  - Operator Output Value
 	FIC001_SET_SP: BOOL;		// 
 	FIC001_SET_OUT: BOOL;		// 
+	Some_Dyn_EM_ID: INT;		// EM ID: receives value from _AUT or _MN, depending on the mode of the sequence
 	timer_dosing_pause: BOOL;		// timer paused
 	timer_dosing_s: REAL;		// timer in seconds
 	timer_dosing_m: REAL;		// timer in minutes
@@ -1610,6 +1613,7 @@ VAR_IN_OUT
 	hmi_commands { S7_m_c := 'true'; S7_visible := 'false' }: DWORD; // combined commands from the HMI
 	
 	
+	Some_Dyn_EM_MN{ S7_m_c := 'true' }: INT;		// EM ID: direct EM selection from HMI
 	hmi_par_without_unit{ S7_m_c := 'true' }: Real;		// 
 	timesetting{ S7_m_c := 'true' }: Real;		// 
 
@@ -1800,7 +1804,6 @@ VAR_TEMP
 	B14: BOOL;					// intermediate value for calculation
 	B15: BOOL;					// intermediate value for calculation
 	B16: BOOL;					// intermediate value for calculation
-	B17: BOOL;					// intermediate value for calculation
 END_VAR
 
 BEGIN
@@ -2662,11 +2665,9 @@ TITLE = Collect the errors from the connected Modules (CMs and EMs)
 	O	P001_MPS;
 	O	P002_MERR;
 	O	P002_MPS;
-	O 	EM_I_OUT.CM_error;
 	O	LT001_ERR;
 	O	LT002_ERR;
 	O	FIC001_ERR;
-	O 	Some_Dyn_EM.CM_error;
 	O	XV008_MERR;
 	=	Module_Error;
 	
@@ -2745,60 +2746,38 @@ E6:	NOP 0;
 	T 	CM_Error_no;
 	
 E7:	NOP 0;
-		
-	A	EM_I_OUT.CM_error;
-	JCN	E8;
-
-	L	EM_I_OUT.CM_error_no;
-	T 	CM_Error_no;
-	
-	L	64; // 'EM error: EM_I_OUT_ERR'
-	T 	EM_Error_no;
-	
-E8:	NOP 0;
 				
 	A	LT001_ERR;
-	JCN	E9;
+	JCN	E8;
 
 	L	65; // 'CM error: LT001_ERR'
 	T 	CM_Error_no;
 	
-E9:	NOP 0;
+E8:	NOP 0;
 				
 	A	LT002_ERR;
-	JCN	E10;
+	JCN	E9;
 
 	L	66; // 'CM error: LT002_ERR'
 	T 	CM_Error_no;
 	
-E10:	NOP 0;
+E9:	NOP 0;
 				
 	A	FIC001_ERR;
-	JCN	E11;
+	JCN	E10;
 
 	L	67; // 'CM error: FIC001_ERR'
 	T 	CM_Error_no;
 	
-E11:	NOP 0;
-		
-	A	Some_Dyn_EM.CM_error;
-	JCN	E12;
-
-	L	Some_Dyn_EM.CM_error_no;
-	T 	CM_Error_no;
-	
-	L	68; // 'EM error: Some_Dyn_EM_ERR'
-	T 	EM_Error_no;
-	
-E12:	NOP 0;
+E10:	NOP 0;
 				
 	A	XV008_MERR;
-	JCN	E13;
+	JCN	E11;
 
 	L	69; // 'CM error: XV008_MERR'
 	T 	CM_Error_no;
 	
-E13:	NOP 0;
+E11:	NOP 0;
 
 NETWORK
 TITLE = Start and Hold Conditions
@@ -6849,7 +6828,9 @@ NETWORK
 TITLE = Step 910
 //___phase_example_Step_910_
 //================================
-// test suffix-format to Linked EM in assignment => should convert to dot-format 
+// test suffix-format to Linked EM in assignment => should convert to dot-format
+// Some_Dyn_EM_P_SP  = 4.3
+// Not longer supported: only support dot notation because it is more natural to use. Keep it simple. 
 //================================	  
 
 // skip this network if stepnumber not equal to 910
@@ -6861,10 +6842,6 @@ TITLE = Step 910
 //---------------------------------
 // Actions (continuouss)
 //---------------------------------
-			
-// Action: Some_Dyn_EM_P_SP  = 4.3;
-	L 	4.3;
-	T 	Some_Dyn_EM.Pressure_SP;
 
 //---------------------------------
 // --- TRANSITION TO S920 ---
@@ -6897,7 +6874,8 @@ NETWORK
 TITLE = Step 920
 //___phase_example_Step_920_
 //================================
-// test suffix-format from Linked EM in evaluation =>should convert to dot-format 
+// test suffix-format from Linked EM in evaluation =>should convert to dot-format
+// Cancelled support for this: simplify and only allow dot format 
 //================================	  
 
 // skip this network if stepnumber not equal to 920
@@ -6913,17 +6891,10 @@ TITLE = Step 920
 //---------------------------------
 // --- TRANSITION TO S930 ---
 //---------------------------------
-			
-// Calculation: Some_Dyn_EM.Level >= 50.0
-	L 	Some_Dyn_EM.Level;
-	L 	50.0;
-	>=R;
-	=	B14;
 
 // Transition Logic
 	SET;	// make sure RLO is high so the transition can happen when no conditions present
 			
-	A	B14; 	// Some_Dyn_EM_LT  >= 50.0
 	JCN L75;
 	
 	L   930;
@@ -7066,13 +7037,13 @@ TITLE = Step 950
 // Action: intvar = abs(4.6);
 	L	4.6;
 	ABS;
-	RND
+	RND;
 	T	intvar;
 			
 // Action: intvar = abs(test1);
 	L	test1;
 	ABS;
-	RND
+	RND;
 	T	intvar;
 			
 // Calculation: abs(3.2)
@@ -7082,19 +7053,19 @@ TITLE = Step 950
 			
 // Calculation: intvar + (abs(3.2))
 	L 	intvar;
-	ITD
-DTR
+	ITD;
+DTR;
 	L 	V16;
 	+R;
 	T 	V17;
 			
 // Action: intvar = intvar + (intvar+ abs(3.2));
 	L	intvar;
-	ITD
-DTR
+	ITD;
+DTR;
 	L	V17;
 	+I;
-	RND
+	RND;
 	T	intvar;
 
 //---------------------------------
@@ -7204,12 +7175,12 @@ TITLE = Step 970
 	L 	foo;
 	L 	1.0;
 	>R;
-	=	B15;
+	=	B14;
 
 // Transition Logic
 	SET;	// make sure RLO is high so the transition can happen when no conditions present
 			
-	A	B15; 	// foo > 1.0
+	A	B14; 	// foo > 1.0
 	JCN L80;
 	
 	L   980;
@@ -7225,12 +7196,12 @@ L80: NOP 0;
 	L 	foo;
 	L 	1.0;
 	<=R;
-	=	B16;
+	=	B15;
 
 // Transition Logic
 	SET;	// make sure RLO is high so the transition can happen when no conditions present
 			
-	A	B16; 	// foo <= 1.0
+	A	B15; 	// foo <= 1.0
 	JCN L81;
 	
 	L   990;
@@ -7324,12 +7295,12 @@ TITLE = Step 990
 	X 	Bool1;
 	X 	Bool2;
 	NOT;
-	=	B17;	// use of XOR to compare two bools
+	=	B16;	// use of XOR to compare two bools
 
 // Transition Logic
 	SET;	// make sure RLO is high so the transition can happen when no conditions present
 			
-	A	B17; 	// Bool1 = Bool2
+	A	B16; 	// Bool1 = Bool2
 	JCN L83;
 	
 	L   1000;
@@ -8131,6 +8102,92 @@ END_DATA_BLOCK
 FUNCTION "T114_FC" : VOID
 TITLE =T114_FC
 // T114_FC
+
+AUTHOR : 
+FAMILY : 'unit'
+NAME : namehead
+VERSION : 0.1
+
+BEGIN
+
+NETWORK
+TITLE = Main
+//--------------------------------
+// 
+//--------------------------------
+
+
+
+
+	
+END_FUNCTION
+
+
+// <SPLIT>UNIT_INSTANCE_R100.awl</SPLIT>
+	
+
+// ___R100
+
+// EM DB
+// 
+// DB813 = R100
+DATA_BLOCK "R100"
+
+STRUCT
+
+	Product_ID { S7_m_c := 'true' }: DINT ;	// ID of the product currently in the unit
+	
+END_STRUCT
+
+BEGIN
+END_DATA_BLOCK
+
+FUNCTION "R100_FC" : VOID
+TITLE =R100_FC
+// R100_FC
+
+AUTHOR : 
+FAMILY : 'unit'
+NAME : namehead
+VERSION : 0.1
+
+BEGIN
+
+NETWORK
+TITLE = Main
+//--------------------------------
+// 
+//--------------------------------
+
+
+
+
+	
+END_FUNCTION
+
+
+// <SPLIT>UNIT_INSTANCE_R101.awl</SPLIT>
+	
+
+// ___R101
+
+// EM DB
+// 
+// DB814 = R101
+DATA_BLOCK "R101"
+
+STRUCT
+
+	Product_ID { S7_m_c := 'true' }: DINT ;	// ID of the product currently in the unit
+	
+END_STRUCT
+
+BEGIN
+END_DATA_BLOCK
+
+FUNCTION "R101_FC" : VOID
+TITLE =R101_FC
+// R101_FC
 
 AUTHOR : 
 FAMILY : 'unit'
@@ -10188,26 +10245,13 @@ TITLE = Main
 CALL EM_I_OUT, DB 718(
 	em_id := 26,
 	Pump_RUN := "M100".QNOFF2,
-	Pump_QERR := "M100".QERR,
-	Pump_EERR := "M100".QERR_EXT,
-	FS01_PV := "LS001".QON,
 	PIC01_PV := "LIC001".PV,
-	PIC01_ERR := "LIC001".QERR,
 	LT01_PV := "LT001".QfVal,
-	LT01_AHH := "LT001".LIM_Qb01,
-	LT01_AH := "LT001".LIM_Qb02,
-	LT01_AL := "LT001".LIM_Qb03,
-	LT01_ALL := "LT001".LIM_Qb04,
-	LT01_ERR := "LT001".QERR,
 	BV_Bottom_OPN := "MV001".QOPEN,
 	BV_Bottom_CLS := "MV001".QCLOSE,
-	BV_Bottom_MERR := "MV001".QMON_ERR,
 	BV_Tran_M04_OPN := "MV003".QOPEN,
 	BV_Tran_M04_CLS := "MV003".QCLOSE,
-	BV_Tran_M04_MERR := "MV003".QMON_ERR,
 	Pump_ON := "M100".L_ON,
-	Pump_AUT := "M100".L_AUT,
-	PIC01_EXT := "LIC001".L_REMOTE,
 	PIC01_SP := "LIC001".HMI_SP_INT,
 	PIC01_AUT := "LIC001".L_AUT,
 	PIC01_VAL_OUT := "LIC001".HMI_MAN,
@@ -10255,26 +10299,13 @@ TITLE = Main
 CALL EM_I_OUT, DB 719(
 	em_id := 27,
 	Pump_RUN := "M101".QNOFF2,
-	Pump_QERR := "M101".QERR,
-	Pump_EERR := "M101".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "LIC002".PV,
-	PIC01_ERR := "LIC002".QERR,
 	LT01_PV := "LT002".QfVal,
-	LT01_AHH := "LT002".LIM_Qb01,
-	LT01_AH := "LT002".LIM_Qb02,
-	LT01_AL := "LT002".LIM_Qb03,
-	LT01_ALL := "LT002".LIM_Qb04,
-	LT01_ERR := "LT002".QERR,
 	BV_Bottom_OPN := "MV002".QOPEN,
 	BV_Bottom_CLS := "MV002".QCLOSE,
-	BV_Bottom_MERR := "MV002".QMON_ERR,
 	BV_Tran_M04_OPN := "MV003".QOPEN,
 	BV_Tran_M04_CLS := "MV003".QCLOSE,
-	BV_Tran_M04_MERR := "MV003".QMON_ERR,
 	Pump_ON := "M101".L_ON,
-	Pump_AUT := "M101".L_AUT,
-	PIC01_EXT := "LIC002".L_REMOTE,
 	PIC01_SP := "LIC002".HMI_SP_INT,
 	PIC01_AUT := "LIC002".L_AUT,
 	PIC01_VAL_OUT := "LIC002".HMI_MAN,
@@ -10322,26 +10353,13 @@ TITLE = Main
 CALL EM_I_OUT, DB 720(
 	em_id := 28,
 	Pump_RUN := "M102".QNOFF2,
-	Pump_QERR := "M102".QERR,
-	Pump_EERR := "M102".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "LIC003".PV,
-	PIC01_ERR := "LIC003".QERR,
 	LT01_PV := "LT003".QfVal,
-	LT01_AHH := "LT003".LIM_Qb01,
-	LT01_AH := "LT003".LIM_Qb02,
-	LT01_AL := "LT003".LIM_Qb03,
-	LT01_ALL := "LT003".LIM_Qb04,
-	LT01_ERR := "LT003".QERR,
 	BV_Bottom_OPN := "MV003".QOPEN,
 	BV_Bottom_CLS := "MV003".QCLOSE,
-	BV_Bottom_MERR := "MV003".QMON_ERR,
 	BV_Tran_M04_OPN := "MV003".QOPEN,
 	BV_Tran_M04_CLS := "MV003".QCLOSE,
-	BV_Tran_M04_MERR := "MV003".QMON_ERR,
 	Pump_ON := "M102".L_ON,
-	Pump_AUT := "M102".L_AUT,
-	PIC01_EXT := "LIC003".L_REMOTE,
 	PIC01_SP := "LIC003".HMI_SP_INT,
 	PIC01_AUT := "LIC003".L_AUT,
 	PIC01_VAL_OUT := "LIC003".HMI_MAN,
@@ -10389,26 +10407,13 @@ TITLE = Main
 CALL EM_I_OUT, DB 721(
 	em_id := 29,
 	Pump_RUN := "M103".QNOFF2,
-	Pump_QERR := "M103".QERR,
-	Pump_EERR := "M103".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "LIC004".PV,
-	PIC01_ERR := "LIC004".QERR,
 	LT01_PV := "LT004".QfVal,
-	LT01_AHH := "LT004".LIM_Qb01,
-	LT01_AH := "LT004".LIM_Qb02,
-	LT01_AL := "LT004".LIM_Qb03,
-	LT01_ALL := "LT004".LIM_Qb04,
-	LT01_ERR := "LT004".QERR,
 	BV_Bottom_OPN := "MV004".QOPEN,
 	BV_Bottom_CLS := "MV004".QCLOSE,
-	BV_Bottom_MERR := "MV004".QMON_ERR,
 	BV_Tran_M04_OPN := "MV003".QOPEN,
 	BV_Tran_M04_CLS := "MV003".QCLOSE,
-	BV_Tran_M04_MERR := "MV003".QMON_ERR,
 	Pump_ON := "M103".L_ON,
-	Pump_AUT := "M103".L_AUT,
-	PIC01_EXT := "LIC004".L_REMOTE,
 	PIC01_SP := "LIC004".HMI_SP_INT,
 	PIC01_AUT := "LIC004".L_AUT,
 	PIC01_VAL_OUT := "LIC004".HMI_MAN,
@@ -10456,26 +10461,13 @@ TITLE = Main
 CALL EM_I_OUT, DB 722(
 	em_id := 30,
 	Pump_RUN := "M104".QNOFF2,
-	Pump_QERR := "M104".QERR,
-	Pump_EERR := "M104".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "LIC005".PV,
-	PIC01_ERR := "LIC005".QERR,
 	LT01_PV := "LT005".QfVal,
-	LT01_AHH := "LT005".LIM_Qb01,
-	LT01_AH := "LT005".LIM_Qb02,
-	LT01_AL := "LT005".LIM_Qb03,
-	LT01_ALL := "LT005".LIM_Qb04,
-	LT01_ERR := "LT005".QERR,
 	BV_Bottom_OPN := "MV005".QOPEN,
 	BV_Bottom_CLS := "MV005".QCLOSE,
-	BV_Bottom_MERR := "MV005".QMON_ERR,
 	BV_Tran_M04_OPN := "MV003".QOPEN,
 	BV_Tran_M04_CLS := "MV003".QCLOSE,
-	BV_Tran_M04_MERR := "MV003".QMON_ERR,
 	Pump_ON := "M104".L_ON,
-	Pump_AUT := "M104".L_AUT,
-	PIC01_EXT := "LIC005".L_REMOTE,
 	PIC01_SP := "LIC005".HMI_SP_INT,
 	PIC01_AUT := "LIC005".L_AUT,
 	PIC01_VAL_OUT := "LIC005".HMI_MAN,
@@ -10523,26 +10515,13 @@ TITLE = Main
 CALL EM_I_OUT, DB 723(
 	em_id := 31,
 	Pump_RUN := "M105".QNOFF2,
-	Pump_QERR := "M105".QERR,
-	Pump_EERR := "M105".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "LIC006".PV,
-	PIC01_ERR := "LIC006".QERR,
 	LT01_PV := "LT006".QfVal,
-	LT01_AHH := "LT006".LIM_Qb01,
-	LT01_AH := "LT006".LIM_Qb02,
-	LT01_AL := "LT006".LIM_Qb03,
-	LT01_ALL := "LT006".LIM_Qb04,
-	LT01_ERR := "LT006".QERR,
 	BV_Bottom_OPN := "MV006".QOPEN,
 	BV_Bottom_CLS := "MV006".QCLOSE,
-	BV_Bottom_MERR := "MV006".QMON_ERR,
 	BV_Tran_M04_OPN := "MV003".QOPEN,
 	BV_Tran_M04_CLS := "MV003".QCLOSE,
-	BV_Tran_M04_MERR := "MV003".QMON_ERR,
 	Pump_ON := "M105".L_ON,
-	Pump_AUT := "M105".L_AUT,
-	PIC01_EXT := "LIC006".L_REMOTE,
 	PIC01_SP := "LIC006".HMI_SP_INT,
 	PIC01_AUT := "LIC006".L_AUT,
 	PIC01_VAL_OUT := "LIC006".HMI_MAN,
@@ -10590,26 +10569,13 @@ TITLE = Main
 CALL EM_I_OUT, DB 724(
 	em_id := 32,
 	Pump_RUN := "M106".QNOFF2,
-	Pump_QERR := "M106".QERR,
-	Pump_EERR := "M106".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "FIC100".PV,
-	PIC01_ERR := "FIC100".QERR,
 	LT01_PV := "LT007".QfVal,
-	LT01_AHH := "LT007".LIM_Qb01,
-	LT01_AH := "LT007".LIM_Qb02,
-	LT01_AL := "LT007".LIM_Qb03,
-	LT01_ALL := "LT007".LIM_Qb04,
-	LT01_ERR := "LT007".QERR,
 	BV_Bottom_OPN := "MV007".QOPEN,
 	BV_Bottom_CLS := "MV007".QCLOSE,
-	BV_Bottom_MERR := "MV007".QMON_ERR,
 	BV_Tran_M04_OPN := "MV003".QOPEN,
 	BV_Tran_M04_CLS := "MV003".QCLOSE,
-	BV_Tran_M04_MERR := "MV003".QMON_ERR,
 	Pump_ON := "M106".L_ON,
-	Pump_AUT := "M106".L_AUT,
-	PIC01_EXT := "FIC100".L_REMOTE,
 	PIC01_SP := "FIC100".HMI_SP_INT,
 	PIC01_AUT := "FIC100".L_AUT,
 	PIC01_VAL_OUT := "FIC100".HMI_MAN,
@@ -10657,26 +10623,13 @@ TITLE = Main
 CALL EM_I_OUT, DB 725(
 	em_id := 33,
 	Pump_RUN := "M106".QNOFF2,
-	Pump_QERR := "M106".QERR,
-	Pump_EERR := "M106".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "FIC101".PV,
-	PIC01_ERR := "FIC101".QERR,
 	LT01_PV := "LT100".QfVal,
-	LT01_AHH := "LT100".LIM_Qb01,
-	LT01_AH := "LT100".LIM_Qb02,
-	LT01_AL := "LT100".LIM_Qb03,
-	LT01_ALL := "LT100".LIM_Qb04,
-	LT01_ERR := "LT100".QERR,
 	BV_Bottom_OPN := "MV007".QOPEN,
 	BV_Bottom_CLS := "MV007".QCLOSE,
-	BV_Bottom_MERR := "MV007".QMON_ERR,
 	BV_Tran_M04_OPN := "MV003".QOPEN,
 	BV_Tran_M04_CLS := "MV003".QCLOSE,
-	BV_Tran_M04_MERR := "MV003".QMON_ERR,
 	Pump_ON := "M106".L_ON,
-	Pump_AUT := "M106".L_AUT,
-	PIC01_EXT := "FIC101".L_REMOTE,
 	PIC01_SP := "FIC101".HMI_SP_INT,
 	PIC01_AUT := "FIC101".L_AUT,
 	PIC01_VAL_OUT := "FIC101".HMI_MAN,
@@ -10724,26 +10677,13 @@ TITLE = Main
 CALL EM_I_OUT, DB 726(
 	em_id := 34,
 	Pump_RUN := "M106".QNOFF2,
-	Pump_QERR := "M106".QERR,
-	Pump_EERR := "M106".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "FIC101".PV,
-	PIC01_ERR := "FIC101".QERR,
 	LT01_PV := "LT200".QfVal,
-	LT01_AHH := "LT200".LIM_Qb01,
-	LT01_AH := "LT200".LIM_Qb02,
-	LT01_AL := "LT200".LIM_Qb03,
-	LT01_ALL := "LT200".LIM_Qb04,
-	LT01_ERR := "LT200".QERR,
 	BV_Bottom_OPN := "MV007".QOPEN,
 	BV_Bottom_CLS := "MV007".QCLOSE,
-	BV_Bottom_MERR := "MV007".QMON_ERR,
 	BV_Tran_M04_OPN := "MV003".QOPEN,
 	BV_Tran_M04_CLS := "MV003".QCLOSE,
-	BV_Tran_M04_MERR := "MV003".QMON_ERR,
 	Pump_ON := "M106".L_ON,
-	Pump_AUT := "M106".L_AUT,
-	PIC01_EXT := "FIC101".L_REMOTE,
 	PIC01_SP := "FIC101".HMI_SP_INT,
 	PIC01_AUT := "FIC101".L_AUT,
 	PIC01_VAL_OUT := "FIC101".HMI_MAN,
@@ -10791,23 +10731,11 @@ TITLE = Main
 CALL EM_I_OUT, DB 727(
 	em_id := 35,
 	Pump_RUN := "M106".QNOFF2,
-	Pump_QERR := "M106".QERR,
-	Pump_EERR := "M106".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "FIC101".PV,
-	PIC01_ERR := "FIC101".QERR,
 	LT01_PV := "LT101".QfVal,
-	LT01_AHH := "LT101".LIM_Qb01,
-	LT01_AH := "LT101".LIM_Qb02,
-	LT01_AL := "LT101".LIM_Qb03,
-	LT01_ALL := "LT101".LIM_Qb04,
-	LT01_ERR := "LT101".QERR,
 	BV_Bottom_OPN := "MV007".QOPEN,
 	BV_Bottom_CLS := "MV007".QCLOSE,
-	BV_Bottom_MERR := "MV007".QMON_ERR,
 	Pump_ON := "M106".L_ON,
-	Pump_AUT := "M106".L_AUT,
-	PIC01_EXT := "FIC101".L_REMOTE,
 	PIC01_SP := "FIC101".HMI_SP_INT,
 	PIC01_AUT := "FIC101".L_AUT,
 	PIC01_VAL_OUT := "FIC101".HMI_MAN,
@@ -10854,23 +10782,11 @@ TITLE = Main
 CALL EM_I_OUT, DB 728(
 	em_id := 36,
 	Pump_RUN := "M106".QNOFF2,
-	Pump_QERR := "M106".QERR,
-	Pump_EERR := "M106".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "FIC101".PV,
-	PIC01_ERR := "FIC101".QERR,
 	LT01_PV := "LT201".QfVal,
-	LT01_AHH := "LT201".LIM_Qb01,
-	LT01_AH := "LT201".LIM_Qb02,
-	LT01_AL := "LT201".LIM_Qb03,
-	LT01_ALL := "LT201".LIM_Qb04,
-	LT01_ERR := "LT201".QERR,
 	XV_Bottom_OPN := "XV001".QOPEN,
 	XV_Bottom_CLS := "XV001".QCLOSE,
-	XV_Bottom_MERR := "XV001".QMON_ERR,
 	Pump_ON := "M106".L_ON,
-	Pump_AUT := "M106".L_AUT,
-	PIC01_EXT := "FIC101".L_REMOTE,
 	PIC01_SP := "FIC101".HMI_SP_INT,
 	PIC01_AUT := "FIC101".L_AUT,
 	PIC01_VAL_OUT := "FIC101".HMI_MAN,
@@ -10917,23 +10833,11 @@ TITLE = Main
 CALL EM_I_OUT, DB 729(
 	em_id := 37,
 	Pump_RUN := "M106".QNOFF2,
-	Pump_QERR := "M106".QERR,
-	Pump_EERR := "M106".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "FIC101".PV,
-	PIC01_ERR := "FIC101".QERR,
 	LT01_PV := "LT201".QfVal,
-	LT01_AHH := "LT201".LIM_Qb01,
-	LT01_AH := "LT201".LIM_Qb02,
-	LT01_AL := "LT201".LIM_Qb03,
-	LT01_ALL := "LT201".LIM_Qb04,
-	LT01_ERR := "LT201".QERR,
 	XV_Bottom_OPN := "XV002".QOPEN,
 	XV_Bottom_CLS := "XV002".QCLOSE,
-	XV_Bottom_MERR := "XV002".QMON_ERR,
 	Pump_ON := "M106".L_ON,
-	Pump_AUT := "M106".L_AUT,
-	PIC01_EXT := "FIC101".L_REMOTE,
 	PIC01_SP := "FIC101".HMI_SP_INT,
 	PIC01_AUT := "FIC101".L_AUT,
 	PIC01_VAL_OUT := "FIC101".HMI_MAN,
@@ -10980,23 +10884,11 @@ TITLE = Main
 CALL EM_I_OUT, DB 730(
 	em_id := 38,
 	Pump_RUN := "M106".QNOFF2,
-	Pump_QERR := "M106".QERR,
-	Pump_EERR := "M106".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "FIC101".PV,
-	PIC01_ERR := "FIC101".QERR,
 	LT01_PV := "LT201".QfVal,
-	LT01_AHH := "LT201".LIM_Qb01,
-	LT01_AH := "LT201".LIM_Qb02,
-	LT01_AL := "LT201".LIM_Qb03,
-	LT01_ALL := "LT201".LIM_Qb04,
-	LT01_ERR := "LT201".QERR,
 	XV_Bottom_OPN := "XV003".QOPEN,
 	XV_Bottom_CLS := "XV003".QCLOSE,
-	XV_Bottom_MERR := "XV003".QMON_ERR,
 	Pump_ON := "M106".L_ON,
-	Pump_AUT := "M106".L_AUT,
-	PIC01_EXT := "FIC101".L_REMOTE,
 	PIC01_SP := "FIC101".HMI_SP_INT,
 	PIC01_AUT := "FIC101".L_AUT,
 	PIC01_VAL_OUT := "FIC101".HMI_MAN,
@@ -11043,23 +10935,11 @@ TITLE = Main
 CALL EM_I_OUT, DB 731(
 	em_id := 39,
 	Pump_RUN := "M106".QNOFF2,
-	Pump_QERR := "M106".QERR,
-	Pump_EERR := "M106".QERR_EXT,
-	FS01_PV := "LS002".QON,
 	PIC01_PV := "FIC101".PV,
-	PIC01_ERR := "FIC101".QERR,
 	LT01_PV := "LT201".QfVal,
-	LT01_AHH := "LT201".LIM_Qb01,
-	LT01_AH := "LT201".LIM_Qb02,
-	LT01_AL := "LT201".LIM_Qb03,
-	LT01_ALL := "LT201".LIM_Qb04,
-	LT01_ERR := "LT201".QERR,
 	XV_Bottom_OPN := "XV004".QOPEN,
 	XV_Bottom_CLS := "XV004".QCLOSE,
-	XV_Bottom_MERR := "XV004".QMON_ERR,
 	Pump_ON := "M106".L_ON,
-	Pump_AUT := "M106".L_AUT,
-	PIC01_EXT := "FIC101".L_REMOTE,
 	PIC01_SP := "FIC101".HMI_SP_INT,
 	PIC01_AUT := "FIC101".L_AUT,
 	PIC01_VAL_OUT := "FIC101".HMI_MAN,
@@ -11102,7 +10982,22 @@ TITLE = Main
 // Call the phase
 //--------------------------------
 
-CALL phase_example, DB 716;
+CALL phase_example, DB 716
+	(XV003_OPN := "XV300".QOPEN,
+	XV004_OPN := "XV400".QOPEN,
+	XV005_OPN := "XV500".QOPEN,
+	P001_RUN := "P100".QRUN,
+	LT001_PV := "LT100".QfVal,
+	LT002_PV := "LT200".QfVal,
+	XV003_CMD := "XV300".AUT_OP,
+	XV004_CMD := "XV400".AUT_OP,
+	P001_ON := "P100".AUTO_ON,
+	FIC001_EXT := "FIC100".L_REMOTE,
+	FIC001_SP := "FIC100".HMI_SP_INT,
+	FIC001_AUT := "FIC100".L_AUT,
+	FIC001_VAL_OUT := "FIC100".HMI_MAN,
+	FIC001_SET_SP := "FIC100".Set_SP,
+	FIC001_SET_OUT := "FIC100".Set_Output);
 
 
 	
@@ -11137,7 +11032,22 @@ TITLE = Main
 // Call the phase
 //--------------------------------
 
-CALL phase_example, DB 717;
+CALL phase_example, DB 717
+	(XV003_OPN := "XV301".QOPEN,
+	XV004_OPN := "XV401".QOPEN,
+	XV005_OPN := "XV501".QOPEN,
+	P001_RUN := "P101".QRUN,
+	LT001_PV := "LT101".QfVal,
+	LT002_PV := "LT201".QfVal,
+	XV003_CMD := "XV301".AUT_OP,
+	XV004_CMD := "XV401".AUT_OP,
+	P001_ON := "P101".AUTO_ON,
+	FIC001_EXT := "FIC101".L_REMOTE,
+	FIC001_SP := "FIC101".HMI_SP_INT,
+	FIC001_AUT := "FIC101".L_AUT,
+	FIC001_VAL_OUT := "FIC101".HMI_MAN,
+	FIC001_SET_SP := "FIC101".Set_SP,
+	FIC001_SET_OUT := "FIC101".Set_Output);
 
 
 	

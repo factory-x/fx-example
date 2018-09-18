@@ -158,22 +158,22 @@
         <AttributeList>
           <NetworkSource>
             <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
-              <StlStatement UId="6115">
+              <StlStatement UId="6190">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6116">
+              <StlStatement UId="6191">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6117">
+              <StlStatement UId="6192">
                 <StlToken Text="CALL"/>
                 <Access Scope="Call">
                   <CallInfo Name="Main_Program" BlockType="FC"/>
                 </Access>
               </StlStatement>
-              <StlStatement UId="6118">
+              <StlStatement UId="6193">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6119">
+              <StlStatement UId="6194">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
             </StatementList>

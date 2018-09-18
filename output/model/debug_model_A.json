@@ -6,6 +6,57 @@
             "Phase_Calling_CM": "suffix",
             "EM_Calling_CM": "suffix"
         },
+        "recipy_parameter_ios": [
+            {
+                "suffix": "_AUT",
+                "io_type": "Inputs",
+                "comment": "setpoint from RMS/Batch system"
+            },
+            {
+                "suffix": "_MN",
+                "io_type": "In_Outs",
+                "comment": "setpoint HMI"
+            },
+            {
+                "suffix": "",
+                "io_type": "Outputs",
+                "comment": "value to be used in the sequence"
+            }
+        ],
+        "em_ios": {
+            "fixed": [
+                {
+                    "suffix": "_ID",
+                    "io_type": "Inputs",
+                    "comment": "fixed value linked to input",
+                    "link_to_id": true
+                }
+            ],
+            "dynamic_external": [
+                {
+                    "suffix": "_ID",
+                    "io_type": "Outputs",
+                    "comment": "EM ID: receives value from _AUT or _MN, depending on the mode of the sequence"
+                },
+                {
+                    "suffix": "_AUT",
+                    "io_type": "Inputs",
+                    "comment": "EM ID: selection based on route or recipy"
+                },
+                {
+                    "suffix": "_MN",
+                    "io_type": "In_Outs",
+                    "comment": "EM ID: direct EM selection from HMI"
+                }
+            ],
+            "dynamic_internal": [
+                {
+                    "suffix": "_ID",
+                    "io_type": "Outputs",
+                    "comment": "standard 0, sequence needs to assign the ID"
+                }
+            ]
+        },
         "functions": {
             "write_to_DB_DW": {
                 "DB_NO": "INT",
@@ -16,6 +67,10 @@
                 "arg1": "INT",
                 "arg2": "INT"
             }
+        },
+        "error_settings": {
+            "disable_process_check_on_units": true,
+            "comment_1": "this check is used when using Wonderware Inbatch"
         }
     },
     "Controllers": {
@@ -1214,7 +1269,19 @@
                         "Comment": "Trnasfer Valve to M04"
                     }
                 },
+                "General_Actions": {
+                    "Before": [],
+                    "After": [
+                        "Level = LT01",
+                        "Pressure = PIC01"
+                    ]
+                },
+                "In_Outs": {},
                 "Inputs": {
+                    "sampletime": {
+                        "Type": "REAL",
+                        "template_io": true
+                    },
                     "em_id": {
                         "Type": "Int",
                         "Unit": ""
@@ -1222,13 +1289,15 @@
                     "Request": {
                         "Type": "Int",
                         "Unit": "",
-                        "Suffix": "_REQ"
+                        "Suffix": "_REQ",
+                        "is_Phase_Interface": true
                     },
                     "Command": {
                         "Type": "Int",
                         "Unit": "",
                         "Suffix": "_CMD",
-                        "Primary": true
+                        "Primary": true,
+                        "is_Phase_Interface": true
                     },
                     "Pressure_SP": {
                         "Suffix": "_P_SP",
@@ -1237,29 +1306,58 @@
                     }
                 },
                 "Outputs": {
+                    "steptime_s": {
+                        "Type": "REAL",
+                        "template_io": true
+                    },
+                    "steptime_m": {
+                        "Type": "REAL",
+                        "template_io": true
+                    },
+                    "steptime_h": {
+                        "Type": "REAL",
+                        "template_io": true
+                    },
+                    "first_scan": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "last_scan": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "error_index_db": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
                     "Owner": {
                         "Type": "Int",
                         "Unit": "",
-                        "Suffix": "_OWN"
+                        "Suffix": "_OWN",
+                        "is_Phase_Interface": true
                     },
                     "Status": {
                         "Type": "Int",
                         "Unit": "",
                         "Suffix": "_STA",
-                        "Primary": true
+                        "Primary": true,
+                        "is_Phase_Interface": true
                     },
                     "CM_error": {
                         "Type": "Bool",
                         "Suffix": "_ERR",
-                        "Error_Signal": true
+                        "Error_Signal": true,
+                        "is_Phase_Interface": true
                     },
                     "CM_error_no": {
                         "Type": "DINT",
-                        "Suffix": "_ERRNO"
+                        "Suffix": "_ERRNO",
+                        "is_Phase_Interface": true
                     },
                     "q_bACTVIE": {
                         "Type": "Bool",
-                        "Suffix": "_ACTIV"
+                        "Suffix": "_ACTIV",
+                        "is_Phase_Interface": true
                     },
                     "Level": {
                         "Suffix": "_LT",
@@ -1274,13 +1372,29 @@
                         "is_Process_Value": true
                     }
                 },
-                "General_Actions": {
-                    "Before": [],
-                    "After": [
-                        "Level = LT01",
-                        "Pressure = PIC01"
-                    ]
+                "Internals": {
+                    "previous_Command": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "initial_scan": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "T_dbnum": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "T_address": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "T_length": {
+                        "Type": "INT",
+                        "template_io": true
+                    }
                 },
+                "Temps": {},
                 "States": {
                     "0": {
                         "State": "Idle",
@@ -2146,50 +2260,21 @@
             "phase_example": {
                 "errors": [],
                 "warnings": [],
-                "Comment": "This some general description in a comment table.\r\nThis is a new line in the description.\r\nThis is another comment table without borders.\r\nThis is a new line in the 2nd table",
-                "Linked_Modules": {
-                    "XV003": {
-                        "Type": "Valve",
-                        "Comment": ""
+                "In_Outs": {
+                    "plc_commands": {
+                        "Type": "DWORD",
+                        "template_io": true
                     },
-                    "XV004": {
-                        "Type": "Valve",
-                        "Comment": ""
-                    },
-                    "XV005": {
-                        "Type": "Valve",
-                        "Comment": ""
-                    },
-                    "P001": {
-                        "Type": "Motor",
-                        "Comment": "test a CM"
-                    },
-                    "P002": {
-                        "Type": "Motor",
-                        "Comment": "test a CM where the casing doesn't match an existing type"
-                    },
-                    "EM_I_OUT": {
-                        "Type": "EM_I_OUT",
-                        "Comment": ""
-                    },
-                    "LT001": {
-                        "Type": "AI",
-                        "Comment": ""
-                    },
-                    "LT002": {
-                        "Type": "AI",
-                        "Comment": ""
-                    },
-                    "FIC001": {
-                        "Type": "PID",
-                        "Comment": ""
-                    },
-                    "Some_Dyn_EM": {
-                        "Type": "EM_I_OUT",
-                        "Comment": "An example of an EM that's dynamically linked to the phase"
+                    "hmi_commands": {
+                        "Type": "DWORD",
+                        "template_io": true
                     }
                 },
                 "Inputs": {
+                    "scantime": {
+                        "Type": "REAL",
+                        "template_io": true
+                    },
                     "Bool1": {
                         "Type": "Bool",
                         "Comment": "",
@@ -2200,16 +2285,6 @@
                         "Comment": "",
                         "Enumeration": ""
                     },
-                    "EM_I_OUT_ID": {
-                        "Type": "Int",
-                        "Comment": "",
-                        "Enumeration": "EM"
-                    },
-                    "Some_Dyn_EM_ID": {
-                        "Type": "Int",
-                        "Comment": "",
-                        "Enumeration": "EM"
-                    },
                     "DB_NO": {
                         "Type": "Int",
                         "Comment": "",
@@ -2217,6 +2292,190 @@
                     }
                 },
                 "Outputs": {
+                    "phase_id": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "state": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "stepnumber": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "message": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "button_1_text": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "button_2_text": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "button_3_text": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "button_1_visible": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "button_2_visible": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "button_3_visible": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "state_idle": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "state_running": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "state_complete": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "state_pausing": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "state_paused": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "state_holding": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "state_held": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "state_restarting": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "state_stopping": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "state_stopped": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "state_aborting": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "state_aborted": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "enable_start": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "enable_stop": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "enable_hold": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "enable_restart": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "enable_abort": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "enable_reset": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "enable_pause": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "enable_resume": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "enable_auto": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "enable_man": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "auto": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "steptime_s": {
+                        "Type": "REAL",
+                        "template_io": true
+                    },
+                    "steptime_m": {
+                        "Type": "REAL",
+                        "template_io": true
+                    },
+                    "steptime_h": {
+                        "Type": "REAL",
+                        "template_io": true
+                    },
+                    "MSG_no01": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "MSG_no02": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "MSG_no03": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "MSG_no04": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "MSG_no05": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "MSG_no06": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "MSG_no07": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "MSG_no08": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "MSG_no09": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "MSG_no10": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
                     "Destination": {
                         "Type": "Int",
                         "Comment": "",
@@ -2233,8 +2492,387 @@
                         "Enumeration": ""
                     }
                 },
-                "In_Outs": {},
                 "Internals": {
+                    "previous_stepnumber": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "start_conditions": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_conditions": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "first_scan": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "last_scan": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_01": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_02": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_03": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_04": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_05": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_06": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_07": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_08": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_09": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_10": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_11": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_12": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_13": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_14": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_15": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "start_cond_16": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_01": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_02": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_03": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_04": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_05": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_06": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_07": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_08": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_09": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_10": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_11": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_12": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_13": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_14": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_15": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hold_cond_16": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "in_steprange": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "Module_Error": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "CM_Error_no": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "EM_Error_no": {
+                        "Type": "DINT",
+                        "template_io": true
+                    },
+                    "plc_start": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "plc_stop": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "plc_hold": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "plc_restart": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "plc_abort": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "plc_reset": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "plc_pause": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "plc_resume": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "plc_auto": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "plc_man": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hmi_start": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "hmi_stop": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "hmi_hold": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "hmi_restart": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "hmi_abort": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "hmi_reset": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "hmi_pause": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "hmi_resume": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "hmi_auto": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hmi_man": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hmi_BTN1": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hmi_BTN2": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "hmi_BTN3": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "command_start": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "command_stop": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "command_hold": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "command_restart": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "command_abort": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "command_reset": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "command_pause": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "command_resume": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "command_auto": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "command_man": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "button_1_pushed": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "button_2_pushed": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "button_3_pushed": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "sh_cond_01": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_02": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_03": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_04": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_05": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_06": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_07": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_08": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_09": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_10": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_11": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_12": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_13": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_14": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_15": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "sh_cond_16": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
+                    "initial_scan": {
+                        "Type": "BOOL",
+                        "template_io": true
+                    },
+                    "Temp_stepnumber": {
+                        "Type": "INT",
+                        "template_io": true
+                    },
                     "e": {
                         "Type": "Real",
                         "Comment": "",
@@ -2389,6 +3027,60 @@
                         "Type": "Int",
                         "Comment": "",
                         "Enumeration": ""
+                    }
+                },
+                "Temps": {},
+                "Comment": "This some general description in a comment table.\r\nThis is a new line in the description.\r\nThis is another comment table without borders.\r\nThis is a new line in the 2nd table",
+                "Linked_Modules": {
+                    "XV003": {
+                        "Type": "Valve",
+                        "Comment": "",
+                        "EM_Connection_Type": ""
+                    },
+                    "XV004": {
+                        "Type": "Valve",
+                        "Comment": "",
+                        "EM_Connection_Type": ""
+                    },
+                    "XV005": {
+                        "Type": "Valve",
+                        "Comment": "",
+                        "EM_Connection_Type": ""
+                    },
+                    "P001": {
+                        "Type": "Motor",
+                        "Comment": "test a CM",
+                        "EM_Connection_Type": ""
+                    },
+                    "P002": {
+                        "Type": "Motor",
+                        "Comment": "test a CM where the casing doesn't match an existing type",
+                        "EM_Connection_Type": ""
+                    },
+                    "EM_I_OUT": {
+                        "Type": "EM_I_OUT",
+                        "Comment": "",
+                        "EM_Connection_Type": "fixed"
+                    },
+                    "LT001": {
+                        "Type": "AI",
+                        "Comment": "",
+                        "EM_Connection_Type": ""
+                    },
+                    "LT002": {
+                        "Type": "AI",
+                        "Comment": "",
+                        "EM_Connection_Type": ""
+                    },
+                    "FIC001": {
+                        "Type": "PID",
+                        "Comment": "",
+                        "EM_Connection_Type": ""
+                    },
+                    "Some_Dyn_EM": {
+                        "Type": "EM_I_OUT",
+                        "Comment": "An example of an EM that's dynamically linked to the phase",
+                        "EM_Connection_Type": "dynamic_external"
                     }
                 },
                 "Parameters_Batch": {},
@@ -3103,22 +3795,18 @@
                             "Comment": "test dot-format from Linked EM in evaluation =>should stay in dot-format"
                         },
                         "910": {
-                            "Actions": [
-                                "Some_Dyn_EM_P_SP  = 4.3"
-                            ],
+                            "Actions": [],
                             "Transitions": {
                                 "920": []
                             },
-                            "Comment": "test suffix-format to Linked EM in assignment => should convert to dot-format"
+                            "Comment": "test suffix-format to Linked EM in assignment => should convert to dot-format\r\nSome_Dyn_EM_P_SP  = 4.3\r\nNot longer supported: only support dot notation because it is more natural to use. Keep it simple."
                         },
                         "920": {
                             "Actions": [],
                             "Transitions": {
-                                "930": [
-                                    "Some_Dyn_EM_LT  >= 50.0"
-                                ]
+                                "930": []
                             },
-                            "Comment": "test suffix-format from Linked EM in evaluation =>should convert to dot-format"
+                            "Comment": "test suffix-format from Linked EM in evaluation =>should convert to dot-format\r\nCancelled support for this: simplify and only allow dot format"
                         },
                         "930": {
                             "Actions": [
@@ -3229,15 +3917,14 @@
                         "XV005": "XV500",
                         "P001": "P100",
                         "P002": "P200"
-                    },
-                    "Inputs": {
-                        "EM_I_OUT_ID": "EM_I001_OUT"
                     }
                 },
                 "Controller": "PLC1",
                 "FC": "auto",
                 "DB": "auto",
-                "Comment": "First instance of fds_example"
+                "Comment": "First instance of fds_example",
+                "EM_I_OUT_ID": "EM_I001_OUT",
+                "Unit": "R100"
             },
             "phase_2": {
                 "Type": "phase_example",
@@ -3251,15 +3938,14 @@
                         "XV005": "XV501",
                         "P001": "P101",
                         "P002": "P201"
-                    },
-                    "Inputs": {
-                        "EM_I_OUT_ID": "EM_I002_OUT"
                     }
                 },
                 "Controller": "PLC1",
                 "FC": "auto",
                 "DB": "auto",
-                "Comment": "Second instance of fds_example"
+                "Comment": "Second instance of fds_example",
+                "EM_I_OUT_ID": "EM_I002_OUT",
+                "Unit": "R101"
             }
         }
     },
@@ -3340,6 +4026,16 @@
             "T114": {
                 "ID": 514,
                 "Type": "Tank",
+                "Controller": "PLC1"
+            },
+            "R100": {
+                "ID": 600,
+                "Type": "Reactor",
+                "Controller": "PLC1"
+            },
+            "R101": {
+                "ID": 601,
+                "Type": "Reactor",
                 "Controller": "PLC1"
             }
         }

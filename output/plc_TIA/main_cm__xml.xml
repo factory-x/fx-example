@@ -76,22 +76,22 @@ Call all the Control Modules		  &#xD;
         <AttributeList>
           <NetworkSource>
             <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
-              <StlStatement UId="6086">
+              <StlStatement UId="6161">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6087">
+              <StlStatement UId="6162">
                 <StlToken Text="CALL"/>
                 <Access Scope="Call">
                   <CallInfo Name="FIC101_fc" BlockType="FC"/>
                 </Access>
               </StlStatement>
-              <StlStatement UId="6088">
+              <StlStatement UId="6163">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6089">
+              <StlStatement UId="6164">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6090">
+              <StlStatement UId="6165">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
             </StatementList>

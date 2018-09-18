@@ -1,23 +1,78 @@
 
 {
 	"Project": {
-      "max_symbol_length": 24,
-      "format_preferences":{
-        "Phase_Calling_EM": "dot",
-        "Phase_Calling_CM": "suffix",
-        "EM_Calling_CM": "suffix"
-      },
-	  "functions":{
-		"write_to_DB_DW":{
-			"DB_NO": "INT",
-			"Location": "INT",
-			"Value": "DWORD"
+		"max_symbol_length": 24,
+		"format_preferences":{
+			"Phase_Calling_EM": "dot",
+			"Phase_Calling_CM": "suffix",
+			"EM_Calling_CM": "suffix"
 		},
-		"somefunction": {
-				"arg1": "INT",
-				"arg2": "INT"
+		"recipy_parameter_ios": [
+			{
+				"suffix": "_AUT",
+				"io_type": "Inputs",
+				"comment": "setpoint from RMS/Batch system"
+			},
+			{
+				"suffix": "_MN",
+				"io_type": "In_Outs",
+				"comment": "setpoint HMI"
+			},
+			{
+				"suffix": "",
+				"io_type": "Outputs",
+				"comment": "value to be used in the sequence"
+			}
+		],
+		"em_ios" : {
+			"fixed": [
+				{
+					"suffix": "_ID",
+					"io_type": "Inputs",
+					"comment": "fixed value linked to input",
+					"link_to_id": true
+				}
+			],
+			"dynamic_external": [
+				{
+					"suffix": "_ID",
+					"io_type": "Outputs",
+					"comment": "EM ID: receives value from _AUT or _MN, depending on the mode of the sequence"
+				},
+				{
+					"suffix": "_AUT",
+					"io_type": "Inputs",
+					"comment": "EM ID: selection based on route or recipy"
+				},
+				{
+					"suffix": "_MN",
+					"io_type": "In_Outs",
+					"comment": "EM ID: direct EM selection from HMI"
+				}
+			],
+			"dynamic_internal": [
+				{
+					"suffix": "_ID",
+					"io_type": "Outputs",
+					"comment": "standard 0, sequence needs to assign the ID"
+				}
+			]
+		},
+		"functions":{
+			"write_to_DB_DW":{
+				"DB_NO": "INT",
+				"Location": "INT",
+				"Value": "DWORD"
+			},
+			"somefunction": {
+					"arg1": "INT",
+					"arg2": "INT"
+			}
+		},
+		"error_settings": {
+			"disable_process_check_on_units": true,
+			"comment_1": "this check is used when using Wonderware Inbatch" 
 		}
-	  }
 	},
 	"Controllers": {
 		"PLC1":{

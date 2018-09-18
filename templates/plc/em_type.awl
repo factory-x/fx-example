@@ -52,7 +52,9 @@ VAR_INPUT
 	sampletime { S7_sampletime := 'true' }: REAL ; // the scantime of this phase, used to increase timers
 {#- add all the auto-generated inputs -#}
 {% for input_name, input in emtype.Inputs %}
+	{%- if input.template_io != true %}
 	{{ input_name }}: {{ input.Type }};		// {{input.Comment}}{% if input.Comment_io != undefined %} - {{ input.Comment_io }}{% endif %}
+	{%- endif %}
 {%- endfor %}
 
 END_VAR
@@ -71,7 +73,9 @@ VAR_OUTPUT
 	
 	{# add all the auto-generated outputs -#}
 {% for output_name, output in emtype.Outputs %}
+	{%- if output.template_io != true %}
 	{{ output_name }}: {{ output.Type }};		// {{output.Comment}}{% if output.Comment_io != undefined %} - {{ output.Comment_io }}{% endif %}
+	{%- endif %}
 {%- endfor %}
 
 END_VAR

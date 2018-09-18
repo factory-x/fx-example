@@ -69,9 +69,11 @@
 
 {#- Unit Instances #}
 {% for unit_id, unit in model.Units.Instances %}
+	{#- don't render for now because not clear if instance DB or normal DB
 	<SPLIT>blockname: "{{unit_id}}_db"</SPLIT>
 	{{ unit_instance_db.render(lib, unit_id, unit) }}
-	SPLIT>blockname: "{{unit_id}}_fc"</SPLIT>
+	#}
+	<SPLIT>blockname: "{{unit_id}}_fc"</SPLIT>
 	{{ unit_instance_fc.render(lib, unit_id, unit) }}
 {% endfor %}
 

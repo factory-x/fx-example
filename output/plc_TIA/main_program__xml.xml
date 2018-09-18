@@ -76,34 +76,42 @@ Main Program		  &#xD;
         <AttributeList>
           <NetworkSource>
             <StatementList xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StatementList/v2">
-              <StlStatement UId="6107">
+              <StlStatement UId="6182">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6108">
+              <StlStatement UId="6183">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6109">
+              <StlStatement UId="6184">
                 <StlToken Text="CALL"/>
                 <Access Scope="Call">
                   <CallInfo Name="Units" BlockType="FC"/>
                 </Access>
               </StlStatement>
-              <StlStatement UId="6110">
+              <StlStatement UId="6185">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6111">
+              <StlStatement UId="6186">
                 <StlToken Text="CALL"/>
                 <Access Scope="Call">
-                  <CallInfo Name="CM_VALVE" BlockType="FC"/>
+                  <CallInfo Name="CM_VALVE" BlockType="FC">
+                    <Parameter Name="AUT_OP" Section="Input" Type="Bool"/>
+                    <Parameter Name="FB_OPEN" Section="Input" Type="Bool"/>
+                    <Parameter Name="FB_CLOSE" Section="Input" Type="Bool"/>
+                    <Parameter Name="QOPEN" Section="Output" Type="Bool"/>
+                    <Parameter Name="QCLOSE" Section="Output" Type="Bool"/>
+                    <Parameter Name="QMON_ERR" Section="Output" Type="Bool"/>
+                    <Parameter Name="QCMD_OP" Section="Output" Type="Bool"/>
+                  </CallInfo>
                 </Access>
               </StlStatement>
-              <StlStatement UId="6112">
+              <StlStatement UId="6187">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6113">
+              <StlStatement UId="6188">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
-              <StlStatement UId="6114">
+              <StlStatement UId="6189">
                 <StlToken Text="EMPTY_LINE"/>
               </StlStatement>
             </StatementList>
